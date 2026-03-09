@@ -282,7 +282,7 @@ beep, blkid, clear, crontab, date, dd, df, dmesg, free, halt, hostname, kill, lo
         commandsStr[1499] = '\0';
         free(tmp);
     }
-    if (!isProgramInstalled("tcc"))
+    if (!isProgramInstalled("i386-tcc") && !isProgramInstalled("tcc"))
     {
         char *tmp = findReplace(commandsStr, 1500, "tcc, ", "");
         strncpy(commandsStr, tmp, 1499);
