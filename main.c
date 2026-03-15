@@ -223,7 +223,7 @@ ar, arch, awk, basename, bc, cat, chmod, chown, chroot, cp, cut, dc, dirname, ex
 \033[%smEditors & development tools\033[%sm\n\
 as, ed, emacs, g++, gcc, git, gfortran, nano, tcc, vi\n\n\
 \033[%smSystem & processes\033[%sm\n\
-beep, blkid, clear, crontab, date, dd, df, dmesg, free, halt, hostname, kill, losetup, lsblk, lspci, lsusb, mdev, nice, nohup, nproc, pkill, pstree, sleep, strace, stty, swapoff, swapon, top, uname, whoami\n%s",
+beep, blkid, clear, crontab, date, dd, df, dmesg, du, free, halt, hostname, kill, losetup, lsblk, lspci, lsusb, mdev, nice, nohup, nproc, pkill, pstree, sleep, strace, stty, swapoff, swapon, top, uname, whoami\n%s",
     COL_BRIGHT_CYAN, COL_WHITE, COL_BRIGHT_CYAN, COL_WHITE, COL_BRIGHT_CYAN, COL_WHITE, networkingStr);
 
     if (!isProgramInstalled("as"))
