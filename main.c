@@ -219,11 +219,11 @@ void printCommands(void)
     char commandsStr[1500];
     snprintf(commandsStr, 1500, 
 "\033[%smGeneral\033[%sm\n\
-ar, arch, awk, basename, bc, cat, chmod, chown, chroot, cp, cut, dc, dirname, expand, expr, false, file, find, fold, grep, gzip, head, less, ln, loadkmap, ls, man, mkdir, mknod, mount, mv, paste, printf, pwd, readlink, rev, rm, rmdir, sed, seq, showkey, stat, sync, tar, tee, test, touch, tr, true, truncate, unexpand, umount, unzip, usleep, wc, whereis, which, xz, yes\n\n\
+ar, arch, ascii, awk, basename, bc, cal, cat, chmod, chown, chroot, cp, cut, dc, dirname, eject, expand, expr, false, file, find, fold, grep, gzip, head, less, ln, ls, man, mkdir, mv, paste, printf, pwd, readlink, rev, rm, rmdir, sed, seq, showkey, stat, tar, tee, test, touch, tr, tree, true, truncate, unexpand, unzip, usleep, volname, wc, whereis, which, xz, yes\n\n\
 \033[%smEditors & development tools\033[%sm\n\
-as, ed, emacs, g++, gcc, git, gfortran, nano, tcc, vi\n\n\
+as, ed, emacs, g++, gcc, git, gfortran, hexdump, nano, tcc, vi, xxd\n\n\
 \033[%smSystem & processes\033[%sm\n\
-beep, blkid, clear, crontab, date, dd, df, dmesg, du, free, halt, hostname, kill, losetup, lsblk, lspci, lsusb, mdev, nice, nohup, nproc, pkill, pstree, sleep, strace, stty, swapoff, swapon, top, uname, whoami\n%s",
+beep, blkid, clear, crontab, date, dd, df, dmesg, du, free, halt, hostname, kill, killall, loadkmap, losetup, lsblk, lspci, lsusb, mdev, mknod, mount, mountpoint, nice, nohup, nproc, pkill, ps, pstree, sleep, strace, stty, swapoff, swapon, sync, taskset, top, umount, uname, whoami\n%s",
     COL_BRIGHT_CYAN, COL_WHITE, COL_BRIGHT_CYAN, COL_WHITE, COL_BRIGHT_CYAN, COL_WHITE, networkingStr);
 
     if (!isProgramInstalled("as"))
