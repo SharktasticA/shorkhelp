@@ -348,7 +348,7 @@ void printIntro(void)
 SHORK 486 is a minimal Linux distribution for 486 and Pentium (P5) PCs! It focuses on being as lean and small as possible, whilst still providing a robust command and utilities set, and including hand-picked modern and custom bundled software. The goal is to provide an alternative use for old PCs, hopefully saving one or two of them from landfills.\n\n\
 \033[%smGetting started\n\
 \033[%sm1.\033[%sm Set your keyboard's layout with shorkmap.\n\
-\033[%sm2.\033[%sm Pick a font colour for terminal text with shorkcol.\n\
+\033[%sm2.\033[%sm Pick a font and colour for your terminal with shorkfont.\n\
 \033[%sm3.\033[%sm (If compatible) Change your display's resolution with shorkres. A reboot is required afterwards.\n\
 \033[%sm4.\033[%sm Set your computer's name by editing /etc/hostname. A reboot is required afterwards, or you can run:\n\
     hostname \"$(cat /etc/hostname)\"\n\
@@ -370,9 +370,9 @@ void printShorkUtilities(void)
     char utilsStr[1500];
     snprintf(utilsStr, 1500, 
 "\033[%smSHORK Utilities\n\n\
-\033[%smshorkcol\033[%sm: Changes the terminal's foreground (text) colour. Takes one argument (a colour name); no arguments show a list of possible colours.\n\n\
 \033[%smshorkdir\033[%sm: Terminal-based file browser and file inspector (if file is installed).\n\n\
 \033[%smshorkfetch\033[%sm: Displays basic system and environment information. Similar to fastfetch, neofetch, etc.\n\n\
+\033[%smshorkfont\033[%sm: Changes the terminal's font or colour. Takes two arguments (type of change and name); no arguments shows how to use and a list of possible colours.\n\n\
 \033[%smshorkhelp\033[%sm: Provides help with using SHORK 486 via command lists, guides and cheatsheets. Requires the use of one of five parameters.\n\n\
 \033[%smshorkmap\033[%sm: Changes the system's keyboard map. Takes takes one argument (a keymap name); no arguments show a list of possible keymaps.\n\n\
 \033[%smshorkoff\033[%sm: Brings the system to a halt and syncs the write cache, allowing the computer to be safely turned off. Similar to poweroff or shutdown -h.\n\n\
