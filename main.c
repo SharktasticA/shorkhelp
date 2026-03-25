@@ -101,24 +101,24 @@ char *findReplace(const char *buffer, const size_t bufferSize, const char *needl
  * Adds new lines to a given string based on the requested line width.
  * @param buffer Input string
  * @param width Characters per line
+ * @param indent Indent to include after newly inserted new line
  * @return Number of lines in the string
  */
-int formatNewLines(char *buffer, int width)
+int formatNewLines(char *buffer, int width, char *indent)
 {
     if (!buffer || width < 1) return 0;
 
     size_t bufferStrLen = strlen(buffer);
+    size_t indentLen = indent ? strlen(indent) : 0;
     int lines = 1;
     int lastSpace = -1;
     int widthCount = 1;
+
     for (int i = 0; i < bufferStrLen; i++)
     {
         if (buffer[i] == '\033')
         {
-            while (i < bufferStrLen && buffer[i] != 'm')
-            {
-                i++;
-            }
+            while (i < bufferStrLen && buffer[i] != 'm') i++;
             if (i >= bufferStrLen) break;
             continue; 
         }
@@ -128,13 +128,25 @@ int formatNewLines(char *buffer, int width)
         {
             lines++;
             widthCount = 0;
+            continue;
         }
 
         if (widthCount == width)
         {
-            if (lastSpace != -1) buffer[lastSpace] = '\n';
+            if (lastSpace != -1)
+            {
+                buffer[lastSpace] = '\n';
+                lines++;
+
+                if (indent && indentLen > 0)
+                {
+                    memmove(buffer + lastSpace + 1 + indentLen, buffer + lastSpace + 1, bufferStrLen - lastSpace);
+                    memcpy(buffer + lastSpace + 1, indent, indentLen);
+                    bufferStrLen += indentLen;
+                    if (lastSpace <= i) i += indentLen;
+                }
+            }
             widthCount = i - lastSpace;
-            lines++;
         }
 
         widthCount++;
@@ -290,7 +302,7 @@ beep, blkid, clear, crontab, date, dd, df, dmesg, du, fdformat, fdisk, free, hal
         free(tmp);
     }
 
-    formatNewLines(commandsStr, termSize.ws_col);
+    formatNewLines(commandsStr, termSize.ws_col, NULL);
     printf("%s", commandsStr);
 }
 
@@ -320,7 +332,7 @@ void printEmacsCheatsheet(void)
     COL_GREEN, COL_WHITE, COL_RED, COL_WHITE, COL_GREEN, COL_WHITE, COL_RED, COL_WHITE,
     COL_GREEN, COL_WHITE, COL_MAGENTA, COL_WHITE, COL_GREEN, COL_WHITE, COL_MAGENTA, COL_WHITE);
 
-    formatNewLines(emacsStr, termSize.ws_col);
+    formatNewLines(emacsStr, termSize.ws_col, NULL);
     printf("%s", emacsStr);
 }
 
@@ -334,7 +346,7 @@ void printGitCommands(void)
 add, blame, branch, checkout, cherry-pick, clean, clone, commit, config, diff, fetch, init, log, merge, mv, pull, push, rebase, reflog, remote, reset, restore, rm, show, stash, status, switch, tag\n",
     COL_BRIGHT_CYAN, COL_WHITE);
 
-    formatNewLines(gitStr, termSize.ws_col);
+    formatNewLines(gitStr, termSize.ws_col, NULL);
     printf("%s", gitStr);
 }
 
@@ -342,25 +354,28 @@ void printIntro(void)
 {
     clearScreen();
 
-    char introStr[2000];
-    snprintf(introStr, 2000, 
-"\033[%smWhat is SHORK 486?\033[%sm\n\
-SHORK 486 is a minimal Linux distribution for 486 and Pentium (P5) PCs! It focuses on being as lean and small as possible, whilst still providing a robust command and utilities set, and including hand-picked modern and custom bundled software. The goal is to provide an alternative use for old PCs, hopefully saving one or two of them from landfills.\n\n\
-\033[%smGetting started\n\
+    char introStr[400];
+    snprintf(introStr, 400, "\033[%smSHORK 486 is a minimal Linux distribution for 486 and Pentium (P5) PCs! It focuses on being as lean and small as possible, whilst still providing a robust command and utilities set, and including hand-picked modern and custom bundled software. The goal is to provide an alternative use for old PCs, hopefully saving one or two of them from landfills.\n\n", COL_WHITE);
+    formatNewLines(introStr, termSize.ws_col, NULL);
+    printf("%s", introStr);
+
+    char gettingStartedStr[1200];
+    snprintf(gettingStartedStr, 1200, 
+"\033[%smGetting started\n\
 \033[%sm1.\033[%sm Set your keyboard's layout with shorkmap.\n\
 \033[%sm2.\033[%sm Pick a font and colour for your terminal with shorkfont.\n\
 \033[%sm3.\033[%sm (If compatible) Change your display's resolution with shorkres. A reboot is required afterwards.\n\
 \033[%sm4.\033[%sm Set your computer's name by editing /etc/hostname. A reboot is required afterwards, or you can run:\n\
-    hostname \"$(cat /etc/hostname)\"\n\
+      hostname \"$(cat /etc/hostname)\"\n\
 \033[%sm5.\033[%sm (If applicable) Test your network connection with ping. For example:\n\
-    ping sharktastica.co.uk\n\
+      ping sharktastica.co.uk\n\
 \033[%sm6.\033[%sm Run shorkfetch to see a quick overview of your system and environment.\n\
 \033[%sm7.\033[%sm Check shorkhelp's other options to learn about all available commands and how to use specific utilities.\n\
 \033[%sm8.\033[%sm When you are finished using SHORK 486, run shorkoff to safely bring your system to a halt before powering off.\n",
-    COL_BRIGHT_CYAN, COL_WHITE, COL_BRIGHT_CYAN, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE);
+    COL_BRIGHT_CYAN, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE);
 
-    formatNewLines(introStr, termSize.ws_col);
-    printf("%s", introStr);
+    formatNewLines(gettingStartedStr, termSize.ws_col, "   ");
+    printf("%s", gettingStartedStr);
 }
 
 void printShorkUtilities(void)
@@ -379,14 +394,14 @@ void printShorkUtilities(void)
 \033[%smshorkres\033[%sm: Changes the system's display resolution (provided hardware is compatible). Takes one argument (a resolution name); no arguments show a list of possible resolution names.\n",
     COL_BRIGHT_CYAN, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE);
 
-    formatNewLines(utilsStr, termSize.ws_col);
+    formatNewLines(utilsStr, termSize.ws_col, NULL);
     printf("%s", utilsStr);
 }
 
 void showArgumentsList(void)
 {
     char cmdDesc[90] = "Displays help and reference information for using SHORK 486 and its built-in tools.\n\n";
-    formatNewLines(cmdDesc, termSize.ws_col);
+    formatNewLines(cmdDesc, termSize.ws_col, NULL);
     printf("%s\n", cmdDesc);
 
     char usage[80] = "Usage: shorkhelp {--commands | --emacs | --git | --intro | --shorkutils}\n";
@@ -407,7 +422,7 @@ void showArgumentsList(void)
         free(tmp);
     }
 
-    formatNewLines(usage, termSize.ws_col);
+    formatNewLines(usage, termSize.ws_col, NULL);
     printf("%s", usage);
 }
 
