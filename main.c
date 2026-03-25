@@ -362,17 +362,25 @@ void printIntro(void)
     char gettingStartedStr[1200];
     snprintf(gettingStartedStr, 1200, 
 "\033[%smGetting started\n\
-\033[%sm1.\033[%sm Set your keyboard's layout with shorkmap.\n\
-\033[%sm2.\033[%sm Pick a font and colour for your terminal with shorkfont.\n\
-\033[%sm3.\033[%sm (If compatible) Change your display's resolution with shorkres. A reboot is required afterwards.\n\
-\033[%sm4.\033[%sm Set your computer's name by editing /etc/hostname. A reboot is required afterwards, or you can run:\n\
-      hostname \"$(cat /etc/hostname)\"\n\
-\033[%sm5.\033[%sm (If applicable) Test your network connection with ping. For example:\n\
-      ping sharktastica.co.uk\n\
-\033[%sm6.\033[%sm Run shorkfetch to see a quick overview of your system and environment.\n\
-\033[%sm7.\033[%sm Check shorkhelp's other options to learn about all available commands and how to use specific utilities.\n\
-\033[%sm8.\033[%sm When you are finished using SHORK 486, run shorkoff to safely bring your system to a halt before powering off.\n",
-    COL_BRIGHT_CYAN, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE);
+\033[%sm1.\033[%sm Set your keyboard's layout with \033[%smshorkmap\033[%sm.\n\
+\033[%sm2.\033[%sm Pick a font and colour for the console terminal with \033[%smshorkfont\033[%sm.\n\
+\033[%sm3.\033[%sm (If compatible) Change your display's resolution with \033[%smshorkres\033[%sm. A reboot will be required.\n\
+\033[%sm4.\033[%sm Set your computer's name by editing \033[%sm/etc/hostname\033[%sm. A reboot will be required, or you can run: \033[%smhostname \"$(cat /etc/hostname)\"\n\
+\033[%sm5.\033[%sm (If applicable) Test your network connection with \033[%smping\033[%sm. For example: \033[%smping sharktastica.co.uk\n\
+\033[%sm6.\033[%sm Run \033[%smshorkfetch\033[%sm to see a quick overview of your system and environment.\n\
+\033[%sm7.\033[%sm Check \033[%smshorkhelp\033[%sm's other options to learn what commands and software are available, and see what guides may be of use.\n\
+\033[%sm8.\033[%sm Use Ctrl+Alt+F1/F2/F3 or \033[%smchvt\033[%sm to switch between the three available virtual consoles, useful for multitasking, troubleshooting and recovery.\n\
+\033[%sm9.\033[%sm When you are finished using SHORK 486, run \033[%smshorkoff\033[%sm to safely halt the system before powering off.\n",
+    COL_BRIGHT_CYAN,
+    COL_GREEN, COL_WHITE, COL_BRIGHT_MAGENTA, COL_WHITE,
+    COL_GREEN, COL_WHITE, COL_BRIGHT_MAGENTA, COL_WHITE,
+    COL_GREEN, COL_WHITE, COL_BRIGHT_MAGENTA, COL_WHITE,
+    COL_GREEN, COL_WHITE, COL_BRIGHT_RED, COL_WHITE, COL_BRIGHT_RED,
+    COL_GREEN, COL_WHITE, COL_BRIGHT_RED, COL_WHITE, COL_BRIGHT_RED,
+    COL_GREEN, COL_WHITE, COL_BRIGHT_MAGENTA, COL_WHITE,
+    COL_GREEN, COL_WHITE, COL_BRIGHT_MAGENTA, COL_WHITE,
+    COL_GREEN, COL_WHITE, COL_BRIGHT_RED, COL_WHITE,
+    COL_GREEN, COL_WHITE, COL_BRIGHT_MAGENTA, COL_WHITE);
 
     formatNewLines(gettingStartedStr, termSize.ws_col, "   ");
     printf("%s", gettingStartedStr);
@@ -392,7 +400,7 @@ void printShorkUtilities(void)
 \033[%smshorkmap\033[%sm: Changes the system's keyboard map. Takes takes one argument (a keymap name); no arguments show a list of possible keymaps.\n\n\
 \033[%smshorkoff\033[%sm: Brings the system to a halt and syncs the write cache, allowing the computer to be safely turned off. Similar to poweroff or shutdown -h.\n\n\
 \033[%smshorkres\033[%sm: Changes the system's display resolution (provided hardware is compatible). Takes one argument (a resolution name); no arguments show a list of possible resolution names.\n",
-    COL_BRIGHT_CYAN, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE, COL_GREEN, COL_WHITE);
+    COL_BRIGHT_CYAN, COL_BRIGHT_MAGENTA, COL_WHITE, COL_BRIGHT_MAGENTA, COL_WHITE, COL_BRIGHT_MAGENTA, COL_WHITE, COL_BRIGHT_MAGENTA, COL_WHITE, COL_BRIGHT_MAGENTA, COL_WHITE, COL_BRIGHT_MAGENTA, COL_WHITE, COL_BRIGHT_MAGENTA, COL_WHITE);
 
     formatNewLines(utilsStr, termSize.ws_col, NULL);
     printf("%s", utilsStr);
