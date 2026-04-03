@@ -14,6 +14,7 @@
 
 
 #include <sys/ioctl.h>
+#include <linux/limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -193,6 +194,12 @@ int isProgramInstalled(const char *prog)
         dir = strtok(NULL, ":");
     }
     free(paths);
+
+    // Hard-coded check in /usr/libexec for shorkfont 
+    char libexecPath[PATH_MAX];
+    snprintf(libexecPath, PATH_MAX, "/usr/libexec/%s", prog);
+    if (access(libexecPath, X_OK) == 0) return 1;
+
     return 0;
 }
 
