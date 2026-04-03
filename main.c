@@ -394,45 +394,66 @@ void printShorkUtilities(void)
     snprintf(titleStr, 1500, "\033[%smSHORK Utilities\n\n", COL_BRIGHT_CYAN);
     printf("%s", titleStr);
 
-    char shorkdirStr[130];
-    snprintf(shorkdirStr, 130, "\033[%smshorkdir\033[%sm: Terminal-based file browser and file inspector (if \033[%smfile\033[%sm is installed).\n", COL_BRIGHT_MAGENTA, COL_WHITE, COL_BRIGHT_RED, COL_WHITE);
-    formatNewLines(shorkdirStr, termSize.ws_col, "    ");
-    printf("%s", shorkdirStr);
+    if (isProgramInstalled("shorkdir"))
+    {
+        char shorkdirStr[130];
+        snprintf(shorkdirStr, 130, "\033[%smshorkdir\033[%sm: Terminal-based file browser and file inspector (if \033[%smfile\033[%sm is installed).\n", COL_BRIGHT_MAGENTA, COL_WHITE, COL_BRIGHT_RED, COL_WHITE);
+        formatNewLines(shorkdirStr, termSize.ws_col, "    ");
+        printf("%s", shorkdirStr);
+    }
 
-    char shorkfetchStr[160];
-    snprintf(shorkfetchStr, 160, "\033[%smshorkfetch\033[%sm: Displays basic system and environment information. Similar to \033[%smfastfetch\033[%sm, \033[%smneofetch\033[%sm, etc.\n", COL_BRIGHT_MAGENTA, COL_WHITE, COL_BRIGHT_RED, COL_WHITE, COL_BRIGHT_RED, COL_WHITE);
-    formatNewLines(shorkfetchStr, termSize.ws_col, "    ");
-    printf("%s", shorkfetchStr);
+    if (isProgramInstalled("shorkfetch"))
+    {
+        char shorkfetchStr[160];
+        snprintf(shorkfetchStr, 160, "\033[%smshorkfetch\033[%sm: Displays basic system and environment information. Similar to \033[%smfastfetch\033[%sm, \033[%smneofetch\033[%sm, etc.\n", COL_BRIGHT_MAGENTA, COL_WHITE, COL_BRIGHT_RED, COL_WHITE, COL_BRIGHT_RED, COL_WHITE);
+        formatNewLines(shorkfetchStr, termSize.ws_col, "    ");
+        printf("%s", shorkfetchStr);
+    }
 
-    char shorkfontStr[190];
-    snprintf(shorkfontStr, 190, "\033[%smshorkfont\033[%sm: Changes the terminal's font or colour. Takes two arguments (type of change and name); no arguments shows how to use and a list of possible colours.\n", COL_BRIGHT_MAGENTA, COL_WHITE);
-    formatNewLines(shorkfontStr, termSize.ws_col, "    ");
-    printf("%s", shorkfontStr);
+    if (isProgramInstalled("shorkfont"))
+    {
+        char shorkfontStr[190];
+        snprintf(shorkfontStr, 190, "\033[%smshorkfont\033[%sm: Changes the terminal's font or colour. Takes two arguments (type of change and name); no arguments shows how to use and a list of possible colours.\n", COL_BRIGHT_MAGENTA, COL_WHITE);
+        formatNewLines(shorkfontStr, termSize.ws_col, "    ");
+        printf("%s", shorkfontStr);
+    }
 
     char shorkhelpStr[170];
     snprintf(shorkhelpStr, 170, "\033[%smshorkhelp\033[%sm: Provides help with using SHORK 486 via command lists, guides and cheatsheets. Requires the use of one of five parameters.\n", COL_BRIGHT_MAGENTA, COL_WHITE);
     formatNewLines(shorkhelpStr, termSize.ws_col, "    ");
     printf("%s", shorkhelpStr);
 
-    char shorklocomotiveStr[180];
-    snprintf(shorklocomotiveStr, 180, "\033[%smshorklocomotive\033[%sm: A shark-themed take on the \033[%smsl\033[%sm command that kindly pokes fun at making typos when trying to type \033[%smls\033[%sm.\n", COL_BRIGHT_MAGENTA, COL_WHITE, COL_BRIGHT_RED, COL_WHITE, COL_BRIGHT_RED, COL_WHITE);
-    formatNewLines(shorklocomotiveStr, termSize.ws_col, "    ");
-    printf("%s", shorklocomotiveStr);
+    if (isProgramInstalled("sl"))
+    {
+        char shorklocomotiveStr[180];
+        snprintf(shorklocomotiveStr, 180, "\033[%smshorklocomotive\033[%sm: A shark-themed take on the \033[%smsl\033[%sm command that kindly pokes fun at making typos when trying to type \033[%smls\033[%sm.\n", COL_BRIGHT_MAGENTA, COL_WHITE, COL_BRIGHT_RED, COL_WHITE, COL_BRIGHT_RED, COL_WHITE);
+        formatNewLines(shorklocomotiveStr, termSize.ws_col, "    ");
+        printf("%s", shorklocomotiveStr);
+    }
 
-    char shorkmapStr[170];
-    snprintf(shorkmapStr, 170, "\033[%smshorkmap\033[%sm: Changes the system's keyboard map. Takes takes one argument (a keymap name); no arguments show a list of possible keymaps.\n", COL_BRIGHT_MAGENTA, COL_WHITE);
-    formatNewLines(shorkmapStr, termSize.ws_col, "    ");
-    printf("%s", shorkmapStr);
+    if (isProgramInstalled("shorkmap"))
+    {
+        char shorkmapStr[170];
+        snprintf(shorkmapStr, 170, "\033[%smshorkmap\033[%sm: Changes the system's keyboard map. Takes takes one argument (a keymap name); no arguments show a list of possible keymaps.\n", COL_BRIGHT_MAGENTA, COL_WHITE);
+        formatNewLines(shorkmapStr, termSize.ws_col, "    ");
+        printf("%s", shorkmapStr);
+    }
 
-    char shorkoffStr[210];
-    snprintf(shorkoffStr, 210, "\033[%smshorkoff\033[%sm: Brings the system to a halt and syncs the write cache, allowing the computer to be safely turned off. Similar to \033[%smpoweroff\033[%sm or \033[%smshutdown -h\033[%sm.\n", COL_BRIGHT_MAGENTA, COL_WHITE, COL_BRIGHT_RED, COL_WHITE, COL_BRIGHT_RED, COL_WHITE);
-    formatNewLines(shorkoffStr, termSize.ws_col, "    ");
-    printf("%s", shorkoffStr);
+    if (isProgramInstalled("shorkoff"))
+    {
+        char shorkoffStr[210];
+        snprintf(shorkoffStr, 210, "\033[%smshorkoff\033[%sm: Brings the system to a halt and syncs the write cache, allowing the computer to be safely turned off. Similar to \033[%smpoweroff\033[%sm or \033[%smshutdown -h\033[%sm.\n", COL_BRIGHT_MAGENTA, COL_WHITE, COL_BRIGHT_RED, COL_WHITE, COL_BRIGHT_RED, COL_WHITE);
+        formatNewLines(shorkoffStr, termSize.ws_col, "    ");
+        printf("%s", shorkoffStr);
+    }
 
-    char shorkresStr[220];
-    snprintf(shorkresStr, 220, "\033[%smshorkres\033[%sm: Changes the system's display resolution (provided hardware is compatible). Takes one argument (a resolution name); no arguments show a list of possible resolution names.\n", COL_BRIGHT_MAGENTA, COL_WHITE);
-    formatNewLines(shorkresStr, termSize.ws_col, "    ");
-    printf("%s", shorkresStr);
+    if (isProgramInstalled("shorkres"))
+    {
+        char shorkresStr[220];
+        snprintf(shorkresStr, 220, "\033[%smshorkres\033[%sm: Changes the system's display resolution (provided hardware is compatible). Takes one argument (a resolution name); no arguments show a list of possible resolution names.\n", COL_BRIGHT_MAGENTA, COL_WHITE);
+        formatNewLines(shorkresStr, termSize.ws_col, "    ");
+        printf("%s", shorkresStr);
+    }
 }
 
 void showArgumentsList(void)
