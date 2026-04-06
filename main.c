@@ -393,7 +393,32 @@ void printIntro(void)
     printf("%s", gettingStartedStr);
 }
 
-void printShorkUtilities(void)
+void printSHORKEntertainment(void)
+{
+    clearScreen();
+
+    char titleStr[40];
+    snprintf(titleStr, 1500, "\033[%smSHORK Entertainment\n\n", COL_BRIGHT_CYAN);
+    printf("%s", titleStr);
+
+    if (isProgramInstalled("sl"))
+    {
+        char shorklocomotiveStr[180];
+        snprintf(shorklocomotiveStr, 180, "\033[%smshorklocomotive\033[%sm: A shark-themed take on the \033[%smsl\033[%sm command that kindly pokes fun at making typos when trying to type \033[%smls\033[%sm.\n", COL_BRIGHT_MAGENTA, COL_WHITE, COL_BRIGHT_RED, COL_WHITE, COL_BRIGHT_RED, COL_WHITE);
+        formatNewLines(shorklocomotiveStr, termSize.ws_col, "    ");
+        printf("%s", shorklocomotiveStr);
+    }
+
+    if (isProgramInstalled("shorksay"))
+    {
+        char shorksayStr[190];
+        snprintf(shorksayStr, 190, "\033[%smshorksay\033[%sm: A shark-themed take on the \033[%smcowsay\033[%sm command that outputs an ASCII art shark and speech bubble containing a message of your choice.\n", COL_BRIGHT_MAGENTA, COL_WHITE, COL_BRIGHT_RED, COL_WHITE);
+        formatNewLines(shorksayStr, termSize.ws_col, "    ");
+        printf("%s", shorksayStr);
+    }
+}
+
+void printSHORKUtilities(void)
 {
     clearScreen();
 
@@ -430,14 +455,6 @@ void printShorkUtilities(void)
     formatNewLines(shorkhelpStr, termSize.ws_col, "    ");
     printf("%s", shorkhelpStr);
 
-    if (isProgramInstalled("sl"))
-    {
-        char shorklocomotiveStr[180];
-        snprintf(shorklocomotiveStr, 180, "\033[%smshorklocomotive\033[%sm: A shark-themed take on the \033[%smsl\033[%sm command that kindly pokes fun at making typos when trying to type \033[%smls\033[%sm.\n", COL_BRIGHT_MAGENTA, COL_WHITE, COL_BRIGHT_RED, COL_WHITE, COL_BRIGHT_RED, COL_WHITE);
-        formatNewLines(shorklocomotiveStr, termSize.ws_col, "    ");
-        printf("%s", shorklocomotiveStr);
-    }
-
     if (isProgramInstalled("shorkmap"))
     {
         char shorkmapStr[170];
@@ -469,21 +486,29 @@ void showArgumentsList(void)
     formatNewLines(cmdDesc, termSize.ws_col, NULL);
     printf("%s\n", cmdDesc);
 
-    char usage[80] = "Usage: shorkhelp {--commands | --emacs | --git | --intro | --shorkutils}\n";
+    char usage[110] = "Usage: shorkhelp {--commands | --emacs | --git | --intro | --shorktainment | --shorkutils}\n";
 
     if (!isProgramInstalled("mg"))
     {
-        char *tmp = findReplace(usage, 80, " | --emacs ", " ");
-        strncpy(usage, tmp, 79);
-        usage[79] = '\0';
+        char *tmp = findReplace(usage, 110, " | --emacs ", " ");
+        strncpy(usage, tmp, 109);
+        usage[109] = '\0';
         free(tmp);
     }
 
     if (!isProgramInstalled("git"))
     {
-        char *tmp = findReplace(usage, 80, " | --git ", " ");
-        strncpy(usage, tmp, 79);
-        usage[79] = '\0';
+        char *tmp = findReplace(usage, 110, " | --git ", " ");
+        strncpy(usage, tmp, 109);
+        usage[109] = '\0';
+        free(tmp);
+    }
+
+    if (!isProgramInstalled("sl") && !isProgramInstalled("shorksay"))
+    {
+        char *tmp = findReplace(usage, 110, " | --shorktainment ", " ");
+        strncpy(usage, tmp, 109);
+        usage[109] = '\0';
         free(tmp);
     }
 
@@ -509,8 +534,10 @@ int main(int argc, char *argv[])
             printGitCommands();
         else if (strcmp(argv[1], "--intro") == 0)
             printIntro();
+        else if (strcmp(argv[1], "--shorktainment") == 0)
+            printSHORKEntertainment();
         else if (strcmp(argv[1], "--shorkutils") == 0)
-            printShorkUtilities();
+            printSHORKUtilities();
         else
             showArgumentsList();
     }
