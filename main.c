@@ -39,7 +39,7 @@ typedef struct
 {
     char *id;
     char *name;
-    int (*action)(void);
+    void (*action)(void);
     int visible;
 } MenuItem;
 
@@ -86,6 +86,20 @@ static struct termios OLD_TERMIOS;
 static struct winsize TERM_SIZE;
 
 
+
+/**
+ * Awaits for any user input.
+ */
+void awaitInput(void)
+{
+    printf("\033[%s;%sm", COL_FOR_BOLD_WHITE, COL_BAK_BLUE);
+    int len = printf("Press any key to continue... ");
+    if (COL_ENABLED)
+        for (size_t i = len; i < TERM_SIZE.ws_col; i++)
+            printf(" ");
+    getchar();
+    printf("\033[%sm", COL_RESET);
+}
 
 /**
  * Moves the cursor to topleft-most position and clears below cursor.
@@ -216,8 +230,6 @@ int formatNewLines(char *buffer, int width, char *indent)
 
         widthCount++;
     }
-
-    return lines;
 }
 
 /**
@@ -357,10 +369,8 @@ void printHeader(char *title)
         for (int i = 0; i < TERM_SIZE.ws_col; i++) printf("-");
 }
 
-int printCommands(void)
+void printCommands(void)
 {
-    int lines = 0;
-
     printHeader("Commands & programs list");
 
     char networkingStr[200];
@@ -465,16 +475,12 @@ beep, blkid, clear, crontab, date, dd, df, dmesg, du, fdformat, fdisk, free, hal
         free(tmp);
     }
 
-    lines += formatNewLines(commandsStr, TERM_SIZE.ws_col, NULL);
+    formatNewLines(commandsStr, TERM_SIZE.ws_col, NULL);
     printf("%s", commandsStr);
-
-    return lines;
 }
 
-int printEmacsCheatsheet(void)
+void printEmacsCheatsheet(void)
 {
-    int lines = 0;
-
     printHeader("Emacs (Mg) cheatsheet");
 
     char emacsStr[1500];
@@ -498,36 +504,28 @@ int printEmacsCheatsheet(void)
     COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
     COL_FOR_OL, COL_FOR_WHITE, COL_FOR_MAGENTA, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_MAGENTA, COL_FOR_WHITE);
 
-    lines += formatNewLines(emacsStr, TERM_SIZE.ws_col, NULL);
+    formatNewLines(emacsStr, TERM_SIZE.ws_col, NULL);
     printf("%s", emacsStr);
-    
-    return lines;
 }
 
-int printGitCommands(void)
+void printGitCommands(void)
 {
-    int lines = 0;
-
     printHeader("Supported Git commands");
 
     char gitStr[500];
     snprintf(gitStr, 500, "add, blame, branch, checkout, cherry-pick, clean, clone, commit, config, diff, fetch, init, log, merge, mv, pull, push, rebase, reflog, remote, reset, restore, rm, show, stash, status, switch, tag\n");
 
-    lines += formatNewLines(gitStr, TERM_SIZE.ws_col, NULL);
+    formatNewLines(gitStr, TERM_SIZE.ws_col, NULL);
     printf("%s", gitStr);
-    
-    return lines;
 }
 
-int printIntro(void)
+void printIntro(void)
 {
-    int lines = 0;
-
     printHeader("Introduction to SHORK 486");
 
     char introStr[400];
     snprintf(introStr, 400, "\033[%smSHORK 486 is a minimal Linux distribution for 486 and Pentium (P5) PCs! It focuses on being as lean and small as possible, whilst still providing a robust command and utilities set, and including hand-picked modern and custom bundled software. The goal is to provide an alternative use for old PCs, hopefully saving one or two of them from landfills.\n\n", COL_FOR_WHITE);
-    lines += formatNewLines(introStr, TERM_SIZE.ws_col, NULL);
+    formatNewLines(introStr, TERM_SIZE.ws_col, NULL);
     printf("%s", introStr);
 
     char gettingStartedStr[1200];
@@ -553,10 +551,8 @@ int printIntro(void)
     COL_FOR_OL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE,
     COL_FOR_OL, COL_FOR_WHITE, COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE);
 
-    lines += formatNewLines(gettingStartedStr, TERM_SIZE.ws_col, "   ");
+    formatNewLines(gettingStartedStr, TERM_SIZE.ws_col, "   ");
     printf("%s", gettingStartedStr);
-    
-    return lines;
 }
 
 void printMenu(MenuItem *menu, int menuSize, int cursor, int cursorPrev)
@@ -639,17 +635,15 @@ void printMenu(MenuItem *menu, int menuSize, int cursor, int cursorPrev)
             printf("\n");
 }
 
-int printSHORKEntertainment(void)
+void printSHORKEntertainment(void)
 {
-    int lines = 0;
-
     printHeader("SHORK Entertainment");
 
     if (isProgramInstalled("sl"))
     {
         char shorklocomotiveStr[180];
         snprintf(shorklocomotiveStr, 180, "\033[%smshorklocomotive\033[%sm: A shark-themed take on the \033[%smsl\033[%sm command that kindly pokes fun at making typos when trying to type \033[%smls\033[%sm.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
-        lines += formatNewLines(shorklocomotiveStr, TERM_SIZE.ws_col, "    ");
+        formatNewLines(shorklocomotiveStr, TERM_SIZE.ws_col, "    ");
         printf("%s", shorklocomotiveStr);
     }
 
@@ -657,24 +651,20 @@ int printSHORKEntertainment(void)
     {
         char shorksayStr[190];
         snprintf(shorksayStr, 190, "\033[%smshorksay\033[%sm: A shark-themed take on the \033[%smcowsay\033[%sm command that outputs an ASCII art shark and speech bubble containing a message of your choice.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
-        lines += formatNewLines(shorksayStr, TERM_SIZE.ws_col, "    ");
+        formatNewLines(shorksayStr, TERM_SIZE.ws_col, "    ");
         printf("%s", shorksayStr);
     }
-
-    return lines;
 }
 
-int printSHORKUtilities(void)
+void printSHORKUtilities(void)
 {
-    int lines = 0;
-
     printHeader("SHORK Utilities");
 
     if (isProgramInstalled("shorkdir"))
     {
         char shorkdirStr[130];
         snprintf(shorkdirStr, 130, "\033[%smshorkdir\033[%sm: Terminal-based file browser and file inspector (if \033[%smfile\033[%sm is installed).\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
-        lines += formatNewLines(shorkdirStr, TERM_SIZE.ws_col, "    ");
+        formatNewLines(shorkdirStr, TERM_SIZE.ws_col, "    ");
         printf("%s", shorkdirStr);
     }
 
@@ -682,7 +672,7 @@ int printSHORKUtilities(void)
     {
         char shorkfetchStr[160];
         snprintf(shorkfetchStr, 160, "\033[%smshorkfetch\033[%sm: Displays basic system and environment information. Similar to \033[%smfastfetch\033[%sm, \033[%smneofetch\033[%sm, etc.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
-        lines += formatNewLines(shorkfetchStr, TERM_SIZE.ws_col, "    ");
+        formatNewLines(shorkfetchStr, TERM_SIZE.ws_col, "    ");
         printf("%s", shorkfetchStr);
     }
 
@@ -690,20 +680,20 @@ int printSHORKUtilities(void)
     {
         char shorkfontStr[190];
         snprintf(shorkfontStr, 190, "\033[%smshorkfont\033[%sm: Changes the terminal's font or colour. Takes two arguments (type of change and name); no arguments shows how to use and a list of possible colours.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE);
-        lines += formatNewLines(shorkfontStr, TERM_SIZE.ws_col, "    ");
+        formatNewLines(shorkfontStr, TERM_SIZE.ws_col, "    ");
         printf("%s", shorkfontStr);
     }
 
     char shorkhelpStr[170];
     snprintf(shorkhelpStr, 170, "\033[%smshorkhelp\033[%sm: Provides help with using SHORK 486 via command lists, guides and cheatsheets. Requires the use of one of five parameters.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE);
-    lines += formatNewLines(shorkhelpStr, TERM_SIZE.ws_col, "    ");
+    formatNewLines(shorkhelpStr, TERM_SIZE.ws_col, "    ");
     printf("%s", shorkhelpStr);
 
     if (isProgramInstalled("shorkmap"))
     {
         char shorkmapStr[170];
         snprintf(shorkmapStr, 170, "\033[%smshorkmap\033[%sm: Changes the system's keyboard map. Takes takes one argument (a keymap name); no arguments show a list of possible keymaps.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE);
-        lines += formatNewLines(shorkmapStr, TERM_SIZE.ws_col, "    ");
+        formatNewLines(shorkmapStr, TERM_SIZE.ws_col, "    ");
         printf("%s", shorkmapStr);
     }
 
@@ -711,7 +701,7 @@ int printSHORKUtilities(void)
     {
         char shorkoffStr[210];
         snprintf(shorkoffStr, 210, "\033[%smshorkoff\033[%sm: Brings the system to a halt and syncs the write cache, allowing the computer to be safely turned off. Similar to \033[%smpoweroff\033[%sm or \033[%smshutdown -h\033[%sm.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
-        lines += formatNewLines(shorkoffStr, TERM_SIZE.ws_col, "    ");
+        formatNewLines(shorkoffStr, TERM_SIZE.ws_col, "    ");
         printf("%s", shorkoffStr);
     }
 
@@ -719,11 +709,9 @@ int printSHORKUtilities(void)
     {
         char shorkresStr[220];
         snprintf(shorkresStr, 220, "\033[%smshorkres\033[%sm: Changes the system's display resolution (provided hardware is compatible). Takes one argument (a resolution name); no arguments show a list of possible resolution names.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE);
-        lines += formatNewLines(shorkresStr, TERM_SIZE.ws_col, "    ");
+        formatNewLines(shorkresStr, TERM_SIZE.ws_col, "    ");
         printf("%s", shorkresStr);
     }
-
-    return lines;
 }
 
 void showCursor(void)
@@ -878,7 +866,10 @@ void showMainMenu(void)
                 break;
 
             case ENTER:
-                running = 0;
+                clearScreen();
+                menu[cursor - 1].action();
+                printf("\033[%d;1H", TERM_SIZE.ws_row);
+                awaitInput();
                 break;
         
             case QUIT:
@@ -889,8 +880,6 @@ void showMainMenu(void)
     }
 
     clearScreen();
-    if (cursor > 0)
-        menu[cursor - 1].action();
 }
 
 
