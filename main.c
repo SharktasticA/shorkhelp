@@ -614,11 +614,11 @@ void printCommands(void)
     char commandsStr[1500];
     snprintf(commandsStr, 1500, 
 "\033[%smGeneral\033[%sm\n\
-ar, arch, ascii, awk, basename, bc, cal, cat, chmod, chown, chroot, chvt, cp, cut, dc, dirname, eject, expand, expr, false, file, find, fold, grep, gzip, head, less, ln, ls, man, mkdir, mv, paste, printf, pwd, readlink, rev, rm, rmdir, sed, seq, setfont, showkey, stat, tar, tee, test, touch, tr, tree, true, truncate, unexpand, unzip, usleep, volname, wc, whereis, which, xz, yes\n\n\
+ar, ascii, awk, basename, bc, cal, cat, chmod, chown, chroot, chvt, clear, cp, cut, date, dc, dirname, eject, expand, expr, false, file, find, fold, grep, gzip, head, less, ln, ls, man, mkdir, mv, paste, printf, pwd, readlink, rev, rm, rmdir, sed, seq, showkey, sleep, stat, tar, tee, test, touch, tr, tree, true, truncate, unexpand, unzip, usleep, wc, whereis, which, xz, yes\n\n\
 \033[%smEditors & development tools\033[%sm\n\
 as, ed, emacs, g++, gcc, git, gfortran, hexdump, nano, tcc, vi, xxd\n\n\
 \033[%smSystem & processes\033[%sm\n\
-beep, blkid, clear, crontab, date, dd, df, dmesg, du, fdformat, fdisk, free, halt, hostname, kill, killall, loadkmap, losetup, lsblk, lspci, lsusb, mdev, mknod, mount, mountpoint, nice, nohup, nproc, partprobe, partx, pkill, ps, pstree, sfdisk, sleep, strace, stty, swapoff, swapon, sync, taskset, top, umount, uname, whoami\n%s",
+arch, beep, blkid, crontab, dd, df, dmesg, du, fdformat, fdisk, free, halt, hostname, kill, killall, loadkmap, losetup, lsblk, lspci, lsusb, mdev, mknod, mount, mountpoint, nice, nohup, nproc, partprobe, partx, pkill, ps, pstree, setfont, sfdisk, strace, stty, swapoff, swapon, sync, taskset, top, umount, uname, volname, whoami\n%s",
     COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_HEADING, COL_FOR_WHITE, networkingStr);
 
     if (!isProgramInstalled("as"))
