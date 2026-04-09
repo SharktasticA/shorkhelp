@@ -43,6 +43,16 @@ typedef struct
     int visible;
 } MenuItem;
 
+typedef struct {
+    char *command;
+    char *source;
+    char *category;
+    int man;
+    char *name;
+    char *aliases;
+    char *desc;
+} ProgramEntry;
+
 
 
 #define COL_BAK_BLACK           "40"
@@ -76,6 +86,8 @@ typedef struct
 #define COL_FOR_RESET           "39"
 #define COL_BAK_RESET           "49"
 
+#define MAX_PROG_ENTRIES        100
+
 static int COL_ENABLED = 1;
 static char *COL_FOR_ARROW = COL_FOR_BOLD_RED;
 static char *COL_FOR_CODE = COL_FOR_BOLD_RED;
@@ -83,6 +95,8 @@ static char *COL_FOR_CURSOR = COL_FOR_BOLD_CYAN;
 static char *COL_FOR_HEADING = COL_FOR_BOLD_CYAN;
 static char *COL_FOR_OL = COL_FOR_GREEN;
 static struct termios OLD_TERMIOS;
+static ProgramEntry PROG_ENTRIES[MAX_PROG_ENTRIES];
+static int PROG_ENTRIES_NO = -1;
 static struct winsize TERM_SIZE;
 
 
@@ -128,6 +142,17 @@ void enableRawMode(void)
     newTERMIO = OLD_TERMIOS;
     newTERMIO.c_lflag &= ~(ICANON | ECHO);
     tcsetattr(STDIN_FILENO, TCSANOW, &newTERMIO);
+}
+
+/**
+ * Checks if the given file exists and is accessible.
+ * @param file Full path to file
+ * @return 1 if file found; 0 if file not found
+ */
+int fileExists(const char *file)
+{
+    if (strchr(file, '/')) return access(file, R_OK) == 0;
+    else return 0;
 }
 
 /**
@@ -232,6 +257,26 @@ int formatNewLines(char *buffer, int width, char *indent)
     }
 }
 
+/** 
+ * Returns the full path to the directory this program is stored in.
+ * @return Full path the binary is stored in
+ */
+char *getBinDir(void)
+{
+    // Get binary's full path
+    static char binDir[PATH_MAX];
+    ssize_t len = readlink("/proc/self/exe", binDir, sizeof(binDir) - 1);
+    if (len <= 0) return NULL;
+    binDir[len] = '\0';
+
+    // Remove filename from path
+    char *slash = strrchr(binDir, '/');
+    if (!slash) return NULL;
+    *(slash + 1) = '\0';
+
+    return binDir;
+}
+
 /**
  * @return The nav input action detected
  */
@@ -318,6 +363,171 @@ int isProgramInstalled(const char *prog)
 
     return 0;
 }
+
+/**
+ * Parses a line taken from a CSV list into separate fields.
+ * @param line Raw line from CSV file to be processed
+ * @param out Array of separated fields
+ * @param maxFields Max number of fields to look for
+ * @return Number of fields detected
+ */
+int loadCSVLine(char *line, char *out[], int maxFields)
+{
+    int i = 0;
+
+    while (*line && i < maxFields)
+    {
+        out[i++] = line;
+        int inQuotes = 0;
+
+        while (*line)
+        {
+            if (*line == '"')
+            {
+                inQuotes = !inQuotes;
+                if (line[1] == '"') line++;
+            }
+            else if (*line == ',' && !inQuotes)
+            {
+                *line = '\0';
+                line++;
+                break;
+            }
+
+            line++;
+        }
+    }
+
+    return i;
+}
+
+/**
+ * Loads the programs.csv file into PROG_ENTRIES.
+ * @returns Number of program entries loaded; -1 if error
+ */
+int loadProgramEntries(void)
+{
+    // Load csv file
+    FILE *stream;
+    if (fileExists("/usr/share/shorkhelp/programs.csv"))
+        stream = fopen("/usr/share/shorkhelp/programs.csv", "r");
+    else
+    {   
+        char *binDir = getBinDir();
+        if (!binDir) return -1;
+
+        // Check if binary directory + filename are too large for combining
+        if (strlen(binDir) + strlen("programs.csv") >= PATH_MAX)
+            return -1;
+
+        // Combine binary directory and filename
+        char binCSVPath[PATH_MAX];
+        snprintf(binCSVPath, PATH_MAX, "%sprograms.csv", binDir);
+
+        // Try binary-based path
+        if (fileExists(binCSVPath)) stream = fopen(binCSVPath, "r");
+        else return -1;
+    }
+
+    // Load csv into buffer
+    static char buffer[4096];
+    size_t n = fread(buffer, 1, sizeof(buffer) - 1, stream);
+    fclose(stream);
+    buffer[n] = '\0';
+
+    char *p = buffer;
+
+    // Skip header line
+    while (*p && *p != '\n') p++;
+    if (*p == '\n') p++;
+
+    int i = 0;
+
+    while (*p && i < MAX_PROG_ENTRIES)
+    {
+        char *line = p;
+
+        // Find end of line
+        while (*p && *p != '\n') p++;
+        if (*p == '\n')
+        {
+            *p = '\0';
+            p++;
+        }
+
+        if (*line == '\0')
+            continue;
+
+        // Load line
+        char *fields[8];
+        int fieldCount = loadCSVLine(line, fields, 8);
+
+        // Check if malformed line/parsing
+        if (fieldCount < 8)
+            continue;
+
+        int isOptional = atoi(fields[1]);
+
+        if (!isOptional || (isOptional && isProgramInstalled(fields[0])))
+        {
+            // If no program name was given, assume it is the same as the command
+            if (!fields[5] || fields[5][0] == '\0') fields[5] = fields[0];
+
+            // Input line into entries
+            PROG_ENTRIES[i].command = fields[0];
+            PROG_ENTRIES[i].source = fields[2];
+            PROG_ENTRIES[i].category = fields[3];
+            PROG_ENTRIES[i].man = atoi(fields[4]);
+            PROG_ENTRIES[i].name = fields[5];
+            PROG_ENTRIES[i].aliases = fields[6];
+
+            if(strchr(fields[7], '"') != NULL)
+            {
+                // Remove doubled double quotes
+                char *tmp = findReplace(fields[7], strlen(fields[7]), "\"\"", "\"");
+
+                size_t descLen = strlen(tmp);
+
+                // Remove start double quote
+                if (descLen > 0 && tmp[0] == '"')
+                    memmove(tmp, tmp + 1, descLen);
+                
+                descLen = strlen(tmp);
+
+                // Remove end double quote
+                if (descLen > 0 && tmp[descLen - 1] == '"')
+                    tmp[descLen - 1] = '\0';
+
+                PROG_ENTRIES[i].desc = tmp;
+            }
+            else PROG_ENTRIES[i].desc = fields[7];
+
+            i++;
+        }
+    }
+
+    return i;
+}
+
+/**
+ * Gets how many valid rows there are in the current menu column. Used to help clamp menu cursors.
+ */
+int rowsInCol(int menuSize, int rows, int col)
+{
+    int start = (col - 1) * rows;
+    int end   = start + rows;
+    if (start >= menuSize) return 0;
+    if (end > menuSize) return menuSize - start;
+    return rows;
+}
+
+void showCursor(void)
+{
+    printf("\033[?25h");
+    if (COL_ENABLED) printf("\033[%sm", COL_RESET);
+}
+
+
 
 /**
  * @param caption Caption to be printed in the footer
@@ -555,7 +765,18 @@ void printIntro(void)
     printf("%s", gettingStartedStr);
 }
 
-void printMenu(MenuItem *menu, int menuSize, int cursor, int cursorPrev)
+/**
+ * @param menu The menu to print
+ * @param menuSize How many items are in the menu
+ * @param cols Number of columns to draw
+ * @param colWidth How many characters are in a column (excluding the cursor indicator)
+ * @param rows Number of rows to draw
+ * @param cursorX Current column cursor position
+ * @param cursorY Current row cursor position
+ * @param cursorXPrev Previous column cursor position
+ * @param cursorYPrev Previous row cursor position
+ */
+void printMenu(MenuItem *menu, int menuSize, int cols, int colWidth, int rows, int cursorX, int cursorY, int cursorXPrev, int cursorYPrev)
 {
     int baseRow = 2;
     int availHeight = TERM_SIZE.ws_row - 2;
@@ -565,51 +786,53 @@ void printMenu(MenuItem *menu, int menuSize, int cursor, int cursorPrev)
         availHeight = TERM_SIZE.ws_row - 4;
     }
 
-    // Viewport offset and clamping for current line cursor
-    int offset = (cursor - 1) - (availHeight / 2);
+
+
+    // Viewport offset and clamping for current row cursor
+    int offset = (cursorY - 1) - (availHeight / 2);
     if (offset < 0) offset = 0;
-    if (offset > menuSize - availHeight) offset = menuSize - availHeight;
+    if (offset > rows - availHeight) offset = rows - availHeight;
     if (offset < 0) offset = 0;
 
-    // Viewport offset and clamping for previous line cursor
-    int prevOffset = (cursorPrev - 1) - (availHeight / 2);
+    // Viewport offset and clamping for previous row cursor
+    int prevOffset = (cursorYPrev - 1) - (availHeight / 2);
     if (prevOffset < 0) prevOffset = 0;
-    if (prevOffset > menuSize - availHeight) prevOffset = menuSize - availHeight;
+    if (prevOffset > rows - availHeight) prevOffset = rows - availHeight;
     if (prevOffset < 0) prevOffset = 0;
+
+
 
     int inScrolling = (prevOffset != offset);
 
     // cursorPrev is initialised as 0 to indicate first frame should be drawn
-    if (cursorPrev == 0) inScrolling = 1;
+    if (cursorYPrev == 0) inScrolling = 1;
 
-    int prevIndex = cursorPrev - 1;
-    int currIndex = cursor - 1;
+    int prevIndex = cursorYPrev - 1;
+    int currIndex = cursorY - 1;
 
     // If we don't need to scroll, just update the cursor
     if (!inScrolling)
     {
-        int rowPrev = baseRow + (prevIndex - offset);
-        int rowCurr = baseRow + (currIndex - offset);
-
         // Remove old line cursor
-        printf("\x1b[%d;1H[ ]", rowPrev);
+        int prevCol = 1 + (cursorXPrev - 1) * (colWidth + 6);
+        int prevRow = baseRow + (cursorYPrev - 1 - offset);
+        printf("\x1b[%d;%dH[ ]", prevRow, prevCol);
 
         // Print new line cursor
-        printf("\x1b[%d;1H[\033[%sm*\033[%sm]", rowCurr, COL_FOR_CURSOR, COL_RESET);
-
-        // DEBUG
-        //printf("\x1b[1;%dH1", TERM_SIZE.ws_col);
+        int currCol = 1 + (cursorX - 1) * (colWidth + 6);
+        int currRow = baseRow + (cursorY - 1 - offset);
+        printf("\x1b[%d;%dH[\033[%sm*\033[%sm]", currRow, currCol, COL_FOR_CURSOR, COL_RESET);
+        
         return;
     }
 
-    // DEBUG
-    //printf("\x1b[1;%dH0", TERM_SIZE.ws_col);
+
 
     int canGoUp = offset > 0;
-    int canGoDown = (offset + availHeight) < menuSize;
+    int canGoDown = (offset + availHeight) < rows;
     int linesPrinted = 0;
 
-    for (int i = offset; i < menuSize && i < offset + availHeight; i++)
+    for (int i = offset; i < rows && linesPrinted < availHeight; i++)
     {
         printf("\x1b[%d;1H\x1b[K", baseRow + linesPrinted);
 
@@ -619,20 +842,83 @@ void printMenu(MenuItem *menu, int menuSize, int cursor, int cursorPrev)
         // Can scroll down indicator
         else if (canGoDown && i == offset + availHeight - 1)
             printf("\033[%smv\033[%sm\n", COL_FOR_ARROW, COL_RESET);
-        // Selected line
-        else if (i == currIndex)
-            printf("[\033[%sm*\033[%sm] %s\n", COL_FOR_CURSOR, COL_RESET, menu[i].name);
-        // Other lines
+        // Selected row
         else
-            printf("[ ] %s\n", menu[i].name);
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                int cursor = i + j * rows;
+                if (cursor < menuSize)
+                {
+                    if (j + 1 == cursorX && i + 1 == cursorY)
+                        printf("[\033[%sm*\033[%sm] %-*s  ", COL_FOR_CURSOR, COL_RESET, colWidth, menu[cursor].name);
+                    else
+                        printf("[ ] %-*s  ", colWidth, menu[cursor].name);
+                }
+            }
+            printf("\n");
+        }
 
         linesPrinted++;
     }
 
-    // "Fill in" lines if listing is shorter than viewport
-    if (!canGoUp && !canGoDown)
-        for (int i = linesPrinted; i < availHeight; i++)
-            printf("\n");
+
+
+    // "Fill in" remaining viewport lines
+    for (int i = linesPrinted; i < availHeight; i++)
+        printf("\n");
+}
+
+void printProgOverview(int i)
+{
+    // Header
+    char title[TERM_SIZE.ws_col];
+    if (PROG_ENTRIES[i].man > 0)
+        snprintf(title, TERM_SIZE.ws_col, "%s(%d)", PROG_ENTRIES[i].command, PROG_ENTRIES[i].man);
+    else
+        snprintf(title, TERM_SIZE.ws_col, "%s", PROG_ENTRIES[i].command);
+    printHeader(title);
+
+    // Name
+    if (strcmp(PROG_ENTRIES[i].category, "shork") == 0)
+        printf("\033[%sm%s\033[%sm\n\n", COL_FOR_BOLD_MAGENTA, PROG_ENTRIES[i].name, COL_RESET);
+    else
+        printf("\033[%sm%s\033[%sm\n\n", COL_FOR_CODE, PROG_ENTRIES[i].name, COL_RESET);
+
+    // Description
+    size_t descLen = strlen(PROG_ENTRIES[i].desc) + 24;
+    char desc[descLen];
+    snprintf(desc, descLen, "%s", PROG_ENTRIES[i].desc);
+    formatNewLines(desc, TERM_SIZE.ws_col, NULL);
+    printf("%s\n\n", desc);
+
+    // Type, category & aliases
+    if (PROG_ENTRIES[i].aliases[0] != '\0')
+        printf("\033[%smAliases:\033[%sm  %s\n", COL_FOR_OL, COL_RESET, PROG_ENTRIES[i].aliases);
+
+    if (strcmp(PROG_ENTRIES[i].source, "busybox") == 0)
+        PROG_ENTRIES[i].source = "BusyBox";
+    else if (strcmp(PROG_ENTRIES[i].source, "util-linux") == 0)
+        PROG_ENTRIES[i].source = "util-linux";
+    else if (strcmp(PROG_ENTRIES[i].source, "shorkutil") == 0)
+        PROG_ENTRIES[i].source = "SHORK Utilities";
+    else if (strcmp(PROG_ENTRIES[i].source, "shorktainment") == 0)
+        PROG_ENTRIES[i].source = "SHORK Entertainment";
+    else if (strcmp(PROG_ENTRIES[i].source, "bundled") == 0)
+        PROG_ENTRIES[i].source = "bundled software";
+    printf("\033[%smSource:\033[%sm   %s\n", COL_FOR_OL, COL_RESET, PROG_ENTRIES[i].source);
+
+    if (strcmp(PROG_ENTRIES[i].category, "gen") == 0)
+        PROG_ENTRIES[i].category = "general";
+    else if (strcmp(PROG_ENTRIES[i].category, "dev") == 0)
+        PROG_ENTRIES[i].category = "editors & development tools";
+    else if (strcmp(PROG_ENTRIES[i].category, "sys") == 0)
+        PROG_ENTRIES[i].category = "system & processors";
+    else if (strcmp(PROG_ENTRIES[i].category, "net") == 0)
+        PROG_ENTRIES[i].category = "networking & remote access";
+    else if (strcmp(PROG_ENTRIES[i].category, "shork") == 0)
+        PROG_ENTRIES[i].category = "SHORK";
+    printf("\033[%smCategory:\033[%sm %s\n", COL_FOR_OL, COL_RESET, PROG_ENTRIES[i].category);
 }
 
 void printSHORKEntertainment(void)
@@ -714,12 +1000,134 @@ void printSHORKUtilities(void)
     }
 }
 
-void showCursor(void)
+
+
+/**
+ * Runs the command reference interface.
+ */
+void showCommandReference(void)
 {
-    printf("\033[?25h");
-    if (COL_ENABLED) printf("\033[%sm", COL_RESET);
+    MenuItem menu[PROG_ENTRIES_NO];
+    for (int i = 0; i < PROG_ENTRIES_NO; i++)
+    {
+        menu[i].id = menu[i].name = PROG_ENTRIES[i].command;
+        menu[i].action = NULL;
+        menu[i].visible = 1;
+    }
+
+    int colWidth = 15;
+    int cols = TERM_SIZE.ws_col / (4 + colWidth + 2);
+    if (cols < 1) cols = 1;;
+    if (cols > PROG_ENTRIES_NO) cols = PROG_ENTRIES_NO;
+    int rows = (PROG_ENTRIES_NO + cols - 1) / cols;
+
+    int running = 1;
+    int cursorX = 1;
+    int cursorY = 1;
+    int cursorXPrev = 0;
+    int cursorYPrev = 0;
+    int maxY = 0;
+    int fullRedraw = 1;
+
+    while (running)
+    {
+        if (fullRedraw)
+        {
+            clearScreen();
+            printHeader("Command reference (WIP)");
+            printMenu(menu, PROG_ENTRIES_NO, cols, colWidth, rows, cursorX, cursorY, cursorXPrev, cursorYPrev);
+            printFooter("[hjkl] Navigate [Enter] Select [q] Back");
+        }
+        else
+        {
+            if (COL_ENABLED)
+                printf("\x1b[2;1H");
+            else
+                printf("\x1b[3;1H");
+            printMenu(menu, PROG_ENTRIES_NO, cols, colWidth, rows, cursorX, cursorY, cursorXPrev, cursorYPrev);
+        }
+
+        enum NavInput input = getNavInput();
+
+        fullRedraw = 1;
+        cursorXPrev = cursorYPrev = 0;
+        switch (input)
+        {
+            case CURSOR_LEFT:
+                cursorXPrev = cursorX;
+                cursorYPrev = cursorY;
+                cursorX--;
+
+                if (cursorX < 1) cursorX = cols;
+                while ((maxY = rowsInCol(PROG_ENTRIES_NO, rows, cursorX)) == 0)
+                {
+                    cursorX--;
+                    if (cursorX < 1) cursorX = cols;
+                }
+                if (cursorY > maxY) cursorY = maxY;
+                if (cursorY < 1) cursorY = maxY;
+
+                fullRedraw = 0;
+                break;
+
+            case CURSOR_RIGHT:
+                cursorXPrev = cursorX;
+                cursorYPrev = cursorY;
+                cursorX++;
+
+                if (cursorX > cols) cursorX = 1;
+                while ((maxY = rowsInCol(PROG_ENTRIES_NO, rows, cursorX)) == 0)
+                {
+                    cursorX++;
+                    if (cursorX > cols) cursorX = 1;
+                }
+                if (cursorY > maxY) cursorY = maxY;
+                if (cursorY < 1) cursorY = maxY;
+
+                fullRedraw = 0;
+                break;
+
+            case CURSOR_UP:
+                cursorXPrev = cursorX;
+                cursorYPrev = cursorY;
+                cursorY--;
+
+                if (cursorY < 1)
+                    cursorY = rowsInCol(PROG_ENTRIES_NO, rows, cursorX);
+
+                fullRedraw = 0;
+                break;
+
+            case CURSOR_DOWN:
+                cursorXPrev = cursorX;
+                cursorYPrev = cursorY;
+                cursorY++;
+
+                if (cursorY > rowsInCol(PROG_ENTRIES_NO, rows, cursorX))
+                    cursorY = 1;
+                    
+                fullRedraw = 0;
+                break;
+
+            case ENTER:
+                clearScreen();
+                printProgOverview((cursorY - 1) + (cursorX - 1) * rows);
+                printf("\033[%d;1H", TERM_SIZE.ws_row);
+                awaitInput();
+                break;
+        
+            case QUIT:
+                running = 0;
+                break;
+        }
+    }
+
+    clearScreen();
 }
 
+/**
+ * Displays help information.
+ */
 void showHelp(void)
 {
     char desc[120] = "Displays help and reference information for using SHORK 486 and its including software and tools.\n";
@@ -772,11 +1180,21 @@ void showHelp(void)
     printf("%s", shorkutils);
 }
 
+/**
+ * Runs the main menu interface.
+ */
 void showMainMenu(void)
 {
     if (TERM_SIZE.ws_col < 60 || TERM_SIZE.ws_row < 10)
     {
         printf("ERROR: terminal size too small (must be 60x10 or larger)\n");
+        return;
+    }
+
+    PROG_ENTRIES_NO = loadProgramEntries();
+    if (PROG_ENTRIES_NO == -1)
+    {
+        printf("ERROR: could not load programs.csv\n");
         return;
     }
     
@@ -797,35 +1215,46 @@ void showMainMenu(void)
             "intro",
             "Introduction to SHORK 486",
             printIntro,
-            1 },
+            1
+        },
         {
-            "commands",
+            "cmdRef",
+            "Command reference (WIP)",
+            showCommandReference,
+            1
+        },
+        {
+            "cmdList",
             "Commands & programs list",
             printCommands,
-            1 },
+            1
+        },
         { 
             "shorkutils",
             "SHORK Utilities list",
             printSHORKUtilities,
-            1 },
+            1
+        },
         { 
             "shorktainment",
             "SHORK Entertainment list",
             printSHORKEntertainment,
-            isProgramInstalled("shorklocomotive") || isProgramInstalled("shorksay") },
+            isProgramInstalled("shorklocomotive") || isProgramInstalled("shorksay")
+        },
         {
             "emacs",
             "Emacs (Mg) cheatsheet",
             printEmacsCheatsheet,
-            isProgramInstalled("emacs") },
+            isProgramInstalled("emacs")
+        },
         {
             "git",
             "Supported Git commands",
             printGitCommands,
-            isProgramInstalled("git") },
+            isProgramInstalled("git")
+        },
     };
     int menuSize = sizeof(menu) / sizeof(menu[0]);
-    int indices[menuSize];
 
     while (running)
     {
@@ -833,8 +1262,8 @@ void showMainMenu(void)
         {
             clearScreen();
             printHeader("SHORKHELP");
-            printMenu(menu, menuSize, cursor, cursorPrev);
-            printFooter("[jk] Navigate [Enter] Select [q] Quit");
+            printMenu(menu, menuSize, 1, TERM_SIZE.ws_col - 6, menuSize, 1, cursor, 1, cursorPrev);
+            printFooter("[hjkl] Navigate [Enter] Select [q] Quit");
         }
         else
         {
@@ -842,7 +1271,7 @@ void showMainMenu(void)
                 printf("\x1b[2;1H");
             else
                 printf("\x1b[3;1H");
-            printMenu(menu, menuSize, cursor, cursorPrev);
+            printMenu(menu, menuSize, 1, TERM_SIZE.ws_col - 6, menuSize, 1, cursor, 1, cursorPrev);
         }
 
         enum NavInput input = getNavInput();
@@ -868,13 +1297,15 @@ void showMainMenu(void)
             case ENTER:
                 clearScreen();
                 menu[cursor - 1].action();
-                printf("\033[%d;1H", TERM_SIZE.ws_row);
-                awaitInput();
+                if (menu[cursor - 1].id != "cmdRef")
+                {
+                    printf("\033[%d;1H", TERM_SIZE.ws_row);
+                    awaitInput();
+                }
                 break;
         
             case QUIT:
                 running = 0;
-                cursor = 0;
                 break;
         }
     }

@@ -1,0 +1,27 @@
+Command,IsOptional,Source,Category,Man,Name,Aliases,Description
+as,1,bundled,dev,1,GNU Assembler,,An assembler and the default backend of GCC.
+file,1,bundled,gen,1,,,Identifies and reports the type of data contained in a file.
+ftp,1,bundled,net,1,tnftp,,An FTP client for remote file transfer.
+g++,1,bundled,dev,1,GCC C++,,GCC's C++ compiler.
+gcc,1,bundled,dev,1,GCC C,,GCC's C compiler (configured to use musl).
+gfortran,1,bundled,dev,1,Gfortran,,GCC's Fortran compiler.
+git,1,bundled,dev,,Git,,A distributed version control software system.
+lsblk,0,util-linux,sys,8,,,Lists information about all or the specified block devices.
+mg,1,bundled,dev,1,Mg,emacs,An Emacs-style text editor including Emacs-style keybinds and buffers.
+nano,1,bundled,dev,1,GNU nano,,A text editor.
+partx,0,util-linux,sys,8,,,Tells the Linux kernel about the presence and numbering of on-disk partitions.
+scp,1,bundled,net,1,Dropbear (SCP),,An SCP client (a part of Dropbear) for remote file transfer.
+sfdisk,0,util-linux,sys,8,,,A partitioning tool suited for automated and scripted use.
+shorkdir,0,shorkutil,shork,,,,Terminal-based file browser and file inspector (if file is installed).
+shorkfetch,0,shorkutil,shork,,,,Displays basic system and environment information in a summarised format.
+shorkfont,1,shorkutil,shork,,,,Changes the terminal's font or colour.
+shorkgui,1,shorkutil,shork,,,,Starts the SHORKGUI graphical environment.
+shorkhelp,0,shorkutil,shork,,,,"Provides help with using SHORK 486 via command lists, guides and cheatsheets."
+shorklocomotive,0,shorktainment,shork,,,sl,"A shark-themed take on the sl command that kindly pokes fun at making typos when trying to type ""ls""."
+shorkmap,0,shorkutil,shork,,,,Changes the system's keyboard map.
+shorkoff,0,shorkutil,shork,,,,A shutdown helper that safely brings the system to a controlled halt before a manual power off.
+shorkres,1,shorkutil,shork,,,,Changes the system's display resolution (provided hardware is compatible).
+shorksay,1,shorktainment,shork,,,cowsay,A shark-themed take on the cowsay command that outputs an ASCII art shark and a speech bubble containing a message of your choice.
+ssh,1,bundled,net,1,Dropbear (SSH),,An SSH client (a part of Dropbear) for remote login and command-line execution.
+tcc,1,bundled,dev,,Tiny C Compiler,,A lightweight C compiler (configured to use musl).
+whereis,0,util-linux,gen,1,,,"Locates the binary, source and manual page files for a given command."
