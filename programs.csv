@@ -103,7 +103,7 @@ shorkoff,0,shorkutil,shork,,,A shutdown helper that safely brings the system to 
 shorkres,1,shorkutil,shork,,,Changes the system's display resolution (provided hardware is compatible).,GNU GPLv3
 shorksay,1,shorktainment,shork,,cowsay,A shark-themed take on the cowsay command that outputs an ASCII art shark and a speech bubble containing a message of your choice.,GNU GPLv3
 showkey,0,busybox,gen,,,,GNU GPLv2
-sleep,0,busybox,sys,,,,GNU GPLv2
+sleep,0,busybox,gen,,,,GNU GPLv2
 ssh,1,bundled,net,Dropbear (SSH),,An SSH client (a part of Dropbear) for remote login and command-line execution.,MIT + BSD 2-Clause (OpenSSH components)
 stat,0,busybox,gen,,,,GNU GPLv2
 strace,1,strace,sys,,,"Executes a given command to capture and trace its system calls and signals. It is a useful diagnosis and debugging tool one can run if a program fails unexpectedly, and/or without meaningful error messages or logs.",GNU LGPLv2.1

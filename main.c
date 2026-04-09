@@ -628,12 +628,12 @@ void printCommands(void)
 
     printf("\033[%smGeneral\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, genStr);
     printf("\033[%smEditors & development tools\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, devStr);
-    printf("\033[%smSystem & processes\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, sysStr);
+    printf("\033[%smSystem & processes\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, sysStr);
 
     if (netEnabled)
     {
         formatNewLines(netStr, TERM_SIZE.ws_col, NULL);
-        printf("\033[%smNetworking & remote access\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, netStr);
+        printf("\n\033[%smNetworking & remote access\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, netStr);
     }
 }
 
