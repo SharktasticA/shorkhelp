@@ -473,7 +473,7 @@ int loadProgramEntries(void)
         if (!isOptional || (isOptional && isProgramInstalled(fields[0])))
         {
             // If no program name was given, assume it is the same as the command
-            if (!fields[5] || fields[5][0] == '\0') fields[5] = fields[0];
+            if (!fields[4] || fields[4][0] == '\0') fields[4] = fields[0];
 
             // Input line into entries
             PROG_ENTRIES[i].command = fields[0];
