@@ -856,7 +856,7 @@ void printProgOverview(int i)
     else if (strcmp(PROG_ENTRIES[i].category, "dev") == 0)
         PROG_ENTRIES[i].category = "editors & development tools";
     else if (strcmp(PROG_ENTRIES[i].category, "sys") == 0)
-        PROG_ENTRIES[i].category = "system & processors";
+        PROG_ENTRIES[i].category = "system & processes";
     else if (strcmp(PROG_ENTRIES[i].category, "net") == 0)
         PROG_ENTRIES[i].category = "networking & remote access";
     else if (strcmp(PROG_ENTRIES[i].category, "shork") == 0)
