@@ -51,6 +51,7 @@ typedef struct {
     char *name;
     char *aliases;
     char *desc;
+    char *licences;
 } ProgramEntry;
 
 
@@ -86,7 +87,8 @@ typedef struct {
 #define COL_FOR_RESET           "39"
 #define COL_BAK_RESET           "49"
 
-#define MAX_PROG_ENTRIES        100
+#define MAX_CMD_STR             2048
+#define MAX_PROG_ENTRIES        200
 
 static int COL_ENABLED = 1;
 static char *COL_FOR_ARROW = COL_FOR_BOLD_RED;
@@ -430,7 +432,7 @@ int loadProgramEntries(void)
     }
 
     // Load csv into buffer
-    static char buffer[4096];
+    static char buffer[16384];
     size_t n = fread(buffer, 1, sizeof(buffer) - 1, stream);
     fclose(stream);
     buffer[n] = '\0';
@@ -477,14 +479,13 @@ int loadProgramEntries(void)
             PROG_ENTRIES[i].command = fields[0];
             PROG_ENTRIES[i].source = fields[2];
             PROG_ENTRIES[i].category = fields[3];
-            PROG_ENTRIES[i].man = atoi(fields[4]);
-            PROG_ENTRIES[i].name = fields[5];
-            PROG_ENTRIES[i].aliases = fields[6];
+            PROG_ENTRIES[i].name = fields[4];
+            PROG_ENTRIES[i].aliases = fields[5];
 
-            if(strchr(fields[7], '"') != NULL)
+            if(strchr(fields[6], '"') != NULL)
             {
                 // Remove doubled double quotes
-                char *tmp = findReplace(fields[7], strlen(fields[7]), "\"\"", "\"");
+                char *tmp = findReplace(fields[6], strlen(fields[6]), "\"\"", "\"");
 
                 size_t descLen = strlen(tmp);
 
@@ -500,7 +501,9 @@ int loadProgramEntries(void)
 
                 PROG_ENTRIES[i].desc = tmp;
             }
-            else PROG_ENTRIES[i].desc = fields[7];
+            else PROG_ENTRIES[i].desc = fields[6];
+            
+            PROG_ENTRIES[i].licences = fields[7];
 
             i++;
         }
@@ -583,110 +586,55 @@ void printCommands(void)
 {
     printHeader("Commands & programs list");
 
-    char networkingStr[200];
-    if (isProgramInstalled("ip"))
-    {
-        snprintf(networkingStr, 200, "\n\033[%smNetworking & remote access\033[%sm\nftp, ftpget, ftpput, ip, ifconfig, ping, route, scp, ssh, telnet, traceroute, udhcpc, wget, whois\n", COL_FOR_HEADING, COL_FOR_WHITE);
+    char genStr[MAX_CMD_STR] = "\0";
+    char devStr[MAX_CMD_STR] = "\0";
+    char sysStr[MAX_CMD_STR] = "\0";
+    char netStr[MAX_CMD_STR] = "\0";
+    int netEnabled = 0;
 
-        if (!isProgramInstalled("ftp"))
+    for (int i = 0; i < PROG_ENTRIES_NO; i++)
+    {
+        // Make sure data is present/valid
+        const char *cmd = PROG_ENTRIES[i].command;
+        const char *cat = PROG_ENTRIES[i].category;
+        if (!cmd || !cat) continue;
+
+        // Select which string to append to
+        char *targetStr = NULL;
+        if (strcmp(cat, "gen") == 0) targetStr = genStr;
+        else if (strcmp(cat, "dev") == 0) targetStr = devStr;
+        else if (strcmp(cat, "sys") == 0) targetStr = sysStr;
+        else if (strcmp(cat, "net") == 0) 
         {
-            char *tmp = findReplace(networkingStr, 200, "ftp, ", "");
-            strncpy(networkingStr, tmp, 199);
-            networkingStr[199] = '\0';
-            free(tmp);
+            targetStr = netStr;
+            netEnabled = 1;
         }
-        if (!isProgramInstalled("scp"))
-        {
-            char *tmp = findReplace(networkingStr, 200, "scp, ", "");
-            strncpy(networkingStr, tmp, 199);
-            networkingStr[199] = '\0';
-            free(tmp);
-        }
-        if (!isProgramInstalled("ssh"))
-        {
-            char *tmp = findReplace(networkingStr, 200, "ssh, ", "");
-            strncpy(networkingStr, tmp, 199);
-            networkingStr[199] = '\0';
-            free(tmp);
-        }
+        else continue;
+
+        // Ensure new cmd can fit in the string
+        size_t len = strlen(targetStr);
+        size_t cmdLen = strlen(cmd);
+        if (len > 0 && len + 2 < MAX_CMD_STR)
+            strcat(targetStr, ", ");
+
+        // Append new cmd
+        if (len + 2 + cmdLen < MAX_CMD_STR)
+            strcat(targetStr, cmd);
     }
 
-    char commandsStr[1500];
-    snprintf(commandsStr, 1500, 
-"\033[%smGeneral\033[%sm\n\
-ar, ascii, awk, basename, bc, cal, cat, chmod, chown, chroot, chvt, clear, cp, cut, date, dc, dirname, eject, expand, expr, false, file, find, fold, grep, gzip, head, less, ln, ls, man, mkdir, mv, paste, printf, pwd, readlink, rev, rm, rmdir, sed, seq, showkey, sleep, stat, tar, tee, test, touch, tr, tree, true, truncate, unexpand, unzip, usleep, wc, whereis, which, xz, yes\n\n\
-\033[%smEditors & development tools\033[%sm\n\
-as, ed, emacs, g++, gcc, git, gfortran, hexdump, nano, tcc, vi, xxd\n\n\
-\033[%smSystem & processes\033[%sm\n\
-arch, beep, blkid, crontab, dd, df, dmesg, du, fdformat, fdisk, free, halt, hostname, kill, killall, loadkmap, losetup, lsblk, lspci, lsusb, mdev, mknod, mount, mountpoint, nice, nohup, nproc, partprobe, partx, pkill, ps, pstree, setfont, sfdisk, strace, stty, swapoff, swapon, sync, taskset, top, umount, uname, volname, whoami\n%s",
-    COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_HEADING, COL_FOR_WHITE, networkingStr);
+    formatNewLines(genStr, TERM_SIZE.ws_col, NULL);
+    formatNewLines(devStr, TERM_SIZE.ws_col, NULL);
+    formatNewLines(sysStr, TERM_SIZE.ws_col, NULL);
 
-    if (!isProgramInstalled("as"))
-    {
-        char *tmp = findReplace(commandsStr, 1500, "as, ", "");
-        strncpy(commandsStr, tmp, 1499);
-        commandsStr[1499] = '\0';
-        free(tmp);
-    }
-    if (!isProgramInstalled("emacs"))
-    {
-        char *tmp = findReplace(commandsStr, 1500, "emacs, ", "");
-        strncpy(commandsStr, tmp, 1499);
-        commandsStr[1499] = '\0';
-        free(tmp);
-    }
-    if (!isProgramInstalled("file"))
-    {
-        char *tmp = findReplace(commandsStr, 1500, "file, ", "");
-        strncpy(commandsStr, tmp, 1499);
-        commandsStr[1499] = '\0';
-        free(tmp);
-    }
-    if (!isProgramInstalled("g++"))
-    {
-        char *tmp = findReplace(commandsStr, 1500, "g++, ", "");
-        strncpy(commandsStr, tmp, 1499);
-        commandsStr[1499] = '\0';
-        free(tmp);
-    }
-    if (!isProgramInstalled("gcc"))
-    {
-        char *tmp = findReplace(commandsStr, 1500, "gcc, ", "");
-        strncpy(commandsStr, tmp, 1499);
-        commandsStr[1499] = '\0';
-        free(tmp);
-    }
-    if (!isProgramInstalled("gfortran"))
-    {
-        char *tmp = findReplace(commandsStr, 1500, "gfortran, ", "");
-        strncpy(commandsStr, tmp, 1499);
-        commandsStr[1499] = '\0';
-        free(tmp);
-    }
-    if (!isProgramInstalled("lsusb"))
-    {
-        char *tmp = findReplace(commandsStr, 1500, "lsusb, ", "");
-        strncpy(commandsStr, tmp, 1499);
-        commandsStr[1499] = '\0';
-        free(tmp);
-    }
-    if (!isProgramInstalled("nano"))
-    {
-        char *tmp = findReplace(commandsStr, 1500, "nano, ", "");
-        strncpy(commandsStr, tmp, 1499);
-        commandsStr[1499] = '\0';
-        free(tmp);
-    }
-    if (!isProgramInstalled("i386-tcc") && !isProgramInstalled("tcc"))
-    {
-        char *tmp = findReplace(commandsStr, 1500, "tcc, ", "");
-        strncpy(commandsStr, tmp, 1499);
-        commandsStr[1499] = '\0';
-        free(tmp);
-    }
+    printf("\033[%smGeneral\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, genStr);
+    printf("\033[%smEditors & development tools\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, devStr);
+    printf("\033[%smSystem & processes\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, sysStr);
 
-    formatNewLines(commandsStr, TERM_SIZE.ws_col, NULL);
-    printf("%s", commandsStr);
+    if (netEnabled)
+    {
+        formatNewLines(netStr, TERM_SIZE.ws_col, NULL);
+        printf("\033[%smNetworking & remote access\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, netStr);
+    }
 }
 
 void printEmacsCheatsheet(void)
@@ -872,12 +820,7 @@ void printMenu(MenuItem *menu, int menuSize, int cols, int colWidth, int rows, i
 void printProgOverview(int i)
 {
     // Header
-    char title[TERM_SIZE.ws_col];
-    if (PROG_ENTRIES[i].man > 0)
-        snprintf(title, TERM_SIZE.ws_col, "%s(%d)", PROG_ENTRIES[i].command, PROG_ENTRIES[i].man);
-    else
-        snprintf(title, TERM_SIZE.ws_col, "%s", PROG_ENTRIES[i].command);
-    printHeader(title);
+    printHeader(PROG_ENTRIES[i].command);
 
     // Name
     if (strcmp(PROG_ENTRIES[i].category, "shork") == 0)
@@ -892,7 +835,7 @@ void printProgOverview(int i)
     formatNewLines(desc, TERM_SIZE.ws_col, NULL);
     printf("%s\n\n", desc);
 
-    // Type, category & aliases
+    // Aliases, sources, category & licences
     if (PROG_ENTRIES[i].aliases[0] != '\0')
         printf("\033[%smAliases:\033[%sm  %s\n", COL_FOR_OL, COL_RESET, PROG_ENTRIES[i].aliases);
 
@@ -919,6 +862,8 @@ void printProgOverview(int i)
     else if (strcmp(PROG_ENTRIES[i].category, "shork") == 0)
         PROG_ENTRIES[i].category = "SHORK";
     printf("\033[%smCategory:\033[%sm %s\n", COL_FOR_OL, COL_RESET, PROG_ENTRIES[i].category);
+
+    printf("\033[%smLicences:\033[%sm %s\n", COL_FOR_OL, COL_RESET, PROG_ENTRIES[i].licences);
 }
 
 void printSHORKEntertainment(void)
@@ -1324,6 +1269,7 @@ int main(int argc, char *argv[])
     {
         if (strcmp(argv[1], "--commands") == 0)
         {
+            PROG_ENTRIES_NO = loadProgramEntries();
             clearScreen();
             printCommands();
         }

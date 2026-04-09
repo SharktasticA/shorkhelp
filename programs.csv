@@ -1,27 +1,143 @@
-Command,IsOptional,Source,Category,Man,Name,Aliases,Description
-as,1,bundled,dev,1,GNU Assembler,,An assembler and the default backend of GCC.
-file,1,bundled,gen,1,,,Identifies and reports the type of data contained in a file.
-ftp,1,bundled,net,1,tnftp,,An FTP client for remote file transfer.
-g++,1,bundled,dev,1,GCC C++,,GCC's C++ compiler.
-gcc,1,bundled,dev,1,GCC C,,GCC's C compiler (configured to use musl).
-gfortran,1,bundled,dev,1,Gfortran,,GCC's Fortran compiler.
-git,1,bundled,dev,,Git,,A distributed version control software system.
-lsblk,0,util-linux,sys,8,,,Lists information about all or the specified block devices.
-mg,1,bundled,dev,1,Mg,emacs,An Emacs-style text editor including Emacs-style keybinds and buffers.
-nano,1,bundled,dev,1,GNU nano,,A text editor.
-partx,0,util-linux,sys,8,,,Tells the Linux kernel about the presence and numbering of on-disk partitions.
-scp,1,bundled,net,1,Dropbear (SCP),,An SCP client (a part of Dropbear) for remote file transfer.
-sfdisk,0,util-linux,sys,8,,,A partitioning tool suited for automated and scripted use.
-shorkdir,0,shorkutil,shork,,,,Terminal-based file browser and file inspector (if file is installed).
-shorkfetch,0,shorkutil,shork,,,,Displays basic system and environment information in a summarised format.
-shorkfont,1,shorkutil,shork,,,,Changes the terminal's font or colour.
-shorkgui,1,shorkutil,shork,,,,Starts the SHORKGUI graphical environment.
-shorkhelp,0,shorkutil,shork,,,,"Provides help with using SHORK 486 via command lists, guides and cheatsheets."
-shorklocomotive,0,shorktainment,shork,,,sl,"A shark-themed take on the sl command that kindly pokes fun at making typos when trying to type ""ls""."
-shorkmap,0,shorkutil,shork,,,,Changes the system's keyboard map.
-shorkoff,0,shorkutil,shork,,,,A shutdown helper that safely brings the system to a controlled halt before a manual power off.
-shorkres,1,shorkutil,shork,,,,Changes the system's display resolution (provided hardware is compatible).
-shorksay,1,shorktainment,shork,,,cowsay,A shark-themed take on the cowsay command that outputs an ASCII art shark and a speech bubble containing a message of your choice.
-ssh,1,bundled,net,1,Dropbear (SSH),,An SSH client (a part of Dropbear) for remote login and command-line execution.
-tcc,1,bundled,dev,,Tiny C Compiler,,A lightweight C compiler (configured to use musl).
-whereis,0,util-linux,gen,1,,,"Locates the binary, source and manual page files for a given command."
+Command,IsOptional,Source,Category,Name,Aliases,Description,Licence
+ar,0,busybox,gen,,,,GNU GPLv2
+arch,0,busybox,sys,,,,GNU GPLv2
+as,1,bundled,dev,GNU Assembler,,An assembler and the default backend of GCC.,GNU GPLv3 + GCC Runtime Library Exception
+ascii,0,busybox,gen,,,,GNU GPLv2
+awk,0,busybox,gen,,,,GNU GPLv2
+basename,0,busybox,gen,,,,GNU GPLv2
+bc,0,busybox,gen,,,,GNU GPLv2
+beep,0,busybox,sys,,,,GNU GPLv2
+blkid,0,busybox,sys,,,,GNU GPLv2
+cal,0,busybox,gen,,,,GNU GPLv2
+cat,0,busybox,gen,,,,GNU GPLv2
+chmod,0,busybox,gen,,,,GNU GPLv2
+chown,0,busybox,gen,,,,GNU GPLv2
+chroot,0,busybox,gen,,,,GNU GPLv2
+chvt,0,busybox,gen,,,,GNU GPLv2
+clear,0,busybox,gen,,,,GNU GPLv2
+cp,0,busybox,gen,,,,GNU GPLv2
+crontab,0,busybox,sys,,,,GNU GPLv2
+cut,0,busybox,gen,,,,GNU GPLv2
+date,0,busybox,gen,,,,GNU GPLv2
+dc,0,busybox,gen,,,,GNU GPLv2
+dd,0,busybox,sys,,,,GNU GPLv2
+df,0,busybox,sys,,,,GNU GPLv2
+dirname,0,busybox,gen,,,,GNU GPLv2
+dmesg,0,busybox,sys,,,,GNU GPLv2
+du,0,busybox,sys,,,,GNU GPLv2
+ed,0,busybox,dev,,,,GNU GPLv2
+eject,0,busybox,gen,,,,GNU GPLv2
+expand,0,busybox,gen,,,,GNU GPLv2
+expr,0,busybox,gen,,,,GNU GPLv2
+false,0,busybox,gen,,,,GNU GPLv2
+fdformat,0,busybox,sys,,,,GNU GPLv2
+fdisk,0,busybox,sys,,,,GNU GPLv2
+file,1,bundled,gen,,,Identifies and reports the type of data contained in a file.,BSD 2-Clause (Darwin)
+find,0,busybox,gen,,,,GNU GPLv2
+fold,0,busybox,gen,,,,GNU GPLv2
+free,0,busybox,sys,,,,GNU GPLv2
+ftp,1,bundled,net,tnftp,,An FTP client for remote file transfer.,BSD 2-Clause
+ftpget,1,busybox,net,,,,GNU GPLv2
+ftpput,1,busybox,net,,,,GNU GPLv2
+g++,1,bundled,dev,GCC C++,,GCC's C++ compiler.,GNU GPLv3 + GCC Runtime Library Exception
+gcc,1,bundled,dev,GCC C,,GCC's C compiler (configured to use musl).,GNU GPLv3 + GCC Runtime Library Exception
+gfortran,1,bundled,dev,Gfortran,,GCC's Fortran compiler.,GNU GPLv3 + GCC Runtime Library Exception
+git,1,bundled,dev,Git,,A distributed version control software system.,GNU GPLv2
+grep,0,busybox,gen,,,,GNU GPLv2
+gzip,0,busybox,gen,,,,GNU GPLv2
+halt,0,busybox,sys,,,,GNU GPLv2
+head,0,busybox,gen,,,,GNU GPLv2
+hexdump,0,busybox,dev,,,,GNU GPLv2
+hostname,0,busybox,sys,,,,GNU GPLv2
+ifconfig,1,busybox,net,,,,GNU GPLv2
+ip,1,busybox,net,,,,GNU GPLv2
+kill,0,busybox,sys,,,,GNU GPLv2
+killall,0,busybox,sys,,,,GNU GPLv2
+less,0,busybox,gen,,,,GNU GPLv2
+ln,0,busybox,gen,,,,GNU GPLv2
+loadkmap,0,busybox,sys,,,,GNU GPLv2
+losetup,0,busybox,sys,,,,GNU GPLv2
+ls,0,busybox,gen,,,,GNU GPLv2
+lsblk,0,util-linux,sys,,,Lists information about all or the specified block devices.,GNU GPLv2
+lspci,0,busybox,sys,,,,GNU GPLv2
+lsusb,1,busybox,sys,,,,GNU GPLv2
+man,0,busybox,gen,,,,GNU GPLv2
+mdev,0,busybox,sys,,,,GNU GPLv2
+mg,1,bundled,dev,Mg,emacs,An Emacs-style text editor including Emacs-style keybinds and buffers.,Unlicense
+mkdir,0,busybox,gen,,,,GNU GPLv2
+mknod,0,busybox,sys,,,,GNU GPLv2
+mount,0,busybox,sys,,,,GNU GPLv2
+mountpoint,0,busybox,sys,,,,GNU GPLv2
+mv,0,busybox,gen,,,,GNU GPLv2
+nano,1,bundled,dev,GNU nano,,A text editor.,GNU GPLv3
+nice,0,busybox,sys,,,,GNU GPLv2
+nohup,0,busybox,sys,,,,GNU GPLv2
+nproc,0,busybox,sys,,,,GNU GPLv2
+partprobe,0,busybox,sys,,,,GNU GPLv2
+partx,0,util-linux,sys,,,Tells the Linux kernel about the presence and numbering of on-disk partitions.,GNU GPLv2
+paste,0,busybox,gen,,,,GNU GPLv2
+ping,1,busybox,net,,,,GNU GPLv2
+pkill,0,busybox,sys,,,,GNU GPLv2
+printf,0,busybox,gen,,,,GNU GPLv2
+ps,0,busybox,sys,,,,GNU GPLv2
+pstree,0,busybox,sys,,,,GNU GPLv2
+pwd,0,busybox,gen,,,,GNU GPLv2
+readlink,0,busybox,gen,,,,GNU GPLv2
+rev,0,busybox,gen,,,,GNU GPLv2
+rm,0,busybox,gen,,,,GNU GPLv2
+rmdir,0,busybox,gen,,,,GNU GPLv2
+route,1,busybox,net,,,,GNU GPLv2
+scp,1,bundled,net,Dropbear (SCP),,An SCP client (a part of Dropbear) for remote file transfer.,MIT + BSD 2-Clause (OpenSSH components)
+sed,0,busybox,gen,,,,GNU GPLv2
+seq,0,busybox,gen,,,,GNU GPLv2
+setfont,0,busybox,sys,,,,GNU GPLv2
+sfdisk,0,util-linux,sys,,,A partitioning tool suited for automated and scripted use.,GNU GPLv2
+shorkdir,0,shorkutil,shork,,,Terminal-based file browser and file inspector (if file is installed).,GNU GPLv3
+shorkfetch,0,shorkutil,shork,,,Displays basic system and environment information in a summarised format.,GNU GPLv3
+shorkfont,1,shorkutil,shork,,,Changes the terminal's font or colour.,GNU GPLv3
+shorkgui,1,shorkutil,shork,,,Starts the SHORKGUI graphical environment.,GNU GPLv3
+shorkhelp,0,shorkutil,shork,,,"Provides help with using SHORK 486 via command lists, guides and cheatsheets.",GNU GPLv3
+shorklocomotive,0,shorktainment,shork,,sl,"A shark-themed take on the sl command that kindly pokes fun at making typos when trying to type ""ls"".",GNU GPLv3
+shorkmap,0,shorkutil,shork,,,Changes the system's keyboard map.,GNU GPLv3
+shorkoff,0,shorkutil,shork,,,A shutdown helper that safely brings the system to a controlled halt before a manual power off.,GNU GPLv3
+shorkres,1,shorkutil,shork,,,Changes the system's display resolution (provided hardware is compatible).,GNU GPLv3
+shorksay,1,shorktainment,shork,,cowsay,A shark-themed take on the cowsay command that outputs an ASCII art shark and a speech bubble containing a message of your choice.,GNU GPLv3
+showkey,0,busybox,gen,,,,GNU GPLv2
+sleep,0,busybox,sys,,,,GNU GPLv2
+ssh,1,bundled,net,Dropbear (SSH),,An SSH client (a part of Dropbear) for remote login and command-line execution.,MIT + BSD 2-Clause (OpenSSH components)
+stat,0,busybox,gen,,,,GNU GPLv2
+strace,1,strace,sys,,,"Executes a given command to capture and trace its system calls and signals. It is a useful diagnosis and debugging tool one can run if a program fails unexpectedly, and/or without meaningful error messages or logs.",GNU LGPLv2.1
+stty,0,busybox,sys,,,,GNU GPLv2
+swapoff,0,busybox,sys,,,,GNU GPLv2
+swapon,0,busybox,sys,,,,GNU GPLv2
+sync,0,busybox,sys,,,,GNU GPLv2
+tar,0,busybox,gen,,,,GNU GPLv2
+taskset,0,busybox,sys,,,,GNU GPLv2
+tcc,1,bundled,dev,Tiny C Compiler,,A lightweight C compiler (configured to use musl).,GNU LGPLv2.1
+tee,0,busybox,gen,,,,GNU GPLv2
+telnet,1,busybox,net,,,,GNU GPLv2
+test,0,busybox,gen,,,,GNU GPLv2
+top,0,busybox,sys,,,,GNU GPLv2
+touch,0,busybox,gen,,,,GNU GPLv2
+tr,0,busybox,gen,,,,GNU GPLv2
+traceroute,1,busybox,net,,,,GNU GPLv2
+tree,0,busybox,gen,,,,GNU GPLv2
+true,0,busybox,gen,,,,GNU GPLv2
+truncate,0,busybox,gen,,,,GNU GPLv2
+udhcpc,1,busybox,net,,,,GNU GPLv2
+umount,0,busybox,sys,,,,GNU GPLv2
+uname,0,busybox,sys,,,,GNU GPLv2
+unexpand,0,busybox,gen,,,,GNU GPLv2
+unzip,0,busybox,gen,,,,GNU GPLv2
+usleep,0,busybox,gen,,,,GNU GPLv2
+vi,0,busybox,dev,,,,GNU GPLv2
+volname,0,busybox,sys,,,,GNU GPLv2
+wc,0,busybox,gen,,,,GNU GPLv2
+wget,1,busybox,net,,,,GNU GPLv2
+whereis,0,util-linux,gen,,,"Locates the binary, source and manual page files for a given command.",GNU GPLv2
+which,0,busybox,gen,,,,GNU GPLv2
+whoami,0,busybox,sys,,,,GNU GPLv2
+whois,1,busybox,net,,,,GNU GPLv2
+xxd,0,busybox,dev,,,,GNU GPLv2
+xz,0,busybox,gen,,,,GNU GPLv2
+yes,0,busybox,gen,,,,GNU GPLv2
