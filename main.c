@@ -724,8 +724,9 @@ void printMenu(MenuItem *menu, int menuSize, int cols, int colWidth, int rows, i
 /**
  * @param text Text for the main body
  * @param totalLines How many newlines are present in main body text
+ * @param pageScroll Flags if scrolling should be page based instead of line-by-line
  */
-void printScrollingText(char *text, int totalLines)
+void printScrollingText(char *text, int totalLines, int pageScroll)
 {
     if (totalLines < AVAIL_HEIGHT)
     {
@@ -768,12 +769,14 @@ void printScrollingText(char *text, int totalLines)
         switch (input)
         {
             case CURSOR_UP:
-                cursor--;
+                if (pageScroll) cursor -= (AVAIL_HEIGHT - 3);
+                else cursor--;
                 if (cursor < 0) cursor = 0;
                 break;
 
             case CURSOR_DOWN:
-                cursor++;
+                if (pageScroll) cursor += (AVAIL_HEIGHT - 3);
+                else cursor++;
                 if (cursor > offscreen) cursor = offscreen;
                 break;
 
@@ -837,7 +840,7 @@ void printCommands(void)
     if (netEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smNetworking & remote access\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, netStr);
 
     int lines = formatNewLines(combinedStr, TERM_SIZE.ws_col, NULL, 1);
-    printScrollingText(combinedStr, lines);
+    printScrollingText(combinedStr, lines, 1);
 }
 
 void printEmacsCheatsheet(void)
@@ -866,7 +869,7 @@ void printEmacsCheatsheet(void)
     COL_FOR_OL, COL_FOR_WHITE, COL_FOR_MAGENTA, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_MAGENTA, COL_FOR_WHITE);
 
     int lines = formatNewLines(emacsStr, TERM_SIZE.ws_col, NULL, 1);
-    printScrollingText(emacsStr, lines);
+    printScrollingText(emacsStr, lines, 1);
 }
 
 void printGitCommands(void)
@@ -877,7 +880,7 @@ void printGitCommands(void)
     snprintf(gitStr, 500, "add, blame, branch, checkout, cherry-pick, clean, clone, commit, config, diff, fetch, init, log, merge, mv, pull, push, rebase, reflog, remote, reset, restore, rm, show, stash, status, switch, tag\n");
 
     int lines = formatNewLines(gitStr, TERM_SIZE.ws_col, NULL, 1);
-    printScrollingText(gitStr, lines);
+    printScrollingText(gitStr, lines, 1);
 }
 
 void printIntro(void)
@@ -899,7 +902,7 @@ void printIntro(void)
     pos += snprintf(introStr + pos, strSize - pos, "\033[%smInspiration\033[%sm\nIn December 2025, Action Retro posted a video on FLOPPINUX, which inspired me to chase the dream of making a Linux system for my old IBM ThinkPads! SHORK 486 began as an automated build script based on FLOPPINUX\'s build instructions, but adapted to making fixed disk images instead of diskette images. Other inspirations from similar efforts include Gray386linux and Ocawesome101\'s blog post on running Linux on a 486SX. Aspects of Alpine Linux and Tiny Core are also kept in mind.", COL_FOR_HEADING, COL_FOR_WHITE);
 
     int lines = formatNewLines(introStr, TERM_SIZE.ws_col, NULL, 0);
-    printScrollingText(introStr, lines);
+    printScrollingText(introStr, lines, 1);
 }
 
 void printProgOverview(int i)
@@ -951,7 +954,7 @@ void printProgOverview(int i)
     pos += snprintf(overviewStr + pos, strSize - pos, "\033[%smLicences:\033[%sm %s\n", COL_FOR_OL, COL_RESET, PROG_ENTRIES[i].licences);
 
     int lines = formatNewLines(overviewStr, TERM_SIZE.ws_col, NULL, 1);
-    printScrollingText(overviewStr, lines);
+    printScrollingText(overviewStr, lines, 1);
 }
 
 void printSHORKEntertainment(void)
@@ -969,7 +972,7 @@ void printSHORKEntertainment(void)
         pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorksay\033[%sm: A shark-themed take on the \033[%smcowsay\033[%sm command that outputs an ASCII art shark and speech bubble containing a message of your choice.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
     int lines = formatNewLines(shorktainmentStr, TERM_SIZE.ws_col, "    ", 1);
-    printScrollingText(shorktainmentStr, lines);
+    printScrollingText(shorktainmentStr, lines, 1);
 }
 
 void printSHORKUtilities(void)
@@ -1001,7 +1004,7 @@ void printSHORKUtilities(void)
         pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkres\033[%sm: Changes the system's display resolution (provided hardware is compatible). Takes one argument (a resolution name); no arguments show a list of possible resolution names.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE);
 
     int lines = formatNewLines(shorkutilStr, TERM_SIZE.ws_col, "    ", 1);
-    printScrollingText(shorkutilStr, lines);
+    printScrollingText(shorkutilStr, lines, 1);
 }
 
 void printStarted(void)
@@ -1030,7 +1033,7 @@ void printStarted(void)
     COL_FOR_OL, COL_FOR_WHITE, COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE);
 
     int lines = formatNewLines(gettingStartedStr, TERM_SIZE.ws_col, "   ", 1);
-    printScrollingText(gettingStartedStr, lines);
+    printScrollingText(gettingStartedStr, lines, 1);
 }
 
 
