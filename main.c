@@ -1243,7 +1243,7 @@ void showMainMenu(void)
     int cursorPrev = 0;
     int fullRedraw = 1;
 
-    MenuItem menu[] = {
+    MenuItem rawMenu[] = {
         { 
             "intro",
             "Introduction to SHORK 486",
@@ -1293,7 +1293,14 @@ void showMainMenu(void)
             isProgramInstalled("git")
         },
     };
-    int menuSize = sizeof(menu) / sizeof(menu[0]);
+    int rawMenuSize = sizeof(rawMenu) / sizeof(rawMenu[0]);
+
+    // Filter menu to just what should actually be visible
+    MenuItem menu[rawMenuSize];
+    int menuSize = 0;
+    for (int i = 0; i < rawMenuSize; i++)
+        if (rawMenu[i].visible)
+            menu[menuSize++] = rawMenu[i];
 
     while (running)
     {

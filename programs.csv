@@ -98,7 +98,7 @@ shorkfetch,0,shorkutil,shork,,,Displays basic system and environment information
 shorkfont,1,shorkutil,shork,,,Changes the terminal's font or colour.,GNU GPLv3
 shorkgui,1,shorkutil,shork,,,Starts the SHORKGUI graphical environment.,GNU GPLv3
 shorkhelp,0,shorkutil,shork,,,"Provides help with using SHORK 486 via command lists, guides and cheatsheets.",GNU GPLv3
-shorklocomotive,0,shorktainment,shork,,sl,"A shark-themed take on the sl command that kindly pokes fun at making typos when trying to type ""ls"".",GNU GPLv3
+shorklocomotive,1,shorktainment,shork,,sl,"A shark-themed take on the sl command that kindly pokes fun at making typos when trying to type ""ls"".",GNU GPLv3
 shorkmap,0,shorkutil,shork,,,Changes the system's keyboard map.,GNU GPLv3
 shorkoff,0,shorkutil,shork,,,A shutdown helper that safely brings the system to a controlled halt before a manual power off.,GNU GPLv3
 shorkres,1,shorkutil,shork,,,Changes the system's display resolution (provided hardware is compatible).,GNU GPLv3
