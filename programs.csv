@@ -78,6 +78,7 @@ partx,0,util-linux,sys,,,Tells the Linux kernel about the presence and numbering
 paste,0,busybox,gen,,,,GNU GPLv2
 ping,1,busybox,net,,,,GNU GPLv2
 pkill,0,busybox,sys,,,,GNU GPLv2
+pmap,0,busybox,sys,,,"Reports the memory map of a given process. It provides the amount of memory used, proportional set sizes (PSS), dirty pages, permissions on map (mode), and mappings (file, anon/allocated or stack). All memory values are in kilobytes (KB).",GNU GPLv2
 printf,0,busybox,gen,,,,GNU GPLv2
 ps,0,busybox,sys,,,,GNU GPLv2
 pstree,0,busybox,sys,,,,GNU GPLv2

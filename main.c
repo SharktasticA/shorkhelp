@@ -1164,7 +1164,7 @@ void showCommandReference(void)
  */
 void showHelp(void)
 {
-    char desc[120] = "Displays help and reference information for using SHORK 486 and its including software and tools.\n";
+    char desc[120] = "Displays help and reference information for using SHORK 486 and its included software and tools.\n";
     formatNewLines(desc, TERM_SIZE.ws_col, NULL, 0);
     printf("%s\n", desc);
 
