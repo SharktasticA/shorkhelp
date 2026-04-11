@@ -927,29 +927,31 @@ void printProgOverview(int i)
     if (PROG_ENTRIES[i].aliases[0] != '\0')
         pos += snprintf(overviewStr + pos, strSize - pos, "\033[%smAliases:\033[%sm  %s\n", COL_FOR_OL, COL_RESET, PROG_ENTRIES[i].aliases);
 
-    if (strcmp(PROG_ENTRIES[i].source, "busybox") == 0)
-        PROG_ENTRIES[i].source = "BusyBox";
-    else if (strcmp(PROG_ENTRIES[i].source, "util-linux") == 0)
-        PROG_ENTRIES[i].source = "util-linux";
-    else if (strcmp(PROG_ENTRIES[i].source, "shorkutil") == 0)
-        PROG_ENTRIES[i].source = "SHORK Utilities";
-    else if (strcmp(PROG_ENTRIES[i].source, "shorktainment") == 0)
-        PROG_ENTRIES[i].source = "SHORK Entertainment";
-    else if (strcmp(PROG_ENTRIES[i].source, "bundled") == 0)
-        PROG_ENTRIES[i].source = "bundled software";
-    pos += snprintf(overviewStr + pos, strSize - pos, "\033[%smSource:\033[%sm   %s\n", COL_FOR_OL, COL_RESET, PROG_ENTRIES[i].source);
+    const char *source = PROG_ENTRIES[i].source;
+    if (strcmp(source, "busybox") == 0)
+        source = "BusyBox";
+    else if (strcmp(source, "util-linux") == 0)
+        source = "util-linux";
+    else if (strcmp(source, "shorkutil") == 0)
+        source = "SHORK Utilities";
+    else if (strcmp(source, "shorktainment") == 0)
+        source = "SHORK Entertainment";
+    else if (strcmp(source, "bundled") == 0)
+        source = "bundled software";
+    pos += snprintf(overviewStr + pos, strSize - pos, "\033[%smSource:\033[%sm   %s\n", COL_FOR_OL, COL_RESET, source);
 
-    if (strcmp(PROG_ENTRIES[i].category, "gen") == 0)
-        PROG_ENTRIES[i].category = "general";
-    else if (strcmp(PROG_ENTRIES[i].category, "dev") == 0)
-        PROG_ENTRIES[i].category = "editors & development tools";
-    else if (strcmp(PROG_ENTRIES[i].category, "sys") == 0)
-        PROG_ENTRIES[i].category = "system & processes";
-    else if (strcmp(PROG_ENTRIES[i].category, "net") == 0)
-        PROG_ENTRIES[i].category = "networking & remote access";
-    else if (strcmp(PROG_ENTRIES[i].category, "shork") == 0)
-        PROG_ENTRIES[i].category = "SHORK";
-    pos += snprintf(overviewStr + pos, strSize - pos, "\033[%smCategory:\033[%sm %s\n", COL_FOR_OL, COL_RESET, PROG_ENTRIES[i].category);
+    const char *category = PROG_ENTRIES[i].category;
+    if (strcmp(category, "gen") == 0)
+        category = "general";
+    else if (strcmp(category, "dev") == 0)
+        category = "editors & development tools";
+    else if (strcmp(category, "sys") == 0)
+        category = "system & processes";
+    else if (strcmp(category, "net") == 0)
+        category = "networking & remote access";
+    else if (strcmp(category, "shork") == 0)
+        category = "SHORK";
+    pos += snprintf(overviewStr + pos, strSize - pos, "\033[%smCategory:\033[%sm %s\n", COL_FOR_OL, COL_RESET, category);
 
     pos += snprintf(overviewStr + pos, strSize - pos, "\033[%smLicences:\033[%sm %s\n", COL_FOR_OL, COL_RESET, PROG_ENTRIES[i].licences);
 
