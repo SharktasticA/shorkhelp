@@ -1055,9 +1055,9 @@ void showCommandReference(void)
         menu[i].visible = 1;
     }
 
-    int colWidth = 15;
-    int cols = TERM_SIZE.ws_col / (4 + colWidth + 2);
-    if (cols < 1) cols = 1;;
+    int colWidth = 16;
+    int cols = TERM_SIZE.ws_col / (colWidth + 3);
+    if (cols < 1) cols = 1;
     if (cols > PROG_ENTRIES_NO) cols = PROG_ENTRIES_NO;
     int rows = (PROG_ENTRIES_NO + cols - 1) / cols;
 
