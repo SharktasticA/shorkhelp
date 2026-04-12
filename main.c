@@ -97,7 +97,9 @@ static char *COL_FOR_ARROW = COL_FOR_BOLD_RED;
 static char *COL_FOR_CODE = COL_FOR_BOLD_RED;
 static char *COL_FOR_CURSOR = COL_FOR_BOLD_CYAN;
 static char *COL_FOR_HEADING = COL_FOR_BOLD_CYAN;
-static char *COL_FOR_OL = COL_FOR_GREEN;
+static char *COL_FOR_OL = COL_FOR_BOLD_GREEN;
+static char *COL_FOR_SHORKUTIL = COL_FOR_BOLD_MAGENTA;
+static char CURSOR_CHAR = '*';
 static struct termios OLD_TERMIOS;
 static ProgramEntry PROG_ENTRIES[MAX_PROG_ENTRIES];
 static int PROG_ENTRIES_NO = -1;
@@ -666,14 +668,14 @@ void printMenu(MenuItem *menu, int menuSize, int cols, int colWidth, int rows, i
     if (!inScrolling)
     {
         // Remove old line cursor
-        int prevCol = 1 + (cursorXPrev - 1) * (colWidth + 6);
+        int prevCol = 1 + (cursorXPrev - 1) * (colWidth + 3);
         int prevRow = BASE_ROW + (cursorYPrev - 1 - offset);
-        printf("\x1b[%d;%dH[ ]", prevRow, prevCol);
+        printf("\x1b[%d;%dH   ", prevRow, prevCol);
 
         // Print new line cursor
-        int currCol = 1 + (cursorX - 1) * (colWidth + 6);
+        int currCol = 1 + (cursorX - 1) * (colWidth + 3);
         int currRow = BASE_ROW + (cursorY - 1 - offset);
-        printf("\x1b[%d;%dH[\033[%sm*\033[%sm]", currRow, currCol, COL_FOR_CURSOR, COL_RESET);
+        printf("\x1b[%d;%dH \033[%sm%c\033[%sm ", currRow, currCol, COL_FOR_CURSOR, CURSOR_CHAR, COL_RESET);
         
         return;
     }
@@ -703,9 +705,9 @@ void printMenu(MenuItem *menu, int menuSize, int cols, int colWidth, int rows, i
                 if (cursor < menuSize)
                 {
                     if (j + 1 == cursorX && i + 1 == cursorY)
-                        printf("[\033[%sm*\033[%sm] %-*s  ", COL_FOR_CURSOR, COL_RESET, colWidth, menu[cursor].name);
+                        printf(" \033[%sm%c\033[%sm %-*s", COL_FOR_CURSOR, CURSOR_CHAR, COL_RESET, colWidth, menu[cursor].name);
                     else
-                        printf("[ ] %-*s  ", colWidth, menu[cursor].name);
+                        printf("   %-*s", colWidth, menu[cursor].name);
                 }
             }
             printf("\n");
@@ -858,7 +860,7 @@ void printEmacsCheatsheet(void)
 \033[%smGo to line\033[%sm             \033[%smC\033[%sm-x g      \033[%smUndo\033[%sm                      \033[%smC\033[%sm-_\n\
 \033[%smSearch (forwards)\033[%sm      \033[%smC\033[%sm-s        \033[%smSearch (backwards)\033[%sm        \033[%smC\033[%sm-r\n\
 \033[%smFind and replace\033[%sm       \033[%smM\033[%sm-%%        \033[%smReformat (fit to line)\033[%sm    \033[%smM\033[%sm-q\n",
-    COL_FOR_RED, COL_FOR_WHITE, COL_FOR_MAGENTA, COL_FOR_WHITE,
+    COL_FOR_BOLD_RED, COL_FOR_WHITE, COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE,
     COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
     COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
     COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
@@ -916,7 +918,7 @@ void printProgOverview(int i)
 
     // Name
     if (strcmp(PROG_ENTRIES[i].category, "shork") == 0)
-        pos += snprintf(overviewStr + pos, strSize - pos, "\033[%sm%s\033[%sm\n\n", COL_FOR_BOLD_MAGENTA, PROG_ENTRIES[i].name, COL_RESET);
+        pos += snprintf(overviewStr + pos, strSize - pos, "\033[%sm%s\033[%sm\n\n", COL_FOR_SHORKUTIL, PROG_ENTRIES[i].name, COL_RESET);
     else
         pos += snprintf(overviewStr + pos, strSize - pos, "\033[%sm%s\033[%sm\n\n", COL_FOR_CODE, PROG_ENTRIES[i].name, COL_RESET);
 
@@ -968,10 +970,10 @@ void printSHORKEntertainment(void)
     int pos = 0;
 
     if (isProgramInstalled("sl"))
-        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorklocomotive\033[%sm: A shark-themed take on the \033[%smsl\033[%sm command that kindly pokes fun at making typos when trying to type \033[%smls\033[%sm.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorklocomotive\033[%sm: A shark-themed take on the \033[%smsl\033[%sm command that kindly pokes fun at making typos when trying to type \033[%smls\033[%sm.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorksay"))
-        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorksay\033[%sm: A shark-themed take on the \033[%smcowsay\033[%sm command that outputs an ASCII art shark and speech bubble containing a message of your choice.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorksay\033[%sm: A shark-themed take on the \033[%smcowsay\033[%sm command that outputs an ASCII art shark and speech bubble containing a message of your choice.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
     int lines = formatNewLines(shorktainmentStr, TERM_SIZE.ws_col, "    ", 1);
     printScrollingText(shorktainmentStr, lines, 1);
@@ -986,24 +988,24 @@ void printSHORKUtilities(void)
     int pos = 0;
 
     if (isProgramInstalled("shorkdir"))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkdir\033[%sm: Terminal-based file browser and file inspector (if \033[%smfile\033[%sm is installed).\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkdir\033[%sm: Terminal-based file browser and file inspector (if \033[%smfile\033[%sm is installed).\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorkfetch"))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkfetch\033[%sm: Displays basic system and environment information. Similar to \033[%smfastfetch\033[%sm, \033[%smneofetch\033[%sm, etc.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkfetch\033[%sm: Displays basic system and environment information. Similar to \033[%smfastfetch\033[%sm, \033[%smneofetch\033[%sm, etc.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorkfont"))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkfont\033[%sm: Changes the terminal's font or colour. Takes two arguments (type of change and name); no arguments shows how to use and a list of possible colours.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE);
+        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkfont\033[%sm: Changes the terminal's font or colour. Takes two arguments (type of change and name); no arguments shows how to use and a list of possible colours.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
 
-    pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkhelp\033[%sm: Provides help with using SHORK 486 via command lists, guides and cheatsheets. Requires the use of one of five parameters.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE);
+    pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkhelp\033[%sm: Provides help with using SHORK 486 via command lists, guides and cheatsheets. Requires the use of one of five parameters.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorkmap"))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkmap\033[%sm: Changes the system's keyboard map. Takes takes one argument (a keymap name); no arguments show a list of possible keymaps.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE);
+        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkmap\033[%sm: Changes the system's keyboard map. Takes takes one argument (a keymap name); no arguments show a list of possible keymaps.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorkoff"))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkoff\033[%sm: Brings the system to a halt and syncs the write cache, allowing the computer to be safely turned off. Similar to \033[%smpoweroff\033[%sm or \033[%smshutdown -h\033[%sm.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkoff\033[%sm: Brings the system to a halt and syncs the write cache, allowing the computer to be safely turned off. Similar to \033[%smpoweroff\033[%sm or \033[%smshutdown -h\033[%sm.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorkres"))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkres\033[%sm: Changes the system's display resolution (provided hardware is compatible). Takes one argument (a resolution name); no arguments show a list of possible resolution names.\n", COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE);
+        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkres\033[%sm: Changes the system's display resolution (provided hardware is compatible). Takes one argument (a resolution name); no arguments show a list of possible resolution names.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
 
     int lines = formatNewLines(shorkutilStr, TERM_SIZE.ws_col, "    ", 1);
     printScrollingText(shorkutilStr, lines, 1);
@@ -1024,15 +1026,15 @@ void printStarted(void)
 \033[%sm7.\033[%sm Check \033[%smshorkhelp\033[%sm's other options to learn what commands and software are available, and see what guides may be of use.\n\
 \033[%sm8.\033[%sm Use Ctrl+Alt+F1/F2/F3 or \033[%smchvt\033[%sm to switch between the three available virtual consoles, useful for multitasking, troubleshooting and recovery.\n\
 \033[%sm9.\033[%sm When you are finished using SHORK 486, run \033[%smshorkoff\033[%sm to safely halt the system before powering off.\n",
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
     COL_FOR_OL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE,
     COL_FOR_OL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
     COL_FOR_OL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE);
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE);
 
     int lines = formatNewLines(gettingStartedStr, TERM_SIZE.ws_col, "   ", 1);
     printScrollingText(gettingStartedStr, lines, 1);
