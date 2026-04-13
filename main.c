@@ -923,10 +923,10 @@ void printProgOverview(int i)
         pos += snprintf(overviewStr + pos, strSize - pos, "\033[%sm%s\033[%sm\n\n", COL_FOR_CODE, PROG_ENTRIES[i].name, COL_RESET);
 
     // Description
-    if (PROG_ENTRIES[i].aliases[0] != '\0')
+    if (PROG_ENTRIES[i].desc[0] != '\0')
         pos += snprintf(overviewStr + pos, strSize - pos, "%s\n\n", PROG_ENTRIES[i].desc);
     else 
-        pos += snprintf(overviewStr + pos, strSize - pos, "TO BE COMPLETED.\n\n");
+        pos += snprintf(overviewStr + pos, strSize - pos, "TO BE COMPLETED\n\n");
 
     // Aliases, sources, category & licences
     if (PROG_ENTRIES[i].aliases[0] != '\0')
