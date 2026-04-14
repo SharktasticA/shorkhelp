@@ -1,20 +1,20 @@
 Command,IsOptional,Source,Category,Name,Aliases,Description,Licence
-ar,0,busybox,gen,,,,GNU GPLv2
-arch,0,busybox,sys,,,,GNU GPLv2
+ar,0,busybox,gen,,,"Extracts or lists files from a given .a, .ar or .lib archive.",GNU GPLv2
+arch,0,busybox,sys,,,"Reports the computer's processor architecture. For example, ""i486"", ""i686"", ""x86_64"", etc.",GNU GPLv2
 as,1,bundled,dev,GNU Assembler,,An assembler and the default backend of GCC.,GNU GPLv3 + GCC Runtime Library Exception
-ascii,0,busybox,gen,,,,GNU GPLv2
-awk,0,busybox,gen,,,,GNU GPLv2
-basename,0,busybox,gen,,,,GNU GPLv2
+ascii,0,busybox,gen,,,"Prints a table containing all 128 ASCII characters. For each character, its decimal (Dec) and hexadecimal (Hex) values are displayed with it.",GNU GPLv2
+awk,0,busybox,gen,,,An AWK processor. AWK is a scripting language designed for text pattern scanning and processing and useful for data extraction and reporting.,GNU GPLv2
+basename,0,busybox,gen,,,"Extracts the file name and/or the extension from a given path. If just a directory path is given, it will extract both. If a file extension is also given, it will extract the extension in addition to the directory path if it matches. For example, running ""basename /etc/resolv.conf"" will return ""resolv.conf""; running ""basename /etc/resolv.conf .conf"" will return ""resolv"". ",GNU GPLv2
 bc,0,busybox,gen,,,,GNU GPLv2
 beep,0,busybox,sys,,,,GNU GPLv2
 blkid,0,busybox,sys,,,,GNU GPLv2
 cal,0,busybox,gen,,,,GNU GPLv2
-cat,0,busybox,gen,,,,GNU GPLv2
+cat,0,busybox,gen,,,"Used for concatenating (combining) files, providing a standard output for printing or writing to a file. When its output is not directed, it prints the result.",GNU GPLv2
 chmod,0,busybox,gen,,,,GNU GPLv2
 chown,0,busybox,gen,,,,GNU GPLv2
 chroot,0,busybox,gen,,,,GNU GPLv2
-chvt,0,busybox,gen,,,,GNU GPLv2
-clear,0,busybox,gen,,,,GNU GPLv2
+chvt,0,busybox,gen,,,"Changes the active virtual terminal. Changing the current virtual terminal is useful for terminal-based multitasking, troubleshooting and recovery. It functions similarly to pressing Ctrl+Alt+[F1/F2/F3/etc.]",GNU GPLv2
+clear,0,busybox,gen,,,"Clears the terminal so that the cursor is positioned at the top. It is similar to ""cls"" on MS-DOS, Microsoft Windows, etc.",GNU GPLv2
 cp,0,busybox,gen,,,,GNU GPLv2
 crontab,0,busybox,sys,,,,GNU GPLv2
 cut,0,busybox,gen,,,,GNU GPLv2
@@ -58,7 +58,7 @@ ln,0,busybox,gen,,,,GNU GPLv2
 loadkmap,0,busybox,sys,,,,GNU GPLv2
 losetup,0,busybox,sys,,,,GNU GPLv2
 ls,0,busybox,gen,,,,GNU GPLv2
-lsblk,0,util-linux,sys,,,Lists information about all or the specified block devices.,GNU GPLv2
+lsblk,0,util-linux,sys,,,"Lists information about all or the specified block devices. By default, it produces a table containing the device name, major number (driver associated with device), minor number (device number for the given driver), whether the device is removable (RM), device type, whether the device is read only (RO), and its mountpoint (if mounted).",GNU GPLv2
 lspci,0,busybox,sys,,,,GNU GPLv2
 lsusb,1,busybox,sys,,,,GNU GPLv2
 man,0,busybox,gen,,,,GNU GPLv2
@@ -109,8 +109,8 @@ ssh,1,bundled,net,Dropbear (SSH),,An SSH client (a part of Dropbear) for remote 
 stat,0,busybox,gen,,,,GNU GPLv2
 strace,1,strace,sys,,,"Executes a given command to capture and trace its system calls and signals. It is a useful diagnosis and debugging tool one can run if a program fails unexpectedly, and/or without meaningful error messages or logs.",GNU LGPLv2.1
 stty,0,busybox,sys,,,,GNU GPLv2
-swapoff,0,busybox,sys,,,,GNU GPLv2
-swapon,0,busybox,sys,,,,GNU GPLv2
+swapoff,0,busybox,sys,,,"Used to stop memory paging/swapping on one or all swap-capable devices. If used and no swap devices are left online, the computer will be entirely reliant on system memory (RAM) for program memory.",GNU GPLv2
+swapon,0,busybox,sys,,,"Used to start memory paging/swapping on one or all swap-capable devices. Swapping allows fixed storage (hard disk drrive, solid-state drive, etc.) or removable storage (USB stick, etc.) to be used for program memory in addition to system memory (RAM). It is useful as a buffer for when free RAM runs low, although using swap memory will be much slower than RAM.",GNU GPLv2
 sync,0,busybox,sys,,,,GNU GPLv2
 tar,0,busybox,gen,,,,GNU GPLv2
 taskset,0,busybox,sys,,,,GNU GPLv2
@@ -134,7 +134,7 @@ usleep,0,busybox,gen,,,,GNU GPLv2
 vi,0,busybox,dev,,,,GNU GPLv2
 volname,0,busybox,sys,,,,GNU GPLv2
 wc,0,busybox,gen,,,,GNU GPLv2
-wget,1,busybox,net,,,,GNU GPLv2
+wget,1,busybox,net,Wget,,"A non-interactive internet file downloader. It is often used to simply download a file with a given URL, although it can also be used as a web spider.",GNU GPLv2
 whereis,0,util-linux,gen,,,"Locates the binary, source and manual page files for a given command.",GNU GPLv2
 which,0,busybox,gen,,,,GNU GPLv2
 whoami,0,busybox,sys,,,,GNU GPLv2
