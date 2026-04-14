@@ -35,7 +35,7 @@ fdisk,0,busybox,sys,,,,GNU GPLv2
 file,1,bundled,gen,,,Identifies and reports the type of data contained in a file.,BSD 2-Clause (Darwin)
 find,0,busybox,gen,,,,GNU GPLv2
 fold,0,busybox,gen,,,,GNU GPLv2
-free,0,busybox,sys,,,,GNU GPLv2
+free,0,busybox,sys,,,"Reports the amount of total, used and free system physical memory and (if available) swap memory, largely acting as a frontend to /proc/meminfo. It produces a table containing the total (MemTotal/SwapTotal), used (total - available), free (MemFree/SwapFree), shared (Shmem), buffers (Buffers) + cache (Cached/SReclaimable), and available (MemAvailable) memory. All values are in kibibytes (KiB).",GNU GPLv2
 ftp,1,bundled,net,tnftp,,An FTP client for remote file transfer.,BSD 2-Clause
 ftpget,1,busybox,net,,,,GNU GPLv2
 ftpput,1,busybox,net,,,,GNU GPLv2
@@ -53,17 +53,17 @@ ifconfig,1,busybox,net,,,,GNU GPLv2
 ip,1,busybox,net,,,,GNU GPLv2
 kill,0,busybox,sys,,,,GNU GPLv2
 killall,0,busybox,sys,,,,GNU GPLv2
-less,0,busybox,gen,,,,GNU GPLv2
-ln,0,busybox,gen,,,,GNU GPLv2
+less,0,busybox,gen,,,"Displays the contents of a file in the terminal, allowing it to be scrolled line-by-line. It uses vi-style keybinds.",GNU GPLv2
+ln,0,busybox,gen,,,"Creates a hard or symbolic link to a given target file or directory. Hard links are files that point to the same inode as the target file, which must be within the same file system, and hard links to directories are generally not supported. Symbolic links are files that point to the target file or directory, which can be on another file system and even target a non-existent file/directory. Deleting the target of a hard link will not delete the data so long as at least one hard link to it exists; deleting the target of a symbolic link will break the link.",GNU GPLv2
 loadkmap,0,busybox,sys,,,,GNU GPLv2
 losetup,0,busybox,sys,,,,GNU GPLv2
-ls,0,busybox,gen,,,,GNU GPLv2
+ls,0,busybox,gen,,,Lists the contents of the current or a target directory.,GNU GPLv2
 lsblk,0,util-linux,sys,,,"Lists information about all or the specified block devices. By default, it produces a table containing the device name, major number (driver associated with device), minor number (device number for the given driver), whether the device is removable (RM), device type, whether the device is read only (RO), and its mountpoint (if mounted).",GNU GPLv2
-lspci,0,busybox,sys,,,,GNU GPLv2
-lsusb,1,busybox,sys,,,,GNU GPLv2
+lspci,0,busybox,sys,,,"Lists all PCI buses and connected devices. By default, it produces a table containing the PCI bus number, device number for that bus, function number, PCI class code, vendor ID, and device ID. It can optionally also display the kernel driver utilising a given device.",GNU GPLv2
+lsusb,1,busybox,sys,,,"Lists all USB buses and connected devices. It produces a table containing the USB bus number, device number for that bus, vendor ID, and device ID.",GNU GPLv2
 man,0,busybox,gen,,,,GNU GPLv2
 mdev,0,busybox,sys,,,,GNU GPLv2
-mg,1,bundled,dev,Mg,emacs,An Emacs-style text editor including Emacs-style keybinds and buffers.,Unlicense
+mg,1,bundled,dev,Mg,emacs,A text editor with Emacs-style keybinds and buffers.,Unlicense
 mkdir,0,busybox,gen,,,,GNU GPLv2
 mknod,0,busybox,sys,,,,GNU GPLv2
 mount,0,busybox,sys,,,,GNU GPLv2
@@ -94,15 +94,15 @@ seq,0,busybox,gen,,,,GNU GPLv2
 setfont,0,busybox,sys,,,,GNU GPLv2
 sfdisk,0,util-linux,sys,,,A partitioning tool suited for automated and scripted use.,GNU GPLv2
 shorkdir,0,shorkutil,shork,,,Terminal-based file browser and file inspector (if file is installed).,GNU GPLv3
-shorkfetch,0,shorkutil,shork,,,Displays basic system and environment information in a summarised format.,GNU GPLv3
-shorkfont,1,shorkutil,shork,,,Changes the terminal's font or colour.,GNU GPLv3
-shorkgui,1,shorkutil,shork,,,Starts the SHORKGUI graphical environment.,GNU GPLv3
-shorkhelp,0,shorkutil,shork,,,"Provides help with using SHORK 486 via command lists, guides and cheatsheets.",GNU GPLv3
-shorklocomotive,1,shorktainment,shork,,sl,"A shark-themed take on the sl command that kindly pokes fun at making typos when trying to type ""ls"".",GNU GPLv3
-shorkmap,0,shorkutil,shork,,,Changes the system's keyboard map.,GNU GPLv3
-shorkoff,0,shorkutil,shork,,,A shutdown helper that safely brings the system to a controlled halt before a manual power off.,GNU GPLv3
+shorkfetch,0,shorkutil,shork,,,"Displays basic system and environment information in a summarised format. It reports the current user's name, computer's host name, operating system/distribution, kernel version, system uptime, current shell, CPU, GPU (one or more), system memory (RAM), swap memory (if enabled), and root partition size.",GNU GPLv3
+shorkfont,1,shorkutil,shork,,,"Changes the terminal's foreground colour or font. It supports the 8 base ANSI colours plus their bright/bold counterparts, and PC Screen Fonts (.psf). If available, the default PSF fonts are stored in /usr/share/consolefonts.",GNU GPLv3
+shorkgui,1,shorkutil,shork,,,EXPERIMENTAL. Starts the SHORKGUI graphical environment.,GNU GPLv3
+shorkhelp,0,shorkutil,shork,,,Displays help and reference information for using SHORK and its included software and tools.,GNU GPLv3
+shorklocomotive,1,shorktainment,shork,,sl,"A shark-themed take on the sl command that kindly pokes fun at making typos when trying to type ""ls"". When ran, an ASCII art shark moves across the terminal from left to right.",GNU GPLv3
+shorkmap,0,shorkutil,shork,,,"Changes the system's current keymap map (keymap). It supports binary keymap files (.kmap.bin), which are typically stored in /usr/share/keymaps.",GNU GPLv3
+shorkoff,0,shorkutil,shork,,,"A shutdown helper that safely brings the system to a controlled hault before a manual power off. It is intended as an explicit utility that the user can call to sync write cache to help prevent data corruption or loss on especially older hardware when faced with a manual power off, then halts the system so the user can switch the power off without interrupting any active operations.",GNU GPLv3
 shorkres,1,shorkutil,shork,,,Changes the system's display resolution (provided hardware is compatible).,GNU GPLv3
-shorksay,1,shorktainment,shork,,cowsay,A shark-themed take on the cowsay command that outputs an ASCII art shark and a speech bubble containing a message of your choice.,GNU GPLv3
+shorksay,1,shorktainment,shork,,cowsay,"A shark-themed take on the cowsay command that outputs an ASCII art shark and a speech bubble containing a message of your choice. The message can be manually supplied or can be provided from another program's standard output (ie, using a pipe).",GNU GPLv3
 showkey,0,busybox,gen,,,,GNU GPLv2
 sleep,0,busybox,gen,,,,GNU GPLv2
 ssh,1,bundled,net,Dropbear (SSH),,An SSH client (a part of Dropbear) for remote login and command-line execution.,MIT + BSD 2-Clause (OpenSSH components)
