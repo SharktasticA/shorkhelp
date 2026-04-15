@@ -49,7 +49,7 @@ halt,0,busybox,sys,,,,GNU GPLv2
 head,0,busybox,gen,,,,GNU GPLv2
 hexdump,0,busybox,dev,,,,GNU GPLv2
 hostname,0,busybox,sys,,,,GNU GPLv2
-htop,1,bundled,sys,,," An interactive process viewer designed to be an enhancement over top. Compared to top, htop supports scrolling both horizontally and vertically, a coloured UI and colour-coding, CPU and memory usage bars, searching, filtering, sorting, and killing processes.",GNU GPLv2
+htop,1,bundled,sys,,,"An interactive process viewer designed to be an enhancement over top. Compared to top, htop supports scrolling both horizontally and vertically, a coloured UI and colour-coding, CPU and memory usage bars, searching, filtering, sorting, and killing processes.",GNU GPLv2
 ifconfig,1,busybox,net,,,,GNU GPLv2
 ip,1,busybox,net,,,,GNU GPLv2
 kill,0,busybox,sys,,,,GNU GPLv2
