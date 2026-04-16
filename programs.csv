@@ -13,7 +13,7 @@ cat,0,busybox,gen,,,"Used for concatenating (combining) files, providing a stand
 chmod,0,busybox,gen,,,,GNU GPLv2
 chown,0,busybox,gen,,,,GNU GPLv2
 chroot,0,busybox,gen,,,,GNU GPLv2
-chvt,0,busybox,gen,,,"Changes the active virtual terminal. Changing the current virtual terminal is useful for terminal-based multitasking, troubleshooting and recovery. It functions similarly to pressing Ctrl+Alt+[F1/F2/F3/etc.]",GNU GPLv2
+chvt,0,busybox,gen,,,"Changes the active virtual terminal. Changing the current virtual terminal is useful for terminal-based multi-tasking, troubleshooting and recovery. It functions similarly to pressing Ctrl+Alt+[F1/F2/F3/etc.]",GNU GPLv2
 clear,0,busybox,gen,,,"Clears the terminal so that the cursor is positioned at the top. It is similar to ""cls"" on MS-DOS, Microsoft Windows, etc.",GNU GPLv2
 cp,0,busybox,gen,,,,GNU GPLv2
 crontab,0,busybox,sys,,,,GNU GPLv2
@@ -119,6 +119,7 @@ tcc,1,bundled,dev,Tiny C Compiler,,A lightweight C compiler (configured to use m
 tee,0,busybox,gen,,,,GNU GPLv2
 telnet,1,busybox,net,,,,GNU GPLv2
 test,0,busybox,gen,,,,GNU GPLv2
+tmux,1,bundled,gen,,,"A terminal multiplexer that allows for multi-tasking and multi-viewing with just a single terminal. It allows you to create multiple ""windows"" to switch between without switching virtual terminals or opening a new window/tab in your terminal emulator, split said ""windows"" into multiple panes that can present terminal programs and output side-by-side, and quickly switch between them. Each tmux session can also be detached and reattached without losing what is open inside.",ISC
 top,0,busybox,sys,,,,GNU GPLv2
 touch,0,busybox,gen,,,,GNU GPLv2
 tr,0,busybox,gen,,,,GNU GPLv2
