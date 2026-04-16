@@ -61,7 +61,6 @@ A utility for SHORK Operating Systems such as [SHORK 486](https://github.com/Sha
   </tr>
 </table>
 
-
 <table style="table-layout: fixed; width: 100%;">
   <tr>
     <td style="width: 50%; text-align: center;"><img src="screenshots/86box_emacs.png" style="width: 100%;" /></td>
@@ -70,5 +69,14 @@ A utility for SHORK Operating Systems such as [SHORK 486](https://github.com/Sha
   <tr>
     <td style="width: 50%;">Emacs (Mg) cheatsheet</td>
     <td style="width: 50%;">Supported Git commands</td>
+  </tr>
+</table>
+
+<table style="table-layout: fixed; width: 100%;">
+  <tr>
+    <td style="width: 50%; text-align: center;"><img src="screenshots/86box_tmux.png" style="width: 100%;" /></td>
+  </tr>
+  <tr>
+    <td style="width: 50%;">tmux cheatsheet</td>
   </tr>
 </table>
