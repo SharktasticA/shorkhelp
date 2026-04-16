@@ -136,7 +136,7 @@ usleep,0,busybox,gen,,,,GNU GPLv2
 vi,0,busybox,dev,,,,GNU GPLv2
 volname,0,busybox,sys,,,,GNU GPLv2
 wc,0,busybox,gen,,,,GNU GPLv2
-wget,1,busybox,net,Wget,,"A non-interactive internet file downloader. It is often used to simply download a file with a given URL, although it can also be used as a web spider.",GNU GPLv2
+wget,1,busybox,net,,,"A non-interactive internet file downloader. It is often used to simply download a file with a given URL, although it can also be used as a web spider.",GNU GPLv2
 whereis,0,util-linux,gen,,,"Locates the binary, source and manual page files for a given command.",GNU GPLv2
 which,0,busybox,gen,,,,GNU GPLv2
 whoami,0,busybox,sys,,,,GNU GPLv2

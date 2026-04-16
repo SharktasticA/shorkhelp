@@ -1043,6 +1043,36 @@ void printStarted(void)
     printScrollingText(gettingStartedStr, lines, 1);
 }
 
+void printTmuxCheatsheet(void)
+{
+    printHeader("tmux cheatsheet");
+    char tmuxStr[1500];
+    snprintf(tmuxStr, 1500, 
+"\033[%smC\033[%sm = Ctrl\n\n\
+\033[%smDetact session\033[%sm     \033[%smC\033[%sm-b d        \033[%smAccess tmux prompt\033[%sm    \033[%smC\033[%sm-b :\n\n\
+\033[%smNew window\033[%sm         \033[%smC\033[%sm-b c        \033[%smClose window\033[%sm          \033[%smC\033[%sm-b &\n\
+\033[%smList windows\033[%sm       \033[%smC\033[%sm-b w        \033[%smRename window\033[%sm         \033[%smC\033[%sm-b ,\n\
+\033[%smPrevious window\033[%sm    \033[%smC\033[%sm-b p        \033[%smNext window\033[%sm           \033[%smC\033[%sm-b n\n\
+\033[%smChange window\033[%sm      \033[%smC\033[%sm-b 0-9\n\n\
+\033[%smVertical split\033[%sm     \033[%smC\033[%sm-b %%        \033[%smHorizontal split\033[%sm      \033[%smC\033[%sm-b \"\n\
+\033[%smClose pane\033[%sm         \033[%smC\033[%sm-b x        \033[%smShow pane numbers\033[%sm     \033[%smC\033[%sm-b q\n\
+\033[%smChange pane\033[%sm        \033[%smC\033[%sm-b q 0-9    \033[%smCycle panes\033[%sm           \033[%smC\033[%sm-b o\n\
+\033[%smPane to window\033[%sm     \033[%smC\033[%sm-b !        \033[%smToggle pane zoom\033[%sm      \033[%smC\033[%sm-b z\n",
+    COL_FOR_BOLD_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE);
+
+    int lines = formatNewLines(tmuxStr, TERM_SIZE.ws_col, NULL, 1);
+    printScrollingText(tmuxStr, lines, 1);
+}
+
 
 
 /**
@@ -1223,6 +1253,13 @@ void showHelp(void)
     char started[100] = "--started          Displays getting started guide and exit\n";
     formatNewLines(started, TERM_SIZE.ws_col, "                   ", 0);
     printf("%s", started);
+
+    if (isProgramInstalled("tmux"))
+    {
+        char tmux[100] = "--tmux             Displays tmux cheatsheet and exit\n";
+        formatNewLines(tmux, TERM_SIZE.ws_col, "                   ", 0);
+        printf("%s", tmux);
+    }
 }
 
 /**
@@ -1297,6 +1334,12 @@ void showMainMenu(void)
             printGitCommands,
             isProgramInstalled("git")
         },
+        {
+            "tmux",
+            "tmux cheatsheet",
+            printTmuxCheatsheet,
+            isProgramInstalled("tmux")
+        }
     };
     int rawMenuSize = sizeof(rawMenu) / sizeof(rawMenu[0]);
 
@@ -1428,6 +1471,12 @@ int main(int argc, char *argv[])
         {
             clearScreen();
             printStarted();
+            clearScreen();
+        }
+        else if (strcmp(argv[1], "--tmux") == 0)
+        {
+            clearScreen();
+            printTmuxCheatsheet();
             clearScreen();
         }
         else showHelp();
