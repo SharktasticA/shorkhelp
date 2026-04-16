@@ -1049,7 +1049,7 @@ void printTmuxCheatsheet(void)
     char tmuxStr[1500];
     snprintf(tmuxStr, 1500, 
 "\033[%smC\033[%sm = Ctrl\n\n\
-\033[%smDetact session\033[%sm     \033[%smC\033[%sm-b d        \033[%smAccess tmux prompt\033[%sm    \033[%smC\033[%sm-b :\n\n\
+\033[%smDetach session\033[%sm     \033[%smC\033[%sm-b d        \033[%smAccess tmux prompt\033[%sm    \033[%smC\033[%sm-b :\n\n\
 \033[%smNew window\033[%sm         \033[%smC\033[%sm-b c        \033[%smClose window\033[%sm          \033[%smC\033[%sm-b &\n\
 \033[%smList windows\033[%sm       \033[%smC\033[%sm-b w        \033[%smRename window\033[%sm         \033[%smC\033[%sm-b ,\n\
 \033[%smPrevious window\033[%sm    \033[%smC\033[%sm-b p        \033[%smNext window\033[%sm           \033[%smC\033[%sm-b n\n\
