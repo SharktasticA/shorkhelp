@@ -16,6 +16,7 @@
 #include <ctype.h>
 #include <sys/ioctl.h>
 #include <linux/limits.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -575,6 +576,26 @@ void splitText(char *text, char *textLines[], int totalLines)
     if (count < totalLines)
         textLines[count++] = start;
 }
+
+/**
+ * Makes the terminal cursor visible again, resets the terminal's colours and clears the screen
+ * upon exiting.
+ */
+void onExit(void)
+{
+    disableRawMode();
+    showCursor();
+    clearScreen();
+}
+
+/**
+ * Used to handle exiting controllably if SIGINT is received (Ctrl+C).
+ */
+void onSigInt(int sig)
+{
+    exit(0);
+}
+
 
 
 /**
@@ -1419,8 +1440,8 @@ int main(int argc, char *argv[])
     TERM_SIZE = getTerminalSize();
     
     setvbuf(stdout, NULL, _IONBF, 0);
-    atexit(showCursor);
-    atexit(disableRawMode);
+    atexit(onExit);
+    signal(SIGINT, onSigInt);
 
     enableRawMode();
     printf("\033[?25l");
