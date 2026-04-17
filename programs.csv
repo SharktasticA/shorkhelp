@@ -15,6 +15,7 @@ chown,0,busybox,gen,,,,GNU GPLv2
 chroot,0,busybox,gen,,,,GNU GPLv2
 chvt,0,busybox,gen,,,"Changes the active virtual terminal. Changing the current virtual terminal is useful for terminal-based multi-tasking, troubleshooting and recovery. It functions similarly to pressing Ctrl+Alt+[F1/F2/F3/etc.]",GNU GPLv2
 clear,0,busybox,gen,,,"Clears the terminal so that the cursor is positioned at the top. It is similar to ""cls"" on MS-DOS, Microsoft Windows, etc.",GNU GPLv2
+cmatrix,1,bundled,fun,CMatrix,,"A scrolling text screensaver. It is inspired by the 1999 film ""The Matrix"", featuring columns of green characters that 'fall' from the top of the screen to the bottom, and occasionally broken up to look like falling lines.",GNU GPLv3
 cp,0,busybox,gen,,,,GNU GPLv2
 crontab,0,busybox,sys,,,,GNU GPLv2
 cut,0,busybox,gen,,,,GNU GPLv2
