@@ -999,12 +999,15 @@ void printSHORKEntertainment(void)
 {
     printHeader("SHORK Entertainment");
 
-    const int strSize = 500;
+    const int strSize = 750;
     char shorktainmentStr[strSize];
     int pos = 0;
 
     if (isProgramInstalled("sl"))
         pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorklocomotive\033[%sm: A shark-themed take on the \033[%smsl\033[%sm command that kindly pokes fun at making typos when trying to type \033[%smls\033[%sm.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+
+    if (isProgramInstalled("shorkmatrix"))
+        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorkmatrix\033[%sm: A quick, blue-themed take on the \033[%smcmatrix\033[%sm \"digital rain\" vertical scrolling text screensaver.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorksay"))
         pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorksay\033[%sm: A shark-themed take on the \033[%smcowsay\033[%sm command that outputs an ASCII art shark and speech bubble containing a message of your choice.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
