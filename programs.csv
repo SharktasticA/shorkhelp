@@ -1,4 +1,5 @@
 Command,IsOptional,Source,Category,Name,Aliases,Description,Licence
+#cmatrix,1,bundled,fun,CMatrix,,"A vertical scrolling text screensaver. It provides ""digital rain"", inspired by the 1999 film ""The Matrix"". The ""droplets"" are lines of green characters that fall from the top of the terminal to the bottom, and are occasionally broken up.",GNU GPLv3
 ar,0,busybox,gen,,,"Extracts or lists files from a given .a, .ar or .lib archive.",GNU GPLv2
 arch,0,busybox,sys,,,"Reports the computer's processor architecture. For example, ""i486"", ""i686"", ""x86_64"", etc.",GNU GPLv2
 as,1,bundled,dev,GNU Assembler,,An assembler and the default backend of GCC.,GNU GPLv3 + GCC Runtime Library Exception
@@ -15,7 +16,6 @@ chown,0,busybox,gen,,,,GNU GPLv2
 chroot,0,busybox,gen,,,,GNU GPLv2
 chvt,0,busybox,gen,,,"Changes the active virtual terminal. Changing the current virtual terminal is useful for terminal-based multi-tasking, troubleshooting and recovery. It functions similarly to pressing Ctrl+Alt+[F1/F2/F3/etc.]",GNU GPLv2
 clear,0,busybox,gen,,,"Clears the terminal so that the cursor is positioned at the top. It is similar to ""cls"" on MS-DOS, Microsoft Windows, etc.",GNU GPLv2
-#cmatrix,1,bundled,fun,CMatrix,,"A vertical scrolling text screensaver. It provides ""digital rain"", inspired by the 1999 film ""The Matrix"". The ""droplets"" are lines of green characters that fall from the top of the terminal to the bottom, and are occasionally broken up.",GNU GPLv3
 cp,0,busybox,gen,,,,GNU GPLv2
 crontab,0,busybox,sys,,,,GNU GPLv2
 cut,0,busybox,gen,,,,GNU GPLv2
@@ -23,6 +23,7 @@ date,0,busybox,gen,,,,GNU GPLv2
 dc,0,busybox,gen,,,,GNU GPLv2
 dd,0,busybox,sys,,,,GNU GPLv2
 df,0,busybox,sys,,,,GNU GPLv2
+diff,0,busybox,dev,,,Compares two files line-by-line and outputs a difference listing between them. The result can be used as a patch file for the patch utility.,GNU GPLv2
 dirname,0,busybox,gen,,,,GNU GPLv2
 dmesg,0,busybox,sys,,,,GNU GPLv2
 du,0,busybox,sys,,,,GNU GPLv2
@@ -78,6 +79,7 @@ nproc,0,busybox,sys,,,,GNU GPLv2
 partprobe,0,busybox,sys,,,,GNU GPLv2
 partx,0,util-linux,sys,,,Tells the Linux kernel about the presence and numbering of on-disk partitions.,GNU GPLv2
 paste,0,busybox,gen,,,,GNU GPLv2
+patch,0,busybox,dev,,,"Applies a patch file to an original file to update it with its contents. A patch file contains a line-by-line difference listing between two files produced by diff, git diff, or similar.",GNU GPLv2
 ping,1,busybox,net,,,,GNU GPLv2
 pkill,0,busybox,sys,,,,GNU GPLv2
 pmap,0,busybox,sys,,,"Reports the memory map of a given process. It provides the amount of memory used, proportional set sizes (PSS), dirty pages, permissions on map (mode), and mappings (file, anon/allocated or stack). All memory values are in kilobytes (KB).",GNU GPLv2
