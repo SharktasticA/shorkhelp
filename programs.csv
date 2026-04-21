@@ -69,11 +69,12 @@ mdev,0,busybox,sys,,,,GNU GPLv2
 mg,1,bundled,dev,Mg,emacs,A text editor with Emacs-style keybinds and buffers.,Unlicense
 mkdir,0,busybox,gen,,,,GNU GPLv2
 mknod,0,busybox,sys,,,,GNU GPLv2
+mkswap,0,busybox,sys,,,Used to setup a Linux swap area on a given partition or file. It will destroy any data present on the target partition or file.,GNU GPLv2
 mount,0,busybox,sys,,,,GNU GPLv2
 mountpoint,0,busybox,sys,,,,GNU GPLv2
 mv,0,busybox,gen,,,,GNU GPLv2
 nano,1,bundled,dev,GNU nano,,A text editor.,GNU GPLv3
-netstat,1,busybox,gen,,,"Displays network statistics such as current network connections, network interfaces and routing tables.",GNU GPLv2
+netstat,1,busybox,net,,,"Displays network statistics such as current network connections, network interfaces and routing tables.",GNU GPLv2
 nice,0,busybox,sys,,,,GNU GPLv2
 nohup,0,busybox,sys,,,,GNU GPLv2
 nproc,0,busybox,sys,,,,GNU GPLv2
