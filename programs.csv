@@ -61,7 +61,7 @@ ln,0,busybox,gen,,,"Creates a hard or symbolic link to a given target file or di
 loadkmap,0,busybox,sys,,,,GNU GPLv2
 losetup,0,busybox,sys,,,,GNU GPLv2
 ls,0,busybox,gen,,,Lists the contents of the current or a target directory.,GNU GPLv2
-lsblk,0,util-linux,sys,,,"Lists information about all or the specified block devices. By default, it produces a table containing the device name, major number (driver associated with device), minor number (device number for the given driver), whether the device is removable (RM), device type, whether the device is read only (RO), and its mountpoint (if mounted).",GNU GPLv2
+lsblk,1,util-linux,sys,,,"Lists information about all or the specified block devices. By default, it produces a table containing the device name, major number (driver associated with device), minor number (device number for the given driver), whether the device is removable (RM), device type, whether the device is read only (RO), and its mountpoint (if mounted).",GNU GPLv2
 lspci,0,busybox,sys,,,"Lists all PCI buses and connected devices. By default, it produces a table containing the PCI bus number, device number for that bus, function number, PCI class code, vendor ID, and device ID. It can optionally also display the kernel driver utilising a given device.",GNU GPLv2
 lsusb,1,busybox,sys,,,"Lists all USB buses and connected devices. It produces a table containing the USB bus number, device number for that bus, vendor ID, and device ID.",GNU GPLv2
 man,0,busybox,gen,,,,GNU GPLv2
@@ -73,11 +73,12 @@ mount,0,busybox,sys,,,,GNU GPLv2
 mountpoint,0,busybox,sys,,,,GNU GPLv2
 mv,0,busybox,gen,,,,GNU GPLv2
 nano,1,bundled,dev,GNU nano,,A text editor.,GNU GPLv3
+netstat,1,busybox,gen,,,"Displays network statistics such as current network connections, network interfaces and routing tables.",GNU GPLv2
 nice,0,busybox,sys,,,,GNU GPLv2
 nohup,0,busybox,sys,,,,GNU GPLv2
 nproc,0,busybox,sys,,,,GNU GPLv2
 partprobe,0,busybox,sys,,,,GNU GPLv2
-partx,0,util-linux,sys,,,Tells the Linux kernel about the presence and numbering of on-disk partitions.,GNU GPLv2
+partx,1,util-linux,sys,,,Tells the Linux kernel about the presence and numbering of on-disk partitions.,GNU GPLv2
 paste,0,busybox,gen,,,,GNU GPLv2
 patch,0,busybox,dev,,,"Applies a patch file to an original file to update it with its contents. A patch file contains a line-by-line difference listing between two files produced by diff, git diff, or similar.",GNU GPLv2
 ping,1,busybox,net,,,,GNU GPLv2
@@ -96,7 +97,7 @@ scp,1,bundled,net,Dropbear (SCP),,An SCP client (a part of Dropbear) for remote 
 sed,0,busybox,gen,,,,GNU GPLv2
 seq,0,busybox,gen,,,,GNU GPLv2
 setfont,0,busybox,sys,,,,GNU GPLv2
-sfdisk,0,util-linux,sys,,,A partitioning tool suited for automated and scripted use.,GNU GPLv2
+sfdisk,1,util-linux,sys,,,A partitioning tool suited for automated and scripted use.,GNU GPLv2
 shorkdir,0,shorkutil,gen,,,Terminal-based file browser and file inspector (if file is installed).,GNU GPLv3
 shorkfetch,0,shorkutil,sys,,,"Displays basic system and environment information in a summarised format. It reports the current user's name, computer's host name, operating system/distribution, kernel version, system uptime, current shell, CPU, GPU (one or more), system memory (RAM), swap memory (if enabled), and root partition size.",GNU GPLv3
 shorkfont,1,shorkutil,sys,,,"Changes the terminal's foreground colour or font. It supports the 8 base ANSI colours plus their bright/bold counterparts, and PC Screen Fonts (.psf). If available, the default PSF fonts are stored in /usr/share/consolefonts.",GNU GPLv3
@@ -141,7 +142,7 @@ vi,0,busybox,dev,,,,GNU GPLv2
 volname,0,busybox,sys,,,,GNU GPLv2
 wc,0,busybox,gen,,,,GNU GPLv2
 wget,1,busybox,net,,,"A non-interactive internet file downloader. It is often used to simply download a file with a given URL, although it can also be used as a web spider.",GNU GPLv2
-whereis,0,util-linux,gen,,,"Locates the binary, source and manual page files for a given command.",GNU GPLv2
+whereis,1,util-linux,gen,,,"Locates the binary, source and manual page files for a given command.",GNU GPLv2
 which,0,busybox,gen,,,,GNU GPLv2
 whoami,0,busybox,sys,,,,GNU GPLv2
 whois,1,busybox,net,,,,GNU GPLv2
