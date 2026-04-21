@@ -69,14 +69,14 @@ mdev,0,busybox,sys,,,,GNU GPLv2
 mg,1,bundled,dev,Mg,emacs,A text editor with Emacs-style keybinds and buffers.,Unlicense
 mkdir,0,busybox,gen,,,,GNU GPLv2
 mknod,0,busybox,sys,,,,GNU GPLv2
-mkswap,0,busybox,sys,,,Used to setup a Linux swap area on a given partition or file. It will destroy any data present on the target partition or file.,GNU GPLv2
+mkswap,0,busybox,sys,,,Used to set up a Linux swap area on a given partition or file. It will destroy any data present on the target partition or file.,GNU GPLv2
 mount,0,busybox,sys,,,,GNU GPLv2
 mountpoint,0,busybox,sys,,,,GNU GPLv2
 mv,0,busybox,gen,,,,GNU GPLv2
 nano,1,bundled,dev,GNU nano,,A text editor.,GNU GPLv3
 netstat,1,busybox,net,,,"Displays network statistics such as current network connections, network interfaces and routing tables.",GNU GPLv2
 nice,0,busybox,sys,,,,GNU GPLv2
-nohup,0,busybox,sys,,,,GNU GPLv2
+nohup,0,busybox,sys,,,"Allows you to run a program that is immune to hang up signals and output routed away or redirected to a file. The program can then run even when the host terminal is closed, the user logs out, or if it is run on a remote system and the connection is closed afterwards. It is often paired with an ampersand (&) to also send the command to the background.",GNU GPLv2
 nproc,0,busybox,sys,,,,GNU GPLv2
 partprobe,0,busybox,sys,,,,GNU GPLv2
 partx,1,util-linux,sys,,,Tells the Linux kernel about the presence and numbering of on-disk partitions.,GNU GPLv2
@@ -107,7 +107,7 @@ shorkhelp,0,shorkutil,gen,,,Displays help and reference information for using SH
 shorklocomotive,1,shorktainment,fun,,sl,"A shark-themed take on the sl command that kindly pokes fun at making typos when trying to type ""ls"". When ran, an ASCII art shark moves across the terminal from left to right.",GNU GPLv3
 shorkmap,0,shorkutil,sys,,,"Changes the system's current keymap map (keymap). It supports binary keymap files (.kmap.bin), which are typically stored in /usr/share/keymaps.",GNU GPLv3
 shorkmatrix,1,shorktainment,fun,,cmatrix,"A vertical scrolling text screensaver. It is a minimalist, blue-themed take on CMatrix, a terminal program that provides ""digital rain"". Inspired by the 1999 film ""The Matrix"", the ""droplets"" are lines of blue characters that fall from the top of the terminal to the bottom, and are occasionally broken up.",GNU GPLv3
-shorkoff,0,shorkutil,sys,,,"A shutdown helper that safely brings the system to a controlled hault before a manual power off. It is intended as an explicit utility that the user can call to sync write cache to help prevent data corruption or loss on especially older hardware when faced with a manual power off, then halts the system so the user can switch the power off without interrupting any active operations.",GNU GPLv3
+shorkoff,0,shorkutil,sys,,,"A shutdown helper that safely brings the system to a controlled halt before a manual power off. It is intended as an explicit utility that the user can call to sync write cache to help prevent data corruption or loss on especially older hardware when faced with a manual power off, then halts the system so the user can switch the power off without interrupting any active operations.",GNU GPLv3
 shorkres,1,shorkutil,sys,,,Changes the system's display resolution (provided hardware is compatible).,GNU GPLv3
 shorksay,1,shorktainment,fun,,cowsay,"A shark-themed take on the cowsay command that outputs an ASCII art shark and a speech bubble containing a message of your choice. The message can be manually supplied or can be provided from another program's standard output (ie, using a pipe).",GNU GPLv3
 showkey,0,busybox,gen,,,,GNU GPLv2
@@ -118,7 +118,7 @@ strace,1,strace,sys,,,"Executes a given command to capture and trace its system 
 stty,0,busybox,sys,,,,GNU GPLv2
 swapoff,0,busybox,sys,,,"Used to stop memory paging/swapping on one or all swap-capable devices. If used and no swap devices are left online, the computer will be entirely reliant on system memory (RAM) for program memory.",GNU GPLv2
 swapon,0,busybox,sys,,,"Used to start memory paging/swapping on one or all swap-capable devices. Swapping allows fixed storage (hard disk drrive, solid-state drive, etc.) or removable storage (USB stick, etc.) to be used for program memory in addition to system memory (RAM). It is useful as a buffer for when free RAM runs low, although using swap memory will be much slower than RAM.",GNU GPLv2
-sync,0,busybox,sys,,,,GNU GPLv2
+sync,0,busybox,sys,,,"Commits any filesystem write operations that are currently cached. It is useful as an immediate and explicit way to ensure data is written to any disks/drives before powering off the computer, removing a drive, etc.",GNU GPLv2
 tar,0,busybox,gen,,,,GNU GPLv2
 taskset,0,busybox,sys,,,,GNU GPLv2
 tcc,1,bundled,dev,Tiny C Compiler,,A lightweight C compiler (configured to use musl).,GNU LGPLv2.1
@@ -126,8 +126,8 @@ tee,0,busybox,gen,,,,GNU GPLv2
 telnet,1,busybox,net,,,,GNU GPLv2
 test,0,busybox,gen,,,,GNU GPLv2
 tmux,1,bundled,gen,,,"A terminal multiplexer that allows for multi-tasking and multi-viewing with just a single terminal. It allows you to create multiple ""windows"" to switch between without switching virtual terminals or opening a new window/tab in your terminal emulator, split said ""windows"" into multiple panes that can present terminal programs and output side-by-side, and quickly switch between them. Each tmux session can also be detached and reattached without losing what is open inside.",ISC
-top,0,busybox,sys,,,,GNU GPLv2
-touch,0,busybox,gen,,,,GNU GPLv2
+top,0,busybox,sys,,,"A process viewer that provides a real-time view of running processes and their CPU and memory usage. Besides comma-separated memory and CPU statistics and averages, it produces a table containing the process ID (PID), parent process ID (PPID), user, process state (STAT), virtual memory size in kilobytes (VSZ), VSZ as a percentage of total RAM (%VSZ), the last CPU core used, percentage of CPU time used (%CPU) and the executing command for each process that can fit into a single non-scrolling terminal.",GNU GPLv2
+touch,0,busybox,gen,,,"Typically used to update the access and modification dates/times of one or more given files. It can also be used to create one or many empty files, as seen in some Linux books and tutorials, although this is often redundant.",GNU GPLv2
 tr,0,busybox,gen,,,,GNU GPLv2
 traceroute,1,busybox,net,,,,GNU GPLv2
 tree,0,busybox,gen,,,,GNU GPLv2
