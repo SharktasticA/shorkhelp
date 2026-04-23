@@ -64,6 +64,7 @@ ls,0,busybox,gen,,,Lists the contents of the current or a target directory.,GNU 
 lsblk,1,util-linux,sys,,,"Lists information about all or the specified block devices. By default, it produces a table containing the device name, major number (driver associated with device), minor number (device number for the given driver), whether the device is removable (RM), device type, whether the device is read only (RO), and its mountpoint (if mounted).",GNU GPLv2
 lspci,0,busybox,sys,,,"Lists all PCI buses and connected devices. By default, it produces a table containing the PCI bus number, device number for that bus, function number, PCI class code, vendor ID, and device ID. It can optionally also display the kernel driver utilising a given device.",GNU GPLv2
 lsusb,1,busybox,sys,,,"Lists all USB buses and connected devices. It produces a table containing the USB bus number, device number for that bus, vendor ID, and device ID.",GNU GPLv2
+lynx,1,bundled,net,,,A text-based web browser that allows you to access websites from your terminal. It is the oldest web browser that is still actively maintained.,GNU GPLv2
 man,0,busybox,gen,,,,GNU GPLv2
 mdev,0,busybox,sys,,,,GNU GPLv2
 mg,1,bundled,dev,Mg,emacs,A text editor with Emacs-style keybinds and buffers.,Unlicense
@@ -72,6 +73,7 @@ mknod,0,busybox,sys,,,,GNU GPLv2
 mkswap,0,busybox,sys,,,Used to set up a Linux swap area on a given partition or file. It will destroy any data present on the target partition or file.,GNU GPLv2
 mount,0,busybox,sys,,,,GNU GPLv2
 mountpoint,0,busybox,sys,,,,GNU GPLv2
+mt,1,bundled,sys,,,"Controls a magnetic tape drive. It provides typical drive operations such as rewinding, skipping and ejecting.",GNU GPLv2
 mv,0,busybox,gen,,,,GNU GPLv2
 nano,1,bundled,dev,GNU nano,,A text editor.,GNU GPLv3
 netstat,1,busybox,net,,,"Displays network statistics such as current network connections, network interfaces and routing tables.",GNU GPLv2
@@ -114,6 +116,7 @@ showkey,0,busybox,gen,,,,GNU GPLv2
 sleep,0,busybox,gen,,,,GNU GPLv2
 ssh,1,bundled,net,Dropbear (SSH),,An SSH client (a part of Dropbear) for remote login and command-line execution.,MIT + BSD 2-Clause (OpenSSH components)
 stat,0,busybox,gen,,,,GNU GPLv2
+stinit,1,bundled,sys,,,"Used for initialising SCSI magnetic tape drive modes at system startup, when a tape driver module is loaded, or when a new tape driver is initialised using terminal commands.",GNU GPLv2
 strace,1,strace,sys,,,"Executes a given command to capture and trace its system calls and signals. It is a useful diagnosis and debugging tool one can run if a program fails unexpectedly, and/or without meaningful error messages or logs.",GNU LGPLv2.1
 stty,0,busybox,sys,,,,GNU GPLv2
 swapoff,0,busybox,sys,,,"Used to stop memory paging/swapping on one or all swap-capable devices. If used and no swap devices are left online, the computer will be entirely reliant on system memory (RAM) for program memory.",GNU GPLv2
