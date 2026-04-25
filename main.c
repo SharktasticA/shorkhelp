@@ -1114,6 +1114,7 @@ void printTmuxCheatsheet(void)
  */
 void showCommandReference(void)
 {
+    // Create a menu containing found program entries
     MenuItem menu[PROG_ENTRIES_NO];
     for (int i = 0; i < PROG_ENTRIES_NO; i++)
     {
@@ -1122,11 +1123,16 @@ void showCommandReference(void)
         menu[i].visible = 1;
     }
 
+
+
+    // Prepare for multi-column menu
     int colWidth = 16;
     int cols = TERM_SIZE.ws_col / (colWidth + 3);
     if (cols < 1) cols = 1;
     if (cols > PROG_ENTRIES_NO) cols = PROG_ENTRIES_NO;
     int rows = (PROG_ENTRIES_NO + cols - 1) / cols;
+
+
 
     int running = 1;
     int cursorX = 1;
@@ -1224,6 +1230,10 @@ void showCommandReference(void)
             case QUIT:
                 running = 0;
                 break;
+
+            case INVALID:
+                fullRedraw = 0;
+                break;
         }
     }
 
@@ -1314,11 +1324,6 @@ void showMainMenu(void)
         return;
     }
 
-    int running = 1;
-    int cursor = 1;
-    int cursorPrev = 0;
-    int fullRedraw = 1;
-
     MenuItem rawMenu[] = {
         { 
             "intro",
@@ -1377,6 +1382,11 @@ void showMainMenu(void)
     };
     int rawMenuSize = sizeof(rawMenu) / sizeof(rawMenu[0]);
 
+    int running = 1;
+    int cursor = 1;
+    int cursorPrev = 0;
+    int fullRedraw = 1;
+
     // Filter menu to just what should actually be visible
     MenuItem menu[rawMenuSize];
     int menuSize = 0;
@@ -1429,6 +1439,10 @@ void showMainMenu(void)
         
             case QUIT:
                 running = 0;
+                break;
+
+            case INVALID:
+                fullRedraw = 0;
                 break;
         }
     }
