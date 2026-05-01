@@ -26,6 +26,7 @@ df,0,busybox,sys,,,,GNU GPLv2
 diff,0,busybox,dev,,,Compares two files line-by-line and outputs a difference listing between them. The result can be used as a patch file for the patch utility.,GNU GPLv2
 dirname,0,busybox,gen,,,,GNU GPLv2
 dmesg,0,busybox,sys,,,,GNU GPLv2
+dos2unix,0,busybox,gen,,,Converts a text file from using DOS-style line breaks (carriage return + line feed) to using Unix-style line breaks (line feed).,GNU GPLv2
 du,0,busybox,sys,,,,GNU GPLv2
 ed,0,busybox,dev,,,,GNU GPLv2
 eject,0,busybox,gen,,,,GNU GPLv2
@@ -70,6 +71,9 @@ mdev,0,busybox,sys,,,,GNU GPLv2
 mg,1,bundled,dev,Mg,emacs,A text editor with Emacs-style keybinds and buffers.,Unlicense
 micropython,1,bundled,dev,MicroPython,"python, python3","A Python implementation intended for microcontrollers, embedded systems and other constrained platforms. It implements Python 3.4 syntax with select keywords and features from later versions. It is capable of installing and managing mip modules from micropython-lib.",MIT
 mkdir,0,busybox,gen,,,,GNU GPLv2
+mkdosfs,0,busybox,sys,,,,GNU GPLv2
+mkfs.ext2,0,busybox,sys,,mke2fs,,GNU GPLv2
+mkfs.vfat,0,busybox,sys,,,,GNU GPLv2
 mknod,0,busybox,sys,,,,GNU GPLv2
 mkswap,0,busybox,sys,,,Used to set up a Linux swap area on a given partition or file. It will destroy any data present on the target partition or file.,GNU GPLv2
 mount,0,busybox,sys,,,,GNU GPLv2
@@ -97,6 +101,7 @@ rev,0,busybox,gen,,,,GNU GPLv2
 rm,0,busybox,gen,,,,GNU GPLv2
 rmdir,0,busybox,gen,,,,GNU GPLv2
 route,1,busybox,net,,,,GNU GPLv2
+sc-im,1,bundled,gen,Spreadsheet Calculator Improvised,,"A terminal-based spreadsheet editor based on the original sc (spreadsheet calculator) but adds undo/redo, UTF-8, .xlsx workbook import/export, ODS export, clipboard integration, and Lua-based scripting support. It uses Vim-style keybinds.",BSD 4-Clause
 scp,1,bundled,net,Dropbear (SCP),,An SCP client (a part of Dropbear) for remote file transfer.,MIT + BSD 2-Clause (OpenSSH components)
 sed,0,busybox,gen,,,,GNU GPLv2
 seq,0,busybox,gen,,,,GNU GPLv2
@@ -141,6 +146,7 @@ udhcpc,1,busybox,net,,,,GNU GPLv2
 umount,0,busybox,sys,,,,GNU GPLv2
 uname,0,busybox,sys,,,,GNU GPLv2
 unexpand,0,busybox,gen,,,,GNU GPLv2
+unix2dos,0,busybox,gen,,,Converts a text file from using Unix-style line breaks (line feed) to using DOS-style line breaks (carriage return + line feed).,GNU GPLv2
 unzip,0,busybox,gen,,,,GNU GPLv2
 usleep,0,busybox,gen,,,,GNU GPLv2
 vi,0,busybox,dev,,,,GNU GPLv2
