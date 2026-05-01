@@ -88,8 +88,9 @@ typedef struct {
 #define COL_FOR_RESET           "39"
 #define COL_BAK_RESET           "49"
 
+#define CSV_BUFFER              32768
 #define MAX_CMD_STR             2048
-#define MAX_PROG_ENTRIES        200
+#define MAX_PROG_ENTRIES        300
 
 static int AVAIL_HEIGHT;
 static int BASE_ROW;
@@ -463,7 +464,7 @@ int loadProgramEntries(void)
     }
 
     // Load csv into buffer
-    static char buffer[16384];
+    static char buffer[CSV_BUFFER];
     size_t n = fread(buffer, 1, sizeof(buffer) - 1, stream);
     fclose(stream);
     buffer[n] = '\0';
@@ -832,8 +833,10 @@ void printCommands(void)
     char sysStr[MAX_CMD_STR] = "\0";
     char netStr[MAX_CMD_STR] = "\0";
     char funStr[MAX_CMD_STR] = "\0";
+    char ustStr[MAX_CMD_STR] = "\0";
     int netEnabled = 0;
     int funEnabled = 0;
+    int ustEnabled = 0;
 
     for (int i = 0; i < PROG_ENTRIES_NO; i++)
     {
@@ -857,7 +860,11 @@ void printCommands(void)
             targetStr = funStr;
             funEnabled = 1;
         }
-        else continue;
+        else
+        {
+            targetStr = ustStr;
+            ustEnabled = 1;
+        }
 
         // Ensure new cmd can fit in the string
         size_t len = strlen(targetStr);
@@ -870,7 +877,7 @@ void printCommands(void)
             strcat(targetStr, cmd);
     }
 
-    const int combinedSize = MAX_CMD_STR * 5;
+    const int combinedSize = MAX_CMD_STR * 6;
     char combinedStr[combinedSize];
     combinedStr[0] = '\0';
     int pos = 0;
@@ -880,6 +887,7 @@ void printCommands(void)
     pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smSystem & processes\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, sysStr);
     if (netEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smNetworking & remote access\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, netStr);
     if (funEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smEntertainment\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, funStr);
+    if (ustEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smUnsorted\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, ustStr);
 
     int lines = formatNewLines(combinedStr, TERM_SIZE.ws_col, NULL, 1);
     printScrollingText(combinedStr, lines, 1);
