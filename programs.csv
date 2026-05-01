@@ -71,8 +71,8 @@ mdev,0,busybox,sys,,,,GNU GPLv2
 mg,1,bundled,dev,Mg,emacs,A text editor with Emacs-style keybinds and buffers.,Unlicense
 micropython,1,bundled,dev,MicroPython,"python, python3","A Python implementation intended for microcontrollers, embedded systems and other constrained platforms. It implements Python 3.4 syntax with select keywords and features from later versions. It is capable of installing and managing mip modules from micropython-lib.",MIT
 mkdir,0,busybox,gen,,,Creates a directory at the given directory path or in the current directory with a given name without a path.,GNU GPLv2
-mkfs.msdos,0,busybox,sys,,"mkdosfs, mkfs.vfat",Creates a FAT32 file system on the given device or image file. The device or image will be readable with Windows 95 OSR2 or newer.,GNU GPLv2
 mkfs.ext2,0,busybox,sys,,mke2fs,Creates an ext2 file system on the given device or image file.,GNU GPLv2
+mkfs.vfat,0,busybox,sys,,mkdosfs,Creates a FAT32 file system on the given device or image file. The device or image will be readable with Windows 95 OSR2 or newer.,GNU GPLv2
 mknod,0,busybox,sys,,,,GNU GPLv2
 mkswap,0,busybox,sys,,,Used to set up a Linux swap area on a given partition or file. It will destroy any data present on the target partition or file.,GNU GPLv2
 mount,0,busybox,sys,,,,GNU GPLv2
