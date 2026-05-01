@@ -166,31 +166,34 @@ int fileExists(const char *file)
 /**
  * Finds and replaces a given search term with a desired replacement term from an
  * input string.
- * @param buffer Input string
- * @param bufferSize Size to use when allocating the result string
+ * @param input Input string
+ * @param inputSize Size to use when allocating the result string
  * @param needle Substring to find and replace
  * @param replacement New string to insert
  * @return String after term replacement
  */
-char *findReplace(const char *buffer, const size_t bufferSize, const char *needle, const char *replacement)
+char *findReplace(const char *input, const size_t inputSize, const char *needle, const char *replacement)
 {
-    if (!buffer || !needle || !replacement || bufferSize < 2) return strdup("");
+    if (!input || !needle || !replacement || inputSize < 2) return strdup("");
 
     size_t needleLen = strlen(needle);
     size_t replacementLen = strlen(replacement);
     if (needleLen == 0) return strdup("");
 
-    char *result = malloc(bufferSize);
+    // Prepare result string
+    char *result = malloc(inputSize);
     if (!result) return strdup("");
 
-    strncpy(result, buffer, bufferSize);
-    result[bufferSize - 1] = '\0';
+    // Copy input string to result
+    strncpy(result, input, inputSize);
+    result[inputSize - 1] = '\0';
 
     char *pos = result;
     while ((pos = strstr(pos, needle)) != NULL)
     {
         size_t tailLen = strlen(pos + needleLen);
 
+        // If replacement is larger than our needle, realloc memory to avoid overflowing
         if (replacementLen > needleLen)
         {
             size_t currentLen = strlen(result);
@@ -201,6 +204,8 @@ char *findReplace(const char *buffer, const size_t bufferSize, const char *needl
             result = tmp;
         }
 
+        // Move the trailing text to accomodate the new size and paste our replacement into
+        // the 'gap'
         memmove(pos + replacementLen, pos + needleLen, tailLen + 1);
         memcpy(pos, replacement, replacementLen);
         pos += replacementLen;
@@ -211,51 +216,56 @@ char *findReplace(const char *buffer, const size_t bufferSize, const char *needl
 
 /**
  * Adds new lines to a given string based on the requested line width.
- * @param buffer Input string
+ * @param input Input string
  * @param width Characters per line
  * @param indent Indent to include after newly inserted new line
  * @param trim Flags that any trailing newlines should be removed
  * @return Number of lines in the string
  */
-int formatNewLines(char *buffer, int width, char *indent, int trim)
+int formatNewLines(char *input, int width, char *indent, int trim)
 {
-    if (!buffer || width < 1) return 0;
+    if (!input || width < 1) return 0;
 
-    size_t bufferStrLen = strlen(buffer);
+    // Initialse variables that help us track progress
+    size_t inputStrLen = strlen(input);
     size_t indentLen = indent ? strlen(indent) : 0;
     int lines = 1;
     int lastSpace = -1;
     int widthCount = 1;
 
-    for (int i = 0; i < bufferStrLen; i++)
+    // Iterate through the input string to find line breaks or places to add new ones
+    for (int i = 0; i < inputStrLen; i++)
     {
-        if (buffer[i] == '\033')
+        if (input[i] == '\033')
         {
-            while (i < bufferStrLen && buffer[i] != 'm') i++;
-            if (i >= bufferStrLen) break;
+            while (i < inputStrLen && input[i] != 'm') i++;
+            if (i >= inputStrLen) break;
             continue; 
         }
         
-        if (buffer[i] == ' ') lastSpace = i;
-        else if (buffer[i] == '\n')
+        // Track where the last space was in case so we can go back for a future word wrap
+        if (input[i] == ' ') lastSpace = i;
+        // Reset tracking and take into account if we find an existing new line
+        else if (input[i] == '\n')
         {
             lines++;
             widthCount = 0;
             continue;
         }
 
+        // Begin word wrapping once the line width is saturated
         if (widthCount == width)
         {
             if (lastSpace != -1)
             {
-                buffer[lastSpace] = '\n';
+                input[lastSpace] = '\n';
                 lines++;
 
                 if (indent && indentLen > 0)
                 {
-                    memmove(buffer + lastSpace + 1 + indentLen, buffer + lastSpace + 1, bufferStrLen - lastSpace);
-                    memcpy(buffer + lastSpace + 1, indent, indentLen);
-                    bufferStrLen += indentLen;
+                    memmove(input + lastSpace + 1 + indentLen, input + lastSpace + 1, inputStrLen - lastSpace);
+                    memcpy(input + lastSpace + 1, indent, indentLen);
+                    inputStrLen += indentLen;
                     if (lastSpace <= i) i += indentLen;
                 }
             }
@@ -265,12 +275,13 @@ int formatNewLines(char *buffer, int width, char *indent, int trim)
         widthCount++;
     }
 
+    // If desired, strip possible trailing new line
     if (trim)
     {
-        int end = strlen(buffer) - 1;
-        while (end >= 0 && buffer[end] == '\n')
+        int end = strlen(input) - 1;
+        while (end >= 0 && input[end] == '\n')
         {
-            buffer[end] = '\0';
+            input[end] = '\0';
             end--;
             lines--;
         }
