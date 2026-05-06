@@ -44,6 +44,7 @@ ftpget,1,busybox,net,,,,GNU GPLv2
 ftpput,1,busybox,net,,,,GNU GPLv2
 g++,1,bundled,dev,GCC C++,,GCC's C++ compiler.,GNU GPLv3 + GCC Runtime Library Exception
 gcc,1,bundled,dev,GCC C,,GCC's C compiler (configured to use musl).,GNU GPLv3 + GCC Runtime Library Exception
+getfattr,0,busybox,gen,,,"Gets an extended attribute from the given filesystem object. Extended attributes are metadata that go beyond the standard attributes provided by the host filesystem, allowing more information to be associated with a given filesystem object.",GNU GPLv2
 gfortran,1,bundled,dev,Gfortran,,GCC's Fortran compiler.,GNU GPLv3 + GCC Runtime Library Exception
 git,1,bundled,dev,Git,,A distributed version control software system.,GNU GPLv2
 grep,0,busybox,gen,,,,GNU GPLv2
@@ -104,6 +105,7 @@ sc-im,1,bundled,gen,Spreadsheet Calculator Improvised,,"A terminal-based spreads
 scp,1,bundled,net,Dropbear (SCP),,An SCP client (a part of Dropbear) for remote file transfer.,MIT + BSD 2-Clause (OpenSSH components)
 sed,0,busybox,gen,,,,GNU GPLv2
 seq,0,busybox,gen,,,,GNU GPLv2
+setfattr,0,busybox,gen,,,"Sets an extended attribute for the given filesystem object. Extended attributes are metadata that go beyond the standard attributes provided by the host filesystem, allowing more information to be associated with a given filesystem object.",GNU GPLv2
 setfont,0,busybox,sys,,,,GNU GPLv2
 sfdisk,1,util-linux,sys,,,A partitioning tool suited for automated and scripted use.,GNU GPLv2
 shorkdir,0,shorkutil,gen,,,Terminal-based file browser and file inspector (if file is installed).,GNU GPLv3
