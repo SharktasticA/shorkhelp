@@ -830,11 +830,13 @@ void printCommands(void)
 
     char genStr[MAX_CMD_STR] = "\0";
     char devStr[MAX_CMD_STR] = "\0";
-    char sysStr[MAX_CMD_STR] = "\0";
     char netStr[MAX_CMD_STR] = "\0";
+    char sysStr[MAX_CMD_STR] = "\0";
+    char usrStr[MAX_CMD_STR] = "\0";
     char funStr[MAX_CMD_STR] = "\0";
     char ustStr[MAX_CMD_STR] = "\0";
     int netEnabled = 0;
+    int usrEnabled = 0;
     int funEnabled = 0;
     int ustEnabled = 0;
 
@@ -849,11 +851,16 @@ void printCommands(void)
         char *targetStr = NULL;
         if (strcmp(cat, "gen") == 0) targetStr = genStr;
         else if (strcmp(cat, "dev") == 0) targetStr = devStr;
-        else if (strcmp(cat, "sys") == 0) targetStr = sysStr;
         else if (strcmp(cat, "net") == 0) 
         {
             targetStr = netStr;
             netEnabled = 1;
+        }
+        else if (strcmp(cat, "sys") == 0) targetStr = sysStr;
+        else if (strcmp(cat, "usr") == 0) 
+        {
+            targetStr = usrStr;
+            usrEnabled = 1;
         }
         else if (strcmp(cat, "fun") == 0) 
         {
@@ -877,15 +884,16 @@ void printCommands(void)
             strcat(targetStr, cmd);
     }
 
-    const int combinedSize = MAX_CMD_STR * 6;
+    const int combinedSize = MAX_CMD_STR * 7;
     char combinedStr[combinedSize];
     combinedStr[0] = '\0';
     int pos = 0;
 
     pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smGeneral\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, genStr);
     pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smEditors & development tools\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, devStr);
+    if (netEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smNetworking & remote access\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, netStr);
     pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smSystem & processes\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, sysStr);
-    if (netEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smNetworking & remote access\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, netStr);
+    if (usrEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smUser management\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, usrStr);
     if (funEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smEntertainment\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, funStr);
     if (ustEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smUnsorted\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, ustStr);
 
@@ -998,10 +1006,12 @@ void printProgOverview(int i)
         category = "general";
     else if (strcmp(category, "dev") == 0)
         category = "editors & development tools";
-    else if (strcmp(category, "sys") == 0)
-        category = "system & processes";
     else if (strcmp(category, "net") == 0)
         category = "networking & remote access";
+    else if (strcmp(category, "sys") == 0)
+        category = "system & processes";
+    else if (strcmp(category, "usr") == 0)
+        category = "user management";
     else if (strcmp(category, "fun") == 0)
         category = "entertainment";
     else if (strcmp(category, "shork") == 0)

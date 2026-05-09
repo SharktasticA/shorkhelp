@@ -1,5 +1,7 @@
 Command,IsOptional,Source,Category,Name,Aliases,Description,Licence
 #cmatrix,1,bundled,fun,CMatrix,,"A vertical scrolling text screensaver. It provides ""digital rain"", inspired by the 1999 film ""The Matrix"". The ""droplets"" are lines of green characters that fall from the top of the terminal to the bottom, and are occasionally broken up.",GNU GPLv3
+addgroup,1,busybox,usr,,,,GNU GPLv2
+adduser,1,busybox,usr,,,,GNU GPLv2
 ar,0,busybox,gen,,,"Extracts or lists files from a given .a, .ar or .lib archive.",GNU GPLv2
 arch,0,busybox,sys,,,"Reports the computer's processor architecture. For example, ""i486"", ""i686"", ""x86_64"", etc.",GNU GPLv2
 as,1,bundled,dev,GNU Assembler,,An assembler and the default backend of GCC.,GNU GPLv3 + GCC Runtime Library Exception
@@ -11,17 +13,22 @@ beep,0,busybox,sys,,,,GNU GPLv2
 blkid,0,busybox,sys,,,,GNU GPLv2
 cal,0,busybox,gen,,,,GNU GPLv2
 cat,0,busybox,gen,,,"Used for concatenating (combining) files, providing a standard output for printing or writing to a file. When its output is not directed, it prints the result.",GNU GPLv2
+chgrp,1,busybox,usr,,,,GNU GPLv2
 chmod,0,busybox,gen,,,,GNU GPLv2
-chown,0,busybox,gen,,,,GNU GPLv2
-chroot,0,busybox,gen,,,,GNU GPLv2
+chown,1,busybox,usr,,,,GNU GPLv2
+chpasswd,1,busybox,usr,,,,GNU GPLv2
+chroot,1,busybox,usr,,,,GNU GPLv2
 chvt,0,busybox,gen,,,"Changes the active virtual terminal. Changing the current virtual terminal is useful for terminal-based multi-tasking, troubleshooting and recovery. It functions similarly to pressing Ctrl+Alt+[F1/F2/F3/etc.]",GNU GPLv2
 clear,0,busybox,gen,,,"Clears the terminal so that the cursor is positioned at the top. It is similar to ""cls"" on MS-DOS, Microsoft Windows, etc.",GNU GPLv2
 cp,0,busybox,gen,,,,GNU GPLv2
 crontab,0,busybox,sys,,,,GNU GPLv2
+cryptpw,1,busybox,usr,,,,GNU GPLv2
 cut,0,busybox,gen,,,,GNU GPLv2
 date,0,busybox,gen,,,,GNU GPLv2
 dc,0,busybox,gen,,,,GNU GPLv2
 dd,0,busybox,sys,,,,GNU GPLv2
+delgroup,1,busybox,usr,,,,GNU GPLv2
+deluser,1,busybox,usr,,,,GNU GPLv2
 df,0,busybox,sys,,,,GNU GPLv2
 diff,0,busybox,dev,,,Compares two files line-by-line and outputs a difference listing between them. The result can be used as a patch file for the patch utility.,GNU GPLv2
 dirname,0,busybox,gen,,,,GNU GPLv2
@@ -45,6 +52,7 @@ ftpput,1,busybox,net,,,,GNU GPLv2
 g++,1,bundled,dev,GCC C++,,GCC's C++ compiler.,GNU GPLv3 + GCC Runtime Library Exception
 gcc,1,bundled,dev,GCC C,,GCC's C compiler (configured to use musl).,GNU GPLv3 + GCC Runtime Library Exception
 getfattr,0,busybox,gen,,,"Gets an extended attribute from the given filesystem object. Extended attributes are metadata that go beyond the standard attributes provided by the host filesystem, allowing more information to be associated with a given filesystem object.",GNU GPLv2
+getty,1,busybox,usr,,,,GNU GPLv2
 gfortran,1,bundled,dev,Gfortran,,GCC's Fortran compiler.,GNU GPLv3 + GCC Runtime Library Exception
 git,1,bundled,dev,Git,,A distributed version control software system.,GNU GPLv2
 grep,0,busybox,gen,,,,GNU GPLv2
@@ -61,6 +69,7 @@ killall,0,busybox,sys,,,,GNU GPLv2
 less,0,busybox,gen,,,"Displays the contents of a file in the terminal, allowing it to be scrolled line-by-line. It uses vi-style keybinds.",GNU GPLv2
 ln,0,busybox,gen,,,"Creates a hard or symbolic link to a given target file or directory. Hard links are files that point to the same inode as the target file, which must be within the same file system, and hard links to directories are generally not supported. Symbolic links are files that point to the target file or directory, which can be on another file system and even target a non-existent file/directory. Deleting the target of a hard link will not delete the data so long as at least one hard link to it exists; deleting the target of a symbolic link will break the link.",GNU GPLv2
 loadkmap,0,busybox,sys,,,,GNU GPLv2
+login,1,busybox,usr,,,,GNU GPLv2
 losetup,0,busybox,sys,,,,GNU GPLv2
 ls,0,busybox,gen,,,Lists the contents of the current or a target directory.,GNU GPLv2
 lsblk,1,util-linux,sys,,,"Lists information about all or the specified block devices. By default, it produces a table containing the device name, major number (driver associated with device), minor number (device number for the given driver), whether the device is removable (RM), device type, whether the device is read only (RO), and its mountpoint (if mounted).",GNU GPLv2
@@ -75,6 +84,7 @@ mkdir,0,busybox,gen,,,Creates a directory at the given directory path or in the 
 mkfs.ext2,0,busybox,sys,,mke2fs,Creates an ext2 file system on the given device or image file.,GNU GPLv2
 mkfs.vfat,0,busybox,sys,,mkdosfs,Creates a FAT32 file system on the given device or image file. The device or image will be readable with Windows 95 OSR2 or newer.,GNU GPLv2
 mknod,0,busybox,sys,,,,GNU GPLv2
+mkpasswd,1,busybox,usr,,,,GNU GPLv2
 mkswap,0,busybox,sys,,,Used to set up a Linux swap area on a given partition or file. It will destroy any data present on the target partition or file.,GNU GPLv2
 mount,0,busybox,sys,,,,GNU GPLv2
 mountpoint,0,busybox,sys,,,,GNU GPLv2
@@ -126,6 +136,8 @@ stat,0,busybox,gen,,,,GNU GPLv2
 stinit,1,bundled,sys,,,"Used for initialising SCSI magnetic tape drive modes at system startup, when a tape driver module is loaded, or when a new tape driver is initialised using terminal commands.",GNU GPLv2
 strace,1,strace,sys,,,"Executes a given command to capture and trace its system calls and signals. It is a useful diagnosis and debugging tool one can run if a program fails unexpectedly, and/or without meaningful error messages or logs.",GNU LGPLv2.1
 stty,0,busybox,sys,,,,GNU GPLv2
+su,1,busybox,usr,,,,GNU GPLv2
+sulogin,1,busybox,usr,,,,GNU GPLv2
 swapoff,0,busybox,sys,,,"Used to stop memory paging/swapping on one or all swap-capable devices. If used and no swap devices are left online, the computer will be entirely reliant on system memory (RAM) for program memory.",GNU GPLv2
 swapon,0,busybox,sys,,,"Used to start memory paging/swapping on one or all swap-capable devices. Swapping allows fixed storage (hard disk drrive, solid-state drive, etc.) or removable storage (USB stick, etc.) to be used for program memory in addition to system memory (RAM). It is useful as a buffer for when free RAM runs low, although using swap memory will be much slower than RAM.",GNU GPLv2
 sync,0,busybox,sys,,,"Commits any filesystem write operations that are currently cached. It is useful as an immediate and explicit way to ensure data is written to any disks/drives before powering off the computer, removing a drive, etc.",GNU GPLv2
@@ -135,6 +147,7 @@ tcc,1,bundled,dev,Tiny C Compiler,,A lightweight C compiler (configured to use m
 tee,0,busybox,gen,,,,GNU GPLv2
 telnet,1,busybox,net,,,,GNU GPLv2
 test,0,busybox,gen,,,,GNU GPLv2
+time,0,busybox,gen,,,,GNU GPLv2
 tmux,1,bundled,gen,,,"A terminal multiplexer that allows for multi-tasking and multi-viewing with just a single terminal. It allows you to create multiple ""windows"" to switch between without switching virtual terminals or opening a new window/tab in your terminal emulator, split said ""windows"" into multiple panes that can present terminal programs and output side-by-side, and quickly switch between them. Each tmux session can also be detached and reattached without losing what is open inside.",ISC
 top,0,busybox,sys,,,"A process viewer that provides a real-time view of running processes and their CPU and memory usage. Besides comma-separated memory and CPU statistics and averages, it produces a table containing the process ID (PID), parent process ID (PPID), user, process state (STAT), virtual memory size in kilobytes (VSZ), VSZ as a percentage of total RAM (%VSZ), the last CPU core used, percentage of CPU time used (%CPU) and the executing command for each process that can fit into a single non-scrolling terminal.",GNU GPLv2
 touch,0,busybox,gen,,,"Typically used to update the access and modification dates/times of one or more given files. It can also be used to create one or many empty files, as seen in some Linux books and tutorials, although this is often redundant.",GNU GPLv2
@@ -149,13 +162,16 @@ uname,0,busybox,sys,,,,GNU GPLv2
 unexpand,0,busybox,gen,,,,GNU GPLv2
 unix2dos,0,busybox,gen,,,Converts a text file from using Unix-style line breaks (line feed) to using DOS-style line breaks (carriage return + line feed).,GNU GPLv2
 unzip,0,busybox,gen,,,,GNU GPLv2
+users,1,busybox,usr,,,,GNU GPLv2
 usleep,0,busybox,gen,,,,GNU GPLv2
 vi,0,busybox,dev,,,,GNU GPLv2
 volname,0,busybox,sys,,,,GNU GPLv2
+w,1,busybox,usr,,,,GNU GPLv2
 wc,0,busybox,gen,,,,GNU GPLv2
 wget,1,busybox,net,,,"A non-interactive internet file downloader. It is often used to simply download a file with a given URL, although it can also be used as a web spider.",GNU GPLv2
 whereis,1,util-linux,gen,,,"Locates the binary, source and manual page files for a given command.",GNU GPLv2
 which,0,busybox,gen,,,,GNU GPLv2
+who,1,busybox,usr,,,,GNU GPLv2
 whoami,0,busybox,sys,,,,GNU GPLv2
 whois,1,busybox,net,,,,GNU GPLv2
 xxd,0,busybox,dev,,,,GNU GPLv2
