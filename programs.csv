@@ -65,6 +65,7 @@ htop,1,bundled,sys,,,"An interactive process viewer designed to be an enhancemen
 ifconfig,1,busybox,net,,,,GNU GPLv2
 ip,1,busybox,net,,,,GNU GPLv2
 joe,1,bundled,dev,"Joe's Own Editor",,"A WordStar-style text editor.",GNU GPLv2
+joe,1,bundled,dev,Joe's Own Editor,,"A WordStar-style text editor.",GNU GPLv2
 kill,0,busybox,sys,,,,GNU GPLv2
 killall,0,busybox,sys,,,,GNU GPLv2
 less,0,busybox,gen,,,"Displays the contents of a file in the terminal, allowing it to be scrolled line-by-line. It uses vi-style keybinds.",GNU GPLv2
