@@ -165,7 +165,9 @@ unix2dos,0,busybox,gen,,,Converts a text file from using Unix-style line breaks 
 unzip,0,busybox,gen,,,,GNU GPLv2
 users,1,busybox,usr,,,,GNU GPLv2
 usleep,0,busybox,gen,,,,GNU GPLv2
+uuidgen,0,busybox,gen,,,"Generates and prints a universally unique identifier (UUID), a 128-bit value for identification that is practically guaranteed to be unique.",GNU GPLv2
 vi,0,busybox,dev,,,,GNU GPLv2
+vmstat,0,busybox,sys,,,"Reports system virtual memory, processes, CPU and I/O statistics. It displays columns for a runnable process count (r), I/O-bound blocked process count (b), swap memory used (swpd), idle memory (free), memory as buffers (buff), memory as cache (cache), memory swapped in from disk (si), memory swapped to disk (so), KiB received from a block device (bi), KiB sent to a block device (bo), interrupts per second (in), context switches per second (cs), user CPU time (us), system CPU time (sy), CPU idle time (id), time waiting for IO (wa), time stolen from a virtual machine (st), and time running KVM guest code (gu).",GNU GPLv2
 volname,0,busybox,sys,,,,GNU GPLv2
 w,1,busybox,usr,,,,GNU GPLv2
 wc,0,busybox,gen,,,,GNU GPLv2
@@ -178,5 +180,3 @@ whois,1,busybox,net,,,,GNU GPLv2
 xxd,0,busybox,dev,,,,GNU GPLv2
 xz,0,busybox,gen,,,,GNU GPLv2
 yes,0,busybox,gen,,,,GNU GPLv2
-vmstat,0,busybox,sys,,,"Reports system virtual memory, processes, CPU and I/O statistics. It displays a runnable process count (r), I/O-bound blocked process count (b), swap memory used (swpd), idle memory (free), memory as buffers (buff), memory as cache (cache), memory swapped in from disk (si), memory swapped to disk (so), KiB received from a block device (bi), KiB sent to a block device (bo), interrupts per second (in), context switches per second (cs), user CPU time (us), system CPU time (sy), CPU idle time (id), time waiting for IO (wa), time stolen from a virtual machine (st), and time running KVM guest code (gu).",GNU GPLv2
-uuidgen,0,busybox,gen,,,"Generates and prints a universally unique identifier (UUID), a 128-bit value for identification that is practically guaranteed to be unique.",GNU GPLv2
