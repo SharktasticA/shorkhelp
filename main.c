@@ -2,8 +2,9 @@
     ######################################################
     ##            SHORK UTILITY - SHORKHELP             ##
     ######################################################
-    ## A utility for SHORK 486 that informs about its   ##
-    ## capabilities and provides guidance               ##
+    ## A utility for SHORK Operating Systems that       ##
+    ## informs about their capabilities and provides    ##
+    ## guidance                                         ##
     ######################################################
     ## Licence: GNU GENERAL PUBLIC LICENSE Version 3    ##
     ######################################################
@@ -103,6 +104,7 @@ static char *COL_FOR_OL = COL_FOR_BOLD_GREEN;
 static char *COL_FOR_SHORKUTIL = COL_FOR_BOLD_MAGENTA;
 static char CURSOR_CHAR = '*';
 static struct termios OLD_TERMIOS;
+static char OS_NAME[128];
 static ProgramEntry PROG_ENTRIES[MAX_PROG_ENTRIES];
 static int PROG_ENTRIES_NO = -1;
 static struct winsize TERM_SIZE;
@@ -151,6 +153,51 @@ void enableRawMode(void)
     newTERMIO = OLD_TERMIOS;
     newTERMIO.c_lflag &= ~(ICANON | ECHO);
     tcsetattr(STDIN_FILENO, TCSANOW, &newTERMIO);
+}
+
+/**
+ * Extracts a substring from an input string after a given separation character
+ * and offset. Also removes any surrounding quotes or trailing newline characters
+ * present. 
+ * @param input Input string
+ * @param point Character to find to separate from (e.g., '=' or ':')
+ * @param offset How many characters after the point to separate at
+ * @param inputSize Size to use when allocating the result string
+ * @return String containing what's left after separation and cleaning
+ */
+char *extractFromPoint(char *input, size_t inputSize, char point, int offset)
+{
+    if (!input || inputSize < 2) return strdup("");
+
+    // Prepare result string
+    char *result = malloc(inputSize);
+    if (!result) return strdup("");
+    result[0] = '\0';
+
+    // Find our separation point in the input string
+    char *sep = strchr(input, point);
+    if (!sep) return result;
+
+    // Our start position taking into account possible offset
+    char *start = sep + offset;
+
+    // Trim potential leading double quote
+    if (*start == '"') start++;
+
+    // Copy everything after the start position into our result
+    strncpy(result, start, inputSize - 1);
+    result[inputSize - 1] = '\0';
+    size_t len = strlen(result);
+
+    // Trim potential trailing newline 
+    if (len > 0 && result[len - 1] == '\n')
+        result[--len] = '\0';
+
+    // Trim potential trailing double quote
+    if (len > 0 && result[len - 1] == '"')
+        result[len - 1] = '\0';
+
+    return result;
 }
 
 /**
@@ -309,6 +356,57 @@ char *getBinDir(void)
     *(slash + 1) = '\0';
 
     return binDir;
+}
+
+/**
+ * Populates the OS_NAME global variable with the host Linux distribution's
+ * name.
+ * @return 1 if OS name found; 0 if not
+ */
+int getOSName(void)
+{
+    OS_NAME[0] = '\0';
+
+    // Try os-release
+    FILE *fStream = fopen("/etc/os-release", "r");
+    if (fStream)
+    {
+        char buffer[128];
+        while (fgets(buffer, 128, fStream))
+        {
+            if (strncmp(buffer, "PRETTY_NAME=", 12) == 0)
+            {
+                char *extract = extractFromPoint(buffer, sizeof(OS_NAME), '=', 1);
+                strncpy(OS_NAME, extract, sizeof(OS_NAME) - 1);
+                OS_NAME[sizeof(OS_NAME) - 1] = '\0';
+                free(extract);
+                break;
+            }
+        }
+        fclose(fStream);
+    }
+
+    // Try issue
+    if (OS_NAME[0] == '\0')
+    {
+        fStream = fopen("/etc/issue", "r");
+        if (fStream)
+        {
+            char buffer[128];
+            if (fgets(buffer, 128, fStream))
+            {
+                size_t len = strlen(buffer);
+                if (len > 0 && buffer[len - 1] == '\n') buffer[len - 1] = '\0';
+                char *p = strchr(buffer, '\\');
+                if (p) *p = '\0';
+                strncpy(OS_NAME, buffer, sizeof(OS_NAME) - 1);
+                OS_NAME[sizeof(OS_NAME) - 1] = '\0';
+            }
+            fclose(fStream);
+        }
+    }
+
+    return OS_NAME[0] != '\0' ? 1 : 0;
 }
 
 /**
@@ -951,9 +1049,9 @@ void printIntro(void)
 
     pos += snprintf(introStr + pos, strSize - pos, "SHORK 486 is a 32-bit Linux distribution for 486 and Pentium (P5) PCs! It focuses on being as lean and small as possible, whilst still providing a modern kernel, robust command set, custom utilities, and hand-picked modern software.\n\n");
 
-    pos += snprintf(introStr + pos, strSize - pos, "\033[%smGoals\033[%sm\nBesides being something fun to try on old PCs, SHORK 486 was founded on the belief that old PCs can still be useful to the right people, retrocomputing and gaming usage aside. SHORK 486 can be useful for lightweight desktop usage, SSH terminal usage, distraction-free typewritingg (\"writerdeck\"), embedded applications, demonstrative use in academia/education, and as a technical demonstration of what old PCs and modern software targeted at them can actually still do! If it can save just one more PC from the landfills, it has done its job!\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
+    pos += snprintf(introStr + pos, strSize - pos, "\033[%smGoals\033[%sm\nBesides being something fun to try on old PCs, SHORK 486 was founded on the belief that old PCs can still be useful to the right people, retrocomputing and gaming usage aside. SHORK 486 can be useful for lightweight desktop usage, SSH terminal usage, distraction-free typewriting (\"writerdecks\"), embedded applications, demonstrative use in academia/education, and as a technical demonstration of what old PCs and modern software targeted at them can actually still do! If it can save just one more PC from the landfills, it has done its job!\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
 
-    pos += snprintf(introStr + pos, strSize - pos, "\033[%smWhat's special\033[%sm\nDepending on configuration, SHORK 486 requires between just 8-24MiB system memory while still packing a lot of functionality for its size. As of 2026, support for 486 in the Linux kernel is to be removed, and 32-bit x86 support in general is being dropped by various mainstream distributions. System requirements are ever-increasing - even Micro Core and Tiny Core (otherwise excellent systems) require 26-46MB RAM, putting them out of range of many early 486 systems. Thus, SHORK 486 tries to fill in this niche of a ready-to-go Linux distribution for such PCs!\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
+    pos += snprintf(introStr + pos, strSize - pos, "\033[%smWhat's special\033[%sm\nSHORK 486 is a modern and maintained Linux distribution that can run on a processor architecture from 1989. Depending on configuration, it only requires between 8 and 24MiB system memory whilst still packing a lot of functionality for its size. Due to various factors, making such a distribution is increasingly difficult in the 2020s. System requirements are ever-increasing, with even the otherwise excellent Micro Core and Tiny Core requiring at least 26-46MB RAM, putting them out of range of many early 486 systems. As of Linux kernel 7.1 and beyond, support for 486 processors and various ISA and PCMCIA networking hardware has been dropped, and 32-bit x86 support in general is currently dropped by most mainstream distributions. Given this situation, SHORK 486 will try to fill this niche of a ready-to-go Linux distribution for such PCs by sticking with a minimal-where-possible philosophy, customisability and restoring support for older hardware with newer Linux kernels!\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
 
     pos += snprintf(introStr + pos, strSize - pos, "\033[%smArchitecture\033[%sm\nSHORK 486 is not GNU/Linux as you may be accustomed to. Its init system and most core utilities are provided by BusyBox, a single-binary application well known for embedded usage. As needed, some util-linux and individual utilities are used to fill holes in BusyBox\'s suite. The system is compiled with musl instead of glibc, producing smaller binaries that also use fewer resources. The closest well-known Linux distribution to SHORK 486 is Alpine Linux.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
 
@@ -1346,6 +1444,12 @@ void showMainMenu(void)
         return;
     }
 
+    if (!getOSName())
+    {
+        printf("ERROR: Could not retrieve Linux distribution's name\n");
+        return;
+    }
+
     PROG_ENTRIES_NO = loadProgramEntries();
     if (PROG_ENTRIES_NO == -1)
     {
@@ -1364,7 +1468,7 @@ void showMainMenu(void)
             "started",
             "Getting started",
             printStarted,
-            1
+            strncmp(OS_NAME, "SHORK 486", 9) == 0
         },
         {
             "cmdRef",
