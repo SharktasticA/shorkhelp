@@ -359,6 +359,29 @@ char *getBinDir(void)
 }
 
 /**
+ * @return 1 if host SHORK OS is a PT1 build; 0 if not
+ */
+int getIsPT1(void)
+{
+    FILE *stream = fopen("/etc/issue", "r");
+    if (stream)
+    {
+        char buffer[128];
+        int found = 0;
+        while (fgets(buffer, 128, stream))
+        {
+            if (strstr(buffer, "PT1"))
+            {
+                fclose(stream);
+                return 1;
+            }
+        }
+        fclose(stream);
+    }
+    return 0;
+}
+
+/**
  * Populates the OS_NAME global variable with the host Linux distribution's
  * name.
  * @return 1 if OS name found; 0 if not
@@ -920,6 +943,16 @@ void printScrollingText(char *text, int totalLines, int pageScroll)
     }
 }
 
+void setupForMenu(void)
+{
+    setvbuf(stdout, NULL, _IONBF, 0);
+    atexit(onExit);
+    signal(SIGINT, onSigInt);
+
+    enableRawMode();
+    printf("\033[?25l");
+}
+
 
 
 void printCommands(void)
@@ -1120,6 +1153,28 @@ void printProgOverview(int i)
 
     int lines = formatNewLines(overviewStr, TERM_SIZE.ws_col, NULL, 1);
     printScrollingText(overviewStr, lines, 1);
+}
+
+void printPT1(void)
+{
+    printHeader("Public Test 1");
+
+    const int strSize = 3072;
+    char pt1Str[strSize];
+    int pos = 0;
+
+    pos += snprintf(pt1Str + pos, strSize - pos, "You are running a pre-release build of SHORK 486 - Public Test 1 (PT1). This is the first published release of SHORK 486, intended for testing purposes only and to gauge wider opinion to help the project's progression.\n\n");
+
+    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smPurpose\033[%sm\nSHORK 486's development has progressed far enough that it has achieved the author's initial objectives, and is now appropriate for the first round of public testing to help scope out what to tackle next. PT1 also coincides with Linux kernel 7.1's debut, the first version to remove 486 and other relevant vintage hardware support, which this project subsequently patches back in. It would be ideal to validate that these patches are working correctly.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
+
+    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smLicence & disclaimers\033[%sm\nSHORK 486 is a non-commercial, free and open-source operating system licenced under GPLv3 that is provided \"as is\" without warranty of any kind. In no event shall the contributors be liable for any damages arising from use of this software. Additionally, SHORK 486 is a work in progress, and this is a pre-release build. It should not be used for serious, production, or mission-critical work.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
+
+    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smSuggestions & feedback\033[%sm\nIdeas for what to add and change to SHORK 486 are welcome! These can be suggestions for new bundled programs, new or improved features, and advice on how the system is configured and built. Frank and critical feedback on anything regarding the project is also welcomed, though it is expected that it is respectful and understanding. However, please understand that otherwise well-intentioned and interesting suggestions may be considered beyond the scope of this project, as the aim is to keep the system as minimal as possible, but they will be remembered for future sister projects. Suggestions and feedback can be given on the SHORK 486 GitHub repository or via social media channels found on \033[%smlinks.sharktastica.co.uk\033[%sm.\n\n", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+
+    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smBug & error reporting\033[%sm\nSHORK 486 does not collect any telemetry nor report anything to anyone, instead relying on you, the tester, to report and provide evidence of any issues that may arise when using it. If you encounter any, please report them! It is a good measure to include a robust description of your hardware and what you were trying to do, whether you compiled it yourself or used published install media, a screenshot/photo of \033[%smshorkfetch\033[%sm's output, \033[%sm/proc/cpuinfo\033[%sm's contents, and \033[%smdmesg\033[%sm output. Reports can be given on the SHORK 486 GitHub repository.", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+
+    int lines = formatNewLines(pt1Str, TERM_SIZE.ws_col, NULL, 0);
+    printScrollingText(pt1Str, lines, 1);
 }
 
 void printSHORKEntertainment(void)
@@ -1384,51 +1439,61 @@ void showHelp(void)
     formatNewLines(options, TERM_SIZE.ws_col, NULL, 0);
     printf("%s", options);
 
-    char commands[100] = "--commands         Displays commands & programs list and exit\n";
-    formatNewLines(commands, TERM_SIZE.ws_col, "                   ", 0);
+    char commands[100] = "--commands       Displays commands & programs list and exit\n";
+    formatNewLines(commands, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", commands);
 
     if (isProgramInstalled("emacs") || isProgramInstalled("mg"))
     {
-        char emacs[100] = "--emacs            Displays Emacs (Mg) cheatsheet and exit\n";
-        formatNewLines(emacs, TERM_SIZE.ws_col, "                   ", 0);
+        char emacs[100] = "--emacs          Displays Emacs (Mg) cheatsheet and exit\n";
+        formatNewLines(emacs, TERM_SIZE.ws_col, "                 ", 0);
         printf("%s", emacs);
     }
 
-    char help[100] = "-h, --help         Displays help information and exits\n";
-    formatNewLines(help, TERM_SIZE.ws_col, "                   ", 0);
+    char help[100] = "-h, --help       Displays help information and exits\n";
+    formatNewLines(help, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", help);
 
     if (isProgramInstalled("git"))
     {
-        char git[100] = "--git              Displays supported Git commands and exits\n";
-        formatNewLines(git, TERM_SIZE.ws_col, "                   ", 0);
+        char git[100] = "--git            Displays supported Git commands and exits\n";
+        formatNewLines(git, TERM_SIZE.ws_col, "                 ", 0);
         printf("%s", git);
     }
 
-    char intro[100] = "--intro            Displays introduction to SHORK 486 and exit\n";
-    formatNewLines(intro, TERM_SIZE.ws_col, "                   ", 0);
+    char intro[100] = "--intro          Displays introduction to SHORK 486 and exit\n";
+    formatNewLines(intro, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", intro);
 
-    if (isProgramInstalled("sl") || isProgramInstalled("shorksay"))
+    if (getIsPT1())
     {
-        char shorktainment[100] = "--shorktainment    Displays SHORK Entertainment list and exit\n";
-        formatNewLines(shorktainment, TERM_SIZE.ws_col, "                   ", 0);
+        char pt1[80] = "--pt1            Displays Public Test 1 information and exits\n";
+        formatNewLines(pt1, TERM_SIZE.ws_col, "                 ", 0);
+        printf("%s", pt1);
+    }
+
+    if (isProgramInstalled("sl") || isProgramInstalled("shorkmatrix") || isProgramInstalled("shorksay"))
+    {
+        char shorktainment[100] = "--shorktainment  Displays SHORK Entertainment list and exit\n";
+        formatNewLines(shorktainment, TERM_SIZE.ws_col, "                 ", 0);
         printf("%s", shorktainment);
     }
 
-    char shorkutils[100] = "--shorkutils       Displays SHORK Utilities list and exit\n";
-    formatNewLines(shorkutils, TERM_SIZE.ws_col, "                   ", 0);
+    char shorkutils[100] = "--shorkutils     Displays SHORK Utilities list and exit\n";
+    formatNewLines(shorkutils, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", shorkutils);
 
-    char started[100] = "--started          Displays getting started guide and exit\n";
-    formatNewLines(started, TERM_SIZE.ws_col, "                   ", 0);
-    printf("%s", started);
+    if (strncmp(OS_NAME, "SHORK 486", 9) == 0)
+    {
+        char started[100] = "--started        Displays getting started guide and exit\n";
+        formatNewLines(started, TERM_SIZE.ws_col, "                 ", 0);
+        printf("%s", started);
+    }
 
     if (isProgramInstalled("tmux"))
     {
-        char tmux[100] = "--tmux             Displays tmux cheatsheet and exit\n";
-        formatNewLines(tmux, TERM_SIZE.ws_col, "                   ", 0);
+        char tmux[100] = "--tmux           Displays tmux cheatsheet and exit\n";
+        formatNewLines(tmux, TERM_SIZE.ws_col, "                 ", 0);
         printf("%s", tmux);
     }
 }
@@ -1441,12 +1506,6 @@ void showMainMenu(void)
     if (TERM_SIZE.ws_col < 40 || TERM_SIZE.ws_row < 10)
     {
         printf("ERROR: terminal size too small (must be 40x10 or larger)\n");
-        return;
-    }
-
-    if (!getOSName())
-    {
-        printf("ERROR: Could not retrieve Linux distribution's name\n");
         return;
     }
 
@@ -1463,6 +1522,12 @@ void showMainMenu(void)
             "Introduction to SHORK 486",
             printIntro,
             1
+        },
+        { 
+            "pt1",
+            "Public Test 1",
+            printPT1,
+            getIsPT1()
         },
         { 
             "started",
@@ -1588,13 +1653,11 @@ void showMainMenu(void)
 int main(int argc, char *argv[])
 {
     TERM_SIZE = getTerminalSize();
-    
-    setvbuf(stdout, NULL, _IONBF, 0);
-    atexit(onExit);
-    signal(SIGINT, onSigInt);
-
-    enableRawMode();
-    printf("\033[?25l");
+    if (!getOSName())
+    {
+        printf("ERROR: Could not retrieve Linux distribution's name\n");
+        return 1;
+    }
 
     BASE_ROW = 2;
     AVAIL_HEIGHT = TERM_SIZE.ws_row - 2;
@@ -1604,11 +1667,16 @@ int main(int argc, char *argv[])
         AVAIL_HEIGHT = TERM_SIZE.ws_row - 4;
     }
 
-    if (argc == 1 || argc > 2) showMainMenu();
+    if (argc == 1 || argc > 2)
+    {
+        setupForMenu();
+        showMainMenu();
+    }
     else if (argc == 2)
     {
         if (strcmp(argv[1], "--commands") == 0)
         {
+            setupForMenu();
             PROG_ENTRIES_NO = loadProgramEntries();
             clearScreen();
             printCommands();
@@ -1616,28 +1684,37 @@ int main(int argc, char *argv[])
         }
         else if (strcmp(argv[1], "--emacs") == 0 || strcmp(argv[1], "--mg") == 0)
         {
+            setupForMenu();
             clearScreen();
             printEmacsCheatsheet();
             clearScreen();
         }
         else if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)
-        {
             showHelp();
-        }
         else if (strcmp(argv[1], "--git") == 0)
         {
+            setupForMenu();
             clearScreen();
             printGitCommands();
             clearScreen();
         }
-        else if (strcmp(argv[1], "--intro") == 0)
+        else if (strcmp(argv[1], "--intro") == 0 && strncmp(OS_NAME, "SHORK 486", 9) == 0)
         {
+            setupForMenu();
             clearScreen();
             printIntro();
             clearScreen();
         }
+        else if (strcmp(argv[1], "--pt1") == 0 && getIsPT1())
+        {
+            setupForMenu();
+            clearScreen();
+            printPT1();
+            clearScreen();
+        }
         else if (strcmp(argv[1], "--shorktainment") == 0)
         {
+            setupForMenu();
             clearScreen();
             printSHORKEntertainment();
             clearScreen();
@@ -1650,17 +1727,20 @@ int main(int argc, char *argv[])
         }
         else if (strcmp(argv[1], "--started") == 0)
         {
+            setupForMenu();
             clearScreen();
             printStarted();
             clearScreen();
         }
         else if (strcmp(argv[1], "--tmux") == 0)
         {
+            setupForMenu();
             clearScreen();
             printTmuxCheatsheet();
             clearScreen();
         }
-        else showHelp();
+        else
+            showHelp();
     }
 
     return 0;
