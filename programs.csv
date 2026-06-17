@@ -35,8 +35,8 @@ dirname,1,busybox,gen,,,,GNU GPLv2
 dmesg,1,busybox,sys,,,,GNU GPLv2
 dos2unix,1,busybox,gen,,,Converts a text file from using DOS-style line breaks (carriage return + line feed) to using Unix-style line breaks (line feed).,GNU GPLv2
 du,1,busybox,sys,,,,GNU GPLv2
-ed,1,busybox,dev,,,,GNU GPLv2
 echo,0,busybox,gen,,,,GNU GPLv2
+ed,1,busybox,dev,,,,GNU GPLv2
 eject,1,busybox,gen,,,,GNU GPLv2
 expand,1,busybox,gen,,,,GNU GPLv2
 expr,0,busybox,gen,,,,GNU GPLv2
@@ -120,17 +120,15 @@ seq,1,busybox,gen,,,,GNU GPLv2
 setfattr,1,busybox,gen,,,"Sets an extended attribute for the given filesystem object. Extended attributes are metadata that go beyond the standard attributes provided by the host filesystem, allowing more information to be associated with a given filesystem object.",GNU GPLv2
 setfont,1,busybox,sys,,,,GNU GPLv2
 sfdisk,1,util-linux,sys,,,A partitioning tool suited for automated and scripted use.,GNU GPLv2
-shorkdir,1,shorkutil,gen,,,Terminal-based file browser and file inspector (if file is installed).,GNU GPLv3
-shorkfetch,1,shorkutil,sys,,,"Displays basic system and environment information in a summarised format. It reports the current user's name, computer's host name, operating system/distribution, kernel version, system uptime, current shell, CPU, GPU (one or more), system memory (RAM), swap memory (if enabled), and root partition size.",GNU GPLv3
-shorkfont,1,shorkutil,sys,,,"Changes the terminal's foreground colour or font. It supports the 8 base ANSI colours plus their bright/bold counterparts, and PC Screen Fonts (.psf). If available, the default PSF fonts are stored in /usr/share/consolefonts.",GNU GPLv3
+shorkdir,1,shorkutil,gen,,,"A terminal-based file browser. It allows you to surf the file system with Vim-like controls, WASD or arrow keys, open text-based files with an installed editor of your choice, and inspect a file (if file is installed).",GNU GPLv3
+shorkfetch,1,shorkutil,sys,,,"A shark-themed Linux fetch tool designed with speed, consistent output, and vintage hardware support in mind. It displays basic system and environment information in a summarised format. It can report the current username, hostname, operating system/distribution, kernel version, system uptime, number of installed packages, screens, desktop environment, window manager, terminal, console size, shell, CPU, GPUs, system memory, swap memory, root partition size, and local IP address.",GNU GPLv3
 shorkgui,1,shorkutil,gen,,,EXPERIMENTAL. Starts the SHORKGUI graphical environment.,GNU GPLv3
-shorkhelp,1,shorkutil,gen,,,Displays help and reference information for using SHORK and its included software and tools.,GNU GPLv3
+shorkhelp,1,shorkutil,gen,,,"Provides help and reference information regarding SHORK and included software and tools. It provides a command database and list, guides, and cheatsheets.",GNU GPLv3
 shorklocomotive,1,shorktainment,fun,,sl,"A shark-themed take on the sl command that kindly pokes fun at making typos when trying to type ""ls"". When ran, an ASCII art shark moves across the terminal from left to right.",GNU GPLv3
-shorkmap,1,shorkutil,sys,,,"Changes the system's current keymap map (keymap). It supports binary keymap files (.kmap.bin), which are typically stored in /usr/share/keymaps.",GNU GPLv3
 shorkmatrix,1,shorktainment,fun,,cmatrix,"A vertical scrolling text screensaver. It is a minimalist, blue-themed take on CMatrix, a terminal program that provides ""digital rain"". Inspired by the 1999 film ""The Matrix"", the ""droplets"" are lines of blue characters that fall from the top of the terminal to the bottom, and are occasionally broken up.",GNU GPLv3
 shorkoff,1,shorkutil,sys,,,"A shutdown helper that safely brings the system to a controlled halt before a manual power off. It is intended as an explicit utility that the user can call to sync write cache to help prevent data corruption or loss on especially older hardware when faced with a manual power off, then halts the system so the user can switch the power off without interrupting any active operations.",GNU GPLv3
-shorkres,1,shorkutil,sys,,,Changes the system's display resolution (provided hardware is compatible).,GNU GPLv3
 shorksay,1,shorktainment,fun,,cowsay,"A shark-themed take on the cowsay command that outputs an ASCII art shark and a speech bubble containing a message of your choice. The message can be manually supplied or can be provided from another program's standard output (ie, using a pipe).",GNU GPLv3
+shorkset,1,shorkutil,sys,,,"A settings program for changing SHORK's display resolution, keyboard layout (keymap), terminal PSF font, and terminal font colour.",GNU GPLv3
 showkey,1,busybox,gen,,,,GNU GPLv2
 sleep,1,busybox,gen,,,,GNU GPLv2
 ssh,1,bundled,net,Dropbear (SSH),,An SSH client (a part of Dropbear) for remote login and command-line execution.,MIT + BSD 2-Clause (OpenSSH components)

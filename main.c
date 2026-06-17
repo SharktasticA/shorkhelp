@@ -1181,20 +1181,20 @@ void printSHORKEntertainment(void)
 {
     printHeader("SHORK Entertainment");
 
-    const int strSize = 750;
+    const int strSize = 2000;
     char shorktainmentStr[strSize];
     int pos = 0;
 
     if (isProgramInstalled("sl"))
-        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorklocomotive\033[%sm: A shark-themed take on the \033[%smsl\033[%sm command that kindly pokes fun at making typos when trying to type \033[%smls\033[%sm.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorklocomotive\033[%sm\nA shark-themed take on the \033[%smsl\033[%sm command that kindly pokes fun at making typos when trying to type \033[%smls\033[%sm. A cute SHORK will swim across the screen.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorkmatrix"))
-        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorkmatrix\033[%sm: A quick, blue-themed take on the \033[%smcmatrix\033[%sm \"digital rain\" vertical scrolling text screensaver.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorkmatrix\033[%sm\nA minimalist, blue-themed take on the \033[%smcmatrix\033[%sm \"digital rain\" vertical scrolling text screensaver. Inspired by the 1999 film \"The Matrix\", the \"droplets\" are lines of blue characters that fall from the top of the terminal to the bottom, and are occasionally broken up.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorksay"))
-        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorksay\033[%sm: A shark-themed take on the \033[%smcowsay\033[%sm command that outputs an ASCII art shark and speech bubble containing a message of your choice.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorksay\033[%sm\nA shark-themed take on the \033[%smcowsay\033[%sm command that outputs a cute SHORK with a speech bubble containing a message of your choice. The message can be manually supplied or can be provided from another program's standard output (ie, using a pipe).\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
-    int lines = formatNewLines(shorktainmentStr, TERM_SIZE.ws_col, "    ", 1);
+    int lines = formatNewLines(shorktainmentStr, TERM_SIZE.ws_col, NULL, 1);
     printScrollingText(shorktainmentStr, lines, 1);
 }
 
@@ -1207,26 +1207,20 @@ void printSHORKUtilities(void)
     int pos = 0;
 
     if (isProgramInstalled("shorkdir"))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkdir\033[%sm: Terminal-based file browser and file inspector (if \033[%smfile\033[%sm is installed).\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkdir\033[%sm\nA terminal-based file browser. It can surf the file system with either Vim-like keybinds, WASD or arrow keys, open text-based files with an installed editor of your choice, and inspect a file (if \033[%smfile\033[%sm is installed).\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorkfetch"))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkfetch\033[%sm: Displays basic system and environment information. Similar to \033[%smfastfetch\033[%sm, \033[%smneofetch\033[%sm, etc.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkfetch\033[%sm\nA shark-themed Linux fetch tool designed with speed, consistent output, and vintage hardware support in mind. It displays basic system and environment information in a summarised format.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
 
-    if (isProgramInstalled("shorkfont"))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkfont\033[%sm: Changes the terminal's font or colour. Takes two arguments (type of change and name); no arguments shows how to use and a list of possible colours.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
-
-    pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkhelp\033[%sm: Provides help with using SHORK 486 via command lists, guides and cheatsheets. Requires the use of one of five parameters.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
-
-    if (isProgramInstalled("shorkmap"))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkmap\033[%sm: Changes the system's keyboard map. Takes takes one argument (a keymap name); no arguments show a list of possible keymaps.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
+    pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkhelp\033[%sm\nProvides help and reference information regarding SHORK 486 and included software and tools. It provides a command database and list, guides, and cheatsheets.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorkoff"))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkoff\033[%sm: Brings the system to a halt and syncs the write cache, allowing the computer to be safely turned off. Similar to \033[%smpoweroff\033[%sm or \033[%smshutdown -h\033[%sm.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkoff\033[%sm\nA shutdown helper that syncs outstanding write cache and safely brings the system to a controlled halt before a manual power off to help prevent data corruption or loss. Similar to \033[%smpoweroff\033[%sm or \033[%smshutdown -h\033[%sm.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
-    if (isProgramInstalled("shorkres"))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkres\033[%sm: Changes the system's display resolution (provided hardware is compatible). Takes one argument (a resolution name); no arguments show a list of possible resolution names.\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
+    if (isProgramInstalled("shorkset"))
+        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkset\033[%sm\nA settings program for changing SHORK 486's display resolution, keyboard layout (keymap), terminal PSF font, and terminal font colour.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
 
-    int lines = formatNewLines(shorkutilStr, TERM_SIZE.ws_col, "    ", 1);
+    int lines = formatNewLines(shorkutilStr, TERM_SIZE.ws_col, NULL, 1);
     printScrollingText(shorkutilStr, lines, 1);
 }
 
@@ -1235,15 +1229,15 @@ void printStarted(void)
     printHeader("Getting started");
 
     char gettingStartedStr[1200];
-    snprintf(gettingStartedStr, 1200, 
-"\033[%sm1.\033[%sm Set your keyboard's layout with \033[%smshorkmap\033[%sm.\n\
-\033[%sm2.\033[%sm Pick a font and colour for the console terminal with \033[%smshorkfont\033[%sm.\n\
-\033[%sm3.\033[%sm (If compatible) Change your display's resolution with \033[%smshorkres\033[%sm. A reboot will be required.\n\
-\033[%sm4.\033[%sm Set your computer's name by editing \033[%sm/etc/hostname\033[%sm. A reboot will be required, or you can run: \033[%smhostname \"$(cat /etc/hostname)\"\n\
-\033[%sm5.\033[%sm (If applicable) Test your network connection with \033[%smping\033[%sm. For example: \033[%smping sharktastica.co.uk\n\
-\033[%sm6.\033[%sm Run \033[%smshorkfetch\033[%sm to see a quick overview of your system and environment.\n\
-\033[%sm7.\033[%sm Check \033[%smshorkhelp\033[%sm's other options to learn what commands and software are available, and see what guides may be of use.\n\
-\033[%sm8.\033[%sm Use Ctrl+Alt+F1/F2/F3 or \033[%smchvt\033[%sm to switch between the three available virtual consoles, useful for multitasking, troubleshooting and recovery.\n\
+    snprintf(gettingStartedStr, 1200,
+"\033[%sm1.\033[%sm Set your keyboard's layout with \033[%smshorkset\033[%sm.\n\n\
+\033[%sm2.\033[%sm Pick a font and colour for the console terminal with \033[%smshorkset\033[%sm.\n\n\
+\033[%sm3.\033[%sm Change your display's resolution with \033[%smshorkset\033[%sm. A reboot will be required.\n\n\
+\033[%sm4.\033[%sm Set your computer's name by editing \033[%sm/etc/hostname\033[%sm. A reboot will be required, or you can run: \033[%smhostname \"$(cat /etc/hostname)\"\n\n\
+\033[%sm5.\033[%sm (If applicable) Test your network connection with \033[%smping\033[%sm. For example: \033[%smping sharktastica.co.uk\n\n\
+\033[%sm6.\033[%sm Run \033[%smshorkfetch\033[%sm to see a quick overview of your system and environment.\n\n\
+\033[%sm7.\033[%sm Check \033[%smshorkhelp\033[%sm's other options to learn what commands and software are available, and see what guides may be of use.\n\n\
+\033[%sm8.\033[%sm Use Ctrl+Alt+F1/F2/F3 or \033[%smchvt\033[%sm to switch between the three available virtual consoles, useful for multitasking, troubleshooting and recovery.\n\n\
 \033[%sm9.\033[%sm When you are finished using SHORK 486, run \033[%smshorkoff\033[%sm to safely halt the system before powering off.\n",
     COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
     COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
@@ -1543,19 +1537,19 @@ void showMainMenu(void)
         },
         {
             "cmdList",
-            "Commands & programs list",
+            "Commands & programs",
             printCommands,
             1
         },
         { 
             "shorkutils",
-            "SHORK Utilities list",
+            "SHORK Utilities",
             printSHORKUtilities,
             1
         },
         { 
             "shorktainment",
-            "SHORK Entertainment list",
+            "SHORK Entertainment",
             printSHORKEntertainment,
             isProgramInstalled("shorklocomotive") || isProgramInstalled("shorksay")
         },
