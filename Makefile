@@ -6,7 +6,7 @@ STRIP ?= strip
 CFLAGS += -I.
 LDFLAGS += -static
 
-SRC = main.c
+SRC = src/*.c
 
 shorkhelp: $(SRC)
 	$(CC) $(CFLAGS) $(SRC) -o shorkhelp $(LDFLAGS)
