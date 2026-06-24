@@ -18,12 +18,20 @@ static const char *VERSION = "1.0-pt1";
 
 
 
+#include "general.h"
 #include "shorkhelp.h"
 #include "shorkmenu.h"
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+
+
+int LICENCES_NO = -1;
+Licence LICENCES[MAX_LICENCES];
+int PROG_ENTRIES_NO = -1;
+ProgramEntry PROG_ENTRIES[MAX_PROG_ENTRIES];
 
 
 
@@ -42,71 +50,67 @@ int main(int argc, char *argv[])
     }
     else if (argc == 2)
     {
-        if (strcmp(argv[1], "--commands") == 0)
+        if (strcmp(argv[1], "--commands") == 0 && fileExists("/usr/share/shorkhelp/programs.csv"))
         {
-            setupMenuSys();
             PROG_ENTRIES_NO = loadProgramEntries();
-            clearScreen();
+            if (PROG_ENTRIES_NO == -1)
+            {
+                printf("ERROR: could not load programs.csv\n");
+                return 1;
+            }
+            setupMenuSys();
             printCommands();
-            clearScreen();
         }
         else if (strcmp(argv[1], "--emacs") == 0 || strcmp(argv[1], "--mg") == 0)
         {
             setupMenuSys();
-            clearScreen();
             printEmacsCheatsheet();
-            clearScreen();
         }
-        else if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)
-            showHelp();
         else if (strcmp(argv[1], "--git") == 0)
         {
             setupMenuSys();
-            clearScreen();
             printGitCommands();
-            clearScreen();
         }
         else if (strcmp(argv[1], "--intro") == 0 && strncmp(OS_NAME, "SHORK 486", 9) == 0)
         {
             setupMenuSys();
-            clearScreen();
             printIntro();
-            clearScreen();
+        }
+        if (strcmp(argv[1], "--licences") == 0 && fileExists("/LICENCES/manifest.csv"))
+        {
+            LICENCES_NO = loadLicences();
+            if (LICENCES_NO == -1)
+            {
+                printf("ERROR: could not load manifest.csv\n");
+                return 1;
+            }
+            setupMenuSys();
+            showLicencesMenu();
         }
         else if (strcmp(argv[1], "--pt1") == 0 && getIsPT1())
         {
             setupMenuSys();
-            clearScreen();
             printPT1();
-            clearScreen();
         }
         else if (strcmp(argv[1], "--shorktainment") == 0)
         {
             setupMenuSys();
-            clearScreen();
             printSHORKEntertainment();
-            clearScreen();
         }
         else if (strcmp(argv[1], "--shorkutils") == 0)
         {
             setupMenuSys();
-            clearScreen();
             printSHORKUtilities();
-            clearScreen();
         }
         else if (strcmp(argv[1], "--started") == 0)
         {
             setupMenuSys();
-            clearScreen();
             printStarted();
-            clearScreen();
         }
         else if (strcmp(argv[1], "--tmux") == 0)
         {
             setupMenuSys();
-            clearScreen();
             printTmuxCheatsheet();
-            clearScreen();
         }
         else if ((strcmp(argv[1], "-v") == 0) || (strcmp(argv[1], "--version") == 0))
             printf("SHORKHELP %s\n", VERSION);

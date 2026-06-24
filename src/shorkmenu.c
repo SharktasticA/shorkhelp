@@ -692,6 +692,7 @@ void setupMenuSys(void)
     signal(SIGINT, onSigInt);
 
     enableRawMode();
+    clearScreen();
     printf("\033[?25l");
     setupViewport();
 }

@@ -103,6 +103,69 @@ int getOSName(void)
 }
 
 /**
+ * Loads the manifests.csv file into LICENCES.
+ * @returns Number of licences loaded; -1 if error
+ */
+int loadLicences(void)
+{
+    // Load csv file
+    FILE *stream;
+    if (fileExists("/LICENCES/manifest.csv"))
+        stream = fopen("/LICENCES/manifest.csv", "r");
+    else
+        return -1;
+
+    // Load csv into buffer
+    static char buffer[CSV_BUFFER];
+    size_t n = fread(buffer, 1, sizeof(buffer) - 1, stream);
+    fclose(stream);
+    buffer[n] = '\0';
+
+    char *p = buffer;
+
+    // Skip header line
+    while (*p && *p != '\n') p++;
+    if (*p == '\n') p++;
+
+    int i = 0;
+
+    while (*p && i < MAX_LICENCES)
+    {
+        char *line = p;
+
+        // Find end of line
+        while (*p && *p != '\n') p++;
+        if (*p == '\n')
+        {
+            *p = '\0';
+            p++;
+        }
+
+        if (*line == '\0')
+            continue;
+
+        // Load line
+        char *fields[3];
+        int fieldCount = loadCSVLine(line, fields, 3);
+
+        // Check if malformed line/parsing
+        if (fieldCount < 3)
+            continue;
+
+        // TODO: test file exists
+
+        // Input line into entries
+        LICENCES[i].name = fields[0];
+        LICENCES[i].type = fields[1];
+        LICENCES[i].file = fields[2];
+
+        i++;
+    }
+
+    return i;
+}
+
+/**
  * Loads the programs.csv file into PROG_ENTRIES.
  * @returns Number of program entries loaded; -1 if error
  */
@@ -324,7 +387,7 @@ void printGitCommands(void)
 
 void printIntro(void)
 {
-    const int strSize = 3072;
+    const int strSize = 4192;
     char introStr[strSize];
     int pos = 0;
 
@@ -340,6 +403,29 @@ void printIntro(void)
 
     int lines = formatNewLines(introStr, TERM_SIZE.ws_col, NULL, 0);
     printTextScreen("Introduction to SHORK 486", introStr, lines, 1);
+}
+
+void printLicence(int i)
+{
+    char msgTitle[80];
+    snprintf(msgTitle, 80, "%s (%s)", LICENCES[i].name, LICENCES[i].type);
+
+    char licencePath[PATH_MAX];
+    snprintf(licencePath, PATH_MAX, "/LICENCES/%s", LICENCES[i].file);
+
+    char msgBody[49152];
+    FILE *stream = fopen(licencePath, "r");
+    if (stream)
+    {
+        size_t bytesRead = fread(msgBody, 1, sizeof(msgBody) - 1, stream);
+        fclose(stream);
+        msgBody[bytesRead] = '\0';
+    }
+    else
+        return;
+
+    int lines = formatNewLines(msgBody, TERM_SIZE.ws_col, NULL, 0);
+    printTextScreen(msgTitle, msgBody, lines, 1);
 }
 
 void printProgOverview(int i)
@@ -694,6 +780,10 @@ void showHelp(void)
     formatNewLines(intro, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", intro);
 
+    char licences[100] = "--licences       Displays licences menu\n";
+    formatNewLines(licences, TERM_SIZE.ws_col, "                 ", 0);
+    printf("%s", licences);
+
     if (getIsPT1())
     {
         char pt1[80] = "--pt1            Displays Public Test 1 information and exits\n";
@@ -738,6 +828,13 @@ void showMainMenu(void)
 {
     setupMenuSys();
 
+    LICENCES_NO = loadLicences();
+    if (LICENCES_NO == -1)
+    {
+        printf("ERROR: could not load manifest.csv\n");
+        return;
+    }
+
     PROG_ENTRIES_NO = loadProgramEntries();
     if (PROG_ENTRIES_NO == -1)
     {
@@ -772,14 +869,21 @@ void showMainMenu(void)
             "Command reference (WIP)",
             "",
             showCommandReference,
-            1
+            PROG_ENTRIES_NO > 0
         },
         {
             "cmdList",
             "Commands & programs",
             "",
             printCommands,
-            1
+            PROG_ENTRIES_NO > 0
+        },
+        {
+            "licences",
+            "Licences",
+            "",
+            showLicencesMenu,
+            LICENCES_NO > 0
         },
         { 
             "shorkutils",
@@ -872,6 +976,138 @@ void showMainMenu(void)
             case ENTER:
                 clearScreen();
                 menu[cursor - 1].action();
+                break;
+        
+            case QUIT:
+                running = 0;
+                break;
+
+            case INVALID:
+                fullRedraw = 0;
+                break;
+        }
+    }
+
+    clearScreen();
+}
+
+/**
+ * Runs the licences menu interface.
+ */
+void showLicencesMenu(void)
+{
+    // Create a menu containing found program entries
+    MenuItem menu[LICENCES_NO];
+    for (int i = 0; i < LICENCES_NO; i++)
+    {
+        snprintf(menu[i].id, sizeof(menu[i].id), "%s", LICENCES[i].name);
+        snprintf(menu[i].name, sizeof(menu[i].name), "%s", LICENCES[i].name);
+        menu[i].action = NULL;
+        menu[i].visible = 1;
+    }
+
+
+
+    // Prepare for multi-column menu
+    int colWidth = 22;
+    int cols = TERM_SIZE.ws_col / (colWidth + 3);
+    if (cols < 1) cols = 1;
+    if (cols > LICENCES_NO) cols = LICENCES_NO;
+    int rows = (LICENCES_NO + cols - 1) / cols;
+
+
+
+    int running = 1;
+    int cursorX = 1;
+    int cursorY = 1;
+    int cursorXPrev = 0;
+    int cursorYPrev = 0;
+    int maxY = 0;
+    int fullRedraw = 1;
+
+    while (running)
+    {
+        if (fullRedraw)
+        {
+            clearScreen();
+            printHeader("Licences");
+            printMenu(menu, LICENCES_NO, NULL, cols, colWidth, rows, cursorX, cursorY, cursorXPrev, cursorYPrev);
+            printFooter("[hjkl] Navigate [Enter] Select [q] Back");
+        }
+        else
+        {
+            if (COL_ENABLED)
+                printf("\x1b[2;1H");
+            else
+                printf("\x1b[3;1H");
+            printMenu(menu, LICENCES_NO, NULL, cols, colWidth, rows, cursorX, cursorY, cursorXPrev, cursorYPrev);
+        }
+
+        NavInput input = getNavInput();
+
+        fullRedraw = 1;
+        cursorXPrev = cursorYPrev = 0;
+        switch (input)
+        {
+            case CURSOR_LEFT:
+                cursorXPrev = cursorX;
+                cursorYPrev = cursorY;
+                cursorX--;
+
+                if (cursorX < 1) cursorX = cols;
+                while ((maxY = rowsInCol(LICENCES_NO, rows, cursorX)) == 0)
+                {
+                    cursorX--;
+                    if (cursorX < 1) cursorX = cols;
+                }
+                if (cursorY > maxY) cursorY = maxY;
+                if (cursorY < 1) cursorY = maxY;
+
+                fullRedraw = 0;
+                break;
+
+            case CURSOR_RIGHT:
+                cursorXPrev = cursorX;
+                cursorYPrev = cursorY;
+                cursorX++;
+
+                if (cursorX > cols) cursorX = 1;
+                while ((maxY = rowsInCol(LICENCES_NO, rows, cursorX)) == 0)
+                {
+                    cursorX++;
+                    if (cursorX > cols) cursorX = 1;
+                }
+                if (cursorY > maxY) cursorY = maxY;
+                if (cursorY < 1) cursorY = maxY;
+
+                fullRedraw = 0;
+                break;
+
+            case CURSOR_UP:
+                cursorXPrev = cursorX;
+                cursorYPrev = cursorY;
+                cursorY--;
+
+                if (cursorY < 1)
+                    cursorY = rowsInCol(LICENCES_NO, rows, cursorX);
+
+                fullRedraw = 0;
+                break;
+
+            case CURSOR_DOWN:
+                cursorXPrev = cursorX;
+                cursorYPrev = cursorY;
+                cursorY++;
+
+                if (cursorY > rowsInCol(LICENCES_NO, rows, cursorX))
+                    cursorY = 1;
+                    
+                fullRedraw = 0;
+                break;
+
+            case ENTER:
+                clearScreen();
+                printLicence((cursorY - 1) + (cursorX - 1) * rows);
                 break;
         
             case QUIT:
