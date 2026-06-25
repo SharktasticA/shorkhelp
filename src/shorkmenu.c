@@ -382,21 +382,58 @@ void printHeader(char *title)
  * @param cursorXPrev Previous column cursor position
  * @param cursorYPrev Previous row cursor position
  */
-void printMenu(MenuItem *menu, int menuSize, char *msg, int cols, int colWidth, int rows, int cursorX, int cursorY, int cursorXPrev, int cursorYPrev)
+void printMenu(MenuItem *menu, int menuSize, char *msg, int cols, int colWidth, int rows, int *cursorX, int *cursorY, int *cursorXPrev, int *cursorYPrev)
 {
+    // If a menu item is static, we need to skip the cursor over it
+    if (menu[(*cursorX + *cursorY) - 2].isStatic)
+    {
+        // Going up
+        if (*cursorYPrev > 0 && *cursorY < *cursorYPrev && !(*cursorYPrev == rows && *cursorXPrev == cols))
+        {
+            // Decrement the cursor until we reach something non-static
+            while (*cursorY > 0 && menu[(*cursorX - 1) * rows + *cursorY - 1].isStatic)
+                (*cursorY)--;
+
+            // If the cursor is now out of bounds, wrap around and try again
+            if (*cursorY < 1)
+            {
+                *cursorY = rows;
+                while (*cursorY > 0 && menu[(*cursorX - 1) * rows + *cursorY - 1].isStatic)
+                    (*cursorY)--;
+            }
+        }
+        // Going down
+        else
+        {
+            // Increment the cursor until we reach something non-static
+            while (*cursorY <= rows && menu[(*cursorX - 1) * rows + *cursorY - 1].isStatic)
+                (*cursorY)++;
+
+            // If the cursor is now out of bounds, wrap around and try again
+            if (*cursorY > rows)
+            {
+                *cursorY = 1;
+                while (*cursorY <= rows && menu[(*cursorX - 1) * rows + *cursorY - 1].isStatic)
+                    (*cursorY)++;
+            }
+        }
+    }
+
+
+
     // Format and clamp potential message to display
     int msgLines = 0;
     char *msgBuffer = NULL;
     if (msg && msg[0] != '\0')
     {
-        int maxMsgLines = TERM_SIZE.ws_row / 2;
         size_t msgLen = strlen(msg) + 1;
         msgBuffer = malloc(msgLen);
         if (msgBuffer)
         {
             strncpy(msgBuffer, msg, msgLen);
             msgLines = formatNewLines(msgBuffer, TERM_SIZE.ws_col, NULL, 1);
-            if (msgLines > maxMsgLines) msgLines = maxMsgLines;
+            if (msgLines > AVAIL_HEIGHT - 2)
+                msgLines = AVAIL_HEIGHT - 2;
         }
     }
 
@@ -450,13 +487,13 @@ void printMenu(MenuItem *menu, int menuSize, char *msg, int cols, int colWidth, 
 
 
     // Viewport offset and clamping for current row cursor
-    int offset = (cursorY - 1) - (adjustedAvailHeight / 2);
+    int offset = (*cursorY - 1) - (adjustedAvailHeight / 2);
     if (offset < 0) offset = 0;
     if (offset > rows - adjustedAvailHeight) offset = rows - adjustedAvailHeight;
     if (offset < 0) offset = 0;
 
     // Viewport offset and clamping for previous row cursor
-    int prevOffset = (cursorYPrev - 1) - (adjustedAvailHeight / 2);
+    int prevOffset = (*cursorYPrev - 1) - (adjustedAvailHeight / 2);
     if (prevOffset < 0) prevOffset = 0;
     if (prevOffset > rows - adjustedAvailHeight) prevOffset = rows - adjustedAvailHeight;
     if (prevOffset < 0) prevOffset = 0;
@@ -466,22 +503,22 @@ void printMenu(MenuItem *menu, int menuSize, char *msg, int cols, int colWidth, 
     int inScrolling = (prevOffset != offset);
 
     // cursorPrev is initialised as 0 to indicate first frame should be drawn
-    if (cursorYPrev == 0) inScrolling = 1;
+    if (*cursorYPrev == 0) inScrolling = 1;
 
-    int prevIndex = cursorYPrev - 1;
-    int currIndex = cursorY - 1;
+    int prevIndex = *cursorYPrev - 1;
+    int currIndex = *cursorY - 1;
 
     // If we don't need to scroll, just update the cursor
     if (!inScrolling)
     {
         // Remove old line cursor
-        int prevCol = 1 + (cursorXPrev - 1) * (colWidth + 3);
-        int prevRow = adjustedBaseRow + (cursorYPrev - 1 - offset);
+        int prevCol = 1 + (*cursorXPrev - 1) * (colWidth + 3);
+        int prevRow = adjustedBaseRow + (*cursorYPrev - 1 - offset);
         printf("\x1b[%d;%dH   ", prevRow, prevCol);
 
         // Print new line cursor
-        int currCol = 1 + (cursorX - 1) * (colWidth + 3);
-        int currRow = adjustedBaseRow + (cursorY - 1 - offset);
+        int currCol = 1 + (*cursorX - 1) * (colWidth + 3);
+        int currRow = adjustedBaseRow + (*cursorY - 1 - offset);
         printf("\x1b[%d;%dH \033[%sm%c\033[%sm ", currRow, currCol, COL_FOR_CURSOR, CURSOR_CHAR, COL_RESET);
         
         return;
@@ -511,7 +548,9 @@ void printMenu(MenuItem *menu, int menuSize, char *msg, int cols, int colWidth, 
                 int cursor = i + j * rows;
                 if (cursor < menuSize)
                 {
-                    if (j + 1 == cursorX && i + 1 == cursorY)
+                    if (menu[cursor].isStatic)
+                        printf("\033[%sm%-*s\033[%sm", COL_FOR_HEADING, colWidth + 3, menu[cursor].name, COL_RESET);
+                    else if (j + 1 == *cursorX && i + 1 == *cursorY)
                         printf(" \033[%sm%c\033[%sm %-*s", COL_FOR_CURSOR, CURSOR_CHAR, COL_RESET, colWidth, menu[cursor].name);
                     else
                         printf("   %-*s", colWidth, menu[cursor].name);
@@ -608,8 +647,10 @@ int printYesNoScreen(char *title, char *prompt)
     };
 
     int running = 1;
-    int cursor = 2;
-    int cursorPrev = 0;
+    int cursorX = 1;
+    int cursorY = 2;
+    int cursorXPrev = 0;
+    int cursorYPrev = 0;
     int fullRedraw = 1;
 
     while (running)
@@ -618,7 +659,7 @@ int printYesNoScreen(char *title, char *prompt)
         {
             clearScreen();
             printHeader(title);
-            printMenu(menu, menuSize, prompt, 1, TERM_SIZE.ws_col - 6, menuSize, 1, cursor, 1, cursorPrev);
+            printMenu(menu, menuSize, prompt, 1, TERM_SIZE.ws_col - 6, menuSize, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
             printFooter("[jk] Navigate [Enter] Select [q] Cancel");
         }
         else
@@ -627,32 +668,32 @@ int printYesNoScreen(char *title, char *prompt)
                 printf("\x1b[2;1H");
             else
                 printf("\x1b[3;1H");
-            printMenu(menu, menuSize, prompt, 1, TERM_SIZE.ws_col - 6, menuSize, 1, cursor, 1, cursorPrev);
+            printMenu(menu, menuSize, prompt, 1, TERM_SIZE.ws_col - 6, menuSize, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
         }
 
         NavInput input = getNavInput();
 
         fullRedraw = 1;
-        cursorPrev = 0;
+        cursorYPrev = 0;
         switch (input)
         {
             case CURSOR_UP:
-                cursorPrev = cursor;
-                cursor--;
-                if (cursor < 1) cursor = menuSize;
+                cursorYPrev = cursorY;
+                cursorY--;
+                if (cursorY < 1) cursorY = menuSize;
                 fullRedraw = 0;
                 break;
 
             case CURSOR_DOWN:
-                cursorPrev = cursor;
-                cursor++;
-                if (cursor > menuSize) cursor = 1;
+                cursorYPrev = cursorY;
+                cursorY++;
+                if (cursorY > menuSize) cursorY = 1;
                 fullRedraw = 0;
                 break;
 
             case ENTER:
                 clearScreen();
-                if (strcmp(menu[cursor - 1].id, "yes") == 0)
+                if (strcmp(menu[cursorY - 1].id, "yes") == 0)
                     return 1;
                 else
                     return 0;

@@ -617,7 +617,8 @@ void showCommandReference(void)
         snprintf(menu[i].id, sizeof(menu[i].id), "%s", PROG_ENTRIES[i].command);
         snprintf(menu[i].name, sizeof(menu[i].name), "%s", PROG_ENTRIES[i].command);
         menu[i].action = NULL;
-        menu[i].visible = 1;
+        menu[i].isVisible = 1;
+        menu[i].isStatic = 0;
     }
 
 
@@ -645,7 +646,7 @@ void showCommandReference(void)
         {
             clearScreen();
             printHeader("Command reference (WIP)");
-            printMenu(menu, PROG_ENTRIES_NO, NULL, cols, colWidth, rows, cursorX, cursorY, cursorXPrev, cursorYPrev);
+            printMenu(menu, PROG_ENTRIES_NO, NULL, cols, colWidth, rows, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
             printFooter("[hjkl] Navigate [Enter] Select [q] Back");
         }
         else
@@ -654,7 +655,7 @@ void showCommandReference(void)
                 printf("\x1b[2;1H");
             else
                 printf("\x1b[3;1H");
-            printMenu(menu, PROG_ENTRIES_NO, NULL, cols, colWidth, rows, cursorX, cursorY, cursorXPrev, cursorYPrev);
+            printMenu(menu, PROG_ENTRIES_NO, NULL, cols, colWidth, rows, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
         }
 
         NavInput input = getNavInput();
@@ -842,7 +843,19 @@ void showMainMenu(void)
         return;
     }
 
+    int emacsInstalled = isProgramInstalled("emacs", 1);
+    int gitInstalled = isProgramInstalled("git", 1);
+    int tmuxInstalled = isProgramInstalled("tmux", 1);
+
     MenuItem rawMenu[] = {
+        { 
+            "",
+            "Introduction",
+            "",
+            NULL,
+            1,
+            1
+        },
         { 
             "intro",
             "Introduction to SHORK 486",
@@ -864,6 +877,14 @@ void showMainMenu(void)
             printStarted,
             strncmp(OS_NAME, "SHORK 486", 9) == 0
         },
+        { 
+            "",
+            "Software",
+            "",
+            NULL,
+            1,
+            1
+        },
         {
             "cmdRef",
             "Command reference (WIP)",
@@ -877,13 +898,6 @@ void showMainMenu(void)
             "",
             printCommands,
             PROG_ENTRIES_NO > 0
-        },
-        {
-            "licences",
-            "Licences",
-            "",
-            showLicencesMenu,
-            LICENCES_NO > 0
         },
         { 
             "shorkutils",
@@ -900,39 +914,56 @@ void showMainMenu(void)
             isProgramInstalled("shorklocomotive", 1) || isProgramInstalled("shorksay", 1)
         },
         {
+            "licences",
+            "Licences",
+            "",
+            showLicencesMenu,
+            LICENCES_NO > 0
+        },
+        { 
+            "",
+            "Guides",
+            "",
+            NULL,
+            1,
+            emacsInstalled || gitInstalled || tmuxInstalled
+        },
+        {
             "emacs",
             "Emacs (Mg) cheatsheet",
             "",
             printEmacsCheatsheet,
-            isProgramInstalled("emacs", 1)
+            emacsInstalled
         },
         {
             "git",
             "Supported Git commands",
             "",
             printGitCommands,
-            isProgramInstalled("git", 1)
+            gitInstalled
         },
         {
             "tmux",
             "tmux cheatsheet",
             "",
             printTmuxCheatsheet,
-            isProgramInstalled("tmux", 1)
+            tmuxInstalled
         }
     };
     int rawMenuSize = sizeof(rawMenu) / sizeof(rawMenu[0]);
 
     int running = 1;
-    int cursor = 1;
-    int cursorPrev = 0;
+    int cursorX = 1;
+    int cursorY = 1;
+    int cursorXPrev = 1;
+    int cursorYPrev = 0;
     int fullRedraw = 1;
 
     // Filter menu to just what should actually be visible
     MenuItem menu[rawMenuSize];
     int menuSize = 0;
     for (int i = 0; i < rawMenuSize; i++)
-        if (rawMenu[i].visible)
+        if (rawMenu[i].isVisible)
             menu[menuSize++] = rawMenu[i];
 
     while (running)
@@ -941,7 +972,7 @@ void showMainMenu(void)
         {
             clearScreen();
             printHeader("SHORKHELP");
-            printMenu(menu, menuSize, NULL, 1, TERM_SIZE.ws_col - 6, menuSize, 1, cursor, 1, cursorPrev);
+            printMenu(menu, menuSize, NULL, 1, TERM_SIZE.ws_col - 6, menuSize, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
             printFooter("[jk] Navigate [Enter] Select [q] Quit");
         }
         else
@@ -950,32 +981,32 @@ void showMainMenu(void)
                 printf("\x1b[2;1H");
             else
                 printf("\x1b[3;1H");
-            printMenu(menu, menuSize, NULL, 1, TERM_SIZE.ws_col - 6, menuSize, 1, cursor, 1, cursorPrev);
+            printMenu(menu, menuSize, NULL, 1, TERM_SIZE.ws_col - 6, menuSize, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
         }
 
         NavInput input = getNavInput();
 
         fullRedraw = 1;
-        cursorPrev = 0;
+        cursorYPrev = 0;
         switch (input)
         {
             case CURSOR_UP:
-                cursorPrev = cursor;
-                cursor--;
-                if (cursor < 1) cursor = menuSize;
+                cursorYPrev = cursorY;
+                cursorY--;
+                if (cursorY < 1) cursorY = menuSize;
                 fullRedraw = 0;
                 break;
 
             case CURSOR_DOWN:
-                cursorPrev = cursor;
-                cursor++;
-                if (cursor > menuSize) cursor = 1;
+                cursorYPrev = cursorY;
+                cursorY++;
+                if (cursorY > menuSize) cursorY = 1;
                 fullRedraw = 0;
                 break;
 
             case ENTER:
                 clearScreen();
-                menu[cursor - 1].action();
+                menu[cursorY - 1].action();
                 break;
         
             case QUIT:
@@ -1003,7 +1034,8 @@ void showLicencesMenu(void)
         snprintf(menu[i].id, sizeof(menu[i].id), "%s", LICENCES[i].name);
         snprintf(menu[i].name, sizeof(menu[i].name), "%s", LICENCES[i].name);
         menu[i].action = NULL;
-        menu[i].visible = 1;
+        menu[i].isVisible = 1;
+        menu[i].isStatic = 0;
     }
 
 
@@ -1031,7 +1063,7 @@ void showLicencesMenu(void)
         {
             clearScreen();
             printHeader("Licences");
-            printMenu(menu, LICENCES_NO, NULL, cols, colWidth, rows, cursorX, cursorY, cursorXPrev, cursorYPrev);
+            printMenu(menu, LICENCES_NO, NULL, cols, colWidth, rows, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
             printFooter("[hjkl] Navigate [Enter] Select [q] Back");
         }
         else
@@ -1040,7 +1072,7 @@ void showLicencesMenu(void)
                 printf("\x1b[2;1H");
             else
                 printf("\x1b[3;1H");
-            printMenu(menu, LICENCES_NO, NULL, cols, colWidth, rows, cursorX, cursorY, cursorXPrev, cursorYPrev);
+            printMenu(menu, LICENCES_NO, NULL, cols, colWidth, rows, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
         }
 
         NavInput input = getNavInput();

@@ -38,7 +38,8 @@ typedef struct
     char name[80];
     char payload[PATH_MAX];
     void (*action)(void);
-    int visible;
+    int isVisible;
+    int isStatic;
 } MenuItem;
 
 
@@ -73,7 +74,7 @@ void onSigInt(int);
 void printDir(struct dirent**, int, int, int);
 void printFooter(char*);
 void printHeader(char*);
-void printMenu(MenuItem*, int, char*, int, int, int, int, int, int, int);
+void printMenu(MenuItem*, int, char*, int, int, int, int*, int*, int*, int*);
 void printTextScreen(char*, char*, int, int);
 int printYesNoScreen(char*, char*);
 int rowsInCol(int, int, int);
