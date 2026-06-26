@@ -40,6 +40,7 @@ int COMPACT = 0;
 char CURSOR_CHAR = '*';
 char *EXIT_MSG = NULL;
 struct termios OLD_TERMIOS;
+char SEPARATOR = '-';
 struct winsize TERM_SIZE;
 
 
@@ -262,7 +263,10 @@ void printDir(struct dirent **dirContents, int entryCount, int cursor, int curso
         printf("\x1b[%d;1H   ", rowPrev);
 
         // Print new line cursor
-        printf("\x1b[%d;1H \033[%sm%c\033[%sm ", rowCurr, COL_FOR_CURSOR, CURSOR_CHAR, COL_RESET);
+        if (COL_ENABLED)
+            printf("\x1b[%d;1H \033[%sm%c\033[%sm ", rowCurr, COL_FOR_CURSOR, CURSOR_CHAR, COL_RESET);
+        else
+            printf("\x1b[%d;1H %c ", rowCurr, CURSOR_CHAR);
 
         return;
     }
@@ -291,13 +295,28 @@ void printDir(struct dirent **dirContents, int entryCount, int cursor, int curso
 
         // Can scroll up indicator
         if (canGoUp && i == offset)
-            printf("\033[%sm^\033[%sm\x1b[K\n", COL_FOR_ARROW, COL_RESET);
+        {
+            if (COL_ENABLED)
+                printf("\033[%sm^\033[%sm\x1b[K\n", COL_FOR_ARROW, COL_RESET);
+            else
+                printf("^\x1b[K\n");
+        }
         // Can scroll down indicator
         else if (canGoDown && i == offset + AVAIL_HEIGHT - 1)
-            printf("\033[%smv\033[%sm\n", COL_FOR_ARROW, COL_RESET);
+        {
+            if (COL_ENABLED)
+                printf("\033[%smv\033[%sm\n", COL_FOR_ARROW, COL_RESET);
+            else
+                printf("v\x1b[K\n");
+        }
         // Selected line
         else if (i == currIndex)
-            printf(" \033[%sm%c\033[%sm %c %s\n", COL_FOR_CURSOR, CURSOR_CHAR, COL_RESET, prefix, dirContents[i]->d_name);
+        {
+            if (COL_ENABLED)
+                printf(" \033[%sm%c\033[%sm %c %s\n", COL_FOR_CURSOR, CURSOR_CHAR, COL_RESET, prefix, dirContents[i]->d_name);
+            else
+                printf(" %c %c %s\n", CURSOR_CHAR, prefix, dirContents[i]->d_name);
+        }
         // Other lines
         else
             printf("   %c %s\n", prefix, dirContents[i]->d_name);
@@ -329,7 +348,8 @@ void printFooter(char *footnote)
     else
     {
         printf("\033[%d;1H", TERM_SIZE.ws_row - 1);
-        for (int i = 0; i < TERM_SIZE.ws_col; i++) printf("-");
+        for (int i = 0; i < TERM_SIZE.ws_col; i++)
+            putchar(SEPARATOR);
         printf("\033[%d;1H", TERM_SIZE.ws_row);
         int len = 0;
         if (footnote)
@@ -367,7 +387,8 @@ void printHeader(char *title)
     if (COL_ENABLED)
         printf("\033[%sm", COL_RESET);
     else
-        for (int i = 0; i < TERM_SIZE.ws_col; i++) printf("-");
+        for (int i = 0; i < TERM_SIZE.ws_col; i++)
+            putchar(SEPARATOR);
 }
 
 /**
@@ -474,7 +495,8 @@ void printMenu(MenuItem *menu, int menuSize, char *msg, int cols, int colWidth, 
             printf("\x1b[%d;1H\x1b[K", sepRow);
             if (!COL_ENABLED)
             {
-                for (int i = 0; i < TERM_SIZE.ws_col; i++) printf("-");
+                for (int i = 0; i < TERM_SIZE.ws_col; i++)
+                    putchar(SEPARATOR);
                 printf("\x1b[%d;1H\x1b[K", sepRow + 1);
             }
             else
@@ -519,7 +541,10 @@ void printMenu(MenuItem *menu, int menuSize, char *msg, int cols, int colWidth, 
         // Print new line cursor
         int currCol = 1 + (*cursorX - 1) * (colWidth + 3);
         int currRow = adjustedBaseRow + (*cursorY - 1 - offset);
-        printf("\x1b[%d;%dH \033[%sm%c\033[%sm ", currRow, currCol, COL_FOR_CURSOR, CURSOR_CHAR, COL_RESET);
+        if (COL_ENABLED)
+            printf("\x1b[%d;%dH \033[%sm%c\033[%sm ", currRow, currCol, COL_FOR_CURSOR, CURSOR_CHAR, COL_RESET);
+        else
+            printf("\x1b[%d;%dH %c ", currRow, currCol, CURSOR_CHAR);
         
         return;
     }
@@ -536,10 +561,20 @@ void printMenu(MenuItem *menu, int menuSize, char *msg, int cols, int colWidth, 
 
         // Can scroll up indicator
         if (canGoUp && i == offset)
-            printf("\033[%sm^\033[%sm\x1b[K\n", COL_FOR_ARROW, COL_RESET);
+        {
+            if (COL_ENABLED)
+                printf("\033[%sm^\033[%sm\x1b[K\n", COL_FOR_ARROW, COL_RESET);
+            else
+                printf("^\n");
+        }
         // Can scroll down indicator
         else if (canGoDown && i == offset + adjustedAvailHeight - 1)
-            printf("\033[%smv\033[%sm\n", COL_FOR_ARROW, COL_RESET);
+        {
+            if (COL_ENABLED)
+                printf("\033[%smv\033[%sm\n", COL_FOR_ARROW, COL_RESET);
+            else
+                printf("v\n");
+        }
         // Selected row
         else
         {
@@ -549,9 +584,19 @@ void printMenu(MenuItem *menu, int menuSize, char *msg, int cols, int colWidth, 
                 if (cursor < menuSize)
                 {
                     if (menu[cursor].isStatic)
-                        printf("\033[%sm%-*s\033[%sm", COL_FOR_HEADING, colWidth + 3, menu[cursor].name, COL_RESET);
+                    {
+                        if (COL_ENABLED)
+                            printf("\033[%sm%-*s\033[%sm", COL_FOR_HEADING, colWidth + 3, menu[cursor].name, COL_RESET);
+                        else
+                            printf("%-*s", colWidth + 3, menu[cursor].name);
+                    }
                     else if (j + 1 == *cursorX && i + 1 == *cursorY)
-                        printf(" \033[%sm%c\033[%sm %-*s", COL_FOR_CURSOR, CURSOR_CHAR, COL_RESET, colWidth, menu[cursor].name);
+                    {
+                        if (COL_ENABLED)
+                            printf(" \033[%sm%c\033[%sm %-*s", COL_FOR_CURSOR, CURSOR_CHAR, COL_RESET, colWidth, menu[cursor].name);
+                        else
+                            printf(" %c %-*s", CURSOR_CHAR, colWidth, menu[cursor].name);
+                    }
                     else
                         printf("   %-*s", colWidth, menu[cursor].name);
                 }
@@ -602,9 +647,19 @@ void printTextScreen(char *title, char *text, int totalLines, int pageScroll)
             printf("\x1b[%d;1H\x1b[K", BASE_ROW + i);
 
             if (canGoUp && i == 0)
-                printf("\033[%sm^\033[%sm\x1b[K\n", COL_FOR_ARROW, COL_RESET);
+            {
+                if (COL_ENABLED)
+                    printf("\033[%sm^\033[%sm\x1b[K\n", COL_FOR_ARROW, COL_RESET);
+                else
+                    printf("^\x1b[K\n");
+            }
             else if (canGoDown && i == AVAIL_HEIGHT - 1)
-                printf("\033[%smv\033[%sm\x1b[K\n", COL_FOR_ARROW, COL_RESET);
+            {
+                if (COL_ENABLED)
+                    printf("\033[%smv\033[%sm\x1b[K\n", COL_FOR_ARROW, COL_RESET);
+                else
+                    printf("v\x1b[K\n");
+            }
             else if (i + cursor < totalLines)
                 printf("%s", textLines[i + cursor]);
             else
@@ -731,6 +786,16 @@ void setupMenuSys(void)
     setvbuf(stdout, NULL, _IONBF, 0);
     atexit(onExit);
     signal(SIGINT, onSigInt);
+    
+    if (!COL_ENABLED)
+    {
+        COL_FOR_ARROW = COL_FOR_RESET;
+        COL_FOR_CODE = COL_FOR_RESET;
+        COL_FOR_CURSOR = COL_FOR_RESET;
+        COL_FOR_HEADING = COL_FOR_RESET;
+        COL_FOR_OL = COL_FOR_RESET;
+        COL_FOR_SHORKUTIL = COL_FOR_RESET;
+    }
 
     enableRawMode();
     clearScreen();

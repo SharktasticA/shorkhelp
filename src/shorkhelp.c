@@ -785,6 +785,10 @@ void showHelp(void)
     formatNewLines(licences, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", licences);
 
+    char nc[80] = "-nc, --no-col    Disables all coloured output\n";
+    formatNewLines(nc, TERM_SIZE.ws_col, "                 ", 0);
+    printf("%s", nc);
+
     if (getIsPT1())
     {
         char pt1[80] = "--pt1            Displays Public Test 1 information and exits\n";

@@ -59,6 +59,7 @@ extern int COMPACT;
 extern char CURSOR_CHAR;
 extern char *EXIT_MSG;
 extern struct termios OLD_TERMIOS;
+extern char SEPARATOR;
 extern struct winsize TERM_SIZE;
 
 
