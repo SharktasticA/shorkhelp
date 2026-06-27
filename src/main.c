@@ -71,33 +71,33 @@ int main(int argc, char *argv[])
 
         for (int i = 1; i < argc; i++)
         {
-            if (strcmp(argv[1], "--commands") == 0 && fileExists("/usr/share/shorkhelp/programs.csv"))
+            if (strcmp(argv[i], "--commands") == 0 && fileExists("/usr/share/shorkhelp/programs.csv"))
                 opt = ARG_COMMANDS;
-            else if (strcmp(argv[1], "--emacs") == 0 || strcmp(argv[1], "--mg") == 0)
+            else if (strcmp(argv[i], "--emacs") == 0 || strcmp(argv[i], "--mg") == 0)
                 opt = ARG_EMACS;
-            else if (strcmp(argv[1], "--git") == 0)
+            else if (strcmp(argv[i], "--git") == 0)
                 opt = ARG_GIT;
-            else if (strcmp(argv[1], "--hardware") == 0)
+            else if (strcmp(argv[i], "--hardware") == 0)
                 opt = ARG_HARDWARE;
-            else if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)
+            else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0)
                 opt = ARG_HELP;
-            else if (strcmp(argv[1], "--intro") == 0 && strncmp(OS_NAME, "SHORK 486", 9) == 0)
+            else if (strcmp(argv[i], "--intro") == 0 && strncmp(OS_NAME, "SHORK 486", 9) == 0)
                 opt = ARG_INTRO;
-            else if (strcmp(argv[1], "--licences") == 0 && fileExists("/LICENCES/manifest.csv"))
+            else if (strcmp(argv[i], "--licences") == 0 && fileExists("/LICENCES/manifest.csv"))
                 opt = ARG_LICENCES;
-            else if ((strcmp(argv[1], "-nc") == 0) || (strcmp(argv[1], "--no-col") == 0))
+            else if ((strcmp(argv[i], "-nc") == 0) || (strcmp(argv[i], "--no-col") == 0))
                 COL_ENABLED = 0;
-            else if (strcmp(argv[1], "--pt1") == 0 && getIsPT1())
+            else if (strcmp(argv[i], "--pt1") == 0 && getIsPT1())
                 opt = ARG_PT1;
-            else if (strcmp(argv[1], "--shorktainment") == 0)
+            else if (strcmp(argv[i], "--shorktainment") == 0)
                 opt = ARG_SHORKTAINMENT;
-            else if (strcmp(argv[1], "--shorkutils") == 0)
+            else if (strcmp(argv[i], "--shorkutils") == 0)
                 opt = ARG_SHORKUTILS;
-            else if (strcmp(argv[1], "--started") == 0)
+            else if (strcmp(argv[i], "--started") == 0)
                 opt = ARG_STARTED;
-            else if (strcmp(argv[1], "--tmux") == 0)
+            else if (strcmp(argv[i], "--tmux") == 0)
                 opt = ARG_TMUX;
-            else if ((strcmp(argv[1], "-v") == 0) || (strcmp(argv[1], "--version") == 0))
+            else if ((strcmp(argv[i], "-v") == 0) || (strcmp(argv[i], "--version") == 0))
                 opt = ARG_VERSION;
         }
 

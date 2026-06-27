@@ -1012,11 +1012,11 @@ void showMainMenu(void)
     setupMenuSys();
 
     LICENCES_NO = loadLicences();
-    if (LICENCES_NO == -1)
-    {
-        printf("ERROR: could not load manifest.csv\n");
-        return;
-    }
+    //if (LICENCES_NO == -1)
+    //{
+    //    printf("ERROR: could not load manifest.csv\n");
+    //    return;
+    //}
 
     PROG_ENTRIES_NO = loadProgramEntries();
     if (PROG_ENTRIES_NO == -1)
