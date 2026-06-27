@@ -20,20 +20,21 @@ static const char *VERSION = "1.0-pt1";
 
 typedef enum
 {
-    HELP_NONE,
-    HELP_COMMANDS,
-    HELP_EMACS,
-    HELP_GIT,
-    HELP_HELP,
-    HELP_INTRO,
-    HELP_LICENCES,
-    HELP_PT1,
-    HELP_SHORKTAINMENT,
-    HELP_SHORKUTILS,
-    HELP_STARTED,
-    HELP_TMUX,
-    HELP_VERSION
-} HelpOption;
+    ARG_NONE,
+    ARG_COMMANDS,
+    ARG_EMACS,
+    ARG_GIT,
+    ARG_HARDWARE,
+    ARG_HELP,
+    ARG_INTRO,
+    ARG_LICENCES,
+    ARG_PT1,
+    ARG_SHORKTAINMENT,
+    ARG_SHORKUTILS,
+    ARG_STARTED,
+    ARG_TMUX,
+    ARG_VERSION
+} Argument;
 
 
 
@@ -66,39 +67,41 @@ int main(int argc, char *argv[])
         showMainMenu();
     else
     {
-        HelpOption opt = HELP_NONE;
+        Argument opt = ARG_NONE;
 
         for (int i = 1; i < argc; i++)
         {
             if (strcmp(argv[1], "--commands") == 0 && fileExists("/usr/share/shorkhelp/programs.csv"))
-                opt = HELP_COMMANDS;
+                opt = ARG_COMMANDS;
             else if (strcmp(argv[1], "--emacs") == 0 || strcmp(argv[1], "--mg") == 0)
-                opt = HELP_EMACS;
+                opt = ARG_EMACS;
             else if (strcmp(argv[1], "--git") == 0)
-                opt = HELP_GIT;
+                opt = ARG_GIT;
+            else if (strcmp(argv[1], "--hardware") == 0)
+                opt = ARG_HARDWARE;
             else if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)
-                opt = HELP_HELP;
+                opt = ARG_HELP;
             else if (strcmp(argv[1], "--intro") == 0 && strncmp(OS_NAME, "SHORK 486", 9) == 0)
-                opt = HELP_INTRO;
+                opt = ARG_INTRO;
             else if (strcmp(argv[1], "--licences") == 0 && fileExists("/LICENCES/manifest.csv"))
-                opt = HELP_LICENCES;
+                opt = ARG_LICENCES;
             else if ((strcmp(argv[1], "-nc") == 0) || (strcmp(argv[1], "--no-col") == 0))
                 COL_ENABLED = 0;
             else if (strcmp(argv[1], "--pt1") == 0 && getIsPT1())
-                opt = HELP_PT1;
+                opt = ARG_PT1;
             else if (strcmp(argv[1], "--shorktainment") == 0)
-                opt = HELP_SHORKTAINMENT;
+                opt = ARG_SHORKTAINMENT;
             else if (strcmp(argv[1], "--shorkutils") == 0)
-                opt = HELP_SHORKUTILS;
+                opt = ARG_SHORKUTILS;
             else if (strcmp(argv[1], "--started") == 0)
-                opt = HELP_STARTED;
+                opt = ARG_STARTED;
             else if (strcmp(argv[1], "--tmux") == 0)
-                opt = HELP_TMUX;
+                opt = ARG_TMUX;
             else if ((strcmp(argv[1], "-v") == 0) || (strcmp(argv[1], "--version") == 0))
-                opt = HELP_VERSION;
+                opt = ARG_VERSION;
         }
 
-        if (opt == HELP_COMMANDS)
+        if (opt == ARG_COMMANDS)
         {
             PROG_ENTRIES_NO = loadProgramEntries();
             if (PROG_ENTRIES_NO == -1)
@@ -107,26 +110,31 @@ int main(int argc, char *argv[])
                 return 1;
             }
             setupMenuSys();
-            printCommands();
+            printSoftwareCommands();
         }
-        else if (opt == HELP_EMACS)
+        else if (opt == ARG_EMACS)
         {
             setupMenuSys();
-            printEmacsCheatsheet();
+            printGuideEmacsCheatsheet();
         }
-        else if (opt == HELP_GIT)
+        else if (opt == ARG_GIT)
         {
             setupMenuSys();
-            printGitCommands();
+            printGuideGitCommands();
         }
-        else if (opt == HELP_HELP)
+        else if (opt == ARG_HARDWARE)
+        {
+            setupMenuSys();
+            printGuideDiscoveringHardware();
+        }
+        else if (opt == ARG_HELP)
             showHelp();
-        else if (opt == HELP_INTRO)
+        else if (opt == ARG_INTRO)
         {
             setupMenuSys();
             printIntro();
         }
-        else if (opt == HELP_LICENCES)
+        else if (opt == ARG_LICENCES)
         {
             LICENCES_NO = loadLicences();
             if (LICENCES_NO == -1)
@@ -137,32 +145,32 @@ int main(int argc, char *argv[])
             setupMenuSys();
             showLicencesMenu();
         }
-        else if (opt == HELP_PT1)
+        else if (opt == ARG_PT1)
         {
             setupMenuSys();
-            printPT1();
+            printIntroPT1();
         }
-        else if (opt == HELP_SHORKTAINMENT)
+        else if (opt == ARG_SHORKTAINMENT)
         {
             setupMenuSys();
-            printSHORKEntertainment();
+            printSoftwareSHORKTAINMENT();
         }
-        else if (opt == HELP_SHORKUTILS)
+        else if (opt == ARG_SHORKUTILS)
         {
             setupMenuSys();
-            printSHORKUtilities();
+            printSoftwareSHORKUTILS();
         }
-        else if (opt == HELP_STARTED)
+        else if (opt == ARG_STARTED)
         {
             setupMenuSys();
-            printStarted();
+            printIntroStarted();
         }
-        else if (opt == HELP_TMUX)
+        else if (opt == ARG_TMUX)
         {
             setupMenuSys();
-            printTmuxCheatsheet();
+            printGuideTmuxCheatsheet();
         }
-        else if (opt == HELP_VERSION)
+        else if (opt == ARG_VERSION)
             printf("SHORKHELP %s\n", VERSION);
         else
             showMainMenu();

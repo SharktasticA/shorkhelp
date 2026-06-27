@@ -134,6 +134,47 @@ char *bytesToReadable(const char *from, const long long val)
 }
 
 /**
+ * Captures the output of the given program command capped at the given buffer
+ * size.
+ * @param command Program command to run
+ * @param bufferSize The maximum string size
+ * @return char* Captured program output as string
+ */
+char *captureProgramOutput(const char *command, const size_t bufferSize)
+{
+    FILE* stream = popen(command, "r");
+    if (!stream)
+        return NULL;
+
+    char *buffer = malloc(bufferSize);
+    if (!buffer)
+    {
+        pclose(stream);
+        return NULL;
+    }
+
+    size_t len = 0;
+    size_t chunkSize = 256;
+    char tmp[256];
+
+    while (len < bufferSize - 1)
+    {
+        size_t toRead = (bufferSize - 1 - len < chunkSize) ? bufferSize - 1 - len : chunkSize;
+
+        size_t bytesRead = fread(tmp, 1, toRead, stream);
+        if (bytesRead == 0)
+            break;
+
+        memcpy(buffer + len, tmp, bytesRead);
+        len += bytesRead;
+    }
+    pclose(stream);
+
+    buffer[len] = '\0';
+    return buffer;
+}
+
+/**
  * Extracts a substring from an input string after a given separation character
  * and offset. Also removes any surrounding quotes or trailing newline characters
  * present. 
@@ -547,6 +588,36 @@ int iSqrt(int x)
     }
 
     return result;
+}
+
+/**
+ * Reduces a given string to the given maximum lines by counting '\n' escape
+ * codes.
+ * @param str Input string
+ * @param maxLines Number of lines before cutting the string
+ */
+void limitLines(char* str, const int maxLines)
+{
+    if (!str || maxLines <= 0)
+    {
+        if (str)
+            str[0] = '\0';
+        return;
+    }
+
+    int count = 0;
+    for (int i = 0; str[i] != '\0'; i++)
+    {
+        if (str[i] == '\n')
+        {
+            count++;
+            if (count == maxLines)
+            {
+                str[i + 1] = '\0';
+                return;
+            }
+        }
+    }
 }
 
 /**

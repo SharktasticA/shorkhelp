@@ -274,7 +274,310 @@ int loadProgramEntries(void)
     return i;
 }
 
-void printCommands(void)
+
+
+
+void printGuideDiscoveringHardware(void)
+{
+    const int strSize = 20480;
+    char hardwareSize[strSize];
+    int pos = 0;
+
+    pos += snprintf(hardwareSize + pos, strSize - pos, "This guide will list and describe various ways you can find out more information about your system and its operating environment.\n\n");
+
+    if (isProgramInstalled("shorkfetch", 1))
+    {
+        char *shorkfetch = captureProgramOutput("shorkfetch -cl=off", 1536);
+        if (shorkfetch && shorkfetch[0] != '\0')
+        {
+            pos += snprintf(hardwareSize + pos, strSize - pos, "\033[%smOverall: shorkfetch\033[%sm\n", COL_FOR_HEADING, COL_FOR_WHITE);
+
+            pos += snprintf(hardwareSize + pos, strSize - pos,
+                "The easiest way to get an overall picture of your system is via a *fetch program. You will often see their output in screenshots and photos of Linux desktops online as they provide a convenient and pseudo-standardised way of showing the author's system configuration. \033[%smneofetch\033[%sm and \033[%smfastfetch\033[%sm are presently the most common for mainstream Linux distros - SHORK ships with its purpose-built \033[%smshorkfetch\033[%sm.\n\n",
+                COL_FOR_CODE,  COL_FOR_WHITE,
+                COL_FOR_CODE,  COL_FOR_WHITE,
+                COL_FOR_SHORKUTIL,  COL_FOR_WHITE
+            );
+
+            pos += snprintf(hardwareSize + pos, strSize - pos, "Example output:\033[%sm\n%s", COL_FOR_CODE, shorkfetch);
+        }
+    }
+
+    if (isProgramInstalled("free", 1))
+    {
+        char *free = captureProgramOutput("free -h", 512);
+        if (free && free[0] != '\0')
+        {
+            pos += snprintf(hardwareSize + pos, strSize - pos, "\033[%smMemory: free\033[%sm\n", COL_FOR_HEADING, COL_FOR_WHITE);
+
+            pos += snprintf(hardwareSize + pos, strSize - pos,
+                "The \033[%smfree\033[%sm command will inform you how much total physical and swap memory is present, and how much of it is used or available. \033[%smfree -h\033[%sm is often used to make it print values in their most suitable unit (K/Ki, M/Mi, etc.) instead of bytes.\n\n",
+                COL_FOR_CODE,  COL_FOR_WHITE,
+                COL_FOR_CODE,  COL_FOR_WHITE
+            );
+
+            pos += snprintf(hardwareSize + pos, strSize - pos, "Example output:\033[%sm\n%s\n", COL_FOR_CODE, free);
+        }
+    }
+
+    if (isProgramInstalled("df", 1))
+    {
+        char *df = captureProgramOutput("df -h", 2048);
+        if (df && df[0] != '\0')
+        {
+            pos += snprintf(hardwareSize + pos, strSize - pos, "\033[%smStorage: df\033[%sm\n", COL_FOR_HEADING, COL_FOR_WHITE);
+
+            pos += snprintf(hardwareSize + pos, strSize - pos,
+                "The \033[%smdf\033[%sm (disk free) command will list each detected file system and inform you of each one's size, how much of it is used or available, and if/where it is mounted. \033[%smdf -h\033[%sm is often used to make it print values in their most suitable unit (K, M, etc.) instead of bytes.\n\n",
+                COL_FOR_CODE,  COL_FOR_WHITE,
+                COL_FOR_CODE,  COL_FOR_WHITE
+            );
+
+            pos += snprintf(hardwareSize + pos, strSize - pos, "Example output:\033[%sm\n%s\n", COL_FOR_CODE, df);
+        }
+    }
+
+    if (isProgramInstalled("lsblk", 1))
+    {
+        char *lsblk = captureProgramOutput("lsblk", 1536);
+        if (lsblk && lsblk[0] != '\0')
+        {
+            pos += snprintf(hardwareSize + pos, strSize - pos, "\033[%smStorage: lsblk\033[%sm\n", COL_FOR_HEADING, COL_FOR_WHITE);
+
+            pos += snprintf(hardwareSize + pos, strSize - pos,
+                "The \033[%smlsblk\033[%sm (list block device) command will list each detected storage device and its partitions, or loop device, and inform you of each one's major and minor numbers, its size, its device type, and its mountpoint.\n\n",
+                COL_FOR_CODE,  COL_FOR_WHITE
+            );
+
+            pos += snprintf(hardwareSize + pos, strSize - pos, "Example output:\033[%sm\n%s\n", COL_FOR_CODE, lsblk);
+        }
+    }
+
+    if (isProgramInstalled("fdisk", 1))
+    {
+        char *fdisk = captureProgramOutput("fdisk -l", 1024);
+        if (fdisk && fdisk[0] != '\0')
+        {
+            limitLines(fdisk, 7);
+
+            pos += snprintf(hardwareSize + pos, strSize - pos, "\033[%smStorage: fdisk\033[%sm\n", COL_FOR_HEADING, COL_FOR_WHITE);
+
+            pos += snprintf(hardwareSize + pos, strSize - pos,
+                "The \033[%smfdisk\033[%sm command is a disk partitioning utility that can be used to describe each partition found via \033[%smfdisk -l\033[%sm. For each partition, it will inform you of its host device, if it is bootable, its start and end CHS and LBA geometry, its sector count, its size and its type.\n\n",
+                COL_FOR_CODE,  COL_FOR_WHITE,
+                COL_FOR_CODE,  COL_FOR_WHITE
+            );
+
+            pos += snprintf(hardwareSize + pos, strSize - pos, "Example output:\033[%sm\n%s\n", COL_FOR_CODE, fdisk);
+        }
+    }
+
+    if (isProgramInstalled("lscpu", 1))
+    {
+        char *lscpu = captureProgramOutput("lscpu", 1024);
+        if (lscpu && lscpu[0] != '\0')
+        {
+            limitLines(lscpu, 10);
+
+            pos += snprintf(hardwareSize + pos, strSize - pos, "\033[%smProcessor: lscpu\033[%sm\n", COL_FOR_HEADING, COL_FOR_WHITE);
+
+            pos += snprintf(hardwareSize + pos, strSize - pos,
+                "The \033[%smlscpu\033[%sm (list CPU information) command lists information about your processor, including its architecture, its vendor and model names, how many cores or threads it has, what CPU flags it and the Linux kernel reports and what vulnerabilities affect it. It parses data from \033[%sm/proc/cpuinfo\033[%sm and \033[%smsysfs\033[%sm. Its output can be large - you can pipe it to \033[%smless\033[%sm to make it more manageable.\n\n",
+                COL_FOR_CODE,  COL_FOR_WHITE,
+                COL_FOR_CODE,  COL_FOR_WHITE,
+                COL_FOR_CODE,  COL_FOR_WHITE,
+                COL_FOR_CODE,  COL_FOR_WHITE
+            );
+
+            pos += snprintf(hardwareSize + pos, strSize - pos, "Example output:\033[%sm\n%s\n", COL_FOR_CODE, lscpu);
+        }
+    }
+
+    char *cpuinfo = captureProgramOutput("cat /proc/cpuinfo", 1024);
+    if (cpuinfo && cpuinfo[0] != '\0')
+    {
+        limitLines(cpuinfo, 10);
+
+        pos += snprintf(hardwareSize + pos, strSize - pos, "\033[%smProcessor: cpuinfo\033[%sm\n", COL_FOR_HEADING, COL_FOR_WHITE);
+
+        pos += snprintf(hardwareSize + pos, strSize - pos,
+            "\033[%sm/proc/cpuinfo\033[%sm is a file produced by the Linux kernel as part of \033[%smprocfs\033[%sm that reports information about your processor. You can read it with \033[%smcat\033[%sm. It includes its architecture, its vendor and model names, how many cores or threads it has, what CPU flags it and the Linux kernel reports, and what vulnerabilities affect it. It is often used as a source of data by *fetch commands and \033[%smlscpu\033[%sm (if installed), being less human-readable than those but more often present. Its output can be large - you can pipe it to \033[%smless\033[%sm to make it more manageable.\n\n",
+            COL_FOR_CODE,  COL_FOR_WHITE,
+            COL_FOR_CODE,  COL_FOR_WHITE,
+            COL_FOR_CODE,  COL_FOR_WHITE,
+            COL_FOR_CODE,  COL_FOR_WHITE,
+            COL_FOR_CODE,  COL_FOR_WHITE
+        );
+
+        pos += snprintf(hardwareSize + pos, strSize - pos, "Example output:\033[%sm\n%s\n", COL_FOR_CODE, cpuinfo);
+    }
+
+    if (isProgramInstalled("lspci", 1))
+    {
+        char *lspci = captureProgramOutput("lspci", 512);
+        if (lspci && lspci[0] != '\0')
+        {
+            limitLines(lspci, 5);
+
+            pos += snprintf(hardwareSize + pos, strSize - pos, "\033[%smPeripherals: lspci\033[%sm\n", COL_FOR_HEADING, COL_FOR_WHITE);
+
+            pos += snprintf(hardwareSize + pos, strSize - pos,
+                "The \033[%smlspci\033[%sm (list PCI devices) command lists all detected PCI and PCI Express buses and devices connected to the computer. For each device, it informs the user its PCI address (bus:device:function), its class code (e.g. 0300 for VGA-compatible graphics) and its vendor:device IDs. BusyBox's implementation does not name the device or its type, but the class codes, and the vendor and device IDs, can be used when searching \033[%smadmin.pci-ids.ucw.cz/read/PD/\033[%sm and \033[%smadmin.pci-ids.ucw.cz/read/PC/\033[%sm (respectively) to identify the device.\n\n",
+                COL_FOR_CODE,  COL_FOR_WHITE,
+                COL_FOR_CODE,  COL_FOR_WHITE,
+                COL_FOR_CODE,  COL_FOR_WHITE
+            );
+
+            pos += snprintf(hardwareSize + pos, strSize - pos, "Example output:\033[%sm\n%s", COL_FOR_CODE, lspci);
+        }
+    }
+
+    /*if (isProgramInstalled("lsusb", 1))
+    {
+        // TODO
+    }*/
+
+    int lines = formatNewLines(hardwareSize, TERM_SIZE.ws_col, NULL, 1);
+    printTextScreen("Discovering your hardware", hardwareSize, lines, 1);
+}
+
+void printGuideEmacsCheatsheet(void)
+{
+    char emacsStr[1500];
+    snprintf(emacsStr, 1500, 
+"\033[%smC\033[%sm = Ctrl                          \033[%smM\033[%sm = Alt\n\n\
+\033[%smExit\033[%sm                   \033[%smC\033[%sm-x \033[%smC\033[%sm-c    \033[%smOpen file/new buffer\033[%sm      \033[%smC\033[%sm-x \033[%smC\033[%sm-f\n\
+\033[%smSave current buffer\033[%sm    \033[%smC\033[%sm-x \033[%smC\033[%sm-s    \033[%smSave all buffers\033[%sm          \033[%smC\033[%sm-x s\n\n\
+\033[%smSplit window\033[%sm           \033[%smC\033[%sm-x 2      \033[%smEnlarge window\033[%sm            \033[%smC\033[%sm-x ^\n\
+\033[%smSwitch windows\033[%sm         \033[%smC\033[%sm-x o      \033[%smClose current window\033[%sm      \033[%smC\033[%sm-x 0\n\
+\033[%smClose other windows\033[%sm    \033[%smC\033[%sm-x 1\n\n\
+\033[%smGo to line\033[%sm             \033[%smC\033[%sm-x g      \033[%smUndo\033[%sm                      \033[%smC\033[%sm-_\n\
+\033[%smSearch (forwards)\033[%sm      \033[%smC\033[%sm-s        \033[%smSearch (backwards)\033[%sm        \033[%smC\033[%sm-r\n\
+\033[%smFind and replace\033[%sm       \033[%smM\033[%sm-%%        \033[%smReformat (fit to line)\033[%sm    \033[%smM\033[%sm-q\n",
+    COL_FOR_BOLD_RED, COL_FOR_WHITE, COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_MAGENTA, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_MAGENTA, COL_FOR_WHITE);
+
+    int lines = formatNewLines(emacsStr, TERM_SIZE.ws_col, NULL, 1);
+    printTextScreen("Emacs (Mg) cheatsheet", emacsStr, lines, 1);
+}
+
+void printGuideGitCommands(void)
+{
+    char gitStr[500];
+    snprintf(gitStr, 500, "add, blame, branch, checkout, cherry-pick, clean, clone, commit, config, diff, fetch, init, log, merge, mv, pull, push, rebase, reflog, remote, reset, restore, rm, show, stash, status, switch, tag\n");
+
+    int lines = formatNewLines(gitStr, TERM_SIZE.ws_col, NULL, 1);
+    printTextScreen("Supported Git commands", gitStr, lines, 1);
+}
+
+void printGuideTmuxCheatsheet(void)
+{
+    char tmuxStr[1500];
+    snprintf(tmuxStr, 1500, 
+"\033[%smC\033[%sm = Ctrl\n\n\
+\033[%smDetach session\033[%sm     \033[%smC\033[%sm-b d        \033[%smAccess tmux prompt\033[%sm    \033[%smC\033[%sm-b :\n\n\
+\033[%smNew window\033[%sm         \033[%smC\033[%sm-b c        \033[%smClose window\033[%sm          \033[%smC\033[%sm-b &\n\
+\033[%smList windows\033[%sm       \033[%smC\033[%sm-b w        \033[%smRename window\033[%sm         \033[%smC\033[%sm-b ,\n\
+\033[%smPrevious window\033[%sm    \033[%smC\033[%sm-b p        \033[%smNext window\033[%sm           \033[%smC\033[%sm-b n\n\
+\033[%smChange window\033[%sm      \033[%smC\033[%sm-b 0-9\n\n\
+\033[%smVertical split\033[%sm     \033[%smC\033[%sm-b %%        \033[%smHorizontal split\033[%sm      \033[%smC\033[%sm-b \"\n\
+\033[%smClose pane\033[%sm         \033[%smC\033[%sm-b x        \033[%smShow pane numbers\033[%sm     \033[%smC\033[%sm-b q\n\
+\033[%smChange pane\033[%sm        \033[%smC\033[%sm-b q 0-9    \033[%smCycle panes\033[%sm           \033[%smC\033[%sm-b o\n\
+\033[%smPane to window\033[%sm     \033[%smC\033[%sm-b !        \033[%smToggle pane zoom\033[%sm      \033[%smC\033[%sm-b z\n",
+    COL_FOR_BOLD_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE);
+
+    int lines = formatNewLines(tmuxStr, TERM_SIZE.ws_col, NULL, 1);
+    printTextScreen("tmux cheatsheet", tmuxStr, lines, 1);
+}
+
+
+
+void printIntro(void)
+{
+    const int strSize = 4192;
+    char introStr[strSize];
+    int pos = 0;
+
+    pos += snprintf(introStr + pos, strSize - pos, "SHORK 486 is a 32-bit Linux distribution for 486 and Pentium (P5) PCs! It focuses on being as lean and small as possible, whilst still providing a modern kernel, robust command set, custom utilities, and hand-picked modern software.\n\n");
+
+    pos += snprintf(introStr + pos, strSize - pos, "\033[%smGoals\033[%sm\nBesides being something fun to try on old PCs, SHORK 486 was founded on the belief that old PCs can still be useful to the right people, retrocomputing and gaming usage aside. SHORK 486 can be useful for lightweight desktop usage, SSH terminal usage, distraction-free typewriting (\"writerdecks\"), embedded applications, demonstrative use in academia/education, and as a technical demonstration of what old PCs and modern software targeted at them can actually still do! If it can save just one more PC from the landfills, it has done its job!\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
+
+    pos += snprintf(introStr + pos, strSize - pos, "\033[%smWhat's special\033[%sm\nSHORK 486 is a modern and maintained Linux distribution that can run on a processor architecture from 1989. Depending on configuration, it only requires between 8 and 24MiB system memory whilst still packing a lot of functionality for its size. Due to various factors, making such a distribution is increasingly difficult in the 2020s. System requirements are ever-increasing, with even the otherwise excellent Micro Core and Tiny Core requiring at least 26-46MB RAM, putting them out of range of many early 486 systems. As of Linux kernel 7.1 and beyond, support for 486 processors and various ISA and PCMCIA networking hardware has been dropped, and 32-bit x86 support in general is currently dropped by most mainstream distributions. Given this situation, SHORK 486 will try to fill this niche of a ready-to-go Linux distribution for such PCs by sticking with a minimal-where-possible philosophy, customisability and restoring support for older hardware with newer Linux kernels!\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
+
+    pos += snprintf(introStr + pos, strSize - pos, "\033[%smArchitecture\033[%sm\nSHORK 486 is not GNU/Linux as you may be accustomed to. Its init system and most core utilities are provided by BusyBox, a single-binary application well known for embedded usage. As needed, some util-linux and individual utilities are used to fill holes in BusyBox\'s suite. The system is compiled with musl instead of glibc, producing smaller binaries that also use fewer resources. The closest well-known Linux distribution to SHORK 486 is Alpine Linux.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
+
+    pos += snprintf(introStr + pos, strSize - pos, "\033[%smOrigin & inspirations\033[%sm\nIn December 2025, YouTuber Action Retro posted a video on FLOPPINUX, something that turned out to be a very accessible means for me to learn how to make a working Linux system. It foremost inspired me to chase my dream of building a viable modern Linux system for my old IBM ThinkPads. SHORK Mini (as it was originally known) began as an automated build script based on FLOPPINUX\'s build instructions, but adapted for producing fixed disk images instead of diskette images. After that, more Linux kernel and BusyBox features were enabled, and other software was compiled to help fulfil that dream. Other inspirations from similar efforts include Gray386linux and Ocawesome101\'s blog post on running Linux on a 486SX. Aspects of Alpine Linux and Tiny Core are also kept in mind.", COL_FOR_HEADING, COL_FOR_WHITE);
+
+    int lines = formatNewLines(introStr, TERM_SIZE.ws_col, NULL, 0);
+    printTextScreen("Introduction to SHORK 486", introStr, lines, 1);
+}
+
+void printIntroPT1(void)
+{
+    const int strSize = 3072;
+    char pt1Str[strSize];
+    int pos = 0;
+
+    pos += snprintf(pt1Str + pos, strSize - pos, "You are running a pre-release build of SHORK 486 - Public Test 1 (PT1). This is the first published release of SHORK 486, intended for testing purposes only and to gauge wider opinion to help the project's progression.\n\n");
+
+    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smPurpose\033[%sm\nSHORK 486's development has progressed far enough that it has achieved the author's initial objectives, and is now appropriate for the first round of public testing to help scope out what to tackle next. PT1 also coincides with Linux kernel 7.1's debut, the first version to remove 486 and other relevant vintage hardware support, which this project subsequently patches back in. It would be ideal to validate that these patches are working correctly.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
+
+    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smLicence & disclaimers\033[%sm\nSHORK 486 is a non-commercial, free and open-source operating system licenced under GPLv3 that is provided \"as is\" without warranty of any kind. In no event shall the contributors be liable for any damages arising from use of this software. Additionally, SHORK 486 is a work in progress, and this is a pre-release build. It should not be used for serious, production, or mission-critical work.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
+
+    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smSuggestions & feedback\033[%sm\nIdeas for what to add and change to SHORK 486 are welcome! These can be suggestions for new bundled programs, new or improved features, and advice on how the system is configured and built. Frank and critical feedback on anything regarding the project is also welcomed, though it is expected that it is respectful and understanding. However, please understand that otherwise well-intentioned and interesting suggestions may be considered beyond the scope of this project, as the aim is to keep the system as minimal as possible, but they will be remembered for future sister projects. Suggestions and feedback can be given on the SHORK 486 GitHub repository or via social media channels found on \033[%smlinks.sharktastica.co.uk\033[%sm.\n\n", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+
+    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smBug & error reporting\033[%sm\nSHORK 486 does not collect any telemetry nor report anything to anyone, instead relying on you, the tester, to report and provide evidence of any issues that may arise when using it. If you encounter any, please report them! It is a good measure to include a robust description of your hardware and what you were trying to do, whether you compiled it yourself or used published install media, a screenshot/photo of \033[%smshorkfetch\033[%sm's output, \033[%sm/proc/cpuinfo\033[%sm's contents, and \033[%smdmesg\033[%sm output. Reports can be given on the SHORK 486 GitHub repository.", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+
+    int lines = formatNewLines(pt1Str, TERM_SIZE.ws_col, NULL, 0);
+    printTextScreen("Public Test 1", pt1Str, lines, 1);
+}
+
+void printIntroStarted(void)
+{
+    char gettingStartedStr[1200];
+    snprintf(gettingStartedStr, 1200,
+"\033[%sm1.\033[%sm Set your keyboard's layout with \033[%smshorkset\033[%sm.\n\n\
+\033[%sm2.\033[%sm Pick a font and colour for the console terminal with \033[%smshorkset\033[%sm.\n\n\
+\033[%sm3.\033[%sm Change your display's resolution with \033[%smshorkset\033[%sm. A reboot will be required.\n\n\
+\033[%sm4.\033[%sm Set your computer's name by editing \033[%sm/etc/hostname\033[%sm. A reboot will be required, or you can run: \033[%smhostname \"$(cat /etc/hostname)\"\n\n\
+\033[%sm5.\033[%sm (If applicable) Test your network connection with \033[%smping\033[%sm. For example: \033[%smping sharktastica.co.uk\n\n\
+\033[%sm6.\033[%sm Run \033[%smshorkfetch\033[%sm to see a quick overview of your system and environment.\n\n\
+\033[%sm7.\033[%sm Check \033[%smshorkhelp\033[%sm's other options to learn what commands and software are available, and see what guides may be of use.\n\n\
+\033[%sm8.\033[%sm Use Ctrl+Alt+F1/F2/F3 or \033[%smchvt\033[%sm to switch between the three available virtual consoles, useful for multitasking, troubleshooting and recovery.\n\n\
+\033[%sm9.\033[%sm When you are finished using SHORK 486, run \033[%smshorkoff\033[%sm to safely halt the system before powering off.\n",
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE,
+    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE);
+
+    int lines = formatNewLines(gettingStartedStr, TERM_SIZE.ws_col, "   ", 1);
+    printTextScreen("Getting started", gettingStartedStr, lines, 1);
+}
+
+
+
+void printSoftwareCommands(void)
 {
     char genStr[MAX_CMD_STR] = "\0";
     char devStr[MAX_CMD_STR] = "\0";
@@ -349,63 +652,7 @@ void printCommands(void)
     printTextScreen("Commands & programs list", combinedStr, lines, 1);
 }
 
-void printEmacsCheatsheet(void)
-{
-    char emacsStr[1500];
-    snprintf(emacsStr, 1500, 
-"\033[%smC\033[%sm = Ctrl                          \033[%smM\033[%sm = Alt\n\n\
-\033[%smExit\033[%sm                   \033[%smC\033[%sm-x \033[%smC\033[%sm-c    \033[%smOpen file/new buffer\033[%sm      \033[%smC\033[%sm-x \033[%smC\033[%sm-f\n\
-\033[%smSave current buffer\033[%sm    \033[%smC\033[%sm-x \033[%smC\033[%sm-s    \033[%smSave all buffers\033[%sm          \033[%smC\033[%sm-x s\n\n\
-\033[%smSplit window\033[%sm           \033[%smC\033[%sm-x 2      \033[%smEnlarge window\033[%sm            \033[%smC\033[%sm-x ^\n\
-\033[%smSwitch windows\033[%sm         \033[%smC\033[%sm-x o      \033[%smClose current window\033[%sm      \033[%smC\033[%sm-x 0\n\
-\033[%smClose other windows\033[%sm    \033[%smC\033[%sm-x 1\n\n\
-\033[%smGo to line\033[%sm             \033[%smC\033[%sm-x g      \033[%smUndo\033[%sm                      \033[%smC\033[%sm-_\n\
-\033[%smSearch (forwards)\033[%sm      \033[%smC\033[%sm-s        \033[%smSearch (backwards)\033[%sm        \033[%smC\033[%sm-r\n\
-\033[%smFind and replace\033[%sm       \033[%smM\033[%sm-%%        \033[%smReformat (fit to line)\033[%sm    \033[%smM\033[%sm-q\n",
-    COL_FOR_BOLD_RED, COL_FOR_WHITE, COL_FOR_BOLD_MAGENTA, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_MAGENTA, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_MAGENTA, COL_FOR_WHITE);
-
-    int lines = formatNewLines(emacsStr, TERM_SIZE.ws_col, NULL, 1);
-    printTextScreen("Emacs (Mg) cheatsheet", emacsStr, lines, 1);
-}
-
-void printGitCommands(void)
-{
-    char gitStr[500];
-    snprintf(gitStr, 500, "add, blame, branch, checkout, cherry-pick, clean, clone, commit, config, diff, fetch, init, log, merge, mv, pull, push, rebase, reflog, remote, reset, restore, rm, show, stash, status, switch, tag\n");
-
-    int lines = formatNewLines(gitStr, TERM_SIZE.ws_col, NULL, 1);
-    printTextScreen("Supported Git commands", gitStr, lines, 1);
-}
-
-void printIntro(void)
-{
-    const int strSize = 4192;
-    char introStr[strSize];
-    int pos = 0;
-
-    pos += snprintf(introStr + pos, strSize - pos, "SHORK 486 is a 32-bit Linux distribution for 486 and Pentium (P5) PCs! It focuses on being as lean and small as possible, whilst still providing a modern kernel, robust command set, custom utilities, and hand-picked modern software.\n\n");
-
-    pos += snprintf(introStr + pos, strSize - pos, "\033[%smGoals\033[%sm\nBesides being something fun to try on old PCs, SHORK 486 was founded on the belief that old PCs can still be useful to the right people, retrocomputing and gaming usage aside. SHORK 486 can be useful for lightweight desktop usage, SSH terminal usage, distraction-free typewriting (\"writerdecks\"), embedded applications, demonstrative use in academia/education, and as a technical demonstration of what old PCs and modern software targeted at them can actually still do! If it can save just one more PC from the landfills, it has done its job!\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
-
-    pos += snprintf(introStr + pos, strSize - pos, "\033[%smWhat's special\033[%sm\nSHORK 486 is a modern and maintained Linux distribution that can run on a processor architecture from 1989. Depending on configuration, it only requires between 8 and 24MiB system memory whilst still packing a lot of functionality for its size. Due to various factors, making such a distribution is increasingly difficult in the 2020s. System requirements are ever-increasing, with even the otherwise excellent Micro Core and Tiny Core requiring at least 26-46MB RAM, putting them out of range of many early 486 systems. As of Linux kernel 7.1 and beyond, support for 486 processors and various ISA and PCMCIA networking hardware has been dropped, and 32-bit x86 support in general is currently dropped by most mainstream distributions. Given this situation, SHORK 486 will try to fill this niche of a ready-to-go Linux distribution for such PCs by sticking with a minimal-where-possible philosophy, customisability and restoring support for older hardware with newer Linux kernels!\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
-
-    pos += snprintf(introStr + pos, strSize - pos, "\033[%smArchitecture\033[%sm\nSHORK 486 is not GNU/Linux as you may be accustomed to. Its init system and most core utilities are provided by BusyBox, a single-binary application well known for embedded usage. As needed, some util-linux and individual utilities are used to fill holes in BusyBox\'s suite. The system is compiled with musl instead of glibc, producing smaller binaries that also use fewer resources. The closest well-known Linux distribution to SHORK 486 is Alpine Linux.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
-
-    pos += snprintf(introStr + pos, strSize - pos, "\033[%smOrigin & inspirations\033[%sm\nIn December 2025, YouTuber Action Retro posted a video on FLOPPINUX, something that turned out to be a very accessible means for me to learn how to make a working Linux system. It foremost inspired me to chase my dream of building a viable modern Linux system for my old IBM ThinkPads. SHORK Mini (as it was originally known) began as an automated build script based on FLOPPINUX\'s build instructions, but adapted for producing fixed disk images instead of diskette images. After that, more Linux kernel and BusyBox features were enabled, and other software was compiled to help fulfil that dream. Other inspirations from similar efforts include Gray386linux and Ocawesome101\'s blog post on running Linux on a 486SX. Aspects of Alpine Linux and Tiny Core are also kept in mind.", COL_FOR_HEADING, COL_FOR_WHITE);
-
-    int lines = formatNewLines(introStr, TERM_SIZE.ws_col, NULL, 0);
-    printTextScreen("Introduction to SHORK 486", introStr, lines, 1);
-}
-
-void printLicence(int i)
+void printSoftwareLicence(int i)
 {
     char msgTitle[80];
     snprintf(msgTitle, 80, "%s (%s)", LICENCES[i].name, LICENCES[i].type);
@@ -428,7 +675,7 @@ void printLicence(int i)
     printTextScreen(msgTitle, msgBody, lines, 1);
 }
 
-void printProgOverview(int i)
+void printSoftwareProgOverview(int i)
 {
     const int strSize = 4096;
     char overviewStr[strSize];
@@ -442,7 +689,7 @@ void printProgOverview(int i)
 
     // Description
     if (PROG_ENTRIES[i].desc[0] != '\0')
-        pos += snprintf(overviewStr + pos, strSize - pos, "%s\n\n", PROG_ENTRIES[i].desc);
+        pos += snprintf(overviewStr + pos, strSize - pos, "Example output:\033[%sm\n%s\n\n", PROG_ENTRIES[i].desc);
     else 
         pos += snprintf(overviewStr + pos, strSize - pos, "TO BE COMPLETED\n\n");
 
@@ -486,27 +733,7 @@ void printProgOverview(int i)
     printTextScreen(PROG_ENTRIES[i].command, overviewStr, lines, 1);
 }
 
-void printPT1(void)
-{
-    const int strSize = 3072;
-    char pt1Str[strSize];
-    int pos = 0;
-
-    pos += snprintf(pt1Str + pos, strSize - pos, "You are running a pre-release build of SHORK 486 - Public Test 1 (PT1). This is the first published release of SHORK 486, intended for testing purposes only and to gauge wider opinion to help the project's progression.\n\n");
-
-    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smPurpose\033[%sm\nSHORK 486's development has progressed far enough that it has achieved the author's initial objectives, and is now appropriate for the first round of public testing to help scope out what to tackle next. PT1 also coincides with Linux kernel 7.1's debut, the first version to remove 486 and other relevant vintage hardware support, which this project subsequently patches back in. It would be ideal to validate that these patches are working correctly.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
-
-    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smLicence & disclaimers\033[%sm\nSHORK 486 is a non-commercial, free and open-source operating system licenced under GPLv3 that is provided \"as is\" without warranty of any kind. In no event shall the contributors be liable for any damages arising from use of this software. Additionally, SHORK 486 is a work in progress, and this is a pre-release build. It should not be used for serious, production, or mission-critical work.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
-
-    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smSuggestions & feedback\033[%sm\nIdeas for what to add and change to SHORK 486 are welcome! These can be suggestions for new bundled programs, new or improved features, and advice on how the system is configured and built. Frank and critical feedback on anything regarding the project is also welcomed, though it is expected that it is respectful and understanding. However, please understand that otherwise well-intentioned and interesting suggestions may be considered beyond the scope of this project, as the aim is to keep the system as minimal as possible, but they will be remembered for future sister projects. Suggestions and feedback can be given on the SHORK 486 GitHub repository or via social media channels found on \033[%smlinks.sharktastica.co.uk\033[%sm.\n\n", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
-
-    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smBug & error reporting\033[%sm\nSHORK 486 does not collect any telemetry nor report anything to anyone, instead relying on you, the tester, to report and provide evidence of any issues that may arise when using it. If you encounter any, please report them! It is a good measure to include a robust description of your hardware and what you were trying to do, whether you compiled it yourself or used published install media, a screenshot/photo of \033[%smshorkfetch\033[%sm's output, \033[%sm/proc/cpuinfo\033[%sm's contents, and \033[%smdmesg\033[%sm output. Reports can be given on the SHORK 486 GitHub repository.", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
-
-    int lines = formatNewLines(pt1Str, TERM_SIZE.ws_col, NULL, 0);
-    printTextScreen("Public Test 1", pt1Str, lines, 1);
-}
-
-void printSHORKEntertainment(void)
+void printSoftwareSHORKTAINMENT(void)
 {
     const int strSize = 2000;
     char shorktainmentStr[strSize];
@@ -525,7 +752,7 @@ void printSHORKEntertainment(void)
     printTextScreen("SHORK Entertainment", shorktainmentStr, lines, 1);
 }
 
-void printSHORKUtilities(void)
+void printSoftwareSHORKUTILS(void)
 {
     const int strSize = 2000;
     char shorkutilStr[strSize];
@@ -549,66 +776,13 @@ void printSHORKUtilities(void)
     printTextScreen("SHORK Utilities", shorkutilStr, lines, 1);
 }
 
-void printStarted(void)
-{
-    char gettingStartedStr[1200];
-    snprintf(gettingStartedStr, 1200,
-"\033[%sm1.\033[%sm Set your keyboard's layout with \033[%smshorkset\033[%sm.\n\n\
-\033[%sm2.\033[%sm Pick a font and colour for the console terminal with \033[%smshorkset\033[%sm.\n\n\
-\033[%sm3.\033[%sm Change your display's resolution with \033[%smshorkset\033[%sm. A reboot will be required.\n\n\
-\033[%sm4.\033[%sm Set your computer's name by editing \033[%sm/etc/hostname\033[%sm. A reboot will be required, or you can run: \033[%smhostname \"$(cat /etc/hostname)\"\n\n\
-\033[%sm5.\033[%sm (If applicable) Test your network connection with \033[%smping\033[%sm. For example: \033[%smping sharktastica.co.uk\n\n\
-\033[%sm6.\033[%sm Run \033[%smshorkfetch\033[%sm to see a quick overview of your system and environment.\n\n\
-\033[%sm7.\033[%sm Check \033[%smshorkhelp\033[%sm's other options to learn what commands and software are available, and see what guides may be of use.\n\n\
-\033[%sm8.\033[%sm Use Ctrl+Alt+F1/F2/F3 or \033[%smchvt\033[%sm to switch between the three available virtual consoles, useful for multitasking, troubleshooting and recovery.\n\n\
-\033[%sm9.\033[%sm When you are finished using SHORK 486, run \033[%smshorkoff\033[%sm to safely halt the system before powering off.\n",
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE);
 
-    int lines = formatNewLines(gettingStartedStr, TERM_SIZE.ws_col, "   ", 1);
-    printTextScreen("Getting started", gettingStartedStr, lines, 1);
-}
 
-void printTmuxCheatsheet(void)
-{
-    char tmuxStr[1500];
-    snprintf(tmuxStr, 1500, 
-"\033[%smC\033[%sm = Ctrl\n\n\
-\033[%smDetach session\033[%sm     \033[%smC\033[%sm-b d        \033[%smAccess tmux prompt\033[%sm    \033[%smC\033[%sm-b :\n\n\
-\033[%smNew window\033[%sm         \033[%smC\033[%sm-b c        \033[%smClose window\033[%sm          \033[%smC\033[%sm-b &\n\
-\033[%smList windows\033[%sm       \033[%smC\033[%sm-b w        \033[%smRename window\033[%sm         \033[%smC\033[%sm-b ,\n\
-\033[%smPrevious window\033[%sm    \033[%smC\033[%sm-b p        \033[%smNext window\033[%sm           \033[%smC\033[%sm-b n\n\
-\033[%smChange window\033[%sm      \033[%smC\033[%sm-b 0-9\n\n\
-\033[%smVertical split\033[%sm     \033[%smC\033[%sm-b %%        \033[%smHorizontal split\033[%sm      \033[%smC\033[%sm-b \"\n\
-\033[%smClose pane\033[%sm         \033[%smC\033[%sm-b x        \033[%smShow pane numbers\033[%sm     \033[%smC\033[%sm-b q\n\
-\033[%smChange pane\033[%sm        \033[%smC\033[%sm-b q 0-9    \033[%smCycle panes\033[%sm           \033[%smC\033[%sm-b o\n\
-\033[%smPane to window\033[%sm     \033[%smC\033[%sm-b !        \033[%smToggle pane zoom\033[%sm      \033[%smC\033[%sm-b z\n",
-    COL_FOR_BOLD_RED, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE, COL_FOR_OL, COL_FOR_WHITE, COL_FOR_RED, COL_FOR_WHITE);
-
-    int lines = formatNewLines(tmuxStr, TERM_SIZE.ws_col, NULL, 1);
-    printTextScreen("tmux cheatsheet", tmuxStr, lines, 1);
-}
 
 /**
  * Runs the command reference interface.
  */
-void showCommandReference(void)
+void showCommandRefMenu(void)
 {
     // Create a menu containing found program entries
     MenuItem menu[PROG_ENTRIES_NO];
@@ -722,7 +896,7 @@ void showCommandReference(void)
 
             case ENTER:
                 clearScreen();
-                printProgOverview((cursorY - 1) + (cursorX - 1) * rows);
+                printSoftwareProgOverview((cursorY - 1) + (cursorX - 1) * rows);
                 break;
         
             case QUIT:
@@ -765,6 +939,10 @@ void showHelp(void)
         formatNewLines(emacs, TERM_SIZE.ws_col, "                 ", 0);
         printf("%s", emacs);
     }
+
+    char hardware[80] = "--hardware       Displays discovering your hardware guide and exit\n";
+    formatNewLines(hardware, TERM_SIZE.ws_col, "                 ", 0);
+    printf("%s", hardware);
 
     char help[100] = "-h, --help       Displays help information and exits\n";
     formatNewLines(help, TERM_SIZE.ws_col, "                 ", 0);
@@ -871,14 +1049,14 @@ void showMainMenu(void)
             "pt1",
             "Public Test 1",
             "",
-            printPT1,
+            printIntroPT1,
             getIsPT1()
         },
         { 
             "started",
             "Getting started",
             "",
-            printStarted,
+            printIntroStarted,
             strncmp(OS_NAME, "SHORK 486", 9) == 0
         },
         { 
@@ -893,28 +1071,28 @@ void showMainMenu(void)
             "cmdRef",
             "Command reference (WIP)",
             "",
-            showCommandReference,
+            showCommandRefMenu,
             PROG_ENTRIES_NO > 0
         },
         {
             "cmdList",
             "Commands & programs",
             "",
-            printCommands,
+            printSoftwareCommands,
             PROG_ENTRIES_NO > 0
         },
         { 
             "shorkutils",
             "SHORK Utilities",
             "",
-            printSHORKUtilities,
+            printSoftwareSHORKUTILS,
             1
         },
         { 
             "shorktainment",
             "SHORK Entertainment",
             "",
-            printSHORKEntertainment,
+            printSoftwareSHORKTAINMENT,
             isProgramInstalled("shorklocomotive", 1) || isProgramInstalled("shorksay", 1)
         },
         {
@@ -930,27 +1108,34 @@ void showMainMenu(void)
             "",
             NULL,
             1,
-            emacsInstalled || gitInstalled || tmuxInstalled
+            1
+        },
+        {
+            "hardware",
+            "Discovering your hardware",
+            "",
+            printGuideDiscoveringHardware,
+            1
         },
         {
             "emacs",
             "Emacs (Mg) cheatsheet",
             "",
-            printEmacsCheatsheet,
+            printGuideEmacsCheatsheet,
             emacsInstalled
         },
         {
             "git",
             "Supported Git commands",
             "",
-            printGitCommands,
+            printGuideGitCommands,
             gitInstalled
         },
         {
             "tmux",
             "tmux cheatsheet",
             "",
-            printTmuxCheatsheet,
+            printGuideTmuxCheatsheet,
             tmuxInstalled
         }
     };
@@ -1143,7 +1328,7 @@ void showLicencesMenu(void)
 
             case ENTER:
                 clearScreen();
-                printLicence((cursorY - 1) + (cursorX - 1) * rows);
+                printSoftwareLicence((cursorY - 1) + (cursorX - 1) * rows);
                 break;
         
             case QUIT:

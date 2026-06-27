@@ -51,18 +51,23 @@ int getIsPT1(void);
 int getOSName(void);
 int loadLicences(void);
 int loadProgramEntries(void);
-void printCommands(void);
-void printEmacsCheatsheet(void);
-void printGitCommands(void);
+
+void printGuideDiscoveringHardware(void);
+void printGuideEmacsCheatsheet(void);
+void printGuideGitCommands(void);
+void printGuideTmuxCheatsheet(void);
+
 void printIntro(void);
-void printLicence(int i);
-void printProgOverview(int i);
-void printPT1(void);
-void printSHORKEntertainment(void);
-void printSHORKUtilities(void);
-void printStarted(void);
-void printTmuxCheatsheet(void);
-void showCommandReference(void);
+void printIntroPT1(void);
+void printIntroStarted(void);
+
+void printSoftwareCommands(void);
+void printSoftwareLicence(int);
+void printSoftwareProgOverview(int);
+void printSoftwareSHORKTAINMENT(void);
+void printSoftwareSHORKUTILS(void);
+
+void showCommandRefMenu(void);
 void showHelp(void);
 void showLicencesMenu(void);
 void showMainMenu(void);
