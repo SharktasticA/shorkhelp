@@ -689,7 +689,7 @@ void printSoftwareProgOverview(int i)
 
     // Description
     if (PROG_ENTRIES[i].desc[0] != '\0')
-        pos += snprintf(overviewStr + pos, strSize - pos, "Example output:\033[%sm\n%s\n\n", PROG_ENTRIES[i].desc);
+        pos += snprintf(overviewStr + pos, strSize - pos, "%s\n\n", PROG_ENTRIES[i].desc);
     else 
         pos += snprintf(overviewStr + pos, strSize - pos, "TO BE COMPLETED\n\n");
 
