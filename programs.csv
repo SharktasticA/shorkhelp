@@ -6,6 +6,7 @@ ar,1,busybox,gen,,,"Extracts or lists files from a given .a, .ar or .lib archive
 arch,1,busybox,sys,,,"Reports the computer's processor architecture. For example, ""i486"", ""i686"", ""x86_64"", etc.",GNU GPLv2
 as,1,bundled,dev,GNU Assembler,,An assembler and the default backend of GCC.,GNU GPLv3 + GCC Runtime Library Exception
 ascii,1,busybox,gen,,,"Prints a table containing all 128 ASCII characters. For each character, its decimal (Dec) and hexadecimal (Hex) values are displayed with it.",GNU GPLv2
+ash,1,busybox,sys,,,,GNU GPLv2
 awk,0,busybox,gen,,,An AWK processor. AWK is a scripting language designed for text pattern scanning and processing and useful for data extraction and reporting.,GNU GPLv2
 basename,0,busybox,gen,,,"Extracts the file name and/or the extension from a given path. If just a directory path is given, it will extract both. If a file extension is also given, it will extract the extension in addition to the directory path if it matches. For example, running ""basename /etc/resolv.conf"" will return ""resolv.conf""; running ""basename /etc/resolv.conf .conf"" will return ""resolv"". ",GNU GPLv2
 bc,1,busybox,gen,,,,GNU GPLv2
@@ -38,6 +39,7 @@ du,1,busybox,sys,,,,GNU GPLv2
 echo,0,busybox,gen,,,,GNU GPLv2
 ed,1,busybox,dev,,,,GNU GPLv2
 eject,1,busybox,gen,,,,GNU GPLv2
+env,1,busybox,gen,,,,GNU GPLv2
 expand,1,busybox,gen,,,,GNU GPLv2
 expr,0,busybox,gen,,,,GNU GPLv2
 false,1,busybox,gen,,,,GNU GPLv2
@@ -64,6 +66,7 @@ hexdump,1,busybox,dev,,,,GNU GPLv2
 hostname,0,busybox,sys,,,,GNU GPLv2
 htop,1,bundled,sys,,,"An interactive process viewer designed to be an enhancement over top. Compared to top, htop supports scrolling both horizontally and vertically, a coloured UI and colour-coding, CPU and memory usage bars, searching, filtering, sorting, and killing processes.",GNU GPLv2
 ifconfig,1,busybox,net,,,,GNU GPLv2
+init,1,busybox,sys,,,,GNU GPLv2
 ip,1,busybox,net,,,,GNU GPLv2
 joe,1,bundled,dev,Joe's Own Editor,,A WordStar-style text editor.,GNU GPLv2
 kill,1,busybox,sys,,,,GNU GPLv2
@@ -100,11 +103,13 @@ nohup,1,busybox,sys,,,"Allows you to run a program that is immune to hang up sig
 nproc,1,busybox,sys,,,,GNU GPLv2
 partprobe,1,busybox,sys,,,,GNU GPLv2
 partx,1,util-linux,sys,,,Tells the Linux kernel about the presence and numbering of on-disk partitions.,GNU GPLv2
+passwd,1,busybox,usr,,,,GNU GPLv2
 paste,1,busybox,gen,,,,GNU GPLv2
 patch,1,busybox,dev,,,"Applies a patch file to an original file to update it with its contents. A patch file contains a line-by-line difference listing between two files produced by diff, git diff, or similar.",GNU GPLv2
 ping,1,busybox,net,,,,GNU GPLv2
 pkill,1,busybox,sys,,,,GNU GPLv2
 pmap,1,busybox,sys,,,"Reports the memory map of a given process. It provides the amount of memory used, proportional set sizes (PSS), dirty pages, permissions on map (mode), and mappings (file, anon/allocated or stack). All memory values are in kilobytes (KB).",GNU GPLv2
+printenv,1,busybox,gen,,,,GNU GPLv2
 printf,0,busybox,gen,,,,GNU GPLv2
 ps,1,busybox,sys,,,,GNU GPLv2
 pstree,1,busybox,sys,,,,GNU GPLv2
@@ -157,12 +162,14 @@ traceroute,1,busybox,net,,,,GNU GPLv2
 tree,1,busybox,gen,,,,GNU GPLv2
 true,0,busybox,gen,,,,GNU GPLv2
 truncate,1,busybox,gen,,,,GNU GPLv2
+tty,1,busybox,gen,,,,GNU GPLv2
 udhcpc,1,busybox,net,,,,GNU GPLv2
 umount,0,busybox,sys,,,,GNU GPLv2
 uname,0,busybox,sys,,,,GNU GPLv2
 unexpand,1,busybox,gen,,,,GNU GPLv2
 unix2dos,1,busybox,gen,,,Converts a text file from using Unix-style line breaks (line feed) to using DOS-style line breaks (carriage return + line feed).,GNU GPLv2
 unzip,1,busybox,gen,,,,GNU GPLv2
+uptime,1,busybox,gen,,,,GNU GPLv2
 users,1,busybox,usr,,,,GNU GPLv2
 usleep,1,busybox,gen,,,,GNU GPLv2
 uuidgen,1,busybox,gen,,,"Generates and prints a universally unique identifier (UUID), a 128-bit value for identification that is practically guaranteed to be unique.",GNU GPLv2
