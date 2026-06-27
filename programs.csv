@@ -75,6 +75,7 @@ login,1,busybox,usr,,,,GNU GPLv2
 losetup,1,busybox,sys,,,,GNU GPLv2
 ls,0,busybox,gen,,,Lists the contents of the current or a target directory.,GNU GPLv2
 lsblk,0,busybox,sys,,,"Lists information about all or the specified block devices. By default, it produces a table containing the device name, major number (driver associated with device), minor number (device number for the given driver), device type, whether the device is read only (RO), and its mountpoint (if mounted).",GNU GPLv2
+lscpu,1,util-linux,sys,,,,GNU GPLv2
 lspci,1,busybox,sys,,,"Lists all PCI buses and connected devices. By default, it produces a table containing the PCI bus number, device number for that bus, function number, PCI class code, vendor ID, and device ID. It can optionally also display the kernel driver utilising a given device.",GNU GPLv2
 lsusb,1,busybox,sys,,,"Lists all USB buses and connected devices. It produces a table containing the USB bus number, device number for that bus, vendor ID, and device ID.",GNU GPLv2
 lynx,1,bundled,net,,,A text-based web browser that allows you to access websites from your terminal. It is the oldest web browser that is still actively maintained.,GNU GPLv2
