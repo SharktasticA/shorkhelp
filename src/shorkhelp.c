@@ -656,8 +656,8 @@ void printSoftwareCommands(void)
     pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smGeneral\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, genStr);
     pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smArchival\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, arcStr);
     pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smEditors & development\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, devStr);
+    if (netEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smNetworking & remote access\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, netStr);
     pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smSystem & processes\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, sysStr);
-    if (netEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smNetworking & remote access\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, netStr);
     if (usrEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smUser management\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, usrStr);
     if (funEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smEntertainment\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, funStr);
     if (ustEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smUnsorted\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, ustStr);
