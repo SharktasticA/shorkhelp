@@ -591,6 +591,7 @@ void printIntroStarted(void)
 void printSoftwareCommands(void)
 {
     char genStr[MAX_CMD_STR] = "\0";
+    char arcStr[MAX_CMD_STR] = "\0";
     char devStr[MAX_CMD_STR] = "\0";
     char netStr[MAX_CMD_STR] = "\0";
     char sysStr[MAX_CMD_STR] = "\0";
@@ -612,6 +613,7 @@ void printSoftwareCommands(void)
         // Select which string to append to
         char *targetStr = NULL;
         if (strcmp(cat, "gen") == 0) targetStr = genStr;
+        else if (strcmp(cat, "arc") == 0) targetStr = arcStr;
         else if (strcmp(cat, "dev") == 0) targetStr = devStr;
         else if (strcmp(cat, "net") == 0) 
         {
@@ -652,9 +654,10 @@ void printSoftwareCommands(void)
     int pos = 0;
 
     pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smGeneral\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, genStr);
-    pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smEditors & development tools\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, devStr);
-    if (netEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smNetworking & remote access\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, netStr);
+    pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smArchival\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, arcStr);
+    pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smEditors & development\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, devStr);
     pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smSystem & processes\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, sysStr);
+    if (netEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smNetworking & remote access\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, netStr);
     if (usrEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smUser management\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, usrStr);
     if (funEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smEntertainment\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, funStr);
     if (ustEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smUnsorted\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, ustStr);
@@ -725,8 +728,10 @@ void printSoftwareProgOverview(int i)
     const char *category = PROG_ENTRIES[i].category;
     if (strcmp(category, "gen") == 0)
         category = "general";
+    if (strcmp(category, "arc") == 0)
+        category = "archival";
     else if (strcmp(category, "dev") == 0)
-        category = "editors & development tools";
+        category = "editors & development";
     else if (strcmp(category, "net") == 0)
         category = "networking & remote access";
     else if (strcmp(category, "sys") == 0)

@@ -3,8 +3,8 @@ Command,Path,IsOptional,Type,Package,Category,Name,Aliases,Description,Licence
 addgroup,,1,busybox,,usr,,,,GNU GPLv2
 addr2line,,1,bundled,GNU Binutils,dev,GNU addr2line,,,GNU GPLv3
 adduser,,1,busybox,,usr,,,,GNU GPLv2
-ar,/opt/i486-linux-musl-native/bin/ar,1,bundled,GNU Binutils,dev,GNU ar,,,GNU GPLv3
-ar,/usr/bin/ar,1,busybox,,dev,,,"Extracts or lists files from a given .a, .ar or .lib archive.",GNU GPLv2
+ar,/opt/i486-linux-musl-native/bin/ar,1,bundled,GNU Binutils,arc,GNU ar,,,GNU GPLv3
+ar,/usr/bin/ar,1,busybox,,arc,,,"Extracts or lists files from a given .a, .ar or .lib archive.",GNU GPLv2
 arch,,1,busybox,,sys,,,"Reports the computer's processor architecture. For example, ""i486"", ""i686"", ""x86_64"", etc.",GNU GPLv2
 as,,1,bundled,GNU Binutils,dev,GNU assembler,,An x86 assembler and the default backend of GCC.,GNU GPLv3
 ascii,,1,busybox,,gen,,,"Prints a table containing all 128 ASCII characters. For each character, its decimal (Dec) and hexadecimal (Hex) values are displayed with it.",GNU GPLv2
@@ -14,6 +14,9 @@ basename,,0,busybox,,gen,,,"Extracts the file name and/or the extension from a g
 bc,,1,busybox,,gen,,,,GNU GPLv2
 beep,,1,busybox,,sys,,,,GNU GPLv2
 blkid,,1,busybox,,sys,,,,GNU GPLv2
+bunzip2,,1,busybox,,arc,,,,GNU GPLv2
+bzcat,,1,busybox,,arc,,,,GNU GPLv2
+bzip2,,1,busybox,,arc,,,,GNU GPLv2
 c++filt,,1,bundled,GNU Binutils,dev,GNU c++filt,,,GNU GPLv3
 cal,,1,busybox,,gen,,,,GNU GPLv2
 cat,,0,busybox,,gen,,,"Used for concatenating (combining) files, providing a standard output for printing or writing to a file. When its output is not directed, it prints the result.",GNU GPLv2
@@ -25,6 +28,7 @@ chroot,,1,busybox,,usr,,,,GNU GPLv2
 chvt,,1,busybox,,gen,,,"Changes the active virtual terminal. Changing the current virtual terminal is useful for terminal-based multi-tasking, troubleshooting and recovery. It functions similarly to pressing Ctrl+Alt+[F1/F2/F3/etc.]",GNU GPLv2
 clear,,0,busybox,,gen,,,"Clears the terminal so that the cursor is positioned at the top. It is similar to ""cls"" on MS-DOS, Microsoft Windows, etc.",GNU GPLv2
 cp,,0,busybox,,gen,,,,GNU GPLv2
+cpio,,1,busybox,,arc,,,,GNU GPLv2
 crontab,,1,busybox,,sys,,,,GNU GPLv2
 cryptpw,,1,busybox,,usr,,,,GNU GPLv2
 cut,,1,busybox,,gen,,,,GNU GPLv2
@@ -64,7 +68,8 @@ getty,,1,busybox,,usr,,,,GNU GPLv2
 gfortran,,1,bundled,GCC + musl,dev,Gfortran,,GCC's Fortran compiler.,GNU GPLv3 + GCC Runtime Library Exception
 git,,1,bundled,Git,dev,,,A distributed version control software system.,GNU GPLv2
 grep,,0,busybox,,gen,,,,GNU GPLv2
-gzip,,1,busybox,,gen,,,,GNU GPLv2
+gunzip,,1,busybox,,arc,,,,GNU GPLv2
+gzip,,1,busybox,,arc,,,,GNU GPLv2
 halt,,1,busybox,,sys,,,,GNU GPLv2
 head,,1,busybox,,gen,,,,GNU GPLv2
 hexdump,,1,busybox,,dev,,,,GNU GPLv2
@@ -90,6 +95,10 @@ lscpu,,1,bundled,util-linux,sys,,,,GNU GPLv2
 lspci,,1,busybox,,sys,,,"Lists all PCI buses and connected devices. By default, it produces a table containing the PCI bus number, device number for that bus, function number, PCI class code, vendor ID, and device ID. It can optionally also display the kernel driver utilising a given device.",GNU GPLv2
 lsusb,,1,busybox,,sys,,,"Lists all USB buses and connected devices. It produces a table containing the USB bus number, device number for that bus, vendor ID, and device ID.",GNU GPLv2
 lynx,,1,bundled,Lynx,net,,,A text-based web browser that allows you to access websites from your terminal. It is the oldest web browser that is still actively maintained.,GNU GPLv2
+lzcat,,1,busybox,,arc,,,,GNU GPLv2
+lzma,,1,busybox,,arc,,,,GNU GPLv2
+lzop,,1,busybox,,arc,,,,GNU GPLv2
+lzopcat,,1,busybox,,arc,,,,GNU GPLv2
 man,,1,busybox,,gen,,,,GNU GPLv2
 mdev,,0,busybox,,sys,,,,GNU GPLv2
 mg,,1,bundled,Mg,dev,,emacs,A text editor with Emacs-style keybinds and buffers.,Unlicense
@@ -163,7 +172,7 @@ sulogin,,1,busybox,,usr,,,,GNU GPLv2
 swapoff,,1,busybox,,sys,,,"Used to stop memory paging/swapping on one or all swap-capable devices. If used and no swap devices are left online, the computer will be entirely reliant on system memory (RAM) for program memory.",GNU GPLv2
 swapon,,1,busybox,,sys,,,"Used to start memory paging/swapping on one or all swap-capable devices. Swapping allows fixed storage (hard disk drrive, solid-state drive, etc.) or removable storage (USB stick, etc.) to be used for program memory in addition to system memory (RAM). It is useful as a buffer for when free RAM runs low, although using swap memory will be much slower than RAM.",GNU GPLv2
 sync,,0,busybox,,sys,,,"Commits any filesystem write operations that are currently cached. It is useful as an immediate and explicit way to ensure data is written to any disks/drives before powering off the computer, removing a drive, etc.",GNU GPLv2
-tar,,1,busybox,,gen,,,,GNU GPLv2
+tar,,1,busybox,,arc,,,,GNU GPLv2
 taskset,,1,busybox,,sys,,,,GNU GPLv2
 tcc,,1,bundled,Tiny C Compiler,dev,,,A lightweight C compiler (configured to use musl).,GNU LGPLv2.1
 tee,,0,busybox,,gen,,,,GNU GPLv2
@@ -182,9 +191,13 @@ tty,,1,busybox,,gen,,,,GNU GPLv2
 udhcpc,,1,busybox,,net,,,,GNU GPLv2
 umount,,0,busybox,,sys,,,,GNU GPLv2
 uname,,0,busybox,,sys,,,,GNU GPLv2
+uncompress,,1,busybox,,arc,,,,GNU GPLv2
 unexpand,,1,busybox,,gen,,,,GNU GPLv2
 unix2dos,,1,busybox,,gen,,,Converts a text file from using Unix-style line breaks (line feed) to using DOS-style line breaks (carriage return + line feed).,GNU GPLv2
-unzip,,1,busybox,,gen,,,,GNU GPLv2
+unlzma,,1,busybox,,arc,,,,GNU GPLv2
+unlzop,,1,busybox,,arc,,,,GNU GPLv2
+unxz,,1,busybox,,arc,,,,GNU GPLv2
+unzip,,1,busybox,,arc,,,,GNU GPLv2
 uptime,,1,busybox,,gen,,,,GNU GPLv2
 users,,1,busybox,,usr,,,,GNU GPLv2
 usleep,,1,busybox,,gen,,,,GNU GPLv2
@@ -201,5 +214,6 @@ who,,1,busybox,,usr,,,,GNU GPLv2
 whoami,,1,busybox,,sys,,,,GNU GPLv2
 whois,,1,busybox,,net,,,,GNU GPLv2
 xxd,,1,busybox,,dev,,,,GNU GPLv2
-xz,,1,busybox,,gen,,,,GNU GPLv2
+xz,,1,busybox,,arc,,,,GNU GPLv2
 yes,,1,busybox,,gen,,,,GNU GPLv2
+zcat,,1,busybox,,arc,,,,GNU GPLv2
