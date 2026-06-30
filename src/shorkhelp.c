@@ -728,7 +728,7 @@ void printSoftwareProgOverview(int i)
     const char *category = PROG_ENTRIES[i].category;
     if (strcmp(category, "gen") == 0)
         category = "general";
-    if (strcmp(category, "arc") == 0)
+    else if (strcmp(category, "arc") == 0)
         category = "archival";
     else if (strcmp(category, "dev") == 0)
         category = "editors & development";
