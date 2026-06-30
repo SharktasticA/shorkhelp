@@ -23,7 +23,8 @@ typedef struct {
 
 typedef struct {
     char *command;
-    char *source;
+    char *type;
+    char *package;
     char *category;
     int man;
     char *name;

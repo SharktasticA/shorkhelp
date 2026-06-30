@@ -223,31 +223,39 @@ int loadProgramEntries(void)
             continue;
 
         // Load line
-        char *fields[8];
-        int fieldCount = loadCSVLine(line, fields, 8);
+        char *fields[9];
+        int fieldCount = loadCSVLine(line, fields, 9);
 
         // Check if malformed line/parsing
-        if (fieldCount < 8)
+        if (fieldCount < 9)
             continue;
 
         int isOptional = atoi(fields[1]);
 
         if (!isOptional || (isOptional && isProgramInstalled(fields[0], 1)))
         {
-            // If no program name was given, assume it is the same as the command
-            if (!fields[4] || fields[4][0] == '\0') fields[4] = fields[0];
+            // If no program name was given, try either package name or just
+            // command name as a stand-in
+            if (!fields[5] || fields[5][0] == '\0')
+            {
+                if (!fields[3] || fields[3][0] == '\0')
+                    fields[5] = fields[0];
+                else
+                    fields[5] = fields[3];
+            }
 
             // Input line into entries
             PROG_ENTRIES[i].command = fields[0];
-            PROG_ENTRIES[i].source = fields[2];
-            PROG_ENTRIES[i].category = fields[3];
-            PROG_ENTRIES[i].name = fields[4];
-            PROG_ENTRIES[i].aliases = fields[5];
+            PROG_ENTRIES[i].type = fields[2];
+            PROG_ENTRIES[i].package = fields[3];
+            PROG_ENTRIES[i].category = fields[4];
+            PROG_ENTRIES[i].name = fields[5];
+            PROG_ENTRIES[i].aliases = fields[6];
 
-            if(strchr(fields[6], '"') != NULL)
+            if(strchr(fields[7], '"') != NULL)
             {
                 // Remove doubled double quotes
-                char *tmp = findReplace(fields[6], strlen(fields[6]), "\"\"", "\"");
+                char *tmp = findReplace(fields[7], strlen(fields[7]), "\"\"", "\"");
 
                 size_t descLen = strlen(tmp);
 
@@ -263,9 +271,9 @@ int loadProgramEntries(void)
 
                 PROG_ENTRIES[i].desc = tmp;
             }
-            else PROG_ENTRIES[i].desc = fields[6];
+            else PROG_ENTRIES[i].desc = fields[7];
             
-            PROG_ENTRIES[i].licences = fields[7];
+            PROG_ENTRIES[i].licences = fields[8];
 
             i++;
         }
@@ -699,18 +707,19 @@ void printSoftwareProgOverview(int i)
     if (PROG_ENTRIES[i].aliases[0] != '\0')
         pos += snprintf(overviewStr + pos, strSize - pos, "\033[%smAliases:\033[%sm  %s\n", COL_FOR_OL, COL_RESET, PROG_ENTRIES[i].aliases);
 
-    const char *source = PROG_ENTRIES[i].source;
-    if (strcmp(source, "busybox") == 0)
-        source = "BusyBox";
-    else if (strcmp(source, "util-linux") == 0)
-        source = "util-linux";
-    else if (strcmp(source, "shorkutil") == 0)
-        source = "SHORK Utilities";
-    else if (strcmp(source, "shorktainment") == 0)
-        source = "SHORK Entertainment";
-    else if (strcmp(source, "bundled") == 0)
-        source = "bundled software";
-    pos += snprintf(overviewStr + pos, strSize - pos, "\033[%smSource:\033[%sm   %s\n", COL_FOR_OL, COL_RESET, source);
+    const char *type = PROG_ENTRIES[i].type;
+    if (strcmp(type, "busybox") == 0)
+        type = "BusyBox";
+    else if (strcmp(type, "shorkutil") == 0)
+        type = "SHORK Utilities";
+    else if (strcmp(type, "shorktainment") == 0)
+        type = "SHORK Entertainment";
+    else if (strcmp(type, "bundled") == 0)
+        type = "bundled software";
+    pos += snprintf(overviewStr + pos, strSize - pos, "\033[%smSource:\033[%sm   %s\n", COL_FOR_OL, COL_RESET, type);
+
+    if (PROG_ENTRIES[i].package && PROG_ENTRIES[i].package[0] != '\0')
+        pos += snprintf(overviewStr + pos, strSize - pos, "\033[%smPackage:\033[%sm  %s\n", COL_FOR_OL, COL_RESET, PROG_ENTRIES[i].package);
 
     const char *category = PROG_ENTRIES[i].category;
     if (strcmp(category, "gen") == 0)
@@ -729,7 +738,8 @@ void printSoftwareProgOverview(int i)
         category = "SHORK";
     pos += snprintf(overviewStr + pos, strSize - pos, "\033[%smCategory:\033[%sm %s\n", COL_FOR_OL, COL_RESET, category);
 
-    pos += snprintf(overviewStr + pos, strSize - pos, "\033[%smLicences:\033[%sm %s\n", COL_FOR_OL, COL_RESET, PROG_ENTRIES[i].licences);
+    if (PROG_ENTRIES[i].licences && PROG_ENTRIES[i].licences[0] != '\0')
+        pos += snprintf(overviewStr + pos, strSize - pos, "\033[%smLicences:\033[%sm %s\n", COL_FOR_OL, COL_RESET, PROG_ENTRIES[i].licences);
 
     int lines = formatNewLines(overviewStr, TERM_SIZE.ws_col, NULL, 1);
     printTextScreen(PROG_ENTRIES[i].command, overviewStr, lines, 1);
