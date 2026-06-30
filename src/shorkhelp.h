@@ -23,6 +23,7 @@ typedef struct {
 
 typedef struct {
     char *command;
+    char *path;
     char *type;
     char *package;
     char *category;
@@ -38,7 +39,7 @@ typedef struct {
 #define CSV_BUFFER              32768
 #define MAX_CMD_STR             2048
 #define MAX_LICENCES            100
-#define MAX_PROG_ENTRIES        300
+#define MAX_PROG_ENTRIES        250
 
 extern char OS_NAME[128];
 extern Licence LICENCES[MAX_LICENCES];

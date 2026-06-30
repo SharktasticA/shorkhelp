@@ -513,7 +513,7 @@ int isFileExecutable(char *currPath, struct dirent *entry)
 }
 
 /**
- * @param prog Program's executable name
+ * @param prog Program's executable name or full path
  * @param isExec Flags if the function should also check if a found program has
  *               execute permissions
  * @returns 1 if program is installed; 0 if not
@@ -521,6 +521,10 @@ int isFileExecutable(char *currPath, struct dirent *entry)
 int isProgramInstalled(char *prog, int isExec)
 {
     int mode = isExec ? X_OK : F_OK;
+
+    // If prog contains '/' treat it as a full path
+    if (strchr(prog, '/') != NULL)
+        return (access(prog, mode) == 0);
 
     char *path = getenv("PATH");
     if (!path)

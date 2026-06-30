@@ -223,39 +223,40 @@ int loadProgramEntries(void)
             continue;
 
         // Load line
-        char *fields[9];
-        int fieldCount = loadCSVLine(line, fields, 9);
+        char *fields[10];
+        int fieldCount = loadCSVLine(line, fields, 10);
 
         // Check if malformed line/parsing
-        if (fieldCount < 9)
+        if (fieldCount < 10)
             continue;
 
-        int isOptional = atoi(fields[1]);
-
-        if (!isOptional || (isOptional && isProgramInstalled(fields[0], 1)))
+        int isOptional = atoi(fields[2]);
+        char *prog = (fields[1] && fields[1][0] != '\0') ? fields[1] : fields[0];
+        if (!isOptional || (isOptional && isProgramInstalled(prog, 1)))
         {
             // If no program name was given, try either package name or just
             // command name as a stand-in
-            if (!fields[5] || fields[5][0] == '\0')
+            if (!fields[6] || fields[6][0] == '\0')
             {
-                if (!fields[3] || fields[3][0] == '\0')
-                    fields[5] = fields[0];
+                if (fields[4] && fields[4][0] != '\0')
+                    fields[6] = fields[4];
                 else
-                    fields[5] = fields[3];
+                    fields[6] = fields[0];
             }
 
             // Input line into entries
             PROG_ENTRIES[i].command = fields[0];
-            PROG_ENTRIES[i].type = fields[2];
-            PROG_ENTRIES[i].package = fields[3];
-            PROG_ENTRIES[i].category = fields[4];
-            PROG_ENTRIES[i].name = fields[5];
-            PROG_ENTRIES[i].aliases = fields[6];
+            PROG_ENTRIES[i].path = fields[1];
+            PROG_ENTRIES[i].type = fields[3];
+            PROG_ENTRIES[i].package = fields[4];
+            PROG_ENTRIES[i].category = fields[5];
+            PROG_ENTRIES[i].name = fields[6];
+            PROG_ENTRIES[i].aliases = fields[7];
 
-            if(strchr(fields[7], '"') != NULL)
+            if(strchr(fields[8], '"') != NULL)
             {
                 // Remove doubled double quotes
-                char *tmp = findReplace(fields[7], strlen(fields[7]), "\"\"", "\"");
+                char *tmp = findReplace(fields[8], strlen(fields[8]), "\"\"", "\"");
 
                 size_t descLen = strlen(tmp);
 
@@ -271,9 +272,9 @@ int loadProgramEntries(void)
 
                 PROG_ENTRIES[i].desc = tmp;
             }
-            else PROG_ENTRIES[i].desc = fields[7];
+            else PROG_ENTRIES[i].desc = fields[8];
             
-            PROG_ENTRIES[i].licences = fields[8];
+            PROG_ENTRIES[i].licences = fields[9];
 
             i++;
         }
