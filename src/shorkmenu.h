@@ -36,7 +36,7 @@ typedef struct
 {
     char id[80];
     char name[80];
-    char payload[PATH_MAX];
+    char *payload;
     void (*action)(void);
     int isVisible;
     int isStatic;
@@ -68,6 +68,7 @@ void awaitInput(void);
 void clearScreen(void);
 void disableRawMode(void);
 void enableRawMode(void);
+void freeMenu(MenuItem*, int);
 int getIntInput(char*, int, int, int);
 NavInput getNavInput(void);
 void onExit(void);

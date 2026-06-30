@@ -87,6 +87,18 @@ void enableRawMode(void)
 }
 
 /**
+ * Frees all the heap-allocated components of a menu.
+ * @param menu Pointer to menu
+ * @param size Menu size
+ */
+void freeMenu(MenuItem* menu, int size)
+{
+    if (!menu) return;
+    for (int i = 0; i < size; i++)
+        free(menu[i].payload);
+}
+
+/**
  * Gets an integer input from the user.
  * @param prompt Prompt to give the user 
  * @param min Minimum allowed input (set to same as max to disable validation)

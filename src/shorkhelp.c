@@ -803,6 +803,7 @@ void showCommandRefMenu(void)
     {
         snprintf(menu[i].id, sizeof(menu[i].id), "%s", PROG_ENTRIES[i].command);
         snprintf(menu[i].name, sizeof(menu[i].name), "%s", PROG_ENTRIES[i].command);
+        menu[i].payload = NULL;
         menu[i].action = NULL;
         menu[i].isVisible = 1;
         menu[i].isStatic = 0;
@@ -922,6 +923,7 @@ void showCommandRefMenu(void)
         }
     }
 
+    freeMenu(menu, PROG_ENTRIES_NO);
     clearScreen();
 }
 
@@ -1046,7 +1048,7 @@ void showMainMenu(void)
         { 
             "",
             "Introduction",
-            "",
+            NULL,
             NULL,
             1,
             1
@@ -1054,28 +1056,28 @@ void showMainMenu(void)
         { 
             "intro",
             "Introduction to SHORK 486",
-            "",
+            NULL,
             printIntro,
             1
         },
         { 
             "pt1",
             "Public Test 1",
-            "",
+            NULL,
             printIntroPT1,
             getIsPT1()
         },
         { 
             "started",
             "Getting started",
-            "",
+            NULL,
             printIntroStarted,
             strncmp(OS_NAME, "SHORK 486", 9) == 0
         },
         { 
             "",
             "Software",
-            "",
+            NULL,
             NULL,
             1,
             1
@@ -1083,42 +1085,42 @@ void showMainMenu(void)
         {
             "cmdRef",
             "Command reference (WIP)",
-            "",
+            NULL,
             showCommandRefMenu,
             PROG_ENTRIES_NO > 0
         },
         {
             "cmdList",
             "Commands & programs",
-            "",
+            NULL,
             printSoftwareCommands,
             PROG_ENTRIES_NO > 0
         },
         { 
             "shorkutils",
             "SHORK Utilities",
-            "",
+            NULL,
             printSoftwareSHORKUTILS,
             1
         },
         { 
             "shorktainment",
             "SHORK Entertainment",
-            "",
+            NULL,
             printSoftwareSHORKTAINMENT,
             isProgramInstalled("shorklocomotive", 1) || isProgramInstalled("shorksay", 1)
         },
         {
             "licences",
             "Licences",
-            "",
+            NULL,
             showLicencesMenu,
             LICENCES_NO > 0
         },
         { 
             "",
             "Guides",
-            "",
+            NULL,
             NULL,
             1,
             1
@@ -1126,28 +1128,28 @@ void showMainMenu(void)
         {
             "hardware",
             "Discovering your hardware",
-            "",
+            NULL,
             printGuideDiscoveringHardware,
             1
         },
         {
             "emacs",
             "Emacs (Mg) cheatsheet",
-            "",
+            NULL,
             printGuideEmacsCheatsheet,
             emacsInstalled
         },
         {
             "git",
             "Supported Git commands",
-            "",
+            NULL,
             printGuideGitCommands,
             gitInstalled
         },
         {
             "tmux",
             "tmux cheatsheet",
-            "",
+            NULL,
             printGuideTmuxCheatsheet,
             tmuxInstalled
         }
@@ -1167,6 +1169,7 @@ void showMainMenu(void)
     for (int i = 0; i < rawMenuSize; i++)
         if (rawMenu[i].isVisible)
             menu[menuSize++] = rawMenu[i];
+    freeMenu(rawMenu, rawMenuSize);
 
     while (running)
     {
@@ -1221,6 +1224,7 @@ void showMainMenu(void)
         }
     }
 
+    freeMenu(menu, menuSize);
     clearScreen();
 }
 
@@ -1235,6 +1239,7 @@ void showLicencesMenu(void)
     {
         snprintf(menu[i].id, sizeof(menu[i].id), "%s", LICENCES[i].name);
         snprintf(menu[i].name, sizeof(menu[i].name), "%s", LICENCES[i].name);
+        menu[i].payload = NULL;
         menu[i].action = NULL;
         menu[i].isVisible = 1;
         menu[i].isStatic = 0;
@@ -1354,5 +1359,6 @@ void showLicencesMenu(void)
         }
     }
 
+    freeMenu(menu, LICENCES_NO);
     clearScreen();
 }
