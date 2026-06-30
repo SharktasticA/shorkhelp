@@ -1,10 +1,12 @@
 Command,IsOptional,Type,Package,Category,Name,Aliases,Description,Licence
 #cmatrix,1,bundled,CMatrix,fun,,,"A vertical scrolling text screensaver. It provides ""digital rain"", inspired by the 1999 film ""The Matrix"". The ""droplets"" are lines of green characters that fall from the top of the terminal to the bottom, and are occasionally broken up.",GNU GPLv3
 addgroup,1,busybox,,usr,,,,GNU GPLv2
+addr2line,1,bundled,GNU Binutils,dev,GNU addr2line,,,GNU GPLv3
 adduser,1,busybox,,usr,,,,GNU GPLv2
+ar,1,bundled,GNU Binutils,dev,GNU ar,,,GNU GPLv3
 ar,1,busybox,,gen,,,"Extracts or lists files from a given .a, .ar or .lib archive.",GNU GPLv2
 arch,1,busybox,,sys,,,"Reports the computer's processor architecture. For example, ""i486"", ""i686"", ""x86_64"", etc.",GNU GPLv2
-as,1,bundled,GCC + Binutils + musl,dev,GNU Assembler,,An assembler and the default backend of GCC.,GNU GPLv3 + GCC Runtime Library Exception
+as,1,bundled,GNU Binutils,dev,GNU assembler,,An x86 assembler and the default backend of GCC.,GNU GPLv3
 ascii,1,busybox,,gen,,,"Prints a table containing all 128 ASCII characters. For each character, its decimal (Dec) and hexadecimal (Hex) values are displayed with it.",GNU GPLv2
 ash,1,busybox,,sys,,,,GNU GPLv2
 awk,0,busybox,,gen,,,An AWK processor. AWK is a scripting language designed for text pattern scanning and processing and useful for data extraction and reporting.,GNU GPLv2
@@ -12,6 +14,7 @@ basename,0,busybox,,gen,,,"Extracts the file name and/or the extension from a gi
 bc,1,busybox,,gen,,,,GNU GPLv2
 beep,1,busybox,,sys,,,,GNU GPLv2
 blkid,1,busybox,,sys,,,,GNU GPLv2
+c++filt,1,bundled,GNU Binutils,dev,GNU c++filt,,,GNU GPLv3
 cal,1,busybox,,gen,,,,GNU GPLv2
 cat,0,busybox,,gen,,,"Used for concatenating (combining) files, providing a standard output for printing or writing to a file. When its output is not directed, it prints the result.",GNU GPLv2
 chgrp,1,busybox,,usr,,,,GNU GPLv2
@@ -36,9 +39,11 @@ dirname,1,busybox,,gen,,,,GNU GPLv2
 dmesg,1,busybox,,sys,,,,GNU GPLv2
 dos2unix,1,busybox,,gen,,,Converts a text file from using DOS-style line breaks (carriage return + line feed) to using Unix-style line breaks (line feed).,GNU GPLv2
 du,1,busybox,,sys,,,,GNU GPLv2
+dwp,1,bundled,GNU Binutils,dev,GNU dwp,,,GNU GPLv3
 echo,0,busybox,,gen,,,,GNU GPLv2
 ed,1,busybox,,dev,,,,GNU GPLv2
 eject,1,busybox,,gen,,,,GNU GPLv2
+elfedit,1,bundled,GNU Binutils,dev,GNU elfedit,,,GNU GPLv3
 env,1,busybox,,gen,,,,GNU GPLv2
 expand,1,busybox,,gen,,,,GNU GPLv2
 expr,0,busybox,,gen,,,,GNU GPLv2
@@ -52,11 +57,11 @@ free,0,busybox,,sys,,,"Reports the amount of total, used and free system physica
 ftp,1,bundled,tnftp,net,,,An FTP client for remote file transfer.,BSD 2-Clause
 ftpget,1,busybox,,net,,,,GNU GPLv2
 ftpput,1,busybox,,net,,,,GNU GPLv2
-g++,1,bundled,GCC + Binutils + musl,dev,GCC C++,,GCC's C++ compiler.,GNU GPLv3 + GCC Runtime Library Exception
-gcc,1,bundled,GCC + Binutils + musl,dev,GCC C,,GCC's C compiler (configured to use musl).,GNU GPLv3 + GCC Runtime Library Exception
+g++,1,bundled,GCC + musl,dev,GCC C++,,GCC's C++ compiler.,GNU GPLv3 + GCC Runtime Library Exception
+gcc,1,bundled,GCC + musl,dev,GCC C,,GCC's C compiler (configured to use musl).,GNU GPLv3 + GCC Runtime Library Exception
 getfattr,1,busybox,,gen,,,"Gets an extended attribute from the given filesystem object. Extended attributes are metadata that go beyond the standard attributes provided by the host filesystem, allowing more information to be associated with a given filesystem object.",GNU GPLv2
 getty,1,busybox,,usr,,,,GNU GPLv2
-gfortran,1,bundled,GCC + Binutils + musl,dev,Gfortran,,GCC's Fortran compiler.,GNU GPLv3 + GCC Runtime Library Exception
+gfortran,1,bundled,GCC + musl,dev,Gfortran,,GCC's Fortran compiler.,GNU GPLv3 + GCC Runtime Library Exception
 git,1,bundled,Git,dev,,,A distributed version control software system.,GNU GPLv2
 grep,0,busybox,,gen,,,,GNU GPLv2
 gzip,1,busybox,,gen,,,,GNU GPLv2
@@ -71,6 +76,9 @@ ip,1,busybox,,net,,,,GNU GPLv2
 joe,1,bundled,Joe's Own Editor,dev,,,A WordStar-style text editor.,GNU GPLv2
 kill,1,busybox,,sys,,,,GNU GPLv2
 killall,1,busybox,,sys,,,,GNU GPLv2
+ld,1,bundled,GNU Binutils,dev,GNU linker,,,GNU GPLv3
+ld.bfd,1,bundled,GNU Binutils,dev,GNU linker (BFD),,,GNU GPLv3
+ld.gold,1,bundled,GNU Binutils,dev,GNU gold,,,GNU GPLv3
 less,0,busybox,,gen,,,"Displays the contents of a file in the terminal, allowing it to be scrolled line-by-line. It uses vi-style keybinds.",GNU GPLv2
 ln,0,busybox,,gen,,,"Creates a hard or symbolic link to a given target file or directory. Hard links are files that point to the same inode as the target file, which must be within the same file system, and hard links to directories are generally not supported. Symbolic links are files that point to the target file or directory, which can be on another file system and even target a non-existent file/directory. Deleting the target of a hard link will not delete the data so long as at least one hard link to it exists; deleting the target of a symbolic link will break the link.",GNU GPLv2
 loadkmap,1,busybox,,sys,,,,GNU GPLv2
@@ -99,8 +107,11 @@ mv,0,busybox,,gen,,,,GNU GPLv2
 nano,1,bundled,GNU nano,dev,,,A Pico-style text editor.,GNU GPLv3
 netstat,1,busybox,,net,,,"Displays network statistics such as current network connections, network interfaces and routing tables.",GNU GPLv2
 nice,1,busybox,,sys,,,,GNU GPLv2
+nm,1,bundled,GNU Binutils,dev,GNU nm,,,GNU GPLv3
 nohup,1,busybox,,sys,,,"Allows you to run a program that is immune to hang up signals and output routed away or redirected to a file. The program can then run even when the host terminal is closed, the user logs out, or if it is run on a remote system and the connection is closed afterwards. It is often paired with an ampersand (&) to also send the command to the background.",GNU GPLv2
 nproc,1,busybox,,sys,,,,GNU GPLv2
+objcopy,1,bundled,GNU Binutils,dev,GNU objcopy,,,GNU GPLv3
+objdump,1,bundled,GNU Binutils,dev,GNU objdump,,,GNU GPLv3
 partprobe,1,busybox,,sys,,,,GNU GPLv2
 partx,1,bundled,util-linux,sys,,,Tells the Linux kernel about the presence and numbering of on-disk partitions.,GNU GPLv2
 passwd,1,busybox,,usr,,,,GNU GPLv2
@@ -114,6 +125,8 @@ printf,0,busybox,,gen,,,,GNU GPLv2
 ps,1,busybox,,sys,,,,GNU GPLv2
 pstree,1,busybox,,sys,,,,GNU GPLv2
 pwd,0,busybox,,gen,,,,GNU GPLv2
+ranlib,1,bundled,GNU Binutils,dev,GNU ranlib,,,GNU GPLv3
+readelf,1,bundled,GNU Binutils,dev,GNU readelf,,,GNU GPLv3
 readlink,1,busybox,,gen,,,,GNU GPLv2
 rev,0,busybox,,gen,,,,GNU GPLv2
 rm,0,busybox,,gen,,,,GNU GPLv2
@@ -136,11 +149,14 @@ shorkoff,1,shorkutil,,sys,,,"A shutdown helper that safely brings the system to 
 shorksay,1,shorktainment,,fun,,cowsay,"A shark-themed take on the cowsay command that outputs an ASCII art shark and a speech bubble containing a message of your choice. The message can be manually supplied or can be provided from another program's standard output (ie, using a pipe).",GNU GPLv3
 shorkset,1,shorkutil,,sys,,,"A settings program for changing SHORK's display resolution, keyboard layout (keymap), terminal PSF font, and terminal font colour.",GNU GPLv3
 showkey,1,busybox,,gen,,,,GNU GPLv2
+size,1,bundled,GNU Binutils,dev,GNU size,,,GNU GPLv3
 sleep,1,busybox,,gen,,,,GNU GPLv2
 ssh,1,bundled,Dropbear,net,Dropbear (SSH),,An SSH client (a part of Dropbear) for remote login and command-line execution.,MIT + BSD 2-Clause (OpenSSH components)
 stat,1,busybox,,gen,,,,GNU GPLv2
 stinit,1,bundled,mt-st,sys,,,"Used for initialising SCSI magnetic tape drive modes at system startup, when a tape driver module is loaded, or when a new tape driver is initialised using terminal commands.",GNU GPLv2
 strace,1,bundled,strace,sys,,,"Executes a given command to capture and trace its system calls and signals. It is a useful diagnosis and debugging tool one can run if a program fails unexpectedly, and/or without meaningful error messages or logs.",GNU LGPLv2.1
+strings,1,bundled,GNU Binutils,dev,GNU strings,,,GNU GPLv3
+strip,1,bundled,GNU Binutils,dev,GNU strip,,,GNU GPLv3
 stty,1,busybox,,sys,,,,GNU GPLv2
 su,1,busybox,,usr,,,,GNU GPLv2
 sulogin,1,busybox,,usr,,,,GNU GPLv2
