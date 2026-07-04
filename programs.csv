@@ -111,6 +111,7 @@ mkpasswd,,1,busybox,,usr,,,,GNU GPLv2
 mkswap,,1,busybox,,sys,,,Used to set up a Linux swap area on a given partition or file. It will destroy any data present on the target partition or file.,GNU GPLv2
 mount,,0,busybox,,sys,,,,GNU GPLv2
 mountpoint,,1,busybox,,sys,,,,GNU GPLv2
+mpg321,,1,bundled,mpg321,fun,,mpg123,A free MP3 player designed to be a drop-in replacement for the non-free mpg123.,GNU GPLv2
 mt,,1,bundled,mt-st,sys,,,"Controls a magnetic tape drive. It provides typical drive operations such as rewinding, skipping and ejecting.",GNU GPLv2
 mv,,0,busybox,,gen,,,,GNU GPLv2
 nano,,1,bundled,GNU nano,dev,,,A Pico-style text editor.,GNU GPLv3
