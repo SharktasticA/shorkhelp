@@ -178,6 +178,7 @@ taskset,,1,busybox,,sys,,,,GNU GPLv2
 tcc,,1,bundled,Tiny C Compiler,dev,,,A lightweight C compiler (configured to use musl).,GNU LGPLv2.1
 tee,,0,busybox,,gen,,,,GNU GPLv2
 telnet,,1,busybox,,net,,,,GNU GPLv2
+terminal-mines,,1,bundled,terminal-mines,fun,,,An ncurses-based minesweeper game.,MIT
 test,,0,busybox,,gen,,,,GNU GPLv2
 time,,1,busybox,,gen,,,,GNU GPLv2
 tmux,,1,bundled,tmux,gen,,,"A terminal multiplexer that allows for multi-tasking and multi-viewing with just a single terminal. It allows you to create multiple ""windows"" to switch between without switching virtual terminals or opening a new window/tab in your terminal emulator, split said ""windows"" into multiple panes that can present terminal programs and output side-by-side, and quickly switch between them. Each tmux session can also be detached and reattached without losing what is open inside.",ISC
