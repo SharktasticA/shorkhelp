@@ -561,29 +561,140 @@ void printIntroPT1(void)
 
 void printIntroStarted(void)
 {
-    char gettingStartedStr[1200];
-    snprintf(gettingStartedStr, 1200,
-"\033[%sm1.\033[%sm Set your keyboard's layout with \033[%smshorkset\033[%sm.\n\n\
-\033[%sm2.\033[%sm Pick a font and colour for the console terminal with \033[%smshorkset\033[%sm.\n\n\
-\033[%sm3.\033[%sm Change your display's resolution with \033[%smshorkset\033[%sm. A reboot will be required.\n\n\
-\033[%sm4.\033[%sm Set your computer's name by editing \033[%sm/etc/hostname\033[%sm. A reboot will be required, or you can run: \033[%smhostname \"$(cat /etc/hostname)\"\n\n\
-\033[%sm5.\033[%sm (If applicable) Test your network connection with \033[%smping\033[%sm. For example: \033[%smping sharktastica.co.uk\n\n\
-\033[%sm6.\033[%sm Run \033[%smshorkfetch\033[%sm to see a quick overview of your system and environment.\n\n\
-\033[%sm7.\033[%sm Check \033[%smshorkhelp\033[%sm's other options to learn what commands and software are available, and see what guides may be of use.\n\n\
-\033[%sm8.\033[%sm Use Ctrl+Alt+F1/F2/F3 or \033[%smchvt\033[%sm to switch between the three available virtual consoles, useful for multitasking, troubleshooting and recovery.\n\n\
-\033[%sm9.\033[%sm When you are finished using SHORK 486, run \033[%smshorkoff\033[%sm to safely halt the system before powering off.\n",
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE,
-    COL_FOR_OL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE);
+    const int strSize = 4096;
+    char startedStr[strSize];
+    int pos = 0;
+    int item = 1;
 
-    int lines = formatNewLines(gettingStartedStr, TERM_SIZE.ws_col, "   ", 1);
-    printTextScreen("Getting started", gettingStartedStr, lines, 1);
+
+
+    if (isProgramInstalled("shorkfetch", 1))
+    {
+        pos += snprintf(startedStr + pos, strSize - pos,
+            "\033[%sm%d. \033[%smKnowing your system\033[%sm\n", 
+            COL_FOR_OL, item++,
+            COL_FOR_HEADING, COL_FOR_WHITE
+        );
+
+        pos += snprintf(startedStr + pos, strSize - pos,
+            "You can run \033[%smshorkfetch\033[%sm to see a quick overview of your system and environment. Commands like \033[%smlscpu\033[%sm (processor), \033[%smfree\033[%sm (memory) and \033[%smlsblk\033[%sm (drives) are available for specific information, and are explained in \033[%smshorkhelp\033[%sm's \"discovering your hardware\" guide. \033[%smshorkhelp\033[%sm also provides a command reference portal and \"commands & programs\" list for you to learn what software is available and what you can do with your system.\n\n",
+            COL_FOR_SHORKUTIL,  COL_FOR_WHITE,
+            COL_FOR_CODE,  COL_FOR_WHITE,
+            COL_FOR_CODE,  COL_FOR_WHITE,
+            COL_FOR_CODE,  COL_FOR_WHITE,
+            COL_FOR_SHORKUTIL,  COL_FOR_WHITE,
+            COL_FOR_SHORKUTIL,  COL_FOR_WHITE
+        );
+    }
+
+
+
+    if (isProgramInstalled("shorkset", 1))
+    {
+        pos += snprintf(startedStr + pos, strSize - pos,
+            "\033[%sm%d. \033[%smSetting your preferences\033[%sm\n", 
+            COL_FOR_OL, item++,
+            COL_FOR_HEADING, COL_FOR_WHITE
+        );
+
+        pos += snprintf(startedStr + pos, strSize - pos,
+            "\033[%smshorkset\033[%sm is your port of call if you want to customise your experience. The exact options depends on your hardware and bundled relevant software, but it can allow you to select a VGA or VESA-style display resolution, keyboard layout (keymap), PSF-format console font, console font colour and sound volume.\n\n",
+            COL_FOR_SHORKUTIL,  COL_FOR_WHITE
+        );
+    }
+
+
+
+    pos += snprintf(startedStr + pos, strSize - pos,
+        "\033[%sm%d. \033[%smChanging your computer's name\033[%sm\n", 
+        COL_FOR_OL, item++,
+        COL_FOR_HEADING, COL_FOR_WHITE
+    );
+
+    pos += snprintf(startedStr + pos, strSize - pos,
+        "Your computer's name is stored in \033[%sm/etc/hostname\033[%sm and you can change it by editing that file. A reboot will be required, or run \033[%smhostname \"$(cat /etc/hostname)\"\033[%sm to apply the change immediately.\n\n",
+        COL_FOR_CODE,  COL_FOR_WHITE,
+        COL_FOR_CODE,  COL_FOR_WHITE
+    );
+
+
+
+    if (isProgramInstalled("ping", 1))
+    {
+        pos += snprintf(startedStr + pos, strSize - pos,
+            "\033[%sm%d. \033[%smTesting your network connection\033[%sm\n", 
+            COL_FOR_OL, item++,
+            COL_FOR_HEADING, COL_FOR_WHITE
+        );
+
+        pos += snprintf(startedStr + pos, strSize - pos,
+            "If you intend to use the internet, you can use \033[%smping\033[%sm - for example, \033[%smping sharktastica.co.uk\033[%sm - to quickly check if you can reach a website. If you cannot, please note that at present, your ethernet cable must be plugged into your computer before starting SHORK. A network manager is in development to address this in the future.\n\n",
+            COL_FOR_CODE,  COL_FOR_WHITE,
+            COL_FOR_CODE,  COL_FOR_WHITE
+        );
+    }
+
+
+
+    if (isProgramInstalled("chvt", 1))
+    {
+        pos += snprintf(startedStr + pos, strSize - pos,
+            "\033[%sm%d. \033[%smHow to multitask\033[%sm\n", 
+            COL_FOR_OL, item++,
+            COL_FOR_HEADING, COL_FOR_WHITE
+        );
+
+        pos += snprintf(startedStr + pos, strSize - pos,
+            "At a minimum, SHORK provides three virtual consoles (ttyX) you can access with Ctrl+Alt+[F1/F2/F3] or \033[%smchvt [1/2/3]\033[%sm. They allow you to do something else without closing the current program or to bypass a crashed program.\n\n",
+            COL_FOR_CODE,  COL_FOR_WHITE
+        );
+
+        if (isProgramInstalled("tmux", 1))
+        {
+            pos += snprintf(startedStr + pos, strSize - pos,
+                "Additionally, \033[%smtmux\033[%sm is available, which allows you to split each console into multiple \"windows\" and multiple panes inside them. Each one can launch a program. It requires memorising several keyboard commands, but \033[%smshorkhelp\033[%sm's tmux cheatsheet is available to help get you started.\n\n",
+                COL_FOR_CODE,  COL_FOR_WHITE,
+                COL_FOR_SHORKUTIL,  COL_FOR_WHITE
+            );
+        }
+    }
+
+
+
+    if (isProgramInstalled("shorkmatrix", 1))
+    {
+        pos += snprintf(startedStr + pos, strSize - pos,
+            "\033[%sm%d. \033[%smSaving your screen\033[%sm\n", 
+            COL_FOR_OL, item++,
+            COL_FOR_HEADING, COL_FOR_WHITE
+        );
+
+        pos += snprintf(startedStr + pos, strSize - pos,
+            "If you have a CRT, plasma or OLED-based monitor, and you are going to step away from your computer for a while without turning it off, you can run \033[%smshorkmatrix\033[%sm before you go to serve as your screensaver to help prevent burn-in.\n\n",
+            COL_FOR_SHORKUTIL,  COL_FOR_WHITE
+        );
+    }
+
+
+
+    if (isProgramInstalled("shorkoff", 1))
+    {
+        pos += snprintf(startedStr + pos, strSize - pos,
+            "\033[%sm%d. \033[%smShutting down for the day\033[%sm\n", 
+            COL_FOR_OL, item++,
+            COL_FOR_HEADING, COL_FOR_WHITE
+        );
+
+        pos += snprintf(startedStr + pos, strSize - pos,
+            "When you are finished using your computer, it is recommended to run \033[%smshorkoff\033[%sm before you press its power button. It safely halts your system and syncs any write cache to your drives, helping prevent data loss if your drives are perhaps too slow to do it automatically in time.\n\n",
+            COL_FOR_SHORKUTIL,  COL_FOR_WHITE
+        );
+    }
+
+
+
+    int lines = formatNewLines(startedStr, TERM_SIZE.ws_col, NULL, 1);
+    printTextScreen("Getting started", startedStr, lines, 1);
 }
 
 
