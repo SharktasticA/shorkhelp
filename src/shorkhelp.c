@@ -763,6 +763,9 @@ void printSoftwareSHORKTAINMENT(void)
     if (isProgramInstalled("shorkmatrix", 1))
         pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorkmatrix\033[%sm\nA minimalist, blue-themed take on the \033[%smcmatrix\033[%sm \"digital rain\" vertical scrolling text screensaver. Inspired by the 1999 film \"The Matrix\", the \"droplets\" are lines of blue characters that fall from the top of the terminal to the bottom, and are occasionally broken up.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
+    if (isProgramInstalled("shorkmines", 1))
+        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorkmines\033[%sm\nAn ncurses-based minesweeper game based on \033[%smterminal-mines\033[%sm. You can customise the game's difficulty by entering a width, height, and mine density of your choosing.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+
     if (isProgramInstalled("shorksay", 1))
         pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorksay\033[%sm\nA shark-themed take on the \033[%smcowsay\033[%sm command that outputs a cute SHORK with a speech bubble containing a message of your choice. The message can be manually supplied or can be provided from another program's standard output (ie, using a pipe).\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
@@ -994,7 +997,7 @@ void showHelp(void)
         printf("%s", pt1);
     }
 
-    if (isProgramInstalled("sl", 1) || isProgramInstalled("shorkmatrix", 1) || isProgramInstalled("shorksay", 1))
+    if (isProgramInstalled("sl", 1) || isProgramInstalled("shorkmatrix", 1) || isProgramInstalled("shorkmines", 1) || isProgramInstalled("shorksay", 1))
     {
         char shorktainment[100] = "--shorktainment  Displays SHORK Entertainment list and exit\n";
         formatNewLines(shorktainment, TERM_SIZE.ws_col, "                 ", 0);
