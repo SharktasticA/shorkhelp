@@ -38,6 +38,7 @@ dd,,0,busybox,,sys,,,,GNU GPLv2
 delgroup,,1,busybox,,usr,,,,GNU GPLv2
 deluser,,1,busybox,,usr,,,,GNU GPLv2
 df,,0,busybox,,sys,,,,GNU GPLv2
+dialog,,1,bundled,,dev,,,"Allows you to create and display dialog boxes from a shell script. dialog includes the following boxes: buildlist, calendar, checklist, dselect, editbox, form, fselect, gauge, infobox, inputbox, inputmenu, menu, mixedform, mixedgauge, msgbox, passwordbox, passwordform, pause, prgbox, programbox, progressbox, radiolist, rangebox, tailbox, tailboxbg, textbox, timebox, treeview and yesno. The SHORK 486 Build Configurator is dialog based, and the Linux kernel's lxdialog is a distant descendant of dialog.",GNU LGPLv2.1
 diff,,1,busybox,,dev,,,Compares two files line-by-line and outputs a difference listing between them. The result can be used as a patch file for the patch utility.,GNU GPLv2
 dirname,,1,busybox,,gen,,,,GNU GPLv2
 dmesg,,1,busybox,,sys,,,,GNU GPLv2
