@@ -38,7 +38,7 @@ dd,,0,busybox,,sys,,,,GNU GPLv2
 delgroup,,1,busybox,,usr,,,,GNU GPLv2
 deluser,,1,busybox,,usr,,,,GNU GPLv2
 df,,0,busybox,,sys,,,,GNU GPLv2
-dialog,,1,bundled,,dev,,,"Allows you to create and display dialog boxes from a shell script. dialog includes the following boxes: buildlist, calendar, checklist, dselect, editbox, form, fselect, gauge, infobox, inputbox, inputmenu, menu, mixedform, mixedgauge, msgbox, passwordbox, passwordform, pause, prgbox, programbox, progressbox, radiolist, rangebox, tailbox, tailboxbg, textbox, timebox, treeview and yesno. The SHORK 486 Build Configurator is dialog based, and the Linux kernel's lxdialog is a distant descendant of dialog.",GNU LGPLv2.1
+dialog,,1,bundled,dialog,dev,,,"Allows you to create and display dialog boxes from a shell script. dialog includes the following boxes: buildlist, calendar, checklist, dselect, editbox, form, fselect, gauge, infobox, inputbox, inputmenu, menu, mixedform, mixedgauge, msgbox, passwordbox, passwordform, pause, prgbox, programbox, progressbox, radiolist, rangebox, tailbox, tailboxbg, textbox, timebox, treeview and yesno. The SHORK 486 Build Configurator is dialog based, and the Linux kernel's lxdialog is a distant descendant of dialog.",GNU LGPLv2.1
 diff,,1,busybox,,dev,,,Compares two files line-by-line and outputs a difference listing between them. The result can be used as a patch file for the patch utility.,GNU GPLv2
 dirname,,1,busybox,,gen,,,,GNU GPLv2
 dmesg,,1,busybox,,sys,,,,GNU GPLv2
@@ -92,7 +92,7 @@ login,,1,busybox,,usr,,,,GNU GPLv2
 losetup,,1,busybox,,sys,,,,GNU GPLv2
 ls,,0,busybox,,gen,,,Lists the contents of the current or a target directory.,GNU GPLv2
 lsblk,,0,busybox,,sys,,,"Lists information about all or the specified block devices. By default, it produces a table containing the device name, major number (driver associated with device), minor number (device number for the given driver), device type, whether the device is read only (RO), and its mountpoint (if mounted).",GNU GPLv2
-lscpu,,1,bundled,util-linux,sys,,,,GNU GPLv2
+lscpu,,1,bundled,util-linux,sys,lscpu,,,GNU GPLv2
 lspci,,1,busybox,,sys,,,"Lists all PCI buses and connected devices. By default, it produces a table containing the PCI bus number, device number for that bus, function number, PCI class code, vendor ID, and device ID. It can optionally also display the kernel driver utilising a given device.",GNU GPLv2
 lsusb,,1,busybox,,sys,,,"Lists all USB buses and connected devices. It produces a table containing the USB bus number, device number for that bus, vendor ID, and device ID.",GNU GPLv2
 lynx,,1,bundled,Lynx,net,,,A text-based web browser that allows you to access websites from your terminal. It is the oldest web browser that is still actively maintained.,GNU GPLv2
@@ -100,6 +100,7 @@ lzcat,,1,busybox,,arc,,,,GNU GPLv2
 lzma,,1,busybox,,arc,,,,GNU GPLv2
 lzop,,1,busybox,,arc,,,,GNU GPLv2
 lzopcat,,1,busybox,,arc,,,,GNU GPLv2
+make,,1,bundled,GNU Make,dev,,,"A build automation tool that executes shell commands primarily to update program compilation targets only when their prerequisites have changed, avoiding unnecessary work. It is often run in the same directory as a Makefile, which describes how a project's files relate to each other and how to update them. Whilst it is often associated with C-language projects, Make can be used for any task where maintaining some files in a project can be done with shell commands, whether it be other programming languages or documentation generation, asset pipelines or general project automation.",GNU GPLv3
 man,,1,busybox,,gen,,,,GNU GPLv2
 mdev,,0,busybox,,sys,,,,GNU GPLv2
 mg,,1,bundled,Mg,dev,,emacs,A text editor with Emacs-style keybinds and buffers.,Unlicense
@@ -149,7 +150,7 @@ sed,,0,busybox,,gen,,,,GNU GPLv2
 seq,,1,busybox,,gen,,,,GNU GPLv2
 setfattr,,1,busybox,,gen,,,"Sets an extended attribute for the given filesystem object. Extended attributes are metadata that go beyond the standard attributes provided by the host filesystem, allowing more information to be associated with a given filesystem object.",GNU GPLv2
 setfont,,1,busybox,,sys,,,,GNU GPLv2
-sfdisk,,1,bundled,util-linux,sys,,,A partitioning tool suited for automated and scripted use.,GNU GPLv2
+sfdisk,,1,bundled,util-linux,sys,sfdisk,,A partitioning tool suited for automated and scripted use.,GNU GPLv2
 shorkdir,,1,shorkutil,,gen,SHORKDIR,,"A terminal-based file browser. It allows you to surf the file system with Vim-like controls, WASD or arrow keys, open text-based files with an installed editor of your choice, and inspect a file (if file is installed).",GNU GPLv3
 shorkfetch,,1,shorkutil,,sys,SHORKFETCH,,"A shark-themed Linux fetch tool designed with speed, consistent output, and vintage hardware support in mind. It displays basic system and environment information in a summarised format. It can report the current username, hostname, operating system/distribution, kernel version, system uptime, number of installed packages, screens, desktop environment, window manager, terminal, console size, shell, CPU, GPUs, system memory, swap memory, root partition size, and local IP address.",GNU GPLv3
 shorkgui,,1,shorkutil,,gen,SHORKGUI,,EXPERIMENTAL. Starts the SHORKGUI graphical environment.,GNU GPLv3
@@ -211,7 +212,7 @@ volname,,1,busybox,,sys,,,,GNU GPLv2
 w,,1,busybox,,usr,,,,GNU GPLv2
 wc,,1,busybox,,gen,,,,GNU GPLv2
 wget,,1,busybox,,net,,,"A non-interactive internet file downloader. It is often used to simply download a file with a given URL, although it can also be used as a web spider.",GNU GPLv2
-whereis,,1,bundled,util-linux,gen,,,"Locates the binary, source and manual page files for a given command.",GNU GPLv2
+whereis,,1,bundled,util-linux,gen,whereis,,"Locates the binary, source and manual page files for a given command.",GNU GPLv2
 which,,0,busybox,,gen,,,,GNU GPLv2
 who,,1,busybox,,usr,,,,GNU GPLv2
 whoami,,1,busybox,,sys,,,,GNU GPLv2
