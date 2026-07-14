@@ -117,8 +117,8 @@ mpg321,,1,bundled,mpg321,fun,,mpg123,A free MP3 player designed to be a drop-in 
 mt,,1,bundled,mt-st,sys,,,"Controls a magnetic tape drive. It provides typical drive operations such as rewinding, skipping and ejecting.",GNU GPLv2
 mv,,0,busybox,,gen,,,,GNU GPLv2
 nano,,1,bundled,GNU nano,dev,,,A Pico-style text editor.,GNU GPLv3
-nasm,,1,bundled,NASM,dev,nasm,,"A portable x86 assembler. Compared to GNU assembler (as), NASM uses Intel-style syntax instead of AT&T-style. Note: if you build ELFs (relocatable objects), you will need a separate linker such as GNU linker (ld) to produce a usable binary from it.",BSD 2-Clause
-ndisasm,,1,bundled,NASM,dev,ndisam,,"A portable x86 disassembler. Compared to GNU objdump, it can disassemble raw binary files with no header, symbol table or debug information present.",BSD 2-Clause
+nasm,,1,bundled,NASM,dev,nasm,,"A portable x86 assembler. Compared to GNU assembler (as), NASM uses Intel-style syntax instead of AT&T-style. Note: if you build ELFs (relocatable objects), you will need a separate linker such as GNU linker (ld) to produce a usable binary from them.",BSD 2-Clause
+ndisasm,,1,bundled,NASM,dev,ndisasm,,"A portable x86 disassembler. Compared to GNU objdump, it can disassemble raw binary files with no header, symbol table or debug information present.",BSD 2-Clause
 netstat,,1,busybox,,net,,,"Displays network statistics such as current network connections, network interfaces and routing tables.",GNU GPLv2
 nice,,1,busybox,,sys,,,,GNU GPLv2
 nm,,1,bundled,GNU Binutils,dev,GNU nm,,,GNU GPLv3
