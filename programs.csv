@@ -77,6 +77,7 @@ hexdump,,1,busybox,,dev,,,,GNU GPLv2
 hostname,,0,busybox,,sys,,,,GNU GPLv2
 htop,,1,bundled,htop,sys,,,"An interactive process viewer designed to be an enhancement over top. Compared to top, htop supports scrolling both horizontally and vertically, a coloured UI and colour-coding, CPU and memory usage bars, searching, filtering, sorting, and killing processes.",GNU GPLv2
 ifconfig,,1,busybox,,net,,,,GNU GPLv2
+indent,,1,bundled,GNU Indent,dev,GNU Indent,,"A C code formatter. It can format a given C source file to a desired indentation and styling rule (GNU style by default), or convert between different C formatting conventions (for example, from GNU style to K&R style).",GNU GPLv3
 init,,1,busybox,,sys,,,,GNU GPLv2
 ip,,1,busybox,,net,,,,GNU GPLv2
 joe,,1,bundled,Joe's Own Editor,dev,,,A WordStar-style text editor.,GNU GPLv2
