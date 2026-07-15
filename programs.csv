@@ -31,6 +31,8 @@ cp,,0,busybox,,gen,,,,GNU GPLv2
 cpio,,1,busybox,,arc,,,,GNU GPLv2
 crontab,,1,busybox,,sys,,,,GNU GPLv2
 cryptpw,,1,busybox,,usr,,,,GNU GPLv2
+cscope,,1,bundled,CScope,dev,,,"An interactive C and C++ source code browser. It builds a symbol database from a given project's source files, letting you quickly jump to where a function or variable is defined, called or referenced elsewhere in the codebase.",BSD 3-Clause
+ctags,,1,bundled,Universal Ctags,dev,ctags,,"A multi-language source code object indexing tool that generates tags files that allow editors such as Emacs, vi and Vim to jump straight to a definition of a function, variable or other symbol.",GNU GPLv2
 cut,,1,busybox,,gen,,,,GNU GPLv2
 date,,0,busybox,,gen,,,,GNU GPLv2
 dc,,1,busybox,,gen,,,,GNU GPLv2
@@ -143,6 +145,7 @@ pwd,,0,busybox,,gen,,,,GNU GPLv2
 ranlib,,1,bundled,GNU Binutils,dev,GNU ranlib,,,GNU GPLv3
 readelf,,1,bundled,GNU Binutils,dev,GNU readelf,,,GNU GPLv3
 readlink,,1,busybox,,gen,,,,GNU GPLv2
+readtags,,1,bundled,Universal Ctags,dev,readtags,,"A tool for listing, filtering, sorting and printing entries from a ctags tags file without needing a compatible editor.",GNU GPLv2
 rev,,0,busybox,,gen,,,,GNU GPLv2
 rm,,0,busybox,,gen,,,,GNU GPLv2
 rmdir,,1,busybox,,gen,,,,GNU GPLv2
