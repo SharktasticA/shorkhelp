@@ -169,7 +169,7 @@ rmdir,,1,busybox,,gen,,,,GNU GPLv2
 route,,1,busybox,,net,,,,GNU GPLv2
 sc-im,,1,bundled,sc-im,gen,Spreadsheet Calculator Improvised,,"A terminal-based spreadsheet editor based on the original sc (spreadsheet calculator) but adds undo/redo, UTF-8, .xlsx workbook import/export, ODS export, clipboard integration, and Lua-based scripting support. It uses Vim-style keybinds.",BSD 4-Clause
 scp,,1,bundled,Dropbear,net,Dropbear (SCP),,An SCP client (a part of Dropbear) for remote file transfer.,MIT + BSD 2-Clause (OpenSSH components)
-sed,,0,busybox,,shuff,,,,GNU GPLv2
+sed,,0,busybox,,txt,,,,GNU GPLv2
 seq,,1,busybox,,gen,,,,GNU GPLv2
 setfattr,,1,busybox,,gen,,,"Sets an extended attribute for the given filesystem object. Extended attributes are metadata that go beyond the standard attributes provided by the host filesystem, allowing more information to be associated with a given filesystem object.",GNU GPLv2
 setfont,,1,busybox,,sys,,,,GNU GPLv2
