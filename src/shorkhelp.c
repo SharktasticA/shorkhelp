@@ -920,6 +920,33 @@ void printSoftwareSHORKUTILS(void)
 
 
 
+void printOtherReport(void)
+{
+    char msgBody[6144];
+
+    snprintf(msgBody, 6144, "The after-build report is a log generated after SHORK 486 finished compiling. It is used to confirm whether the build completed as intended, and it should provide all the information needed to reproduce the build.\n\n");
+
+    FILE *stream = fopen(BUILD_REPORT_PATH, "r");
+    if (stream)
+    {
+        size_t len = strlen(msgBody);
+        size_t bytesRead = fread(msgBody + len, 1, sizeof(msgBody) - 1, stream);
+        fclose(stream);
+        msgBody[bytesRead + len] = '\0';
+    }
+    else
+    {
+        size_t extMsgLen = 48 + strlen(BUILD_REPORT_PATH);
+        EXIT_MSG = malloc(extMsgLen);
+        snprintf(EXIT_MSG, extMsgLen, "ERROR: could not load %s", BUILD_REPORT_PATH);
+        exit(1);
+    }
+
+    int lines = formatNewLines(msgBody, TERM_SIZE.ws_col, NULL, 0);
+    printTextScreen("After-build report", msgBody, lines, 1);
+}
+
+
 
 /**
  * Runs the command reference interface.
@@ -1073,18 +1100,18 @@ void showHelp(void)
     formatNewLines(options, TERM_SIZE.ws_col, NULL, 0);
     printf("%s", options);
 
-    char commands[100] = "--commands       Displays commands & programs list and exit\n";
+    char commands[100] = "--commands       Displays commands & programs list\n";
     formatNewLines(commands, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", commands);
 
     if (isProgramInstalled("emacs", 1) || isProgramInstalled("mg", 1))
     {
-        char emacs[100] = "--emacs          Displays Emacs (Mg) cheatsheet and exit\n";
+        char emacs[100] = "--emacs          Displays Emacs (Mg) cheatsheet\n";
         formatNewLines(emacs, TERM_SIZE.ws_col, "                 ", 0);
         printf("%s", emacs);
     }
 
-    char hardware[80] = "--hardware       Displays discovering your hardware guide and exit\n";
+    char hardware[80] = "--hardware       Displays discovering your hardware guide\n";
     formatNewLines(hardware, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", hardware);
 
@@ -1094,12 +1121,12 @@ void showHelp(void)
 
     if (isProgramInstalled("git", 1))
     {
-        char git[100] = "--git            Displays supported Git commands and exits\n";
+        char git[100] = "--git            Displays supported Git commands\n";
         formatNewLines(git, TERM_SIZE.ws_col, "                 ", 0);
         printf("%s", git);
     }
 
-    char intro[100] = "--intro          Displays introduction to SHORK 486 and exit\n";
+    char intro[100] = "--intro          Displays introduction to SHORK 486\n";
     formatNewLines(intro, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", intro);
 
@@ -1113,32 +1140,39 @@ void showHelp(void)
 
     if (getIsPT1())
     {
-        char pt1[80] = "--pt1            Displays Public Test 1 information and exits\n";
+        char pt1[80] = "--pt1            Displays Public Test 1 information\n";
         formatNewLines(pt1, TERM_SIZE.ws_col, "                 ", 0);
         printf("%s", pt1);
     }
 
+    if (access(BUILD_REPORT_PATH, F_OK) == 0)
+    {
+        char report[60] = "--report         Displays after-build report\n";
+        formatNewLines(report, TERM_SIZE.ws_col, "                 ", 0);
+        printf("%s", report);
+    }
+
     if (isProgramInstalled("sl", 1) || isProgramInstalled("shorkmatrix", 1) || isProgramInstalled("shorkmines", 1) || isProgramInstalled("shorksay", 1))
     {
-        char shorktainment[100] = "--shorktainment  Displays SHORK Entertainment list and exit\n";
+        char shorktainment[100] = "--shorktainment  Displays SHORK Entertainment list\n";
         formatNewLines(shorktainment, TERM_SIZE.ws_col, "                 ", 0);
         printf("%s", shorktainment);
     }
 
-    char shorkutils[100] = "--shorkutils     Displays SHORK Utilities list and exit\n";
+    char shorkutils[100] = "--shorkutils     Displays SHORK Utilities list\n";
     formatNewLines(shorkutils, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", shorkutils);
 
     if (strncmp(OS_NAME, "SHORK 486", 9) == 0)
     {
-        char started[100] = "--started        Displays getting started guide and exit\n";
+        char started[100] = "--started        Displays getting started guide\n";
         formatNewLines(started, TERM_SIZE.ws_col, "                 ", 0);
         printf("%s", started);
     }
 
     if (isProgramInstalled("tmux", 1))
     {
-        char tmux[100] = "--tmux           Displays tmux cheatsheet and exit\n";
+        char tmux[100] = "--tmux           Displays tmux cheatsheet\n";
         formatNewLines(tmux, TERM_SIZE.ws_col, "                 ", 0);
         printf("%s", tmux);
     }
@@ -1156,17 +1190,17 @@ void showMainMenu(void)
     setupMenuSys();
 
     LICENCES_NO = loadLicences();
-    //if (LICENCES_NO == -1)
-    //{
-    //    printf("ERROR: could not load manifest.csv\n");
-    //    return;
-    //}
+    if (LICENCES_NO == -1)
+    {
+        EXIT_MSG = strdup("ERROR: could not load manifest.csv");
+        exit(1);
+    }
 
     PROG_ENTRIES_NO = loadProgramEntries();
     if (PROG_ENTRIES_NO == -1)
     {
-        printf("ERROR: could not load programs.csv\n");
-        return;
+        EXIT_MSG = strdup("ERROR: could not load programs.csv");
+        exit(1);
     }
 
     int emacsInstalled = isProgramInstalled("emacs", 1);
@@ -1281,6 +1315,21 @@ void showMainMenu(void)
             NULL,
             printGuideTmuxCheatsheet,
             tmuxInstalled
+        },
+        { 
+            "",
+            "Other",
+            NULL,
+            NULL,
+            1,
+            1
+        },
+        { 
+            "report",
+            "After-build report",
+            NULL,
+            printOtherReport,
+            access(BUILD_REPORT_PATH, F_OK) == 0
         }
     };
     int rawMenuSize = sizeof(rawMenu) / sizeof(rawMenu[0]);

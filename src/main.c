@@ -29,6 +29,7 @@ typedef enum
     ARG_INTRO,
     ARG_LICENCES,
     ARG_PT1,
+    ARG_REPORT,
     ARG_SHORKTAINMENT,
     ARG_SHORKUTILS,
     ARG_STARTED,
@@ -45,6 +46,7 @@ typedef enum
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 
 
@@ -89,6 +91,8 @@ int main(int argc, char *argv[])
                 COL_ENABLED = 0;
             else if (strcmp(argv[i], "--pt1") == 0 && getIsPT1())
                 opt = ARG_PT1;
+            else if (strcmp(argv[i], "--report") == 0 && access(BUILD_REPORT_PATH, F_OK) == 0)
+                opt = ARG_REPORT;
             else if (strcmp(argv[i], "--shorktainment") == 0)
                 opt = ARG_SHORKTAINMENT;
             else if (strcmp(argv[i], "--shorkutils") == 0)
@@ -149,6 +153,11 @@ int main(int argc, char *argv[])
         {
             setupMenuSys();
             printIntroPT1();
+        }
+        else if (opt == ARG_REPORT)
+        {
+            setupMenuSys();
+            printOtherReport();
         }
         else if (opt == ARG_SHORKTAINMENT)
         {

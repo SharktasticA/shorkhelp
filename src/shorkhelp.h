@@ -36,6 +36,7 @@ typedef struct {
 
 
 
+#define BUILD_REPORT_PATH       "/var/log/shork/build-report.log"
 #define CSV_BUFFER              32768
 #define MAX_CMD_STR             2048
 #define MAX_LICENCES            100
@@ -68,6 +69,8 @@ void printSoftwareLicence(int);
 void printSoftwareProgOverview(int);
 void printSoftwareSHORKTAINMENT(void);
 void printSoftwareSHORKUTILS(void);
+
+void printOtherReport(void);
 
 void showCommandRefMenu(void);
 void showHelp(void);
