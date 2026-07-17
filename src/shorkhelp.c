@@ -231,8 +231,20 @@ int loadProgramEntries(void)
             continue;
 
         int isOptional = atoi(fields[2]);
-        char *prog = (fields[1] && fields[1][0] != '\0') ? fields[1] : fields[0];
-        if (!isOptional || (isOptional && isProgramInstalled(prog, 1)))
+        int progCheck = 0;
+        // If the path field starts with '!', it means only proceed if the
+        // executable in the path *is not* found. E.g., BusyBox and Vim provide
+        // their own xxd - the BusyBox one should only be processed if Vim
+        // isn't installed.
+        if (fields[1][0] == '!')
+        {
+            if (!isProgramInstalled(fields[1] + 1, 1))
+                progCheck = isProgramInstalled(fields[0], 1);
+        }
+        else
+            progCheck = isProgramInstalled((fields[1] && fields[1][0] != '\0') ? fields[1] : fields[0], 1);
+
+        if (!isOptional || (isOptional && progCheck))
         {
             // If no program name was given, try either package name or just
             // command name as a stand-in

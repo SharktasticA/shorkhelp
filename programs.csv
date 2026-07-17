@@ -57,9 +57,11 @@ ed,,1,busybox,,dev,,,,GNU GPLv2
 eject,,1,busybox,,gen,,,,GNU GPLv2
 elfedit,,1,bundled,GNU Binutils,dev,GNU elfedit,,,GNU GPLv3
 env,,1,busybox,,gen,,,,GNU GPLv2
+ex,,1,bundled,Vim,dev,ex,,Opens the Vim editor in line-orientated mode. It processes commands line-by-line rather than providing a full interactive experience.,Vim
 expand,,1,busybox,,txt,,,,GNU GPLv2
 expr,,0,busybox,,gen,,,,GNU GPLv2
 factor,,1,busybox,,gen,,,,GNU GPLv2
+fallocate,,1,busybox,,sys,,,"Preallocates disk space for a file without writing data to it. It is useful for reserving space for something without needing to write zeros or random data (as you would with dd) - for example, creating swap files, preallocating space for a database or log, or testing behaviour with large files.",GNU GPLv2
 false,,1,busybox,,gen,,,,GNU GPLv2
 fdformat,,1,busybox,,sys,,,,GNU GPLv2
 fdisk,,1,busybox,,sys,,,,GNU GPLv2
@@ -167,6 +169,8 @@ rev,,0,busybox,,txt,,,,GNU GPLv2
 rm,,0,busybox,,gen,,,,GNU GPLv2
 rmdir,,1,busybox,,gen,,,,GNU GPLv2
 route,,1,busybox,,net,,,,GNU GPLv2
+rview,,1,bundled,Vim,dev,rview,,"Opens the Vim editor in restricted and read-only mode. This disables its shell escapes, external commands and ability to write.",Vim
+rvim,,1,bundled,Vim,dev,rvim,,Opens the Vim editor in restricted mode. This disables its shell escapes and external commands.,Vim
 sc-im,,1,bundled,sc-im,gen,Spreadsheet Calculator Improvised,,"A terminal-based spreadsheet editor based on the original sc (spreadsheet calculator) but adds undo/redo, UTF-8, .xlsx workbook import/export, ODS export, clipboard integration, and Lua-based scripting support. It uses Vim-style keybinds.",BSD 4-Clause
 scp,,1,bundled,Dropbear,net,Dropbear (SCP),,An SCP client (a part of Dropbear) for remote file transfer.,MIT + BSD 2-Clause (OpenSSH components)
 sed,,0,busybox,,txt,,,,GNU GPLv2
@@ -246,6 +250,10 @@ users,,1,busybox,,usr,,,,GNU GPLv2
 usleep,,1,busybox,,gen,,,,GNU GPLv2
 uuidgen,,1,busybox,,gen,,,"Generates and prints a universally unique identifier (UUID), a 128-bit value for identification that is practically guaranteed to be unique.",GNU GPLv2
 vi,,0,busybox,,dev,,,,GNU GPLv2
+view,,1,bundled,Vim,dev,view,,Opens the Vim editor in read-only mode. This disables its ability to write.,Vim
+vim,,1,bundled,Vim,dev,Vi IMproved,,"An improved vi-style text editor that is highly extensible. Compared to regular vi, Vim supports syntax highlighting, folding, multiple buffers/windows/tabs, spell-checking, macros, undo trees and an scripting language called Vimscript. It also has a plugin system.",Vim
+vimdiff,,1,bundled,Vim,dev,vimdiff,,Opens the Vim editor in a mode that allows comparing two or more files side-by-side with their differences highlighted.,Vim
+vimtutor,,1,bundled,Vim,dev,vimtutor,,"An interactive, self-paced tutorial that teaches you the basis of Vim using a disposable practice copy of the lesson file.",Vim
 vmstat,,1,busybox,,sys,,,"Reports system virtual memory, processes, CPU and I/O statistics. It displays columns for a runnable process count (r), I/O-bound blocked process count (b), swap memory used (swpd), idle memory (free), memory as buffers (buff), memory as cache (cache), memory swapped in from disk (si), memory swapped to disk (so), KiB received from a block device (bi), KiB sent to a block device (bo), interrupts per second (in), context switches per second (cs), user CPU time (us), system CPU time (sy), CPU idle time (id), time waiting for IO (wa), time stolen from a virtual machine (st), and time running KVM guest code (gu).",GNU GPLv2
 volname,,1,busybox,,sys,,,,GNU GPLv2
 w,,1,busybox,,usr,,,,GNU GPLv2
@@ -256,7 +264,8 @@ which,,0,busybox,,gen,,,,GNU GPLv2
 who,,1,busybox,,usr,,,,GNU GPLv2
 whoami,,1,busybox,,sys,,,,GNU GPLv2
 whois,,1,busybox,,net,,,,GNU GPLv2
-xxd,,1,busybox,,dev,,,,GNU GPLv2
+xxd,/usr/bin/vim,1,bundled,Vim,dev,xxd,,,Vim
+xxd,!/usr/bin/vim,1,busybox,,dev,,,,GNU GPLv2
 xz,,1,busybox,,arc,,,,GNU GPLv2
 yes,,1,busybox,,gen,,,,GNU GPLv2
 zcat,,1,busybox,,arc,,,,GNU GPLv2
