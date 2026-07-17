@@ -563,9 +563,9 @@ void printIntroPT1(void)
 
     pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smLicence & disclaimers\033[%sm\nSHORK 486 is a non-commercial, free and open-source operating system licenced under GPLv3 that is provided \"as is\" without warranty of any kind. In no event shall the contributors be liable for any damages arising from use of this software. Additionally, SHORK 486 is a work in progress, and this is a pre-release build. It should not be used for serious, production, or mission-critical work.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
 
-    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smSuggestions & feedback\033[%sm\nIdeas for what to add and change to SHORK 486 are welcome! These can be suggestions for new bundled programs, new or improved features, and advice on how the system is configured and built. Frank and critical feedback on anything regarding the project is also welcomed, though it is expected that it is respectful and understanding. However, please understand that otherwise well-intentioned and interesting suggestions may be considered beyond the scope of this project, as the aim is to keep the system as minimal as possible, but they will be remembered for future sister projects. Suggestions and feedback can be given on the SHORK 486 GitHub repository or via social media channels found on \033[%smlinks.sharktastica.co.uk\033[%sm.\n\n", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smSuggestions & feedback\033[%sm\nIdeas for what to add and change to SHORK 486 are welcome! These can be suggestions for new bundled programs, new or improved features, and advice on how the system is configured and built. Frank and critical feedback on anything regarding the project is also welcomed, though it is expected that it is respectful and understanding. However, please understand that otherwise well-intentioned and interesting suggestions may be considered beyond the scope of this project, as the aim is to keep the system as minimal as possible, but they will be remembered for future sister projects. Suggestions and feedback can be given via the SHORK 486 GitHub repository's \"Discussions\" tab or via social media channels found on \033[%smlinks.sharktastica.co.uk\033[%sm.\n\n", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
-    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smBug & error reporting\033[%sm\nSHORK 486 does not collect any telemetry nor report anything to anyone, instead relying on you, the tester, to report and provide evidence of any issues that may arise when using it. If you encounter any, please report them! It is a good measure to include a robust description of your hardware and what you were trying to do, whether you compiled it yourself or used published install media, a screenshot/photo of \033[%smshorkfetch\033[%sm's output, \033[%sm/proc/cpuinfo\033[%sm's contents, and \033[%smdmesg\033[%sm output. Reports can be given on the SHORK 486 GitHub repository.", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smBug & error reporting\033[%sm\nSHORK 486 does not collect any telemetry nor report anything to anyone, instead relying on you, the tester, to report and provide evidence of any issues that may arise when using it. If you encounter any, please report them! It is a good measure to include a robust description of your hardware and what you were trying to do, whether you compiled it yourself or used published install media, a screenshot/photo of \033[%smshorkfetch\033[%sm's output, \033[%sm/proc/cpuinfo\033[%sm's contents, and \033[%smdmesg\033[%sm output. Reports can be given via the SHORK 486 GitHub repository's \"Issues\" tab.", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
     int lines = formatNewLines(pt1Str, TERM_SIZE.ws_col, NULL, 0);
     printTextScreen("Public Test 1", pt1Str, lines, 1);
@@ -958,6 +958,31 @@ void printOtherReport(void)
     printTextScreen("After-build report", msgBody, lines, 1);
 }
 
+void printOtherSupport(void)
+{
+    const int strSize = 1024;
+    char supportStr[strSize];
+    snprintf(supportStr, strSize,
+"\033[%smSource code\033[%sm\n\
+ * SHORK 486 GitHub repository (\033[%smgithub.com/SharktasticA/SHORK-486\033[%sm)\n\n\
+\033[%smSuggestions & feedback\033[%sm\n\
+ * SHORK 486 GitHub repository's \"Discussions\" tab\n\
+ * Contact author on social media (\033[%smlinks.sharktastica.co.uk\033[%sm)\n\
+ * Contact author via email (\033[%smsharksibmstuff@gmail.com\033[%sm)\n\n\
+\033[%smBug & error reporting\033[%sm\n\
+ * SHORK 486 GitHub repository's \"Issues\" tab",
+        COL_FOR_HEADING, COL_FOR_WHITE,
+        COL_FOR_CODE, COL_FOR_WHITE,
+        COL_FOR_HEADING, COL_FOR_WHITE,
+        COL_FOR_CODE, COL_FOR_WHITE,
+        COL_FOR_CODE, COL_FOR_WHITE,
+        COL_FOR_HEADING, COL_FOR_WHITE
+    );
+
+    int lines = formatNewLines(supportStr, TERM_SIZE.ws_col, "   ", 0);
+    printTextScreen("Getting support or involved", supportStr, lines, 1);
+}
+
 
 
 /**
@@ -1182,6 +1207,10 @@ void showHelp(void)
         printf("%s", started);
     }
 
+    char support[100] = "--support        Displays getting support & getting involved information\n";
+    formatNewLines(support, TERM_SIZE.ws_col, "                 ", 0);
+    printf("%s", support);
+
     if (isProgramInstalled("tmux", 1))
     {
         char tmux[100] = "--tmux           Displays tmux cheatsheet\n";
@@ -1342,6 +1371,13 @@ void showMainMenu(void)
             NULL,
             printOtherReport,
             access(BUILD_REPORT_PATH, F_OK) == 0
+        },
+        { 
+            "support",
+            "Getting support or involved",
+            NULL,
+            printOtherSupport,
+            1
         }
     };
     int rawMenuSize = sizeof(rawMenu) / sizeof(rawMenu[0]);

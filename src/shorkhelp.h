@@ -71,6 +71,7 @@ void printSoftwareSHORKTAINMENT(void);
 void printSoftwareSHORKUTILS(void);
 
 void printOtherReport(void);
+void printOtherSupport(void);
 
 void showCommandRefMenu(void);
 void showHelp(void);

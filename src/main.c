@@ -33,6 +33,7 @@ typedef enum
     ARG_SHORKTAINMENT,
     ARG_SHORKUTILS,
     ARG_STARTED,
+    ARG_SUPPORT,
     ARG_TMUX,
     ARG_VERSION
 } Argument;
@@ -99,6 +100,8 @@ int main(int argc, char *argv[])
                 opt = ARG_SHORKUTILS;
             else if (strcmp(argv[i], "--started") == 0)
                 opt = ARG_STARTED;
+            else if (strcmp(argv[i], "--support") == 0)
+                opt = ARG_SUPPORT;
             else if (strcmp(argv[i], "--tmux") == 0)
                 opt = ARG_TMUX;
             else if ((strcmp(argv[i], "-v") == 0) || (strcmp(argv[i], "--version") == 0))
@@ -173,6 +176,11 @@ int main(int argc, char *argv[])
         {
             setupMenuSys();
             printIntroStarted();
+        }
+        else if (opt == ARG_SUPPORT)
+        {
+            setupMenuSys();
+            printOtherSupport();
         }
         else if (opt == ARG_TMUX)
         {
