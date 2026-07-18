@@ -8,8 +8,8 @@ A utility for SHORK Operating Systems such as [SHORK 486](https://github.com/Sha
 
 <table style="table-layout: fixed; width: 100%;">
   <tr>
-    <td style="width: 50%; text-align: center;"><img src="screenshots/86box_help.png" style="width: 100%;" /></td>
-    <td style="width: 50%; text-align: center;"><img src="screenshots/86box_menu.png" style="width: 100%;" /></td>
+    <td style="width: 50%; text-align: center;"><img src="screenshots/help.png" style="width: 100%;" /></td>
+    <td style="width: 50%; text-align: center;"><img src="screenshots/menu.png" style="width: 100%;" /></td>
   </tr>
   <tr>
     <td style="width: 50%;">--help</td>
@@ -19,19 +19,19 @@ A utility for SHORK Operating Systems such as [SHORK 486](https://github.com/Sha
 
 <table style="table-layout: fixed; width: 100%;">
   <tr>
-    <td style="width: 50%; text-align: center;"><img src="screenshots/86box_intro_1.png" style="width: 100%;" /></td>
-    <td style="width: 50%; text-align: center;"><img src="screenshots/86box_intro_2.png" style="width: 100%;" /></td>
+    <td style="width: 50%; text-align: center;"><img src="screenshots/intro.png" style="width: 100%;" /></td>
+    <td style="width: 50%; text-align: center;"><img src="screenshots/started.png" style="width: 100%;" /></td>
   </tr>
   <tr>
-    <td style="width: 50%;">Introduction to SHORK 486 (1)</td>
-    <td style="width: 50%;">Introduction to SHORK 486 (2)</td>
+    <td style="width: 50%;">Introduction to SHORK 486</td>
+    <td style="width: 50%;">Getting started</td>
   </tr>
 </table>
 
 <table style="table-layout: fixed; width: 100%;">
   <tr>
-    <td style="width: 50%; text-align: center;"><img src="screenshots/86box_cmdref_1.png" style="width: 100%;" /></td>
-    <td style="width: 50%; text-align: center;"><img src="screenshots/86box_cmdref_2.png" style="width: 100%;" /></td>
+    <td style="width: 50%; text-align: center;"><img src="screenshots/cmdref_1.png" style="width: 100%;" /></td>
+    <td style="width: 50%; text-align: center;"><img src="screenshots/cmdref_2.png" style="width: 100%;" /></td>
   </tr>
   <tr>
     <td style="width: 50%;">Command reference (1)</td>
@@ -41,19 +41,19 @@ A utility for SHORK Operating Systems such as [SHORK 486](https://github.com/Sha
 
 <table style="table-layout: fixed; width: 100%;">
   <tr>
-    <td style="width: 50%; text-align: center;"><img src="screenshots/86box_started.png" style="width: 100%;" /></td>
-    <td style="width: 50%; text-align: center;"><img src="screenshots/86box_commands.png" style="width: 100%;" /></td>
+    <td style="width: 50%; text-align: center;"><img src="screenshots/commands.png" style="width: 100%;" /></td>
+    <td style="width: 50%; text-align: center;"><img src="screenshots/licences.png" style="width: 100%;" /></td>
   </tr>
   <tr>
-    <td style="width: 50%;">Getting started</td>
     <td style="width: 50%;">Commands & programs list</td>
+    <td style="width: 50%;">Licences</td>
   </tr>
 </table>
 
 <table style="table-layout: fixed; width: 100%;">
   <tr>
-    <td style="width: 50%; text-align: center;"><img src="screenshots/86box_shorkutils.png" style="width: 100%;" /></td>
-    <td style="width: 50%; text-align: center;"><img src="screenshots/86box_shorktainment.png" style="width: 100%;" /></td>
+    <td style="width: 50%; text-align: center;"><img src="screenshots/shorkutils.png" style="width: 100%;" /></td>
+    <td style="width: 50%; text-align: center;"><img src="screenshots/shorktainment.png" style="width: 100%;" /></td>
   </tr>
   <tr>
     <td style="width: 50%;">SHORK Utilities</td>
@@ -63,20 +63,34 @@ A utility for SHORK Operating Systems such as [SHORK 486](https://github.com/Sha
 
 <table style="table-layout: fixed; width: 100%;">
   <tr>
-    <td style="width: 50%; text-align: center;"><img src="screenshots/86box_emacs.png" style="width: 100%;" /></td>
-    <td style="width: 50%; text-align: center;"><img src="screenshots/86box_git.png" style="width: 100%;" /></td>
+    <td style="width: 50%; text-align: center;"><img src="screenshots/hardware.png" style="width: 100%;" /></td>
+    <td style="width: 50%; text-align: center;"><img src="screenshots/emacs.png" style="width: 100%;" /></td>
   </tr>
   <tr>
+    <td style="width: 50%;">Discovering your hardware</td>
     <td style="width: 50%;">Emacs (Mg) cheatsheet</td>
-    <td style="width: 50%;">Supported Git commands</td>
   </tr>
 </table>
 
 <table style="table-layout: fixed; width: 100%;">
   <tr>
-    <td style="width: 50%; text-align: center;"><img src="screenshots/86box_tmux.png" style="width: 100%;" /></td>
+    <td style="width: 50%; text-align: center;"><img src="screenshots/git.png" style="width: 100%;" /></td>
+    <td style="width: 50%; text-align: center;"><img src="screenshots/tmux.png" style="width: 100%;" /></td>
   </tr>
   <tr>
+    <td style="width: 50%;">Supported Git commands</td>
     <td style="width: 50%;">tmux cheatsheet</td>
+  </tr>
+</table>
+
+
+<table style="table-layout: fixed; width: 100%;">
+  <tr>
+    <td style="width: 50%; text-align: center;"><img src="screenshots/report.png" style="width: 100%;" /></td>
+    <td style="width: 50%; text-align: center;"><img src="screenshots/support.png" style="width: 100%;" /></td>
+  </tr>
+  <tr>
+    <td style="width: 50%;">After-build report</td>
+    <td style="width: 50%;">Getting support or involved</td>
   </tr>
 </table>
