@@ -54,6 +54,7 @@ du,,1,busybox,,sys,,,,GNU GPLv2
 dwp,,1,bundled,GNU Binutils,dev,GNU dwp,,,GNU GPLv3
 echo,,0,busybox,,gen,,,,GNU GPLv2
 ed,,1,busybox,,dev,,,,GNU GPLv2
+egrep,,1,busybox,,txt,,,,GNU GPLv2
 eject,,1,busybox,,gen,,,,GNU GPLv2
 elfedit,,1,bundled,GNU Binutils,dev,GNU elfedit,,,GNU GPLv3
 env,,1,busybox,,gen,,,,GNU GPLv2
@@ -63,8 +64,10 @@ expr,,0,busybox,,gen,,,,GNU GPLv2
 factor,,1,busybox,,gen,,,,GNU GPLv2
 fallocate,,1,busybox,,sys,,,"Preallocates disk space for a file without writing data to it. It is useful for reserving space for something without needing to write zeros or random data (as you would with dd) - for example, creating swap files, preallocating space for a database or log, or testing behaviour with large files.",GNU GPLv2
 false,,1,busybox,,gen,,,,GNU GPLv2
+fdflush,,1,busybox,,sys,,,,GNU GPLv2
 fdformat,,1,busybox,,sys,,,,GNU GPLv2
 fdisk,,1,busybox,,sys,,,,GNU GPLv2
+fgrep,,1,busybox,,txt,,,,GNU GPLv2
 file,,1,bundled,file,gen,,,Identifies and reports the type of data contained in a file.,BSD 2-Clause (Darwin)
 find,,1,busybox,,gen,,,,GNU GPLv2
 fold,,1,busybox,,txt,,,,GNU GPLv2
@@ -72,9 +75,11 @@ free,,0,busybox,,sys,,,"Reports the amount of total, used and free system physic
 ftp,,1,bundled,tnftp,net,,,An FTP client for remote file transfer.,BSD 2-Clause
 ftpget,,1,busybox,,net,,,,GNU GPLv2
 ftpput,,1,busybox,,net,,,,GNU GPLv2
+fuser,,1,busybox,,sys,,,,GNU GPLv2
 g++,,1,bundled,GCC + musl,dev,GCC C++,,GCC's C++ compiler.,GNU GPLv3 + GCC Runtime Library Exception
 gcc,,1,bundled,GCC + musl,dev,GCC C,,GCC's C compiler (configured to use musl).,GNU GPLv3 + GCC Runtime Library Exception
 getfattr,,1,busybox,,gen,,,"Gets an extended attribute from the given filesystem object. Extended attributes are metadata that go beyond the standard attributes provided by the host filesystem, allowing more information to be associated with a given filesystem object.",GNU GPLv2
+getopt,,1,busybox,,gen,,,,GNU GPLv2
 getty,,1,busybox,,usr,,,,GNU GPLv2
 gfortran,,1,bundled,GCC + musl,dev,Gfortran,,GCC's Fortran compiler.,GNU GPLv3 + GCC Runtime Library Exception
 git,,1,bundled,Git,dev,,,A distributed version control software system.,GNU GPLv2
@@ -84,14 +89,17 @@ gzip,,1,busybox,,arc,,,,GNU GPLv2
 halt,,1,busybox,,sys,,,,GNU GPLv2
 head,,1,busybox,,txt,,,,GNU GPLv2
 hexdump,,1,busybox,,dev,,,,GNU GPLv2
+hexedit,,1,busybox,,dev,,,,GNU GPLv2
 hostid,,1,busybox,,sys,,,,GNU GPLv2
 hostname,,0,busybox,,sys,,,,GNU GPLv2
 htop,,1,bundled,htop,sys,,,"An interactive process viewer designed to be an enhancement over top. Compared to top, htop supports scrolling both horizontally and vertically, a coloured UI and colour-coding, CPU and memory usage bars, searching, filtering, sorting, and killing processes.",GNU GPLv2
+hwclock,,1,busybox,,sys,,,,GNU GPLv2
 id,,1,busybox,,usr,,,,GNU GPLv2
 ifconfig,,1,busybox,,net,,,,GNU GPLv2
 indent,,1,bundled,GNU Indent,dev,GNU Indent,,"A C code formatter. It can format a given C source file to a desired indentation and styling rule (GNU style by default), or convert between different C formatting conventions (for example, from GNU style to K&R style).",GNU GPLv3
 init,,1,busybox,,sys,,,,GNU GPLv2
 install,,1,busybox,,gen,,,,GNU GPLv2
+iostat,,1,busybox,,sys,,,,GNU GPLv2
 ip,,1,busybox,,net,,,,GNU GPLv2
 joe,,1,bundled,Joe's Own Editor,dev,,,A WordStar-style text editor.,GNU GPLv2
 kill,,1,busybox,,sys,,,,GNU GPLv2
@@ -109,7 +117,9 @@ losetup,,1,busybox,,sys,,,,GNU GPLv2
 ls,,0,busybox,,gen,,,Lists the contents of the current or a target directory.,GNU GPLv2
 lsblk,,0,busybox,,sys,,,"Lists information about all or the specified block devices. By default, it produces a table containing the device name, major number (driver associated with device), minor number (device number for the given driver), device type, whether the device is read only (RO), and its mountpoint (if mounted).",GNU GPLv2
 lscpu,,1,bundled,util-linux,sys,lscpu,,,GNU GPLv2
+lsof,,1,busybox,,sys,,,,GNU GPLv2
 lspci,,1,busybox,,sys,,,"Lists all PCI buses and connected devices. By default, it produces a table containing the PCI bus number, device number for that bus, function number, PCI class code, vendor ID, and device ID. It can optionally also display the kernel driver utilising a given device.",GNU GPLv2
+lsscsi,,1,busybox,,sys,,,,GNU GPLv2
 lsusb,,1,busybox,,sys,,,"Lists all USB buses and connected devices. It produces a table containing the USB bus number, device number for that bus, vendor ID, and device ID.",GNU GPLv2
 lynx,,1,bundled,Lynx,net,,,A text-based web browser that allows you to access websites from your terminal. It is the oldest web browser that is still actively maintained.,GNU GPLv2
 lzcat,,1,busybox,,arc,,,,GNU GPLv2
@@ -130,6 +140,7 @@ mknod,,1,busybox,,sys,,,,GNU GPLv2
 mkpasswd,,1,busybox,,usr,,,,GNU GPLv2
 mkswap,,1,busybox,,sys,,,Used to set up a Linux swap area on a given partition or file. It will destroy any data present on the target partition or file.,GNU GPLv2
 mktemp,,1,busybox,,gen,,,,GNU GPLv2
+more,,1,busybox,,txt,,,,GNU GPLv2
 mount,,0,busybox,,sys,,,,GNU GPLv2
 mountpoint,,1,busybox,,sys,,,,GNU GPLv2
 mpg321,,1,bundled,mpg321,fun,,mpg123,A free MP3 player designed to be a drop-in replacement for the non-free mpg123.,GNU GPLv2
@@ -138,6 +149,7 @@ mv,,0,busybox,,gen,,,,GNU GPLv2
 nano,,1,bundled,GNU nano,dev,,,A Pico-style text editor.,GNU GPLv3
 nasm,,1,bundled,NASM,dev,nasm,,"A portable x86 assembler. Compared to GNU assembler (as), NASM uses Intel-style syntax instead of AT&T-style. Note: if you build ELFs (relocatable objects), you will need a separate linker such as GNU linker (ld) to produce a usable binary from them.",BSD 2-Clause
 ndisasm,,1,bundled,NASM,dev,ndisasm,,"A portable x86 disassembler. Compared to GNU objdump, it can disassemble raw binary files with no header, symbol table or debug information present.",BSD 2-Clause
+netcat,,1,busybox,,net,,nc,,GNU GPLv2
 netstat,,1,busybox,,net,,,"Displays network statistics such as current network connections, network interfaces and routing tables.",GNU GPLv2
 nice,,1,busybox,,sys,,,,GNU GPLv2
 nl,,1,busybox,,txt,,,,GNU GPLv2
@@ -152,6 +164,8 @@ partx,,1,bundled,util-linux,sys,,,Tells the Linux kernel about the presence and 
 passwd,,1,busybox,,usr,,,,GNU GPLv2
 paste,,1,busybox,,txt,,,,GNU GPLv2
 patch,,1,busybox,,dev,,,"Applies a patch file to an original file to update it with its contents. A patch file contains a line-by-line difference listing between two files produced by diff, git diff, or similar.",GNU GPLv2
+pgrep,,1,busybox,,sys,,,,GNU GPLv2
+pidof,,1,busybox,,sys,,,,GNU GPLv2
 ping,,1,busybox,,net,,,,GNU GPLv2
 pkill,,1,busybox,,sys,,,,GNU GPLv2
 pmap,,1,busybox,,sys,,,"Reports the memory map of a given process. It provides the amount of memory used, proportional set sizes (PSS), dirty pages, permissions on map (mode), and mappings (file, anon/allocated or stack). All memory values are in kilobytes (KB).",GNU GPLv2
@@ -160,6 +174,7 @@ printf,,0,busybox,,gen,,,,GNU GPLv2
 ps,,1,busybox,,sys,,,,GNU GPLv2
 pstree,,1,busybox,,sys,,,,GNU GPLv2
 pwd,,0,busybox,,gen,,,,GNU GPLv2
+pwdx,,1,busybox,,sys,,,,GNU GPLv2
 ranlib,,1,bundled,GNU Binutils,dev,GNU ranlib,,,GNU GPLv3
 readelf,,1,bundled,GNU Binutils,dev,GNU readelf,,,GNU GPLv3
 readlink,,1,busybox,,gen,,,,GNU GPLv2
@@ -204,7 +219,8 @@ ssh,,1,bundled,Dropbear,net,Dropbear (SSH),,An SSH client (a part of Dropbear) f
 stat,,1,busybox,,gen,,,,GNU GPLv2
 stinit,,1,bundled,mt-st,sys,,,"Used for initialising SCSI magnetic tape drive modes at system startup, when a tape driver module is loaded, or when a new tape driver is initialised using terminal commands.",GNU GPLv2
 strace,,1,bundled,strace,sys,,,"Executes a given command to capture and trace its system calls and signals. It is a useful diagnosis and debugging tool one can run if a program fails unexpectedly, and/or without meaningful error messages or logs.",GNU LGPLv2.1
-strings,,1,bundled,GNU Binutils,dev,GNU strings,,,GNU GPLv3
+strings,/opt/i486-linux-musl-native/bin/strings,1,bundled,GNU Binutils,dev,GNU strings,,,GNU GPLv3
+strings,/usr/bin/strings,1,busybox,,dev,,,,GNU GPLv3
 strip,,1,bundled,GNU Binutils,dev,GNU strip,,,GNU GPLv3
 stty,,1,busybox,,sys,,,,GNU GPLv2
 su,,1,busybox,,usr,,,,GNU GPLv2
@@ -257,6 +273,7 @@ vimtutor,,1,bundled,Vim,dev,vimtutor,,"An interactive, self-paced tutorial that 
 vmstat,,1,busybox,,sys,,,"Reports system virtual memory, processes, CPU and I/O statistics. It displays columns for a runnable process count (r), I/O-bound blocked process count (b), swap memory used (swpd), idle memory (free), memory as buffers (buff), memory as cache (cache), memory swapped in from disk (si), memory swapped to disk (so), KiB received from a block device (bi), KiB sent to a block device (bo), interrupts per second (in), context switches per second (cs), user CPU time (us), system CPU time (sy), CPU idle time (id), time waiting for IO (wa), time stolen from a virtual machine (st), and time running KVM guest code (gu).",GNU GPLv2
 volname,,1,busybox,,sys,,,,GNU GPLv2
 w,,1,busybox,,usr,,,,GNU GPLv2
+watch,,1,busybox,,gen,,,,GNU GPLv2
 wc,,1,busybox,,txt,,,,GNU GPLv2
 wget,,1,busybox,,net,,,"A non-interactive internet file downloader. It is often used to simply download a file with a given URL, although it can also be used as a web spider.",GNU GPLv2
 whereis,,1,bundled,util-linux,gen,whereis,,"Locates the binary, source and manual page files for a given command.",GNU GPLv2
@@ -264,6 +281,7 @@ which,,0,busybox,,gen,,,,GNU GPLv2
 who,,1,busybox,,usr,,,,GNU GPLv2
 whoami,,1,busybox,,sys,,,,GNU GPLv2
 whois,,1,busybox,,net,,,,GNU GPLv2
+xargs,,1,busybox,,gen,,,,GNU GPLv2
 xxd,/usr/bin/vim,1,bundled,Vim,dev,xxd,,,Vim
 xxd,!/usr/bin/vim,1,busybox,,dev,,,,GNU GPLv2
 xz,,1,busybox,,arc,,,,GNU GPLv2
