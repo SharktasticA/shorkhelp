@@ -135,7 +135,10 @@ int main(int argc, char *argv[])
             printGuideDiscoveringHardware();
         }
         else if (opt == ARG_HELP)
+        {
+            setupViewport();
             showHelp();
+        }
         else if (opt == ARG_INTRO)
         {
             setupMenuSys();

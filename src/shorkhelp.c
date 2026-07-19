@@ -564,13 +564,13 @@ void printIntroPT1(void)
 
     pos += snprintf(pt1Str + pos, strSize - pos, "You are running a pre-release build of SHORK 486 - Public Test 1 (PT1). This is the first published release of SHORK 486, intended for testing purposes only and to gauge wider opinion to help the project's progression.\n\n");
 
-    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smPurpose\033[%sm\nSHORK 486's development has progressed far enough that it has achieved the author's initial objectives, and is now appropriate for the first round of public testing to help scope out what to tackle next. PT1 also coincides with Linux kernel 7.1's debut, the first version to remove 486 and other relevant vintage hardware support, which this project subsequently patches back in. It would be ideal to validate that these patches are working correctly.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
+    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smPurpose\033[%sm\nSHORK 486's development has progressed far enough that it has achieved the author's initial objectives, and is now appropriate for the first round of public testing to help scope out what to tackle next. PT1 also coincides with the recent releases of Linux kernels 7.1 and 7.2, which between them removed all 486, TSC-less 586/686, and other relevant vintage hardware support. The SHORK project subsequently patched support back in. It would be great to thoroughly validate that these patches are working correctly.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
 
     pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smLicence & disclaimers\033[%sm\nSHORK 486 is a non-commercial, free and open-source operating system licenced under GPLv3 that is provided \"as is\" without warranty of any kind. In no event shall the contributors be liable for any damages arising from use of this software. Additionally, SHORK 486 is a work in progress, and this is a pre-release build. It should not be used for serious, production, or mission-critical work.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
 
-    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smSuggestions & feedback\033[%sm\nIdeas for what to add and change to SHORK 486 are welcome! These can be suggestions for new bundled programs, new or improved features, and advice on how the system is configured and built. Frank and critical feedback on anything regarding the project is also welcomed, though it is expected that it is respectful and understanding. However, please understand that otherwise well-intentioned and interesting suggestions may be considered beyond the scope of this project, as the aim is to keep the system as minimal as possible, but they will be remembered for future sister projects. Suggestions and feedback can be given via the SHORK 486 GitHub repository's \"Discussions\" tab or via social media channels found on \033[%smlinks.sharktastica.co.uk\033[%sm.\n\n", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smSuggestions & feedback\033[%sm\nIdeas for what to add to or change about SHORK 486 are welcome! These can be suggestions for new bundled programs, new or improved features, and advice on how the system is configured and built. Frank and critical feedback on anything regarding the project is also welcomed, though it is expected that it is respectful and understanding. However, please understand that otherwise well-intentioned and interesting suggestions may be considered beyond the scope of this project, as the aim is to keep the system as minimal as possible, but they will be remembered for future sister projects. Suggestions and feedback can be given via the SHORK 486 GitHub repository's \"Discussions\" tab or via social media channels found on \033[%smlinks.sharktastica.co.uk\033[%sm.\n\n", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
-    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smBug & error reporting\033[%sm\nSHORK 486 does not collect any telemetry nor report anything to anyone, instead relying on you, the tester, to report and provide evidence of any issues that may arise when using it. If you encounter any, please report them! It is a good measure to include a robust description of your hardware and what you were trying to do, whether you compiled it yourself or used published install media, a screenshot/photo of \033[%smshorkfetch\033[%sm's output, \033[%sm/proc/cpuinfo\033[%sm's contents, and \033[%smdmesg\033[%sm output. Reports can be given via the SHORK 486 GitHub repository's \"Issues\" tab.", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smBug & error reporting\033[%sm\nSHORK 486 does not collect any telemetry nor report anything to anyone, instead relying on you, the tester, to report and provide evidence of any issues that may arise when using it. If you encounter any, please report them. It would be a good measure to include a robust description of your hardware and what you were trying to do, whether you compiled it yourself or used published install media, and copies of \033[%smshorkfetch\033[%sm's, \033[%smlsblk\033[%sm's, \033[%smlscpu\033[%sm's, \033[%smlspci\033[%sm's, \033[%smlsscsi\033[%sm's and \033[%smdmesg\033[%sm's output. The report can then be given via the SHORK 486 GitHub repository's \"Issues\" tab.", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
     int lines = formatNewLines(pt1Str, TERM_SIZE.ws_col, NULL, 0);
     printTextScreen("Public Test 1", pt1Str, lines, 1);
@@ -1130,9 +1130,9 @@ void showCommandRefMenu(void)
  */
 void showHelp(void)
 {
-    char desc[120] = "Displays help and reference information for using SHORK 486 and its included software and tools.\n";
+    char desc[120] = "Displays help and reference information for using SHORK 486 and its included software and tools.\n\n";
     formatNewLines(desc, TERM_SIZE.ws_col, NULL, 0);
-    printf("%s\n", desc);
+    printf("%s", desc);
 
     char usage[60] = "Usage: shorkhelp [OPTIONS]\n\n";
     formatNewLines(usage, TERM_SIZE.ws_col, NULL, 0);
@@ -1172,7 +1172,7 @@ void showHelp(void)
     formatNewLines(intro, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", intro);
 
-    char licences[100] = "--licences       Displays licences menu\n";
+    char licences[100] = "--licences       Displays licences portal\n";
     formatNewLines(licences, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", licences);
 
