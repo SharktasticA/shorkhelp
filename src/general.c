@@ -376,6 +376,7 @@ int formatNewLines(char *input, int width, char *indent, int trim)
                 }
             }
             widthCount = i - lastSpace;
+            lastSpace = -1;
         }
 
         widthCount++;

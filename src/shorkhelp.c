@@ -304,8 +304,6 @@ void printGuideDiscoveringHardware(void)
     char hardwareSize[strSize];
     int pos = 0;
 
-    pos += snprintf(hardwareSize + pos, strSize - pos, "This guide will list and describe various ways you can find out more information about your system and its operating environment.\n\n");
-
     if (isProgramInstalled("shorkfetch", 1))
     {
         char *shorkfetch = captureProgramOutput("shorkfetch -cl=off", 1536);
