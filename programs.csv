@@ -23,7 +23,7 @@ c++filt,,1,bundled,GNU Binutils,dev,GNU c++filt,,,GNU GPLv3
 cal,,1,busybox,,gen,,,,GNU GPLv2
 cat,,0,busybox,,txt,,,"Used for concatenating (combining) files, providing a standard output for printing or writing to a file. When its output is not directed, it prints the result.",GNU GPLv2
 chgrp,,1,busybox,,usr,,,,GNU GPLv2
-chmod,,1,busybox,,gen,,,,GNU GPLv2
+chmod,,1,busybox,,usr,,,,GNU GPLv2
 chown,,1,busybox,,usr,,,,GNU GPLv2
 chpasswd,,1,busybox,,usr,,,,GNU GPLv2
 chroot,,1,busybox,,usr,,,,GNU GPLv2
@@ -34,7 +34,7 @@ comm,,1,busybox,,txt,,,,GNU GPLv2
 cp,,0,busybox,,gen,,,,GNU GPLv2
 cpio,,1,busybox,,arc,,,,GNU GPLv2
 crc32,,1,busybox,,chk,,,,GNU GPLv2
-crontab,,1,busybox,,sys,,,,GNU GPLv2
+crontab,,1,busybox,,pro,,,,GNU GPLv2
 cryptpw,,1,busybox,,usr,,,,GNU GPLv2
 cscope,,1,bundled,Cscope,dev,,,"An interactive C and C++ source code browser. It builds a symbol database from a given project's source files, letting you quickly jump to where a function or variable is defined, called or referenced elsewhere in the codebase.",BSD 3-Clause
 ctags,,1,bundled,Universal Ctags,dev,,,"A multi-language source code object indexing tool that generates tags files that allow editors such as Emacs, vi and Vim to jump straight to a definition of a function, variable or other symbol.",GNU GPLv2
@@ -100,7 +100,7 @@ ifconfig,,1,busybox,,net,,,,GNU GPLv2
 indent,,1,bundled,GNU Indent,dev,GNU Indent,,"A C code formatter. It can format a given C source file to a desired indentation and styling rule (GNU style by default), or convert between different C formatting conventions (for example, from GNU style to K&R style).",GNU GPLv3
 init,,1,busybox,,sys,,,,GNU GPLv2
 install,,1,busybox,,gen,,,,GNU GPLv2
-iostat,,1,busybox,,pro,,,,GNU GPLv2
+iostat,,1,busybox,,sys,,,,GNU GPLv2
 ip,,1,busybox,,net,,,,GNU GPLv2
 joe,,1,bundled,Joe's Own Editor,dev,,,A WordStar-style text editor.,GNU GPLv2
 kill,,1,busybox,,pro,,,,GNU GPLv2
@@ -118,7 +118,7 @@ losetup,,1,busybox,,dsk,,,,GNU GPLv2
 ls,,0,busybox,,gen,,,Lists the contents of the current or a target directory.,GNU GPLv2
 lsblk,,0,busybox,,dsk,,,"Lists information about all or the specified block devices. By default, it produces a table containing the device name, major number (driver associated with device), minor number (device number for the given driver), device type, whether the device is read only (RO), and its mountpoint (if mounted).",GNU GPLv2
 lscpu,,1,bundled,util-linux,sys,lscpu,,,GNU GPLv2
-lsof,,1,busybox,,sys,,,,GNU GPLv2
+lsof,,1,busybox,,pro,,,,GNU GPLv2
 lspci,,1,busybox,,sys,,,"Lists all PCI buses and connected devices. By default, it produces a table containing the PCI bus number, device number for that bus, function number, PCI class code, vendor ID, and device ID. It can optionally also display the kernel driver utilising a given device.",GNU GPLv2
 lsscsi,,1,busybox,,sys,,,,GNU GPLv2
 lsusb,,1,busybox,,sys,,,"Lists all USB buses and connected devices. It produces a table containing the USB bus number, device number for that bus, vendor ID, and device ID.",GNU GPLv2
@@ -153,7 +153,7 @@ nasm,,1,bundled,NASM,dev,nasm,,"A portable x86 assembler. Compared to GNU assemb
 ndisasm,,1,bundled,NASM,dev,ndisasm,,"A portable x86 disassembler. Compared to GNU objdump, it can disassemble raw binary files with no header, symbol table or debug information present.",BSD 2-Clause
 netcat,,1,busybox,,net,,nc,,GNU GPLv2
 netstat,,1,busybox,,net,,,"Displays network statistics such as current network connections, network interfaces and routing tables.",GNU GPLv2
-nice,,1,busybox,,sys,,,,GNU GPLv2
+nice,,1,busybox,,pro,,,,GNU GPLv2
 nl,,1,busybox,,txt,,,,GNU GPLv2
 nm,,1,bundled,GNU Binutils,dev,GNU nm,,,GNU GPLv3
 nohup,,1,busybox,,pro,,,"Allows you to run a program that is immune to hang up signals and output routed away or redirected to a file. The program can then run even when the host terminal is closed, the user logs out, or if it is run on a remote system and the connection is closed afterwards. It is often paired with an ampersand (&) to also send the command to the background.",GNU GPLv2
@@ -230,7 +230,7 @@ sulogin,,1,busybox,,usr,,,,GNU GPLv2
 sum,,1,busybox,,chk,,,,GNU GPLv2
 swapoff,,1,busybox,,dsk,,,"Used to stop memory paging/swapping on one or all swap-capable devices. If used and no swap devices are left online, the computer will be entirely reliant on system memory (RAM) for program memory.",GNU GPLv2
 swapon,,1,busybox,,dsk,,,"Used to start memory paging/swapping on one or all swap-capable devices. Swapping allows fixed storage (hard disk drrive, solid-state drive, etc.) or removable storage (USB stick, etc.) to be used for program memory in addition to system memory (RAM). It is useful as a buffer for when free RAM runs low, although using swap memory will be much slower than RAM.",GNU GPLv2
-sync,,0,busybox,,sys,,,"Commits any filesystem write operations that are currently cached. It is useful as an immediate and explicit way to ensure data is written to any disks/drives before powering off the computer, removing a drive, etc.",GNU GPLv2
+sync,,0,busybox,,dsk,,,"Commits any filesystem write operations that are currently cached. It is useful as an immediate and explicit way to ensure data is written to any disks/drives before powering off the computer, removing a drive, etc.",GNU GPLv2
 tac,,1,busybox,,txt,,,,GNU GPLv2
 tail,,1,busybox,,txt,,,,GNU GPLv2
 tar,,1,busybox,,arc,,,,GNU GPLv2
@@ -282,7 +282,7 @@ wget,,1,busybox,,net,,,"A non-interactive internet file downloader. It is often 
 whereis,,1,bundled,util-linux,gen,whereis,,"Locates the binary, source and manual page files for a given command.",GNU GPLv2
 which,,0,busybox,,gen,,,,GNU GPLv2
 who,,1,busybox,,usr,,,,GNU GPLv2
-whoami,,1,busybox,,sys,,,,GNU GPLv2
+whoami,,1,busybox,,usr,,,,GNU GPLv2
 whois,,1,busybox,,net,,,,GNU GPLv2
 xargs,,1,busybox,,gen,,,,GNU GPLv2
 xxd,/usr/bin/vim,1,bundled,Vim,dev,xxd,,,Vim

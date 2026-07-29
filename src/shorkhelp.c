@@ -851,7 +851,7 @@ void printSoftwareCommands(void)
     if (proEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smProcesses & scheduling\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, proStr);
     if (sysEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smSystem\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, sysStr);
     if (txtEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smText processing\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, txtStr);
-    if (usrEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smUser management\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, usrStr);
+    if (usrEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smUser management & permissions\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, usrStr);
     if (ustEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smUnsorted\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, ustStr);
 
     int lines = formatNewLines(combinedStr, TERM_SIZE.ws_col, NULL, 1);
@@ -933,7 +933,7 @@ void printSoftwareProgOverview(int i)
     else if (strcmp(category, "sys") == 0)
         category = "system";
     else if (strcmp(category, "usr") == 0)
-        category = "user management";
+        category = "user management & permissions";
     else if (strcmp(category, "fun") == 0)
         category = "entertainment";
     else if (strcmp(category, "dsk") == 0)
