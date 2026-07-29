@@ -714,7 +714,113 @@ void printIntroStarted(void)
 
 
 
-void printSoftwareCommands(void)
+void printCmdsProgs(void)
+{
+    char cmdsStr[MAX_CMD_STR * 12] = "\0";
+
+    for (int i = 0; i < PROG_ENTRIES_NO; i++)
+    {
+        // Make sure data is present/valid
+        const char *cmd = PROG_ENTRIES[i].command;
+        if (!cmd)
+            continue;
+
+        // Ensure new cmd can fit in the string
+        size_t len = strlen(cmdsStr);
+        size_t cmdLen = strlen(cmd);
+        if (len > 0 && len + 2 < MAX_CMD_STR)
+            strcat(cmdsStr, ", ");
+
+        // Append new cmd
+        if (len + 2 + cmdLen < MAX_CMD_STR)
+            strcat(cmdsStr, cmd);
+    }
+
+    int lines = formatNewLines(cmdsStr, TERM_SIZE.ws_col, NULL, 1);
+    printTextScreen("Commands & programs list", cmdsStr, lines, 1);
+}
+
+void printCmdsProgsAlpha(void)
+{
+    char *letterStr[27] = {0};
+    size_t letterLen[27] = {0};
+    size_t letterCap[27] = {0};
+    int letterEnabled[27] = {0};
+
+    for (int i = 0; i < PROG_ENTRIES_NO; i++)
+    {
+        // Make sure data is present/valid
+        const char *cmd = PROG_ENTRIES[i].command;
+        if (!cmd)
+            continue;
+
+        // Select which letter string to add to
+        unsigned char c = (unsigned char)cmd[0];
+        int idx = (c >= 'a' && c <= 'z') ? (c - 'a' + 1) : (c >= 'A' && c <= 'Z') ? (c - 'A' + 1) : 0;
+
+        // Base command length
+        size_t cmdLen = strlen(cmd);
+        // Decide if we need to factor in a ", " separator length
+        size_t sepLen = letterEnabled[idx] ? 2 : 0;
+        // How much length we need to add this command
+        size_t needed = letterLen[idx] + sepLen + cmdLen + 1;
+
+        // Grow the letter string if new command will 'overfill' it
+        if (needed > letterCap[idx])
+        {
+            size_t newCap = letterCap[idx] ? letterCap[idx] : INITIAL_CMD_STR;
+            while (newCap < needed)
+                newCap *= 2;
+            char *newBuf = realloc(letterStr[idx], newCap);
+            if (!newBuf)
+                continue;
+            letterStr[idx] = newBuf;
+            letterCap[idx] = newCap;
+        }
+
+        // If needed, append the ", " separator
+        if (letterEnabled[idx])
+        {
+            memcpy(letterStr[idx] + letterLen[idx], ", ", 2);
+            letterLen[idx] += 2;
+        }
+
+        // Append the command
+        memcpy(letterStr[idx] + letterLen[idx], cmd, cmdLen);
+        letterLen[idx] += cmdLen;
+        letterStr[idx][letterLen[idx]] = '\0';
+        letterEnabled[idx] = 1;
+    }
+
+    // Work out how big the combined string should be (also +INITIAL_CMD_STR
+    // as a little overhead for headings, ANSI escape codes, etc.)
+    size_t combinedSize = MAX_CMD_STR;
+    for (int i = 0; i < 27; i++)
+        if (letterEnabled[i])
+            combinedSize += letterLen[i] + INITIAL_CMD_STR;
+
+    char *combinedStr = malloc(combinedSize);
+    combinedStr[0] = '\0';
+    int pos = 0;
+
+    for (int i = 0; i < 27; i++)
+    {
+        if (!letterEnabled[i])
+            continue;
+
+        char heading = (i == 0) ? '#' : ('A' + i - 1);
+        pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%sm%c\033[%sm\n%s\n\n", COL_FOR_HEADING, heading, COL_FOR_WHITE, letterStr[i]);
+    }
+
+    int lines = formatNewLines(combinedStr, TERM_SIZE.ws_col, NULL, 1);
+    printTextScreen("Commands & programs list (alphabetic)", combinedStr, lines, 1);
+
+    for (int i = 0; i < 27; i++)
+        free(letterStr[i]);
+    free(combinedStr);
+}
+
+void printCmdsProgsCats(void)
 {
     char arcStr[MAX_CMD_STR] = "\0";
     char chkStr[MAX_CMD_STR] = "\0";
@@ -855,7 +961,7 @@ void printSoftwareCommands(void)
     if (ustEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smUnsorted\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, ustStr);
 
     int lines = formatNewLines(combinedStr, TERM_SIZE.ws_col, NULL, 1);
-    printTextScreen("Commands & programs list", combinedStr, lines, 1);
+    printTextScreen("Commands & programs list (categories)", combinedStr, lines, 1);
 }
 
 void printSoftwareLicence(int i)
@@ -1055,7 +1161,7 @@ void printOtherSupport(void)
 /**
  * Runs the command reference interface.
  */
-void showCommandRefMenu(void)
+void showCmdRefMenu(void)
 {
     // Create a menu containing found program entries
     MenuItem menu[PROG_ENTRIES_NO];
@@ -1184,6 +1290,111 @@ void showCommandRefMenu(void)
     }
 
     freeMenu(menu, PROG_ENTRIES_NO);
+    clearScreen();
+}
+
+/**
+ * Runs the commands & programs interface.
+ */
+void showCmdsProgsMenu(void)
+{
+    MenuItem rawMenu[] = {
+        { 
+            "plain",
+            "Show plain list",
+            NULL,
+            printCmdsProgs,
+            1,
+            0
+        },
+        { 
+            "alpha",
+            "Show alphabetical list",
+            NULL,
+            printCmdsProgsAlpha,
+            1,
+            0
+        },
+        { 
+            "cats",
+            "Show categorical list",
+            NULL,
+            printCmdsProgsCats,
+            1,
+            0
+        }
+    };
+    int rawMenuSize = sizeof(rawMenu) / sizeof(rawMenu[0]);
+
+    int running = 1;
+    int cursorX = 1;
+    int cursorY = 1;
+    int cursorXPrev = 1;
+    int cursorYPrev = 0;
+    int fullRedraw = 1;
+
+    // Filter menu to just what should actually be visible
+    MenuItem menu[rawMenuSize];
+    int menuSize = 0;
+    for (int i = 0; i < rawMenuSize; i++)
+        if (rawMenu[i].isVisible)
+            menu[menuSize++] = rawMenu[i];
+    freeMenu(rawMenu, rawMenuSize);
+
+    while (running)
+    {
+        if (fullRedraw)
+        {
+            clearScreen();
+            printHeader("Commands & programs");
+            printMenu(menu, menuSize, NULL, 1, TERM_SIZE.ws_col - 6, menuSize, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
+            printFooter("[jk] Navigate [Enter] Select [q] Back");
+        }
+        else
+        {
+            if (COL_ENABLED)
+                printf("\x1b[2;1H");
+            else
+                printf("\x1b[3;1H");
+            printMenu(menu, menuSize, NULL, 1, TERM_SIZE.ws_col - 6, menuSize, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
+        }
+
+        NavInput input = getNavInput();
+
+        fullRedraw = 1;
+        cursorYPrev = 0;
+        switch (input)
+        {
+            case CURSOR_UP:
+                cursorYPrev = cursorY;
+                cursorY--;
+                if (cursorY < 1) cursorY = menuSize;
+                fullRedraw = 0;
+                break;
+
+            case CURSOR_DOWN:
+                cursorYPrev = cursorY;
+                cursorY++;
+                if (cursorY > menuSize) cursorY = 1;
+                fullRedraw = 0;
+                break;
+
+            case ENTER:
+                clearScreen();
+                menu[cursorY - 1].action();
+                break;
+        
+            case QUIT:
+                running = 0;
+                break;
+
+            case INVALID:
+                fullRedraw = 0;
+                break;
+        }
+    }
+
+    freeMenu(menu, menuSize);
     clearScreen();
 }
 
@@ -1357,24 +1568,24 @@ void showMainMenu(void)
             "cmdRef",
             "Command reference (WIP)",
             NULL,
-            showCommandRefMenu,
+            showCmdRefMenu,
             PROG_ENTRIES_NO > 0
         },
         {
-            "cmdList",
+            "cmdsProgs",
             "Commands & programs",
             NULL,
-            printSoftwareCommands,
+            showCmdsProgsMenu,
             PROG_ENTRIES_NO > 0
         },
-        { 
+        {
             "shorkutils",
             "SHORK Utilities",
             NULL,
             printSoftwareSHORKUTILS,
             1
         },
-        { 
+        {
             "shorktainment",
             "SHORK Entertainment",
             NULL,
@@ -1388,7 +1599,7 @@ void showMainMenu(void)
             showLicencesMenu,
             LICENCES_NO > 0
         },
-        { 
+        {
             "",
             "Guides",
             NULL,

@@ -38,6 +38,7 @@ typedef struct {
 
 #define BUILD_REPORT_PATH       "/var/log/shork/build-report.log"
 #define CSV_BUFFER              32768
+#define INITIAL_CMD_STR         128
 #define MAX_CMD_STR             2048
 #define MAX_LICENCES            100
 #define MAX_PROG_ENTRIES        300
@@ -64,7 +65,9 @@ void printIntro(void);
 void printIntroPT1(void);
 void printIntroStarted(void);
 
-void printSoftwareCommands(void);
+void printCmdsProgs(void);
+void printCmdsProgsAlpha(void);
+void printCmdsProgsCats(void);
 void printSoftwareLicence(int);
 void printSoftwareProgOverview(int);
 void printSoftwareSHORKTAINMENT(void);
@@ -73,7 +76,8 @@ void printSoftwareSHORKUTILS(void);
 void printOtherReport(void);
 void printOtherSupport(void);
 
-void showCommandRefMenu(void);
+void showCmdRefMenu(void);
+void showCmdsProgsMenu(void);
 void showHelp(void);
 void showLicencesMenu(void);
 void showMainMenu(void);

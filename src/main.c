@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
                 return 1;
             }
             setupMenuSys();
-            printSoftwareCommands();
+            showCmdsProgsMenu();
         }
         else if (opt == ARG_EMACS)
         {
