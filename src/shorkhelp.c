@@ -719,9 +719,11 @@ void printSoftwareCommands(void)
     char arcStr[MAX_CMD_STR] = "\0";
     char chkStr[MAX_CMD_STR] = "\0";
     char devStr[MAX_CMD_STR] = "\0";
+    char dskStr[MAX_CMD_STR] = "\0";
     char funStr[MAX_CMD_STR] = "\0";
     char genStr[MAX_CMD_STR] = "\0";
     char netStr[MAX_CMD_STR] = "\0";
+    char proStr[MAX_CMD_STR] = "\0";
     char sysStr[MAX_CMD_STR] = "\0";
     char txtStr[MAX_CMD_STR] = "\0";
     char ustStr[MAX_CMD_STR] = "\0";
@@ -729,9 +731,11 @@ void printSoftwareCommands(void)
     int arcEnabled = 0;
     int chkEnabled = 0;
     int devEnabled = 0;
+    int dskEnabled = 0;
     int funEnabled = 0;
     int genEnabled = 0;
     int netEnabled = 0;
+    int proEnabled = 0;
     int sysEnabled = 0;
     int txtEnabled = 0;
     int ustEnabled = 0;
@@ -742,7 +746,8 @@ void printSoftwareCommands(void)
         // Make sure data is present/valid
         const char *cmd = PROG_ENTRIES[i].command;
         const char *cat = PROG_ENTRIES[i].category;
-        if (!cmd || !cat) continue;
+        if (!cmd || !cat)
+            continue;
 
         // Select which string to append to
         char *targetStr = NULL;
@@ -761,6 +766,11 @@ void printSoftwareCommands(void)
             targetStr = devStr;
             devEnabled = 1;
         }
+        else if (strcmp(cat, "dsk") == 0) 
+        {
+            targetStr = dskStr;
+            dskEnabled = 1;
+        }
         else if (strcmp(cat, "fun") == 0) 
         {
             targetStr = funStr;
@@ -775,6 +785,11 @@ void printSoftwareCommands(void)
         {
             targetStr = netStr;
             netEnabled = 1;
+        }
+        else if (strcmp(cat, "pro") == 0) 
+        {
+            targetStr = proStr;
+            proEnabled = 1;
         }
         else if (strcmp(cat, "sys") == 0) 
         {
@@ -808,7 +823,20 @@ void printSoftwareCommands(void)
             strcat(targetStr, cmd);
     }
 
-    const int combinedSize = MAX_CMD_STR * 7;
+    const int combinedSize =
+        strlen(arcStr) + 
+        strlen(chkStr) + 
+        strlen(devStr) + 
+        strlen(dskStr) + 
+        strlen(funStr) + 
+        strlen(genStr) + 
+        strlen(netStr) + 
+        strlen(proStr) + 
+        strlen(sysStr) + 
+        strlen(txtStr) + 
+        strlen(ustStr) + 
+        strlen(usrStr) + 
+        MAX_CMD_STR;
     char combinedStr[combinedSize];
     combinedStr[0] = '\0';
     int pos = 0;
@@ -816,13 +844,15 @@ void printSoftwareCommands(void)
     if (arcEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smArchival & compression\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, arcStr);
     if (chkEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smChecksums & hashing\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, chkStr);
     if (devEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smDevelopment & editors\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, devStr);
+    if (dskEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smDisks & filesystems\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, dskStr);
     if (funEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smEntertainment\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, funStr);
     if (genEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smGeneral\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, genStr);
     if (netEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smNetworking & remote access\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, netStr);
-    if (sysEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smSystem, processes & disks\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, sysStr);
+    if (proEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smProcesses & scheduling\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, proStr);
+    if (sysEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smSystem\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, sysStr);
     if (txtEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smText processing\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, txtStr);
-    if (ustEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smUnsorted\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, ustStr);
     if (usrEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smUser management\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, usrStr);
+    if (ustEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smUnsorted\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, ustStr);
 
     int lines = formatNewLines(combinedStr, TERM_SIZE.ws_col, NULL, 1);
     printTextScreen("Commands & programs list", combinedStr, lines, 1);
@@ -891,21 +921,25 @@ void printSoftwareProgOverview(int i)
     if (strcmp(category, "gen") == 0)
         category = "general";
     else if (strcmp(category, "arc") == 0)
-        category = "archival";
+        category = "archival & compression";
     else if (strcmp(category, "txt") == 0)
         category = "text processing";
     else if (strcmp(category, "dev") == 0)
-        category = "editors & development";
+        category = "development & editors";
     else if (strcmp(category, "chk") == 0)
         category = "checksums & hashing";
     else if (strcmp(category, "net") == 0)
         category = "networking & remote access";
     else if (strcmp(category, "sys") == 0)
-        category = "system & processes";
+        category = "system";
     else if (strcmp(category, "usr") == 0)
         category = "user management";
     else if (strcmp(category, "fun") == 0)
         category = "entertainment";
+    else if (strcmp(category, "dsk") == 0)
+        category = "disks & filesystems";
+    else if (strcmp(category, "pro") == 0)
+        category = "processes & scheduling";
     else if (strcmp(category, "shork") == 0)
         category = "SHORK";
     pos += snprintf(overviewStr + pos, strSize - pos, "\033[%smCategory:\033[%sm %s\n", COL_FOR_OL, COL_RESET, category);
