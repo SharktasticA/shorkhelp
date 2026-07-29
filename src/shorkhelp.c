@@ -716,20 +716,26 @@ void printIntroStarted(void)
 
 void printSoftwareCommands(void)
 {
-    char genStr[MAX_CMD_STR] = "\0";
     char arcStr[MAX_CMD_STR] = "\0";
-    char txtStr[MAX_CMD_STR] = "\0";
-    char devStr[MAX_CMD_STR] = "\0";
     char chkStr[MAX_CMD_STR] = "\0";
+    char devStr[MAX_CMD_STR] = "\0";
+    char funStr[MAX_CMD_STR] = "\0";
+    char genStr[MAX_CMD_STR] = "\0";
     char netStr[MAX_CMD_STR] = "\0";
     char sysStr[MAX_CMD_STR] = "\0";
-    char usrStr[MAX_CMD_STR] = "\0";
-    char funStr[MAX_CMD_STR] = "\0";
+    char txtStr[MAX_CMD_STR] = "\0";
     char ustStr[MAX_CMD_STR] = "\0";
-    int netEnabled = 0;
-    int usrEnabled = 0;
+    char usrStr[MAX_CMD_STR] = "\0";
+    int arcEnabled = 0;
+    int chkEnabled = 0;
+    int devEnabled = 0;
     int funEnabled = 0;
+    int genEnabled = 0;
+    int netEnabled = 0;
+    int sysEnabled = 0;
+    int txtEnabled = 0;
     int ustEnabled = 0;
+    int usrEnabled = 0;
 
     for (int i = 0; i < PROG_ENTRIES_NO; i++)
     {
@@ -740,26 +746,50 @@ void printSoftwareCommands(void)
 
         // Select which string to append to
         char *targetStr = NULL;
-        if (strcmp(cat, "gen") == 0) targetStr = genStr;
-        else if (strcmp(cat, "txt") == 0) targetStr = txtStr;
-        else if (strcmp(cat, "arc") == 0) targetStr = arcStr;
-        else if (strcmp(cat, "dev") == 0) targetStr = devStr;
-        else if (strcmp(cat, "chk") == 0) targetStr = chkStr;
-        else if (strcmp(cat, "net") == 0) 
+        if (strcmp(cat, "arc") == 0) 
         {
-            targetStr = netStr;
-            netEnabled = 1;
+            targetStr = arcStr;
+            arcEnabled = 1;
         }
-        else if (strcmp(cat, "sys") == 0) targetStr = sysStr;
-        else if (strcmp(cat, "usr") == 0) 
+        else if (strcmp(cat, "chk") == 0) 
         {
-            targetStr = usrStr;
-            usrEnabled = 1;
+            targetStr = chkStr;
+            chkEnabled = 1;
+        }
+        else if (strcmp(cat, "dev") == 0) 
+        {
+            targetStr = devStr;
+            devEnabled = 1;
         }
         else if (strcmp(cat, "fun") == 0) 
         {
             targetStr = funStr;
             funEnabled = 1;
+        }
+        else if (strcmp(cat, "gen") == 0) 
+        {
+            targetStr = genStr;
+            genEnabled = 1;
+        }
+        else if (strcmp(cat, "net") == 0) 
+        {
+            targetStr = netStr;
+            netEnabled = 1;
+        }
+        else if (strcmp(cat, "sys") == 0) 
+        {
+            targetStr = sysStr;
+            sysEnabled = 1;
+        }
+        else if (strcmp(cat, "txt") == 0) 
+        {
+            targetStr = txtStr;
+            txtEnabled = 1;
+        }
+        else if (strcmp(cat, "usr") == 0) 
+        {
+            targetStr = usrStr;
+            usrEnabled = 1;
         }
         else
         {
@@ -783,16 +813,16 @@ void printSoftwareCommands(void)
     combinedStr[0] = '\0';
     int pos = 0;
 
-    pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smGeneral\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, genStr);
-    pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smArchival\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, arcStr);
-    pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smText processing\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, txtStr);
-    pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smEditors & development\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, devStr);
-    pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smChecksums & hashing\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, chkStr);
+    if (arcEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smArchival & compression\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, arcStr);
+    if (chkEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smChecksums & hashing\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, chkStr);
+    if (devEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smDevelopment & editors\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, devStr);
+    if (funEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smEntertainment\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, funStr);
+    if (genEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smGeneral\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, genStr);
     if (netEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smNetworking & remote access\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, netStr);
-    pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smSystem & processes\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, sysStr);
-    if (usrEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smUser management\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, usrStr);
-    if (funEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smEntertainment\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, funStr);
-    if (ustEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\n\033[%smUnsorted\033[%sm\n%s\n", COL_FOR_HEADING, COL_FOR_WHITE, ustStr);
+    if (sysEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smSystem, processes & disks\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, sysStr);
+    if (txtEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smText processing\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, txtStr);
+    if (ustEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smUnsorted\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, ustStr);
+    if (usrEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smUser management\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, usrStr);
 
     int lines = formatNewLines(combinedStr, TERM_SIZE.ws_col, NULL, 1);
     printTextScreen("Commands & programs list", combinedStr, lines, 1);
