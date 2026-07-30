@@ -16,9 +16,9 @@ basename,,0,busybox,,gen,,,"Extracts the file name and/or the extension from a g
 bc,,1,busybox,,gen,,,"An arbitrary precision calculator and language. It launches into an interactive mode that allows you to enter expressions, with an optional math library for functions like sqrt and sin, or you pipe an expression via standard input to get an immediate, non-interactive result.",GNU GPLv2
 beep,,1,busybox,,sys,,,"Allows you to produce a tone or a chain of tones using the PC speaker. You can set the frequency (Hz), length (ms), delay before playing (ms) and how many times it should repeat, and chain multiple tones together in a single command.",GNU GPLv2
 blkid,,1,busybox,,dsk,,,Prints the universally unique identifier (UUID) and filesystem type for all found filesystems or for a given partition.,GNU GPLv2
-bunzip2,,1,busybox,,arc,,,,GNU GPLv2
-bzcat,,1,busybox,,arc,,,,GNU GPLv2
-bzip2,,1,busybox,,arc,,,,GNU GPLv2
+bunzip2,,1,busybox,,arc,,,"Decompresses given bzip2 archives, or bzip2-compressed standard input to standard output. By default, it will replace the input files unless told otherwise.",GNU GPLv2
+bzcat,,1,busybox,,arc,,,Decompresses a given bzip2 archive to standard output. Functions like bunzip2 -c.,GNU GPLv2
+bzip2,,1,busybox,,arc,,,"Compresses given files or standard input into a bzip2 archive. By default, it will replace the input files unless told otherwise.",GNU GPLv2
 c++filt,,1,bundled,GNU Binutils,dev,GNU c++filt,,,GNU GPLv3
 cal,,1,busybox,,gen,,,,GNU GPLv2
 cat,,0,busybox,,txt,,,"Used for concatenating (combining) files, providing a standard output for printing or writing to a file. When its output is not directed, it prints the result.",GNU GPLv2
@@ -32,7 +32,7 @@ cksum,,1,busybox,,chk,,,,GNU GPLv2
 clear,,0,busybox,,gen,,,"Clears the terminal so that the cursor is positioned at the top. It is similar to ""cls"" on MS-DOS, Microsoft Windows, etc.",GNU GPLv2
 comm,,1,busybox,,txt,,,,GNU GPLv2
 cp,,0,busybox,,gen,,,,GNU GPLv2
-cpio,,1,busybox,,arc,,,,GNU GPLv2
+cpio,,1,busybox,,arc,,,"Lists or extracts files from a cpio archive on standard input, creates an archive from a list of files from standard input, or copies files from a list of files from standard input.",GNU GPLv2
 crc32,,1,busybox,,chk,,,,GNU GPLv2
 crontab,,1,busybox,,pro,,,,GNU GPLv2
 cryptpw,,1,busybox,,usr,,,,GNU GPLv2
@@ -85,8 +85,8 @@ getty,,1,busybox,,usr,,,,GNU GPLv2
 gfortran,,1,bundled,GCC + musl,dev,Gfortran,,GCC's Fortran compiler.,GNU GPLv3 + GCC Runtime Library Exception
 git,,1,bundled,Git,dev,,,A distributed version control software system.,GNU GPLv2
 grep,,0,busybox,,txt,,,,GNU GPLv2
-gunzip,,1,busybox,,arc,,,,GNU GPLv2
-gzip,,1,busybox,,arc,,,,GNU GPLv2
+gunzip,,1,busybox,,arc,,,"Decompresses given gzip archives, or gzip-compressed standard input to standard output. By default, it will replace the input files unless told otherwise.",GNU GPLv2
+gzip,,1,busybox,,arc,,,"Compresses given files or standard input into a gzip archive. By default, it will replace the input files unless told otherwise.",GNU GPLv2
 halt,,1,busybox,,sys,,,,GNU GPLv2
 head,,1,busybox,,txt,,,,GNU GPLv2
 hexdump,,1,busybox,,dev,,,,GNU GPLv2
@@ -124,10 +124,10 @@ lsscsi,,1,busybox,,sys,,,,GNU GPLv2
 lsusb,,1,busybox,,sys,,,"Lists all USB buses and connected devices. It produces a table containing the USB bus number, device number for that bus, vendor ID, and device ID.",GNU GPLv2
 lua,,1,bundled,Lua,dev,,,,MIT
 lynx,,1,bundled,Lynx,net,,,A text-based web browser that allows you to access websites from your terminal. It is the oldest web browser that is still actively maintained.,GNU GPLv2
-lzcat,,1,busybox,,arc,,,,GNU GPLv2
-lzma,,1,busybox,,arc,,,,GNU GPLv2
-lzop,,1,busybox,,arc,,,,GNU GPLv2
-lzopcat,,1,busybox,,arc,,,,GNU GPLv2
+lzcat,,1,busybox,,arc,,,Decompresses a given LZMA archive to standard output. Functions like unlzma -c.,GNU GPLv2
+lzma,,1,busybox,,arc,,,"Decompresses given LZMA archives, or LZMA-compressed standard input to standard output. By default, it will replace the input files unless told otherwise. Note: unlike XZ Utils' implementation of lzma, BusyBox's version cannot compress any input.",GNU GPLv2
+lzop,,1,busybox,,arc,,,Compresses given files or standard input into a LZO archive.,GNU GPLv2
+lzopcat,,1,busybox,,arc,,,Decompresses a given LZO archive to standard output. Functions like unlzop -c.,GNU GPLv2
 make,,1,bundled,GNU Make,dev,,,"A build automation tool that executes shell commands primarily to update program compilation targets only when their prerequisites have changed, avoiding unnecessary work. It is often run in the same directory as a Makefile, which describes how a project's files relate to each other and how to update them. Whilst it is often associated with C-language projects, Make can be used for any task where maintaining some files in a project can be done with shell commands, whether it be other programming languages or documentation generation, asset pipelines or general project automation.",GNU GPLv3
 man,,1,busybox,,gen,,,,GNU GPLv2
 md5sum,,1,busybox,,chk,,,,GNU GPLv2
@@ -233,7 +233,7 @@ swapon,,1,busybox,,dsk,,,"Used to start memory paging/swapping on one or all swa
 sync,,0,busybox,,dsk,,,"Commits any filesystem write operations that are currently cached. It is useful as an immediate and explicit way to ensure data is written to any disks/drives before powering off the computer, removing a drive, etc.",GNU GPLv2
 tac,,1,busybox,,txt,,,,GNU GPLv2
 tail,,1,busybox,,txt,,,,GNU GPLv2
-tar,,1,busybox,,arc,,,,GNU GPLv2
+tar,,1,busybox,,arc,,,"Creates, extracts or lists files from a given tar archive. It can also compress or decompress the archive based on the file extension or one of the explicit flags available. It also supports filtering files by name or glob pattern, changing directory before operating, and piping extracted files to another command.",GNU GPLv2
 taskset,,1,busybox,,pro,,,,GNU GPLv2
 tcc,,1,bundled,Tiny C Compiler,dev,,,A lightweight C compiler (configured to use musl).,GNU LGPLv2.1
 tee,,0,busybox,,gen,,,,GNU GPLv2
@@ -255,15 +255,15 @@ tty,,1,busybox,,sys,,,,GNU GPLv2
 udhcpc,,1,busybox,,net,,,,GNU GPLv2
 umount,,0,busybox,,dsk,,,,GNU GPLv2
 uname,,0,busybox,,sys,,,,GNU GPLv2
-uncompress,,1,busybox,,arc,,,,GNU GPLv2
+uncompress,,1,busybox,,arc,,,"Decompresses given Z archives, or Z-compressed standard input to standard output.",GNU GPLv2
 unexpand,,1,busybox,,txt,,,,GNU GPLv2
 uniq,,1,busybox,,txt,,,,GNU GPLv2
 unix2dos,,1,busybox,,txt,,,Converts a text file from using Unix-style line breaks (line feed) to using DOS-style line breaks (carriage return + line feed).,GNU GPLv2
 unlink,,1,busybox,,dsk,,,,GNU GPLv2
-unlzma,,1,busybox,,arc,,,,GNU GPLv2
-unlzop,,1,busybox,,arc,,,,GNU GPLv2
-unxz,,1,busybox,,arc,,,,GNU GPLv2
-unzip,,1,busybox,,arc,,,,GNU GPLv2
+unlzma,,1,busybox,,arc,,,"Decompresses given LZMA archives, or LZMA-compressed standard input to standard output. By default, it will replace the input files unless told otherwise.",GNU GPLv2
+unlzop,,1,busybox,,arc,,,"Decompresses given LZO archives, or LZO-compressed standard input to standard output.",GNU GPLv2
+unxz,,1,busybox,,arc,,,"Decompresses given XZ archives, or XZ-compressed standard input to standard output. By default, it will replace the input files unless told otherwise.",GNU GPLv2
+unzip,,1,busybox,,arc,,,"Lists or extracts files from a given ZIP archive, with the option to specify a target directory or write to standard output.",GNU GPLv2
 uptime,,1,busybox,,sys,,,,GNU GPLv2
 users,,1,busybox,,usr,,,,GNU GPLv2
 usleep,,1,busybox,,gen,,,,GNU GPLv2
@@ -287,6 +287,7 @@ whois,,1,busybox,,net,,,,GNU GPLv2
 xargs,,1,busybox,,gen,,,,GNU GPLv2
 xxd,/usr/bin/vim,1,bundled,Vim,dev,xxd,,,Vim
 xxd,!/usr/bin/vim,1,busybox,,dev,,,,GNU GPLv2
-xz,,1,busybox,,arc,,,,GNU GPLv2
+xz,,1,busybox,,arc,,,"Decompresses given XZ archives, or XZ-compressed standard input to standard output. By default, it will replace the input files unless told otherwise. Note: unlike XZ Utils' implementation of xz, BusyBox's version cannot compress any input.",GNU GPLv2
+xzcat,,1,busybox,,arc,,,Decompresses a given XZ archive to standard output. Functions like unxz -c.,GNU GPLv2
 yes,,1,busybox,,gen,,,,GNU GPLv2
-zcat,,1,busybox,,arc,,,,GNU GPLv2
+zcat,,1,busybox,,arc,,,Decompresses a given gzip archive to standard output. Functions like gunzip -c.,GNU GPLv2

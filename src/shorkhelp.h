@@ -37,11 +37,11 @@ typedef struct {
 
 
 #define BUILD_REPORT_PATH       "/var/log/shork/build-report.log"
-#define CSV_BUFFER              32768
+#define CSV_BUFFER              49152
 #define INITIAL_CMD_STR         128
 #define MAX_CMD_STR             2048
 #define MAX_LICENCES            100
-#define MAX_PROG_ENTRIES        300
+#define MAX_PROG_ENTRIES        325
 
 extern char OS_NAME[128];
 extern Licence LICENCES[MAX_LICENCES];
