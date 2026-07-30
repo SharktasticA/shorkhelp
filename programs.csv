@@ -1,8 +1,8 @@
 Command,Path,IsOptional,Type,Package,Category,Name,Aliases,Description,Licence
 #cmatrix,,1,bundled,CMatrix,fun,,,"A vertical scrolling text screensaver. It provides ""digital rain"", inspired by the 1999 film ""The Matrix"". The ""droplets"" are lines of green characters that fall from the top of the terminal to the bottom, and are occasionally broken up.",GNU GPLv3
-addgroup,,1,busybox,,usr,,,,GNU GPLv2
+addgroup,,1,busybox,,usr,,,Creates a new group or adds a user to an existing group.,GNU GPLv2
 addr2line,,1,bundled,GNU Binutils,dev,GNU addr2line,,,GNU GPLv3
-adduser,,1,busybox,,usr,,,,GNU GPLv2
+adduser,,1,busybox,,usr,,,Creates a new user.,GNU GPLv2
 ar,/opt/i486-linux-musl-native/bin/ar,1,bundled,GNU Binutils,arc,GNU ar,,,GNU GPLv3
 ar,/usr/bin/ar,1,busybox,,arc,,,"Extracts or lists files from a given .a, .ar or .lib archive.",GNU GPLv2
 arch,,1,busybox,,sys,,,"Reports the computer's processor architecture. For example, ""i486"", ""i686"", ""x86_64"", etc.",GNU GPLv2
@@ -10,12 +10,12 @@ as,,1,bundled,GNU Binutils,dev,GNU assembler,,An x86 assembler and the default b
 ascii,,1,busybox,,gen,,,"Prints a table containing all 128 ASCII characters. For each character, its decimal (Dec) and hexadecimal (Hex) values are displayed with it.",GNU GPLv2
 ash,,1,busybox,,sys,,,,GNU GPLv2
 awk,,0,busybox,,txt,,,An AWK processor. AWK is a scripting language designed for text pattern scanning and processing and useful for data extraction and reporting.,GNU GPLv2
-base32,,1,busybox,,txt,,,,GNU GPLv2
-base64,,1,busybox,,txt,,,,GNU GPLv2
+base32,,1,busybox,,txt,,,Encodes text to Base32 or decodes Base32 to text from a file to standard output.,GNU GPLv2
+base64,,1,busybox,,txt,,,Encodes text to Base64 or decodes Base64 to text from a file to standard output.,GNU GPLv2
 basename,,0,busybox,,gen,,,"Extracts the file name and/or the extension from a given path. If just a directory path is given, it will extract both. If a file extension is also given, it will extract the extension in addition to the directory path if it matches. For example, running ""basename /etc/resolv.conf"" will return ""resolv.conf""; running ""basename /etc/resolv.conf .conf"" will return ""resolv"". ",GNU GPLv2
-bc,,1,busybox,,gen,,,,GNU GPLv2
-beep,,1,busybox,,sys,,,,GNU GPLv2
-blkid,,1,busybox,,dsk,,,,GNU GPLv2
+bc,,1,busybox,,gen,,,"An arbitrary precision calculator and language. It launches into an interactive mode that allows you to enter expressions, with an optional math library for functions like sqrt and sin, or you pipe an expression via standard input to get an immediate, non-interactive result.",GNU GPLv2
+beep,,1,busybox,,sys,,,"Allows you to produce a tone or a chain of tones using the PC speaker. You can set the frequency (Hz), length (ms), delay before playing (ms) and how many times it should repeat, and chain multiple tones together in a single command.",GNU GPLv2
+blkid,,1,busybox,,dsk,,,Prints the universally unique identifier (UUID) and filesystem type for all found filesystems or for a given partition.,GNU GPLv2
 bunzip2,,1,busybox,,arc,,,,GNU GPLv2
 bzcat,,1,busybox,,arc,,,,GNU GPLv2
 bzip2,,1,busybox,,arc,,,,GNU GPLv2
