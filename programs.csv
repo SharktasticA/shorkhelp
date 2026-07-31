@@ -22,11 +22,11 @@ bzip2,,1,busybox,,arc,,,"Compresses given files or standard input into a bzip2 a
 c++filt,,1,bundled,GNU Binutils,dev,GNU c++filt,,,GNU GPLv3
 cal,,1,busybox,,gen,,,,GNU GPLv2
 cat,,0,busybox,,txt,,,"Used for concatenating (combining) files, providing a standard output for printing or writing to a file. When its output is not directed, it prints the result.",GNU GPLv2
-chgrp,,1,busybox,,usr,,,,GNU GPLv2
-chmod,,1,busybox,,usr,,,,GNU GPLv2
-chown,,1,busybox,,usr,,,,GNU GPLv2
-chpasswd,,1,busybox,,usr,,,,GNU GPLv2
-chroot,,1,busybox,,usr,,,,GNU GPLv2
+chgrp,,1,busybox,,usr,,,Changes the group owner of any given files with the given group name or ID.,GNU GPLv2
+chmod,,1,busybox,,usr,,,"Changes one or more file mode bits of any given files, either with an octal number representing the mode's bit pattern or symbolic representations for a specific change. It changes how files can be accessed - can it be read, written, or executed as a program.",GNU GPLv2
+chown,,1,busybox,,usr,,,Changes the user and/or group owner of any given files to the given user and group names or IDs.,GNU GPLv2
+chpasswd,,1,busybox,,usr,,,"Changes user passwords based on standard input. Compared to passwd, this is intended for script/batch processing usage.",GNU GPLv2
+chroot,,1,busybox,,usr,,,"Runs a given program that believes the root directory is any directory of your choice. It is useful for rescue and sandboxing, allowing you to run a program that cannot make changes outside the given directory.",GNU GPLv2
 chvt,,1,busybox,,gen,,,"Changes the active virtual terminal. Changing the current virtual terminal is useful for terminal-based multi-tasking, troubleshooting and recovery. It functions similarly to pressing Ctrl+Alt+[F1/F2/F3/etc.]",GNU GPLv2
 cksum,,1,busybox,,chk,,,,GNU GPLv2
 clear,,0,busybox,,gen,,,"Clears the terminal so that the cursor is positioned at the top. It is similar to ""cls"" on MS-DOS, Microsoft Windows, etc.",GNU GPLv2
@@ -35,7 +35,7 @@ cp,,0,busybox,,gen,,,,GNU GPLv2
 cpio,,1,busybox,,arc,,,"Lists or extracts files from a cpio archive on standard input, creates an archive from a list of files from standard input, or copies files from a list of files from standard input.",GNU GPLv2
 crc32,,1,busybox,,chk,,,,GNU GPLv2
 crontab,,1,busybox,,pro,,,,GNU GPLv2
-cryptpw,,1,busybox,,usr,,,,GNU GPLv2
+cryptpw,,1,busybox,,usr,,,"Prints a hash for the given or prompted password. You can optionally specify the encryption type (DES, MD5, SHA256, SHA512 and yescrypt) and specify a salt to add some 'randomness' to the hash. This BusyBox implementation functions the same as mkpasswd.",GNU GPLv2
 cscope,,1,bundled,Cscope,dev,,,"An interactive C and C++ source code browser. It builds a symbol database from a given project's source files, letting you quickly jump to where a function or variable is defined, called or referenced elsewhere in the codebase.",BSD 3-Clause
 ctags,,1,bundled,Universal Ctags,dev,,,"A multi-language source code object indexing tool that generates tags files that allow editors such as Emacs, vi and Vim to jump straight to a definition of a function, variable or other symbol.",GNU GPLv2
 curl,,1,bundled,cURL,net,,,,MIT
@@ -43,8 +43,8 @@ cut,,1,busybox,,txt,,,,GNU GPLv2
 date,,0,busybox,,gen,,,,GNU GPLv2
 dc,,1,busybox,,gen,,,,GNU GPLv2
 dd,,0,busybox,,dsk,,,,GNU GPLv2
-delgroup,,1,busybox,,usr,,,,GNU GPLv2
-deluser,,1,busybox,,usr,,,,GNU GPLv2
+delgroup,,1,busybox,,usr,,,Deletes the given group or removes the given user from the given group.,GNU GPLv2
+deluser,,1,busybox,,usr,,,Deletes the given user.,GNU GPLv2
 df,,0,busybox,,dsk,,,,GNU GPLv2
 dialog,,1,bundled,dialog,dev,,,"Allows you to create and display dialog boxes from a shell script. dialog includes the following boxes: buildlist, calendar, checklist, dselect, editbox, form, fselect, gauge, infobox, inputbox, inputmenu, menu, mixedform, mixedgauge, msgbox, passwordbox, passwordform, pause, prgbox, programbox, progressbox, radiolist, rangebox, tailbox, tailboxbg, textbox, timebox, treeview and yesno. The SHORK 486 Build Configurator is dialog based, and the Linux kernel's lxdialog is a distant descendant of dialog.",GNU LGPLv2.1
 diff,,1,busybox,,dev,,,Compares two files line-by-line and outputs a difference listing between them. The result can be used as a patch file for the patch utility.,GNU GPLv2
@@ -81,7 +81,7 @@ g++,,1,bundled,GCC + musl,dev,GCC C++,,GCC's C++ compiler.,GNU GPLv3 + GCC Runti
 gcc,,1,bundled,GCC + musl,dev,GCC C,,GCC's C compiler (configured to use musl).,GNU GPLv3 + GCC Runtime Library Exception
 getfattr,,1,busybox,,gen,,,"Gets an extended attribute from the given filesystem object. Extended attributes are metadata that go beyond the standard attributes provided by the host filesystem, allowing more information to be associated with a given filesystem object.",GNU GPLv2
 getopt,,1,busybox,,gen,,,,GNU GPLv2
-getty,,1,busybox,,usr,,,,GNU GPLv2
+getty,,1,busybox,,usr,,,"Opens a TTY and prompts for a login, accepting a user name before invoking the login command to complete the rest of the login cycle.",GNU GPLv2
 gfortran,,1,bundled,GCC + musl,dev,Gfortran,,GCC's Fortran compiler.,GNU GPLv3 + GCC Runtime Library Exception
 git,,1,bundled,Git,dev,,,A distributed version control software system.,GNU GPLv2
 grep,,0,busybox,,txt,,,,GNU GPLv2
@@ -95,7 +95,7 @@ hostid,,1,busybox,,sys,,,,GNU GPLv2
 hostname,,0,busybox,,sys,,,,GNU GPLv2
 htop,,1,bundled,htop,pro,,,"An interactive process viewer designed to be an enhancement over top. Compared to top, htop supports scrolling both horizontally and vertically, a coloured UI and colour-coding, CPU and memory usage bars, searching, filtering, sorting, and killing processes.",GNU GPLv2
 hwclock,,1,busybox,,sys,,,,GNU GPLv2
-id,,1,busybox,,usr,,,,GNU GPLv2
+id,,1,busybox,,usr,,,"Prints the current user's user ID, primary group ID, and any supplementary group IDs the user is a part of.",GNU GPLv2
 ifconfig,,1,busybox,,net,,,,GNU GPLv2
 indent,,1,bundled,GNU Indent,dev,GNU Indent,,"A C code formatter. It can format a given C source file to a desired indentation and styling rule (GNU style by default), or convert between different C formatting conventions (for example, from GNU style to K&R style).",GNU GPLv3
 init,,1,busybox,,sys,,,,GNU GPLv2
@@ -112,8 +112,8 @@ less,,0,busybox,,txt,,,"Displays the contents of a file in the terminal, allowin
 link,,1,busybox,,dsk,,,,GNU GPLv2
 ln,,0,busybox,,dsk,,,"Creates a hard or symbolic link to a given target file or directory. Hard links are files that point to the same inode as the target file, which must be within the same file system, and hard links to directories are generally not supported. Symbolic links are files that point to the target file or directory, which can be on another file system and even target a non-existent file/directory. Deleting the target of a hard link will not delete the data so long as at least one hard link to it exists; deleting the target of a symbolic link will break the link.",GNU GPLv2
 loadkmap,,1,busybox,,sys,,,,GNU GPLv2
-login,,1,busybox,,usr,,,,GNU GPLv2
-logname,,1,busybox,,usr,,,,GNU GPLv2
+login,,1,busybox,,usr,,,"Shows a login prompt and creates a new user session once completed. If a user was already logged in, their session will be replaced upon login's completion.",GNU GPLv2
+logname,,1,busybox,,usr,,,Prints the current user's name. Functions similarly to whoami but uses utmp as its source.,GNU GPLv2
 losetup,,1,busybox,,dsk,,,,GNU GPLv2
 ls,,0,busybox,,gen,,,Lists the contents of the current or a target directory.,GNU GPLv2
 lsblk,,0,busybox,,dsk,,,"Lists information about all or the specified block devices. By default, it produces a table containing the device name, major number (driver associated with device), minor number (device number for the given driver), device type, whether the device is read only (RO), and its mountpoint (if mounted).",GNU GPLv2
@@ -139,7 +139,7 @@ mkfifo,,1,busybox,,gen,,,,GNU GPLv2
 mkfs.ext2,,1,busybox,,dsk,,mke2fs,Creates an ext2 file system on the given device or image file.,GNU GPLv2
 mkfs.vfat,,1,busybox,,dsk,,mkdosfs,Creates a FAT32 file system on the given device or image file. The device or image will be readable with Windows 95 OSR2 or newer.,GNU GPLv2
 mknod,,1,busybox,,dsk,,,,GNU GPLv2
-mkpasswd,,1,busybox,,usr,,,,GNU GPLv2
+mkpasswd,,1,busybox,,usr,,,"Prints a hash for the given or prompted password. You can optionally specify the encryption type (DES, MD5, SHA256, SHA512 and yescrypt) and specify a salt to add some 'randomness' to the hash. This BusyBox implementation functions the same as cryptpw.",GNU GPLv2
 mkswap,,1,busybox,,dsk,,,Used to set up a Linux swap area on a given partition or file. It will destroy any data present on the target partition or file.,GNU GPLv2
 mktemp,,1,busybox,,gen,,,,GNU GPLv2
 more,,1,busybox,,txt,,,,GNU GPLv2
@@ -163,7 +163,7 @@ objdump,,1,bundled,GNU Binutils,dev,GNU objdump,,,GNU GPLv3
 od,,1,busybox,,dev,,,,GNU GPLv2
 partprobe,,1,busybox,,dsk,,,,GNU GPLv2
 partx,,1,bundled,util-linux,dsk,,,Tells the Linux kernel about the presence and numbering of on-disk partitions.,GNU GPLv2
-passwd,,1,busybox,,usr,,,,GNU GPLv2
+passwd,,1,busybox,,usr,,,"Changes your user password, or if you are the root account, can change a given user's password.",GNU GPLv2
 paste,,1,busybox,,txt,,,,GNU GPLv2
 patch,,1,busybox,,dev,,,"Applies a patch file to an original file to update it with its contents. A patch file contains a line-by-line difference listing between two files produced by diff, git diff, or similar.",GNU GPLv2
 pgrep,,1,busybox,,pro,,,,GNU GPLv2
@@ -225,8 +225,8 @@ strings,/opt/i486-linux-musl-native/bin/strings,1,bundled,GNU Binutils,dev,GNU s
 strings,/usr/bin/strings,1,busybox,,dev,,,,GNU GPLv3
 strip,,1,bundled,GNU Binutils,dev,GNU strip,,,GNU GPLv3
 stty,,1,busybox,,sys,,,,GNU GPLv2
-su,,1,busybox,,usr,,,,GNU GPLv2
-sulogin,,1,busybox,,usr,,,,GNU GPLv2
+su,,1,busybox,,usr,,,"Allows you to log in and use the shell as another user without needing to log out of the current session. By default, it will try the root user, thus useful for quickly making administrative changes without needing to log out or switch consoles.",GNU GPLv2
+sulogin,,1,busybox,,usr,,,"Single-user login. It is normally invoked by the init system when the host system goes into single-user mode (for example, for rescue or maintenance operations). If you run sulogin during a normal session, it functions similarly to using su to log in as the root user.",GNU GPLv2
 sum,,1,busybox,,chk,,,,GNU GPLv2
 swapoff,,1,busybox,,dsk,,,"Used to stop memory paging/swapping on one or all swap-capable devices. If used and no swap devices are left online, the computer will be entirely reliant on system memory (RAM) for program memory.",GNU GPLv2
 swapon,,1,busybox,,dsk,,,"Used to start memory paging/swapping on one or all swap-capable devices. Swapping allows fixed storage (hard disk drrive, solid-state drive, etc.) or removable storage (USB stick, etc.) to be used for program memory in addition to system memory (RAM). It is useful as a buffer for when free RAM runs low, although using swap memory will be much slower than RAM.",GNU GPLv2
@@ -265,7 +265,7 @@ unlzop,,1,busybox,,arc,,,"Decompresses given LZO archives, or LZO-compressed sta
 unxz,,1,busybox,,arc,,,"Decompresses given XZ archives, or XZ-compressed standard input to standard output. By default, it will replace the input files unless told otherwise.",GNU GPLv2
 unzip,,1,busybox,,arc,,,"Lists or extracts files from a given ZIP archive, with the option to specify a target directory or write to standard output.",GNU GPLv2
 uptime,,1,busybox,,sys,,,,GNU GPLv2
-users,,1,busybox,,usr,,,,GNU GPLv2
+users,,1,busybox,,usr,,,Prints the users currently logged on.,GNU GPLv2
 usleep,,1,busybox,,gen,,,,GNU GPLv2
 uuidgen,,1,busybox,,gen,,,"Generates and prints a universally unique identifier (UUID), a 128-bit value for identification that is practically guaranteed to be unique.",GNU GPLv2
 vi,,0,busybox,,dev,,,,GNU GPLv2
@@ -275,14 +275,14 @@ vimdiff,,1,bundled,Vim,dev,vimdiff,,Opens the Vim editor in a mode that allows c
 vimtutor,,1,bundled,Vim,dev,vimtutor,,"An interactive, self-paced tutorial that teaches you the basis of Vim using a disposable practice copy of the lesson file.",Vim
 vmstat,,1,busybox,,sys,,,"Reports system virtual memory, processes, CPU and I/O statistics. It displays columns for a runnable process count (r), I/O-bound blocked process count (b), swap memory used (swpd), idle memory (free), memory as buffers (buff), memory as cache (cache), memory swapped in from disk (si), memory swapped to disk (so), KiB received from a block device (bi), KiB sent to a block device (bo), interrupts per second (in), context switches per second (cs), user CPU time (us), system CPU time (sy), CPU idle time (id), time waiting for IO (wa), time stolen from a virtual machine (st), and time running KVM guest code (gu).",GNU GPLv2
 volname,,1,busybox,,dsk,,,,GNU GPLv2
-w,,1,busybox,,usr,,,,GNU GPLv2
+w,,1,busybox,,usr,,,"Shows which users are logged in, what ttyX they are logged into, how long they have been idling, and when they first logged in. Functions like who -H, always showing column headers.",GNU GPLv2
 watch,,1,busybox,,pro,,,,GNU GPLv2
 wc,,1,busybox,,txt,,,,GNU GPLv2
 wget,,1,busybox,,net,,,"A non-interactive internet file downloader. It is often used to simply download a file with a given URL, although it can also be used as a web spider.",GNU GPLv2
 whereis,,1,bundled,util-linux,gen,whereis,,"Locates the binary, source and manual page files for a given command.",GNU GPLv2
 which,,0,busybox,,gen,,,,GNU GPLv2
-who,,1,busybox,,usr,,,,GNU GPLv2
-whoami,,1,busybox,,usr,,,,GNU GPLv2
+who,,1,busybox,,usr,,,"Shows which users are logged in, what ttyX they are logged into, how long they have been idling, and when they first logged in. By default, it does not show column headers.",GNU GPLv2
+whoami,,1,busybox,,usr,,,Prints the current user's name. Functions similarly to logname but uses the current effective user ID as its source.,GNU GPLv2
 whois,,1,busybox,,net,,,,GNU GPLv2
 xargs,,1,busybox,,gen,,,,GNU GPLv2
 xxd,/usr/bin/vim,1,bundled,Vim,dev,xxd,,,Vim
