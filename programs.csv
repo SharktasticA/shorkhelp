@@ -10,18 +10,21 @@ as,,1,bundled,GNU Binutils,dev,GNU assembler,,An x86 assembler and the default b
 ascii,,1,busybox,,gen,,,"Prints a table containing all 128 ASCII characters. For each character, its decimal (Dec) and hexadecimal (Hex) values are displayed with it.",GNU GPLv2
 ash,,1,busybox,,sys,,,,GNU GPLv2
 awk,,0,busybox,,txt,,,An AWK processor. AWK is a scripting language designed for text pattern scanning and processing and useful for data extraction and reporting.,GNU GPLv2
+badblocks,,1,bundled,e2fsprogs,dsk,badblocks,,,GNU GPLv2 + LGPLv2
 base32,,1,busybox,,txt,,,Encodes text to Base32 or decodes Base32 to text from a file to standard output.,GNU GPLv2
 base64,,1,busybox,,txt,,,Encodes text to Base64 or decodes Base64 to text from a file to standard output.,GNU GPLv2
 basename,,0,busybox,,gen,,,"Extracts the file name and/or the extension from a given path. If just a directory path is given, it will extract both. If a file extension is also given, it will extract the extension in addition to the directory path if it matches. For example, running ""basename /etc/resolv.conf"" will return ""resolv.conf""; running ""basename /etc/resolv.conf .conf"" will return ""resolv"". ",GNU GPLv2
 bc,,1,busybox,,gen,,,"An arbitrary precision calculator and language. It launches into an interactive mode that allows you to enter expressions, with an optional math library for functions like sqrt and sin, or you pipe an expression via standard input to get an immediate, non-interactive result.",GNU GPLv2
 beep,,1,busybox,,sys,,,"Allows you to produce a tone or a chain of tones using the PC speaker. You can set the frequency (Hz), length (ms), delay before playing (ms) and how many times it should repeat, and chain multiple tones together in a single command.",GNU GPLv2
-blkid,,1,busybox,,dsk,,,Prints the universally unique identifier (UUID) and filesystem type for all found filesystems or for a given partition.,GNU GPLv2
+blkid,!usr/sbin/e2image,1,busybox,,dsk,,,Prints the universally unique identifier (UUID) and filesystem type for all found filesystems or for a given partition.,GNU GPLv2
+blkid,usr/sbin/e2image,1,bundled,e2fsprogs,dsk,blkid,,,GNU GPLv2 + LGPLv2
 bunzip2,,1,busybox,,arc,,,"Decompresses given bzip2 archives, or bzip2-compressed standard input to standard output. By default, it will replace the input files unless told otherwise.",GNU GPLv2
 bzcat,,1,busybox,,arc,,,Decompresses a given bzip2 archive to standard output. Functions like bunzip2 -c.,GNU GPLv2
 bzip2,,1,busybox,,arc,,,"Compresses given files or standard input into a bzip2 archive. By default, it will replace the input files unless told otherwise.",GNU GPLv2
 c++filt,,1,bundled,GNU Binutils,dev,GNU c++filt,,,GNU GPLv3
 cal,,1,busybox,,gen,,,,GNU GPLv2
 cat,,0,busybox,,txt,,,"Used for concatenating (combining) files, providing a standard output for printing or writing to a file. When its output is not directed, it prints the result.",GNU GPLv2
+chattr,,1,bundled,e2fsprogs,dsk,chattr,,,GNU GPLv2 + LGPLv2
 chgrp,,1,busybox,,usr,,,Changes the group owner of any given files with the given group name or ID.,GNU GPLv2
 chmod,,1,busybox,,usr,,,"Changes one or more file mode bits of any given files, either with an octal number representing the mode's bit pattern or symbolic representations for a specific change. It changes how files can be accessed - can it be read, written, or executed as a program.",GNU GPLv2
 chown,,1,busybox,,usr,,,Changes the user and/or group owner of any given files to the given user and group names or IDs.,GNU GPLv2
@@ -43,6 +46,7 @@ cut,,1,busybox,,txt,,,,GNU GPLv2
 date,,0,busybox,,gen,,,,GNU GPLv2
 dc,,1,busybox,,gen,,,,GNU GPLv2
 dd,,0,busybox,,dsk,,,,GNU GPLv2
+debugfs,,1,bundled,e2fsprogs,dsk,debugfs,,,GNU GPLv2 + LGPLv2
 delgroup,,1,busybox,,usr,,,Deletes the given group or removes the given user from the given group.,GNU GPLv2
 deluser,,1,busybox,,usr,,,Deletes the given user.,GNU GPLv2
 df,,0,busybox,,dsk,,,,GNU GPLv2
@@ -52,7 +56,19 @@ dirname,,1,busybox,,gen,,,,GNU GPLv2
 dmesg,,1,busybox,,sys,,,,GNU GPLv2
 dos2unix,,1,busybox,,txt,,,Converts a text file from using DOS-style line breaks (carriage return + line feed) to using Unix-style line breaks (line feed).,GNU GPLv2
 du,,1,busybox,,dsk,,,,GNU GPLv2
+dumpe2fs,,1,bundled,e2fsprogs,dsk,dumpe2fs,,,GNU GPLv2 + LGPLv2
 dwp,,1,bundled,GNU Binutils,dev,GNU dwp,,,GNU GPLv3
+e2freefrag,,1,bundled,e2fsprogs,dsk,e2freefrag,,,GNU GPLv2 + LGPLv2
+e2fsck,,1,bundled,e2fsprogs,dsk,e2fsck,,,GNU GPLv2 + LGPLv2
+e2image,,1,bundled,e2fsprogs,dsk,e2image,,,GNU GPLv2 + LGPLv2
+e2initrd_helper,,1,bundled,e2fsprogs,dsk,e2initrd_helper,,,GNU GPLv2 + LGPLv2
+e2label,,1,bundled,e2fsprogs,dsk,e2label,,,GNU GPLv2 + LGPLv2
+e2mmpstatus,,1,bundled,e2fsprogs,dsk,e2mmpstatus,,,GNU GPLv2 + LGPLv2
+e2scrub,,1,bundled,e2fsprogs,dsk,e2scrub,,,GNU GPLv2 + LGPLv2
+e2scrub_all,,1,bundled,e2fsprogs,dsk,e2scrub_all,,,GNU GPLv2 + LGPLv2
+e2undo,,1,bundled,e2fsprogs,dsk,e2undo,,,GNU GPLv2 + LGPLv2
+e4crypt,,1,bundled,e2fsprogs,dsk,e4crypt,,,GNU GPLv2 + LGPLv2
+e4defrag,,1,bundled,e2fsprogs,dsk,e4defrag,,,GNU GPLv2 + LGPLv2
 echo,,0,busybox,,gen,,,,GNU GPLv2
 ed,,1,busybox,,dev,,,,GNU GPLv2
 egrep,,1,busybox,,txt,,,,GNU GPLv2
@@ -70,9 +86,15 @@ fdformat,,1,busybox,,dsk,,,,GNU GPLv2
 fdisk,,1,busybox,,dsk,,,,GNU GPLv2
 fgrep,,1,busybox,,txt,,,,GNU GPLv2
 file,,1,bundled,file,gen,,,Identifies and reports the type of data contained in a file.,BSD 2-Clause (Darwin)
+filefrag,,1,bundled,e2fsprogs,dsk,filefrag,,,GNU GPLv2 + LGPLv2
 find,,1,busybox,,gen,,,,GNU GPLv2
+findfs,,1,bundled,e2fsprogs,dsk,findfs,,,GNU GPLv2 + LGPLv2
 fold,,1,busybox,,txt,,,,GNU GPLv2
 free,,0,busybox,,sys,,,"Reports the amount of total, used and free system physical memory and (if available) swap memory, largely acting as a frontend to /proc/meminfo. It produces a table containing the total (MemTotal/SwapTotal), used (total - available), free (MemFree/SwapFree), shared (Shmem), buffers (Buffers) + cache (Cached/SReclaimable), and available (MemAvailable) memory. All values are in kibibytes (KiB).",GNU GPLv2
+fsck,,1,bundled,e2fsprogs,dsk,fsck,,,GNU GPLv2 + LGPLv2
+fsck.ext2,,1,bundled,e2fsprogs,dsk,fsck.ext2,,,GNU GPLv2 + LGPLv2
+fsck.ext3,,1,bundled,e2fsprogs,dsk,fsck.ext3,,,GNU GPLv2 + LGPLv2
+fsck.ext4,,1,bundled,e2fsprogs,dsk,fsck.ext4,,,GNU GPLv2 + LGPLv2
 ftp,,1,bundled,tnftp,net,,,An FTP client for remote file transfer.,BSD 2-Clause
 ftpget,,1,busybox,,net,,,,GNU GPLv2
 ftpput,,1,busybox,,net,,,,GNU GPLv2
@@ -114,8 +136,10 @@ ln,,0,busybox,,dsk,,,"Creates a hard or symbolic link to a given target file or 
 loadkmap,,1,busybox,,sys,,,,GNU GPLv2
 login,,1,busybox,,usr,,,"Shows a login prompt and creates a new user session once completed. If a user was already logged in, their session will be replaced upon login's completion.",GNU GPLv2
 logname,,1,busybox,,usr,,,Prints the current user's name. Functions similarly to whoami but uses utmp as its source.,GNU GPLv2
+logsave,,1,bundled,e2fsprogs,gen,logsave,,,GNU GPLv2 + LGPLv2
 losetup,,1,busybox,,dsk,,,,GNU GPLv2
 ls,,0,busybox,,gen,,,Lists the contents of the current or a target directory.,GNU GPLv2
+lsattr,,1,bundled,e2fsprogs,dsk,lsattr,,,GNU GPLv2 + LGPLv2
 lsblk,,0,busybox,,dsk,,,"Lists information about all or the specified block devices. By default, it produces a table containing the device name, major number (driver associated with device), minor number (device number for the given driver), device type, whether the device is read only (RO), and its mountpoint (if mounted).",GNU GPLv2
 lscpu,,1,bundled,util-linux,sys,lscpu,,,GNU GPLv2
 lsof,,1,busybox,,pro,,,"Lists all files presently opened on the system, showing which processes have what open.",GNU GPLv2
@@ -135,9 +159,14 @@ mdev,,0,busybox,,sys,,,,GNU GPLv2
 mg,,1,bundled,Mg,dev,,emacs,A text editor with Emacs-style keybinds and buffers.,Unlicense
 micropython,,1,bundled,MicroPython,dev,,"python, python3","A Python implementation intended for microcontrollers, embedded systems and other constrained platforms. It implements Python 3.4 syntax with select keywords and features from later versions. It is capable of installing and managing mip modules from micropython-lib.",MIT
 mkdir,,0,busybox,,gen,,,Creates a directory at the given directory path or in the current directory with a given name without a path.,GNU GPLv2
+mke2fs,,1,bundled,e2fsprogs,dsk,mke2fs,,,GNU GPLv2 + LGPLv2
 mkfifo,,1,busybox,,gen,,,,GNU GPLv2
 mkfs.ext2,,1,busybox,,dsk,,mke2fs,Creates an ext2 file system on the given device or image file.,GNU GPLv2
+mkfs.ext2,,1,bundled,e2fsprogs,dsk,mkfs.ext2,,,GNU GPLv2 + LGPLv2
+mkfs.ext3,,1,bundled,e2fsprogs,dsk,mkfs.ext3,,,GNU GPLv2 + LGPLv2
+mkfs.ext4,,1,bundled,e2fsprogs,dsk,mkfs.ext4,,,GNU GPLv2 + LGPLv2
 mkfs.vfat,,1,busybox,,dsk,,mkdosfs,Creates a FAT32 file system on the given device or image file. The device or image will be readable with Windows 95 OSR2 or newer.,GNU GPLv2
+mklost+found,,1,bundled,e2fsprogs,dsk,mklost+found,,,GNU GPLv2 + LGPLv2
 mknod,,1,busybox,,dsk,,,,GNU GPLv2
 mkpasswd,,1,busybox,,usr,,,"Prints a hash for the given or prompted password. You can optionally specify the encryption type (DES, MD5, SHA256, SHA512 and yescrypt) and specify a salt to add some 'randomness' to the hash. This BusyBox implementation functions the same as cryptpw.",GNU GPLv2
 mkswap,,1,busybox,,dsk,,,Used to set up a Linux swap area on a given partition or file. It will destroy any data present on the target partition or file.,GNU GPLv2
@@ -182,6 +211,7 @@ readelf,,1,bundled,GNU Binutils,dev,GNU readelf,,,GNU GPLv3
 readlink,,1,busybox,,dsk,,,,GNU GPLv2
 readtags,,1,bundled,Universal Ctags,dev,readtags,,"A tool for listing, filtering, sorting and printing entries from a ctags tags file without needing a compatible editor.",GNU GPLv2
 realpath,,1,busybox,,gen,,,,GNU GPLv2
+resize2fs,,1,bundled,e2fsprogs,dsk,resize2fs,,,GNU GPLv2 + LGPLv2
 rev,,0,busybox,,txt,,,,GNU GPLv2
 rm,,0,busybox,,gen,,,,GNU GPLv2
 rmdir,,1,busybox,,gen,,,,GNU GPLv2
@@ -252,6 +282,7 @@ true,,0,busybox,,gen,,,,GNU GPLv2
 truncate,,1,busybox,,gen,,,,GNU GPLv2
 tsort,,1,busybox,,txt,,,,GNU GPLv2
 tty,,1,busybox,,sys,,,,GNU GPLv2
+tune2fs,,1,bundled,e2fsprogs,dsk,tune2fs,,,GNU GPLv2 + LGPLv2
 udhcpc,,1,busybox,,net,,,,GNU GPLv2
 umount,,0,busybox,,dsk,,,,GNU GPLv2
 uname,,0,busybox,,sys,,,,GNU GPLv2
@@ -267,7 +298,8 @@ unzip,,1,busybox,,arc,,,"Lists or extracts files from a given ZIP archive, with 
 uptime,,1,busybox,,sys,,,,GNU GPLv2
 users,,1,busybox,,usr,,,Prints the users currently logged on.,GNU GPLv2
 usleep,,1,busybox,,gen,,,,GNU GPLv2
-uuidgen,,1,busybox,,gen,,,"Generates and prints a universally unique identifier (UUID), a 128-bit value for identification that is practically guaranteed to be unique.",GNU GPLv2
+uuidgen,!usr/sbin/e2image,1,busybox,,gen,,,"Generates and prints a universally unique identifier (UUID), a 128-bit value for identification that is practically guaranteed to be unique.",GNU GPLv2
+uuidgen,usr/sbin/e2image,1,bundled,e2fsprogs,gen,uuidgen,,,GNU GPLv2 + LGPLv2
 vi,,0,busybox,,dev,,,,GNU GPLv2
 view,,1,bundled,Vim,dev,view,,Opens the Vim editor in read-only mode. This disables its ability to write.,Vim
 vim,,1,bundled,Vim,dev,Vi IMproved,,"An improved vi-style text editor that is highly extensible. Compared to regular vi, Vim supports syntax highlighting, folding, multiple buffers/windows/tabs, spell-checking, macros, undo trees and an scripting language called Vimscript. It also has a plugin system.",Vim
