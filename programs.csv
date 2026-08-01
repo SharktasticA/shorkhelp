@@ -16,8 +16,8 @@ base64,,1,busybox,,txt,,,Encodes text to Base64 or decodes Base64 to text from a
 basename,,0,busybox,,gen,,,"Extracts the file name and/or the extension from a given path. If just a directory path is given, it will extract both. If a file extension is also given, it will extract the extension in addition to the directory path if it matches. For example, running ""basename /etc/resolv.conf"" will return ""resolv.conf""; running ""basename /etc/resolv.conf .conf"" will return ""resolv"". ",GNU GPLv2
 bc,,1,busybox,,gen,,,"An arbitrary precision calculator and language. It launches into an interactive mode that allows you to enter expressions, with an optional math library for functions like sqrt and sin, or you pipe an expression via standard input to get an immediate, non-interactive result.",GNU GPLv2
 beep,,1,busybox,,sys,,,"Allows you to produce a tone or a chain of tones using the PC speaker. You can set the frequency (Hz), length (ms), delay before playing (ms) and how many times it should repeat, and chain multiple tones together in a single command.",GNU GPLv2
-blkid,!usr/sbin/e2image,1,busybox,,dsk,,,Prints the universally unique identifier (UUID) and filesystem type for all found filesystems or for a given partition.,GNU GPLv2
-blkid,usr/sbin/e2image,1,bundled,e2fsprogs,dsk,blkid,,,GNU GPLv2 + LGPLv2
+blkid,!/usr/sbin/e2image,1,busybox,,dsk,,,Prints the universally unique identifier (UUID) and filesystem type for all found filesystems or for a given partition.,GNU GPLv2
+blkid,/usr/sbin/e2image,1,bundled,e2fsprogs,dsk,blkid,,,GNU GPLv2 + LGPLv2
 bunzip2,,1,busybox,,arc,,,"Decompresses given bzip2 archives, or bzip2-compressed standard input to standard output. By default, it will replace the input files unless told otherwise.",GNU GPLv2
 bzcat,,1,busybox,,arc,,,Decompresses a given bzip2 archive to standard output. Functions like bunzip2 -c.,GNU GPLv2
 bzip2,,1,busybox,,arc,,,"Compresses given files or standard input into a bzip2 archive. By default, it will replace the input files unless told otherwise.",GNU GPLv2
@@ -55,6 +55,8 @@ diff,,1,busybox,,dev,,,Compares two files line-by-line and outputs a difference 
 dirname,,1,busybox,,gen,,,,GNU GPLv2
 dmesg,,1,busybox,,sys,,,,GNU GPLv2
 dos2unix,,1,busybox,,txt,,,Converts a text file from using DOS-style line breaks (carriage return + line feed) to using Unix-style line breaks (line feed).,GNU GPLv2
+dosfsck,,1,bundled,dosfstools,dsk,dosfsck,,,GNU GPLv3
+dosfslabel,,1,bundled,dosfstools,dsk,dosfslabel,,,GNU GPLv3
 du,,1,busybox,,dsk,,,,GNU GPLv2
 dumpe2fs,,1,bundled,e2fsprogs,dsk,dumpe2fs,,,GNU GPLv2 + LGPLv2
 dwp,,1,bundled,GNU Binutils,dev,GNU dwp,,,GNU GPLv3
@@ -81,6 +83,7 @@ expr,,0,busybox,,gen,,,,GNU GPLv2
 factor,,1,busybox,,gen,,,,GNU GPLv2
 fallocate,,1,busybox,,dsk,,,"Preallocates disk space for a file without writing data to it. It is useful for reserving space for something without needing to write zeros or random data (as you would with dd) - for example, creating swap files, preallocating space for a database or log, or testing behaviour with large files.",GNU GPLv2
 false,,1,busybox,,gen,,,,GNU GPLv2
+fatlabel,,1,bundled,dosfstools,dsk,fatlabel,,,GNU GPLv3
 fdflush,,1,busybox,,dsk,,,,GNU GPLv2
 fdformat,,1,busybox,,dsk,,,,GNU GPLv2
 fdisk,,1,busybox,,dsk,,,,GNU GPLv2
@@ -95,6 +98,9 @@ fsck,,1,bundled,e2fsprogs,dsk,fsck,,,GNU GPLv2 + LGPLv2
 fsck.ext2,,1,bundled,e2fsprogs,dsk,fsck.ext2,,,GNU GPLv2 + LGPLv2
 fsck.ext3,,1,bundled,e2fsprogs,dsk,fsck.ext3,,,GNU GPLv2 + LGPLv2
 fsck.ext4,,1,bundled,e2fsprogs,dsk,fsck.ext4,,,GNU GPLv2 + LGPLv2
+fsck.fat,,1,bundled,dosfstools,dsk,fsck.fat,,,GNU GPLv3
+fsck.msdos,,1,bundled,dosfstools,dsk,fsck.msdos,,,GNU GPLv3
+fsck.vfat,,1,bundled,dosfstools,dsk,fsck.vfat,,,GNU GPLv3
 ftp,,1,bundled,tnftp,net,,,An FTP client for remote file transfer.,BSD 2-Clause
 ftpget,,1,busybox,,net,,,,GNU GPLv2
 ftpput,,1,busybox,,net,,,,GNU GPLv2
@@ -159,13 +165,19 @@ mdev,,0,busybox,,sys,,,,GNU GPLv2
 mg,,1,bundled,Mg,dev,,emacs,A text editor with Emacs-style keybinds and buffers.,Unlicense
 micropython,,1,bundled,MicroPython,dev,,"python, python3","A Python implementation intended for microcontrollers, embedded systems and other constrained platforms. It implements Python 3.4 syntax with select keywords and features from later versions. It is capable of installing and managing mip modules from micropython-lib.",MIT
 mkdir,,0,busybox,,gen,,,Creates a directory at the given directory path or in the current directory with a given name without a path.,GNU GPLv2
-mke2fs,,1,bundled,e2fsprogs,dsk,mke2fs,,,GNU GPLv2 + LGPLv2
+mkdosfs,!/sbin/fatlabel,1,busybox,,dsk,,,Creates a FAT32 file system on the given device or image file. The device or image will be readable with Windows 95 OSR2 or newer.,GNU GPLv2
+mkdosfs,/sbin/fatlabel,1,bundled,dosfstools,dsk,mkdosfs,,,GNU GPLv3
+mke2fs,!/usr/sbin/e2image,1,busybox,,dsk,,,Creates an ext2 file system on the given device or image file.,GNU GPLv2
+mke2fs,/usr/sbin/e2image,1,bundled,e2fsprogs,dsk,mke2fs,,,GNU GPLv2 + LGPLv2
 mkfifo,,1,busybox,,gen,,,,GNU GPLv2
-mkfs.ext2,,1,busybox,,dsk,,mke2fs,Creates an ext2 file system on the given device or image file.,GNU GPLv2
-mkfs.ext2,,1,bundled,e2fsprogs,dsk,mkfs.ext2,,,GNU GPLv2 + LGPLv2
+mkfs.ext2,!/usr/sbin/e2image,1,busybox,,dsk,,,Creates an ext2 file system on the given device or image file.,GNU GPLv2
+mkfs.ext2,/usr/sbin/e2image,1,bundled,e2fsprogs,dsk,mkfs.ext2,,,GNU GPLv2 + LGPLv2
 mkfs.ext3,,1,bundled,e2fsprogs,dsk,mkfs.ext3,,,GNU GPLv2 + LGPLv2
 mkfs.ext4,,1,bundled,e2fsprogs,dsk,mkfs.ext4,,,GNU GPLv2 + LGPLv2
-mkfs.vfat,,1,busybox,,dsk,,mkdosfs,Creates a FAT32 file system on the given device or image file. The device or image will be readable with Windows 95 OSR2 or newer.,GNU GPLv2
+mkfs.fat,,1,bundled,dosfstools,dsk,mkfs.fat,,,GNU GPLv3
+mkfs.msdos,,1,bundled,dosfstools,dsk,mkfs.msdos,,,GNU GPLv3
+mkfs.vfat,!/sbin/fatlabel,1,busybox,,dsk,,,Creates a FAT32 file system on the given device or image file. The device or image will be readable with Windows 95 OSR2 or newer.,GNU GPLv2
+mkfs.vfat,/sbin/fatlabel,1,bundled,dosfstools,dsk,mkfs.vfat,,,GNU GPLv3
 mklost+found,,1,bundled,e2fsprogs,dsk,mklost+found,,,GNU GPLv2 + LGPLv2
 mknod,,1,busybox,,dsk,,,,GNU GPLv2
 mkpasswd,,1,busybox,,usr,,,"Prints a hash for the given or prompted password. You can optionally specify the encryption type (DES, MD5, SHA256, SHA512 and yescrypt) and specify a salt to add some 'randomness' to the hash. This BusyBox implementation functions the same as cryptpw.",GNU GPLv2
@@ -174,7 +186,7 @@ mktemp,,1,busybox,,gen,,,,GNU GPLv2
 more,,1,busybox,,txt,,,,GNU GPLv2
 mount,,0,busybox,,dsk,,,,GNU GPLv2
 mountpoint,,1,busybox,,dsk,,,,GNU GPLv2
-mpg321,,1,bundled,mpg321,fun,,mpg123,A free MP3 player designed to be a drop-in replacement for the non-free mpg123.,GNU GPLv2
+mpg321,,1,bundled,mpg321,fun,mpg123,,A free MP3 player designed to be a drop-in replacement for the non-free mpg123.,GNU GPLv2
 mt,,1,bundled,mt-st,dsk,,,"Controls a magnetic tape drive. It provides typical drive operations such as rewinding, skipping and ejecting.",GNU GPLv2
 mv,,0,busybox,,gen,,,,GNU GPLv2
 nano,,1,bundled,GNU nano,dev,,,A Pico-style text editor.,GNU GPLv3
@@ -298,8 +310,8 @@ unzip,,1,busybox,,arc,,,"Lists or extracts files from a given ZIP archive, with 
 uptime,,1,busybox,,sys,,,,GNU GPLv2
 users,,1,busybox,,usr,,,Prints the users currently logged on.,GNU GPLv2
 usleep,,1,busybox,,gen,,,,GNU GPLv2
-uuidgen,!usr/sbin/e2image,1,busybox,,gen,,,"Generates and prints a universally unique identifier (UUID), a 128-bit value for identification that is practically guaranteed to be unique.",GNU GPLv2
-uuidgen,usr/sbin/e2image,1,bundled,e2fsprogs,gen,uuidgen,,,GNU GPLv2 + LGPLv2
+uuidgen,!/usr/sbin/e2image,1,busybox,,gen,,,"Generates and prints a universally unique identifier (UUID), a 128-bit value for identification that is practically guaranteed to be unique.",GNU GPLv2
+uuidgen,/usr/sbin/e2image,1,bundled,e2fsprogs,gen,uuidgen,,,GNU GPLv2 + LGPLv2
 vi,,0,busybox,,dev,,,,GNU GPLv2
 view,,1,bundled,Vim,dev,view,,Opens the Vim editor in read-only mode. This disables its ability to write.,Vim
 vim,,1,bundled,Vim,dev,Vi IMproved,,"An improved vi-style text editor that is highly extensible. Compared to regular vi, Vim supports syntax highlighting, folding, multiple buffers/windows/tabs, spell-checking, macros, undo trees and an scripting language called Vimscript. It also has a plugin system.",Vim
