@@ -1107,9 +1107,9 @@ void printSoftwareSHORKUTILS(void)
 
 void printOtherReport(void)
 {
-    char msgBody[6144];
+    char msgBody[8192];
 
-    snprintf(msgBody, 6144, "The after-build report is a log generated after SHORK 486 finished compiling. It is used to confirm whether the build completed as intended, and it should provide all the information needed to reproduce the build.\n\n");
+    snprintf(msgBody, 8192, "The after-build report is a log generated after SHORK 486 finished compiling. It is used to confirm whether the build completed as intended, and it should provide all the information needed to reproduce the build.\n\n");
 
     FILE *stream = fopen(BUILD_REPORT_PATH, "r");
     if (stream)
