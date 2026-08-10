@@ -1085,6 +1085,9 @@ void printSoftwareSHORKUTILS(void)
     char shorkutilStr[strSize];
     int pos = 0;
 
+    if (isProgramInstalled("shorkbin", 1))
+        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkbin\033[%sm\nAn ASCII text/8-bit binary converter. Modelled after Coreutils like \033[%smbase32\033[%sm, it plugs a hole for such a converter in the base command set. Its functionality is also accessible as \033[%smbin2text\033[%sm and \033[%smtext2bin\033[%sm.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+
     if (isProgramInstalled("shorkdir", 1))
         pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkdir\033[%sm\nA terminal-based file browser. It can surf the file system with either Vim-like keybinds, WASD or arrow keys, open text-based files with an installed editor of your choice, and inspect a file (if \033[%smfile\033[%sm is installed).\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
 
