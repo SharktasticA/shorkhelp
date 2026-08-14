@@ -317,6 +317,8 @@ unzip,,1,busybox,,arc,,,"Lists or extracts files from a given ZIP archive, with 
 uptime,,1,busybox,,sys,,,,GNU GPLv2
 users,,1,busybox,,usr,,,Prints the users currently logged on.,GNU GPLv2
 usleep,,1,busybox,,gen,,,,GNU GPLv2
+uudecode,,1,busybox,,txt,,,,GNU GPLv2
+uuencode,,1,busybox,,txt,,,,GNU GPLv2
 uuidgen,!/usr/sbin/e2image,1,busybox,,gen,,,"Generates and prints a universally unique identifier (UUID), a 128-bit value for identification that is practically guaranteed to be unique.",GNU GPLv2
 uuidgen,/usr/sbin/e2image,1,bundled,e2fsprogs,gen,uuidgen,,,GNU GPLv2 + LGPLv2
 vi,,0,busybox,,dev,,,,GNU GPLv2
