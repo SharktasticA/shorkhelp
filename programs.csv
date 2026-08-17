@@ -25,6 +25,7 @@ bzip2,,1,busybox,,arc,,,"Compresses given files or standard input into a bzip2 a
 c++filt,,1,bundled,GNU Binutils,dev,GNU c++filt,,,GNU GPLv3
 cal,,1,busybox,,gen,,,,GNU GPLv2
 cat,,0,busybox,,txt,,,"Used for concatenating (combining) files, providing a standard output for printing or writing to a file. When its output is not directed, it prints the result.",GNU GPLv2
+cfdisk,,1,bundled,util-linux,dsk,cfdisk,,,GNU GPLv2
 chattr,,1,bundled,e2fsprogs,dsk,chattr,,,GNU GPLv2 + LGPLv2
 chgrp,,1,busybox,,usr,,,Changes the group owner of any given files with the given group name or ID.,GNU GPLv2
 chmod,,1,busybox,,usr,,,"Changes one or more file mode bits of any given files, either with an octal number representing the mode's bit pattern or symbolic representations for a specific change. It changes how files can be accessed - can it be read, written, or executed as a program.",GNU GPLv2
@@ -87,7 +88,8 @@ false,,1,busybox,,gen,,,,GNU GPLv2
 fatlabel,,1,bundled,dosfstools,dsk,fatlabel,,,GNU GPLv3
 fdflush,,1,busybox,,dsk,,,,GNU GPLv2
 fdformat,,1,busybox,,dsk,,,,GNU GPLv2
-fdisk,,1,busybox,,dsk,,,,GNU GPLv2
+fdisk,/sbin/fdisk,1,busybox,,dsk,,,,GNU GPLv2
+fdisk,/usr/sbin/fdisk,1,bundled,util-linux,dsk,fdisk,,,GNU GPLv2
 fgrep,,1,busybox,,txt,,,,GNU GPLv2
 file,,1,bundled,file,gen,,,Identifies and reports the type of data contained in a file.,BSD 2-Clause (Darwin)
 filefrag,,1,bundled,e2fsprogs,dsk,filefrag,,,GNU GPLv2 + LGPLv2
