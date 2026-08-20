@@ -51,6 +51,7 @@ dd,,0,busybox,,dsk,,,,GNU GPLv2
 debugfs,,1,bundled,e2fsprogs,dsk,debugfs,,,GNU GPLv2 + LGPLv2
 delgroup,,1,busybox,,usr,,,Deletes the given group or removes the given user from the given group.,GNU GPLv2
 deluser,,1,busybox,,usr,,,Deletes the given user.,GNU GPLv2
+depmod,,1,busybox,,sys,,,,GNU GPLv2
 df,,0,busybox,,dsk,,,,GNU GPLv2
 dialog,,1,bundled,dialog,dev,,,"Allows you to create and display dialog boxes from a shell script. dialog includes the following boxes: buildlist, calendar, checklist, dselect, editbox, form, fselect, gauge, infobox, inputbox, inputmenu, menu, mixedform, mixedgauge, msgbox, passwordbox, passwordform, pause, prgbox, programbox, progressbox, radiolist, rangebox, tailbox, tailboxbg, textbox, timebox, treeview and yesno. The SHORK 486 Build Configurator is dialog based, and the Linux kernel's lxdialog is a distant descendant of dialog.",GNU LGPLv2.1
 diff,,1,busybox,,dev,,,Compares two files line-by-line and outputs a difference listing between them. The result can be used as a patch file for the patch utility.,GNU GPLv2
@@ -130,6 +131,7 @@ id,,1,busybox,,usr,,,"Prints the current user's user ID, primary group ID, and a
 ifconfig,,1,busybox,,net,,,,GNU GPLv2
 indent,,1,bundled,GNU Indent,dev,GNU Indent,,"A C code formatter. It can format a given C source file to a desired indentation and styling rule (GNU style by default), or convert between different C formatting conventions (for example, from GNU style to K&R style).",GNU GPLv3
 init,,1,busybox,,sys,,,,GNU GPLv2
+insmod,,1,busybox,,sys,,,,GNU GPLv2
 install,,1,busybox,,gen,,,,GNU GPLv2
 iostat,,1,busybox,,sys,,,,GNU GPLv2
 ip,,1,busybox,,net,,,,GNU GPLv2
@@ -151,6 +153,7 @@ ls,,0,busybox,,gen,,,Lists the contents of the current or a target directory.,GN
 lsattr,,1,bundled,e2fsprogs,dsk,lsattr,,,GNU GPLv2 + LGPLv2
 lsblk,,0,busybox,,dsk,,,"Lists information about all or the specified block devices. By default, it produces a table containing the device name, major number (driver associated with device), minor number (device number for the given driver), device type, whether the device is read only (RO), and its mountpoint (if mounted).",GNU GPLv2
 lscpu,,1,bundled,util-linux,sys,lscpu,,,GNU GPLv2
+lsmod,,1,busybox,,sys,,,,GNU GPLv2
 lsof,,1,busybox,,pro,,,"Lists all files presently opened on the system, showing which processes have what open.",GNU GPLv2
 lspci,,1,busybox,,sys,,,"Lists all PCI buses and connected devices. By default, it produces a table containing the PCI bus number, device number for that bus, function number, PCI class code, vendor ID, and device ID. It can optionally also display the kernel driver utilising a given device.",GNU GPLv2
 lsscsi,,1,busybox,,sys,,,,GNU GPLv2
@@ -186,6 +189,8 @@ mknod,,1,busybox,,dsk,,,,GNU GPLv2
 mkpasswd,,1,busybox,,usr,,,"Prints a hash for the given or prompted password. You can optionally specify the encryption type (DES, MD5, SHA256, SHA512 and yescrypt) and specify a salt to add some 'randomness' to the hash. This BusyBox implementation functions the same as cryptpw.",GNU GPLv2
 mkswap,,1,busybox,,dsk,,,Used to set up a Linux swap area on a given partition or file. It will destroy any data present on the target partition or file.,GNU GPLv2
 mktemp,,1,busybox,,gen,,,,GNU GPLv2
+modinfo,,1,busybox,,sys,,,,GNU GPLv2
+modprobe,,1,busybox,,sys,,,,GNU GPLv2
 more,,1,busybox,,txt,,,,GNU GPLv2
 mount,,0,busybox,,dsk,,,,GNU GPLv2
 mountpoint,,1,busybox,,dsk,,,,GNU GPLv2
@@ -231,6 +236,7 @@ resize2fs,,1,bundled,e2fsprogs,dsk,resize2fs,,,GNU GPLv2 + LGPLv2
 rev,,0,busybox,,txt,,,,GNU GPLv2
 rm,,0,busybox,,gen,,,,GNU GPLv2
 rmdir,,1,busybox,,gen,,,,GNU GPLv2
+rmmod,,1,busybox,,sys,,,,GNU GPLv2
 route,,1,busybox,,net,,,,GNU GPLv2
 rview,,1,bundled,Vim,dev,rview,,"Opens the Vim editor in restricted and read-only mode. This disables its shell escapes, external commands and ability to write.",Vim
 rvim,,1,bundled,Vim,dev,rvim,,Opens the Vim editor in restricted mode. This disables its shell escapes and external commands.,Vim
