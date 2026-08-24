@@ -116,6 +116,18 @@ getopt,,1,busybox,,gen,,,,GNU GPLv2
 getty,,1,busybox,,usr,,,"Opens a TTY and prompts for a login, accepting a user name before invoking the login command to complete the rest of the login cycle.",GNU GPLv2
 gfortran,,1,bundled,GCC + musl,dev,Gfortran,,GCC's Fortran compiler.,GNU GPLv3 + GCC Runtime Library Exception
 git,,1,bundled,Git,dev,,,A distributed version control software system.,GNU GPLv2
+gpg,,1,bundled,GnuPG,chk,gpg,,,GNU GPLv3
+gpg-agent,,1,bundled,GnuPG,chk,gpg-agent,,,GNU GPLv3
+gpg-auth,,1,bundled,GnuPG,chk,gpg-auth,,,GNU GPLv3
+gpg-check-pattern,,1,bundled,GnuPG,chk,gpg-check-pattern,,,GNU GPLv3
+gpg-connect-agent,,1,bundled,GnuPG,chk,gpg-connect-agent,,,GNU GPLv3
+gpg-pair-tool,,1,bundled,GnuPG,chk,gpg-pair-tool,,,GNU GPLv3
+gpg-preset-passphrase,,1,bundled,GnuPG,chk,gpg-preset-passphrase,,,GNU GPLv3
+gpg-protect-tool,,1,bundled,GnuPG,chk,gpg-protect-tool,,,GNU GPLv3
+gpgconf,,1,bundled,GnuPG,chk,gpgconf,,,GNU GPLv3
+gpgsplit,,1,bundled,GnuPG,chk,gpgsplit,,,GNU GPLv3
+gpgtar,,1,bundled,GnuPG,chk,gpgtar,,,GNU GPLv3
+gpgv,,1,bundled,GnuPG,chk,gpgv,,,GNU GPLv3
 grep,,0,busybox,,txt,,,,GNU GPLv2
 gunzip,,1,busybox,,arc,,,"Decompresses given gzip archives, or gzip-compressed standard input to standard output. By default, it will replace the input files unless told otherwise.",GNU GPLv2
 gzip,,1,busybox,,arc,,,"Compresses given files or standard input into a gzip archive. By default, it will replace the input files unless told otherwise.",GNU GPLv2
@@ -136,6 +148,7 @@ install,,1,busybox,,gen,,,,GNU GPLv2
 iostat,,1,busybox,,sys,,,,GNU GPLv2
 ip,,1,busybox,,net,,,,GNU GPLv2
 joe,,1,bundled,Joe's Own Editor,dev,,,A WordStar-style text editor.,GNU GPLv2
+kbxutil,,1,bundled,GnuPG,chk,kbxutil,,,GNU GPLv3
 kill,,1,busybox,,pro,,,"Sends a signal to the process that matches the given process ID. By default, it will try to gracefully terminate the process, but a given signal number (such as 9 for an immediate kill) can be given as well.",GNU GPLv2
 killall,,1,busybox,,pro,,,"Sends a signal to all processes with a given name. By default, it will try to gracefully terminate the process, but a given signal number (such as 9 for an immediate kill) can be given as well.",GNU GPLv2
 ld,,1,bundled,GNU Binutils,dev,GNU linker,,,GNU GPLv3
@@ -200,6 +213,7 @@ mv,,0,busybox,,gen,,,,GNU GPLv2
 nano,,1,bundled,GNU nano,dev,,,A Pico-style text editor.,GNU GPLv3
 nasm,,1,bundled,NASM,dev,nasm,,"A portable x86 assembler. Compared to GNU assembler (as), NASM uses Intel-style syntax instead of AT&T-style. Note: if you build ELFs (relocatable objects), you will need a separate linker such as GNU linker (ld) to produce a usable binary from them.",BSD 2-Clause
 nc,,1,busybox,,net,,,,GNU GPLv2
+ncdu,,1,bundled,Ncdu,dsk,,,,MIT
 ndisasm,,1,bundled,NASM,dev,ndisasm,,"A portable x86 disassembler. Compared to GNU objdump, it can disassemble raw binary files with no header, symbol table or debug information present.",BSD 2-Clause
 netcat,,1,busybox,,net,,,,GNU GPLv2
 netstat,,1,busybox,,net,,,"Displays network statistics such as current network connections, network interfaces and routing tables.",GNU GPLv2
@@ -218,6 +232,8 @@ paste,,1,busybox,,txt,,,,GNU GPLv2
 patch,,1,busybox,,dev,,,"Applies a patch file to an original file to update it with its contents. A patch file contains a line-by-line difference listing between two files produced by diff, git diff, or similar.",GNU GPLv2
 pgrep,,1,busybox,,pro,,,Lists the process IDs for all processes that match the given regex pattern.,GNU GPLv2
 pidof,,1,busybox,,pro,,,Lists the process IDs for all processes that match the given name.,GNU GPLv2
+pinentry,,1,bundled,GnuPG,chk,pinentry,,,GNU GPLv3
+pinentry-tty,,1,bundled,GnuPG,chk,pinentry-tty,,,GNU GPLv3
 ping,,1,busybox,,net,,,,GNU GPLv2
 pkill,,1,busybox,,pro,,,"Sends a signal to any processes selected by the given regex pattern. By default, it will try to gracefully terminate the process, but a given signal number (such as 9 for an immediate kill) can be given as well.",GNU GPLv2
 pmap,,1,busybox,,pro,,,"Reports the memory map of a given process. It provides the amount of memory used, proportional set sizes (PSS), dirty pages, permissions on map (mode), and mappings (file, anon/allocated or stack). All memory values are in kilobytes (KB).",GNU GPLv2
@@ -339,6 +355,7 @@ vmstat,,1,busybox,,sys,,,"Reports system virtual memory, processes, CPU and I/O 
 volname,,1,busybox,,dsk,,,,GNU GPLv2
 w,,1,busybox,,usr,,,"Shows which users are logged in, what ttyX they are logged into, how long they have been idling, and when they first logged in. Functions like who -H, always showing column headers.",GNU GPLv2
 watch,,1,busybox,,pro,,,"Runs the given program periodically. By default, it will run every two seconds, unless a custom period is also given.",GNU GPLv2
+watchgnupg,,1,bundled,GnuPG,chk,watchgnupg,,,GNU GPLv3
 wc,,1,busybox,,txt,,,,GNU GPLv2
 wget,,1,busybox,,net,,,"A non-interactive internet file downloader. It is often used to simply download a file with a given URL, although it can also be used as a web spider.",GNU GPLv2
 whereis,,1,bundled,util-linux,gen,whereis,,"Locates the binary, source and manual page files for a given command.",GNU GPLv2

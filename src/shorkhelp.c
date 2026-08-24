@@ -947,18 +947,30 @@ void printCmdsProgsCats(void)
     combinedStr[0] = '\0';
     int pos = 0;
 
-    if (arcEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smArchival & compression\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, arcStr);
-    if (chkEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smChecksums & hashing\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, chkStr);
-    if (devEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smDevelopment & editors\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, devStr);
-    if (dskEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smDisks & filesystems\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, dskStr);
-    if (funEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smEntertainment\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, funStr);
-    if (genEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smGeneral\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, genStr);
-    if (netEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smNetworking & remote access\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, netStr);
-    if (proEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smProcesses & scheduling\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, proStr);
-    if (sysEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smSystem\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, sysStr);
-    if (txtEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smText processing\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, txtStr);
-    if (usrEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smUser management & permissions\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, usrStr);
-    if (ustEnabled) pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smUnsorted\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, ustStr);
+    if (arcEnabled)
+        pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smArchival & compression\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, arcStr);
+    if (devEnabled)
+        pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smDevelopment & editors\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, devStr);
+    if (dskEnabled)
+        pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smDisks & filesystems\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, dskStr);
+    if (funEnabled)
+        pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smEntertainment\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, funStr);
+    if (genEnabled)
+        pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smGeneral\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, genStr);
+    if (chkEnabled)
+        pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smHashing & encryption\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, chkStr);
+    if (netEnabled)
+        pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smNetworking & remote access\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, netStr);
+    if (proEnabled)
+        pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smProcesses & scheduling\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, proStr);
+    if (sysEnabled)
+        pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smSystem\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, sysStr);
+    if (txtEnabled)
+        pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smText processing\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, txtStr);
+    if (usrEnabled)
+        pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smUser management & permissions\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, usrStr);
+    if (ustEnabled)
+        pos += snprintf(combinedStr + pos, combinedSize - pos, "\033[%smUnsorted\033[%sm\n%s\n\n", COL_FOR_HEADING, COL_FOR_WHITE, ustStr);
 
     int lines = formatNewLines(combinedStr, TERM_SIZE.ws_col, NULL, 1);
     printTextScreen("Commands & programs list (categories)", combinedStr, lines, 1);
@@ -1033,7 +1045,7 @@ void printSoftwareProgOverview(int i)
     else if (strcmp(category, "dev") == 0)
         category = "development & editors";
     else if (strcmp(category, "chk") == 0)
-        category = "checksums & hashing";
+        category = "hashing & encryption";
     else if (strcmp(category, "net") == 0)
         category = "networking & remote access";
     else if (strcmp(category, "sys") == 0)
