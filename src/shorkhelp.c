@@ -70,7 +70,7 @@ int getOSName(void)
         {
             if (strncmp(buffer, "PRETTY_NAME=", 12) == 0)
             {
-                char *extract = extractFromPoint(buffer, sizeof(OS_NAME), '=', 1);
+                char *extract = extractFromPoint(buffer, sizeof(OS_NAME), '=');
                 strncpy(OS_NAME, extract, sizeof(OS_NAME) - 1);
                 OS_NAME[sizeof(OS_NAME) - 1] = '\0';
                 free(extract);
@@ -1193,7 +1193,7 @@ void showCmdRefMenu(void)
 
 
     // Prepare for multi-column menu
-    int colWidth = 16;
+    int colWidth = 21;
     int cols = TERM_SIZE.ws_col / (colWidth + 3);
     if (cols < 1) cols = 1;
     if (cols > PROG_ENTRIES_NO) cols = PROG_ENTRIES_NO;

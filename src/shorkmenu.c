@@ -5,6 +5,8 @@
     ## An interactive menu system for SHORK UTILITIES & ##
     ## SHORK ENTERTAINMENT                              ##
     ######################################################
+    ## Revision B                                       ##
+    ######################################################
     ## Licence: GNU GENERAL PUBLIC LICENSE Version 3    ##
     ######################################################
     ## Kali (sharktastica.co.uk)                        ##
@@ -29,11 +31,15 @@
 
 int AVAIL_HEIGHT;
 int BASE_ROW;
+char *COL_BAK_BAR = COL_BAK_BLUE;
+char *COL_BAK_MENU_MSG = COL_BAK_RESET;
 int COL_ENABLED = 1;
 char *COL_FOR_ARROW = COL_FOR_BOLD_RED;
+char *COL_FOR_BAR = COL_FOR_BOLD_WHITE;
 char *COL_FOR_CODE = COL_FOR_BOLD_RED;
 char *COL_FOR_CURSOR = COL_FOR_BOLD_CYAN;
 char *COL_FOR_HEADING = COL_FOR_BOLD_CYAN;
+char *COL_FOR_MENU_MSG = COL_FOR_CYAN;
 char *COL_FOR_OL = COL_FOR_GREEN;
 char *COL_FOR_SHORKUTIL = COL_FOR_BOLD_MAGENTA;
 int COMPACT = 0;
@@ -121,7 +127,7 @@ int getIntInput(char *prompt, int min, int max, int negativeIfInvalid)
 
         if (COL_ENABLED)
         {
-            printf("\033[%s;%sm", COL_FOR_BOLD_WHITE, COL_BAK_BLUE);
+            printf("\033[%s;%sm", COL_FOR_BAR, COL_BAK_BAR);
             for (int i = 0; i < TERM_SIZE.ws_col; i++) printf(" ");
             printf("\033[1G");
         }
@@ -350,7 +356,7 @@ void printFooter(char *footnote)
     if (COL_ENABLED)
     {
         printf("\033[%d;1H", TERM_SIZE.ws_row);
-        printf("\033[%s;%sm", COL_FOR_BOLD_WHITE, COL_BAK_BLUE);
+        printf("\033[%s;%sm", COL_FOR_BAR, COL_BAK_BAR);
         int len = 0;
         if (footnote)
             len = printf("%s", footnote);
@@ -375,7 +381,7 @@ void printFooter(char *footnote)
 void printHeader(char *title)
 {
     if (COL_ENABLED)
-        printf("\033[%s;%sm", COL_FOR_BOLD_WHITE, COL_BAK_BLUE);
+        printf("\033[%s;%sm", COL_FOR_BAR, COL_BAK_BAR);
 
     size_t titleLen = strlen(title);
     if (titleLen <= TERM_SIZE.ws_col) 
@@ -483,8 +489,10 @@ void printMenu(MenuItem *menu, int menuSize, char *msg, int cols, int colWidth, 
         if (adjustedBaseRow < 1) adjustedBaseRow = 1;
 
         // Print message
-        if (cursorYPrev == 0)
+        if (*cursorYPrev == 0)
         {
+            if (COL_ENABLED)
+                printf("\033[%s;%sm", COL_FOR_MENU_MSG, COL_BAK_MENU_MSG);
             char *currPos = msgBuffer;
             for (int i = 0; i < msgLines; i++)
             {
@@ -513,6 +521,9 @@ void printMenu(MenuItem *menu, int menuSize, char *msg, int cols, int colWidth, 
             }
             else
                 printf("\n");
+
+            if (COL_ENABLED)
+                printf("\033[%sm", COL_RESET);
         }
 
         free(msgBuffer);
@@ -522,15 +533,21 @@ void printMenu(MenuItem *menu, int menuSize, char *msg, int cols, int colWidth, 
 
     // Viewport offset and clamping for current row cursor
     int offset = (*cursorY - 1) - (adjustedAvailHeight / 2);
-    if (offset < 0) offset = 0;
-    if (offset > rows - adjustedAvailHeight) offset = rows - adjustedAvailHeight;
-    if (offset < 0) offset = 0;
+    if (offset < 0)
+        offset = 0;
+    if (offset > rows - adjustedAvailHeight)
+        offset = rows - adjustedAvailHeight;
+    if (offset < 0)
+        offset = 0;
 
     // Viewport offset and clamping for previous row cursor
     int prevOffset = (*cursorYPrev - 1) - (adjustedAvailHeight / 2);
-    if (prevOffset < 0) prevOffset = 0;
-    if (prevOffset > rows - adjustedAvailHeight) prevOffset = rows - adjustedAvailHeight;
-    if (prevOffset < 0) prevOffset = 0;
+    if (prevOffset < 0)
+        prevOffset = 0;
+    if (prevOffset > rows - adjustedAvailHeight)
+        prevOffset = rows - adjustedAvailHeight;
+    if (prevOffset < 0)
+        prevOffset = 0;
 
 
 
@@ -634,6 +651,7 @@ void printMenu(MenuItem *menu, int menuSize, char *msg, int cols, int colWidth, 
  */
 void printTextScreen(char *title, char *text, int totalLines, int pageScroll)
 {
+    clearScreen();
     printHeader(title);
     printFooter("[jk] Scroll [q] Back");
 
@@ -716,7 +734,7 @@ int printYesNoScreen(char *title, char *prompt)
     int running = 1;
     int cursorX = 1;
     int cursorY = 2;
-    int cursorXPrev = 0;
+    int cursorXPrev = 1;
     int cursorYPrev = 0;
     int fullRedraw = 1;
 
@@ -850,7 +868,8 @@ void showCursor(void)
  */
 void showDialog(char *message, int width)
 {
-    if (width > TERM_SIZE.ws_col - 6) width = TERM_SIZE.ws_col - 6;
+    if (width > TERM_SIZE.ws_col - 6)
+        width = TERM_SIZE.ws_col - 6;
     
     // Modify message to fit the given width
     size_t msgLen = strlen(message) + 1;
@@ -867,13 +886,14 @@ void showDialog(char *message, int width)
     if (COL_ENABLED) 
     {
         // Set dialog console colours
-        printf("\033[%s;%sm", COL_FOR_WHITE, COL_BAK_BLUE);
+        printf("\033[%s;%sm", COL_FOR_BAR, COL_BAK_BAR);
         pad = ' ';
     }
 
     // Print top border
     printf("\x1b[%d;%dH", startRow, startCol);
-    for (int j = 0; j < width + 4; j++) putchar(pad);
+    for (int j = 0; j < width + 4; j++)
+        putchar(pad);
 
     // Print message
     char *currPos = buf;
@@ -900,14 +920,17 @@ void showDialog(char *message, int width)
 
         printf("%c ", pad);
         printf("%.*s", len, lineStart);
-        for (int j = len; j < width; j++) putchar(' ');
+        for (int j = len; j < width; j++)
+            putchar(' ');
         printf(" %c", pad);
     }
 
     // Print bottom border
     printf("\x1b[%d;%dH", startRow + 1 + lines, startCol);
-    for (int j = 0; j < width + 4; j++) putchar(pad);
+    for (int j = 0; j < width + 4; j++)
+        putchar(pad);
 
     // Reset console colour
-    if (COL_ENABLED) printf("\033[%sm", COL_RESET);
+    if (COL_ENABLED)
+        printf("\033[%sm", COL_RESET);
 }
