@@ -716,7 +716,9 @@ void printIntroStarted(void)
 
 void printCmdsProgs(void)
 {
-    char cmdsStr[MAX_CMD_STR * 12] = "\0";
+    char cmdsStr[MAX_CMD_STR * 13] = "\0";
+    const int cmdsStrSize = sizeof(cmdsStr);
+    int len = 0;
 
     for (int i = 0; i < PROG_ENTRIES_NO; i++)
     {
@@ -725,15 +727,18 @@ void printCmdsProgs(void)
         if (!cmd)
             continue;
 
-        // Ensure new cmd can fit in the string
-        size_t len = strlen(cmdsStr);
         size_t cmdLen = strlen(cmd);
-        if (len > 0 && len + 2 < MAX_CMD_STR)
-            strcat(cmdsStr, ", ");
+        size_t sepLen = (len > 0) ? 2 : 0;
+
+        // Ensure new cmd can fit in the string
+        if (len + sepLen + cmdLen >= cmdsStrSize)
+            break;
 
         // Append new cmd
-        if (len + 2 + cmdLen < MAX_CMD_STR)
-            strcat(cmdsStr, cmd);
+        if (sepLen)
+            strcat(cmdsStr, ", ");
+        strcat(cmdsStr, cmd);
+        len += sepLen + cmdLen;
     }
 
     int lines = formatNewLines(cmdsStr, TERM_SIZE.ws_col, NULL, 1);
