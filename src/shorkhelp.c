@@ -307,6 +307,13 @@ void printGuideDiscoveringHardware(void)
     if (isProgramInstalled("shorkfetch", 1))
     {
         char *shorkfetch = captureProgramOutput("shorkfetch -ne", 1536);
+        char *wrapped = colourWrap(shorkfetch, NULL, COL_FOR_CODE);
+        if (wrapped)
+        {
+            free(shorkfetch);
+            shorkfetch = wrapped;
+        }
+
         if (shorkfetch && shorkfetch[0] != '\0')
         {
             pos += snprintf(hardwareSize + pos, strSize - pos, "\033[%smOverall: shorkfetch\033[%sm\n", COL_FOR_HEADING, COL_FOR_WHITE);
@@ -319,13 +326,22 @@ void printGuideDiscoveringHardware(void)
             );
 
             pos += snprintf(hardwareSize + pos, strSize - pos, "Example output:\033[%sm\n%s", COL_FOR_CODE, shorkfetch);
+    
+            free(shorkfetch);
         }
     }
 
     if (isProgramInstalled("free", 1))
     {
-        char *free = captureProgramOutput("free -h", 512);
-        if (free && free[0] != '\0')
+        char *freeH = captureProgramOutput("free -h", 512);
+        char *wrapped = colourWrap(freeH, NULL, COL_FOR_CODE);
+        if (wrapped)
+        {
+            free(freeH);
+            freeH = wrapped;
+        }
+
+        if (freeH && freeH[0] != '\0')
         {
             pos += snprintf(hardwareSize + pos, strSize - pos, "\033[%smMemory: free\033[%sm\n", COL_FOR_HEADING, COL_FOR_WHITE);
 
@@ -335,13 +351,22 @@ void printGuideDiscoveringHardware(void)
                 COL_FOR_CODE,  COL_FOR_WHITE
             );
 
-            pos += snprintf(hardwareSize + pos, strSize - pos, "Example output:\033[%sm\n%s\n", COL_FOR_CODE, free);
+            pos += snprintf(hardwareSize + pos, strSize - pos, "Example output:\033[%sm\n%s\n", COL_FOR_CODE, freeH);
+    
+            free(freeH);
         }
     }
 
     if (isProgramInstalled("df", 1))
     {
         char *df = captureProgramOutput("df -h", 2048);
+        char *wrapped = colourWrap(df, NULL, COL_FOR_CODE);
+        if (wrapped)
+        {
+            free(df);
+            df = wrapped;
+        }
+
         if (df && df[0] != '\0')
         {
             pos += snprintf(hardwareSize + pos, strSize - pos, "\033[%smStorage: df\033[%sm\n", COL_FOR_HEADING, COL_FOR_WHITE);
@@ -353,12 +378,21 @@ void printGuideDiscoveringHardware(void)
             );
 
             pos += snprintf(hardwareSize + pos, strSize - pos, "Example output:\033[%sm\n%s\n", COL_FOR_CODE, df);
+    
+            free(df);
         }
     }
 
     if (isProgramInstalled("lsblk", 1))
     {
         char *lsblk = captureProgramOutput("lsblk", 1536);
+        char *wrapped = colourWrap(lsblk, NULL, COL_FOR_CODE);
+        if (wrapped)
+        {
+            free(lsblk);
+            lsblk = wrapped;
+        }
+
         if (lsblk && lsblk[0] != '\0')
         {
             pos += snprintf(hardwareSize + pos, strSize - pos, "\033[%smStorage: lsblk\033[%sm\n", COL_FOR_HEADING, COL_FOR_WHITE);
@@ -369,12 +403,21 @@ void printGuideDiscoveringHardware(void)
             );
 
             pos += snprintf(hardwareSize + pos, strSize - pos, "Example output:\033[%sm\n%s\n", COL_FOR_CODE, lsblk);
+    
+            free(lsblk);
         }
     }
 
     if (isProgramInstalled("fdisk", 1))
     {
         char *fdisk = captureProgramOutput("fdisk -l", 1024);
+        char *wrapped = colourWrap(fdisk, NULL, COL_FOR_CODE);
+        if (wrapped)
+        {
+            free(fdisk);
+            fdisk = wrapped;
+        }
+
         if (fdisk && fdisk[0] != '\0')
         {
             limitLines(fdisk, 7);
@@ -388,12 +431,21 @@ void printGuideDiscoveringHardware(void)
             );
 
             pos += snprintf(hardwareSize + pos, strSize - pos, "Example output:\033[%sm\n%s\n", COL_FOR_CODE, fdisk);
+    
+            free(fdisk);
         }
     }
 
     if (isProgramInstalled("lscpu", 1))
     {
         char *lscpu = captureProgramOutput("lscpu", 1024);
+        char *wrapped = colourWrap(lscpu, NULL, COL_FOR_CODE);
+        if (wrapped)
+        {
+            free(lscpu);
+            lscpu = wrapped;
+        }
+
         if (lscpu && lscpu[0] != '\0')
         {
             limitLines(lscpu, 10);
@@ -409,10 +461,19 @@ void printGuideDiscoveringHardware(void)
             );
 
             pos += snprintf(hardwareSize + pos, strSize - pos, "Example output:\033[%sm\n%s\n", COL_FOR_CODE, lscpu);
+    
+            free(lscpu);
         }
     }
 
     char *cpuinfo = captureProgramOutput("cat /proc/cpuinfo", 1024);
+    char *wrapped = colourWrap(cpuinfo, NULL, COL_FOR_CODE);
+    if (wrapped)
+    {
+        free(cpuinfo);
+        cpuinfo = wrapped;
+    }
+
     if (cpuinfo && cpuinfo[0] != '\0')
     {
         limitLines(cpuinfo, 10);
@@ -429,11 +490,20 @@ void printGuideDiscoveringHardware(void)
         );
 
         pos += snprintf(hardwareSize + pos, strSize - pos, "Example output:\033[%sm\n%s\n", COL_FOR_CODE, cpuinfo);
+    
+        free(cpuinfo);
     }
 
     if (isProgramInstalled("lspci", 1))
     {
         char *lspci = captureProgramOutput("lspci", 512);
+        char *wrapped = colourWrap(lspci, NULL, COL_FOR_CODE);
+        if (wrapped)
+        {
+            free(lspci);
+            lspci = wrapped;
+        }
+
         if (lspci && lspci[0] != '\0')
         {
             limitLines(lspci, 5);
@@ -448,6 +518,8 @@ void printGuideDiscoveringHardware(void)
             );
 
             pos += snprintf(hardwareSize + pos, strSize - pos, "Example output:\033[%sm\n%s", COL_FOR_CODE, lspci);
+    
+            free(lspci);
         }
     }
 
