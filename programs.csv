@@ -1,5 +1,6 @@
 Command,Path,IsOptional,Type,Package,Category,Name,Aliases,Description,Licence
 #cmatrix,,1,bundled,CMatrix,fun,,,"A vertical scrolling text screensaver. It provides ""digital rain"", inspired by the 1999 film ""The Matrix"". The ""droplets"" are lines of green characters that fall from the top of the terminal to the bottom, and are occasionally broken up.",GNU GPLv3
+5250keys,,1,bundled,tn5250,gen,5250keys,,,GNU LGPLv2.1
 addgroup,,1,busybox,,usr,,,Creates a new group or adds a given user to an existing group.,GNU GPLv2
 addr2line,,1,bundled,GNU Binutils,dev,GNU addr2line,,,GNU GPLv3
 adduser,,1,busybox,,usr,,,Creates a new user.,GNU GPLv2
@@ -23,6 +24,7 @@ bunzip2,,1,busybox,,arc,,,"Decompresses given bzip2 archives, or bzip2-compresse
 bzcat,,1,busybox,,arc,,,Decompresses a given bzip2 archive to standard output. Functions like bunzip2 -c.,GNU GPLv2
 bzip2,,1,busybox,,arc,,,"Compresses given files or standard input into a bzip2 archive. By default, it will replace the input files unless told otherwise.",GNU GPLv2
 c++filt,,1,bundled,GNU Binutils,dev,GNU c++filt,,,GNU GPLv3
+c3270,,1,bundled,x3270,gen,c3270,,,BSD 3-Clause
 cal,,1,busybox,,gen,,,,GNU GPLv2
 cat,,0,busybox,,txt,,,"Used for concatenating (combining) files, providing a standard output for printing or writing to a file. When its output is not directed, it prints the result.",GNU GPLv2
 cfdisk,,1,bundled,util-linux,dsk,cfdisk,,,GNU GPLv2
@@ -258,6 +260,9 @@ rview,,1,bundled,Vim,dev,rview,,"Opens the Vim editor in restricted and read-onl
 rvim,,1,bundled,Vim,dev,rvim,,Opens the Vim editor in restricted mode. This disables its shell escapes and external commands.,Vim
 sc-im,,1,bundled,sc-im,gen,Spreadsheet Calculator Improvised,,"A terminal-based spreadsheet editor based on the original sc (spreadsheet calculator) but adds undo/redo, UTF-8, .xlsx workbook import/export, ODS export, clipboard integration, and Lua-based scripting support. It uses Vim-style keybinds.",BSD 4-Clause
 scp,,1,bundled,Dropbear,net,Dropbear (SCP),,An SCP client (a part of Dropbear) for remote file transfer.,MIT + BSD 2-Clause (OpenSSH components)
+scs2ascii,,1,bundled,tn5250,gen,scs2ascii,,,GNU LGPLv2.1
+scs2pdf,,1,bundled,tn5250,gen,scs2pdf,,,GNU LGPLv2.1
+scs2ps,,1,bundled,tn5250,gen,scs2ps,,,GNU LGPLv2.1
 sed,,0,busybox,,txt,,,,GNU GPLv2
 seq,,1,busybox,,gen,,,,GNU GPLv2
 setfattr,,1,busybox,,gen,,,"Sets an extended attribute for the given filesystem object. Extended attributes are metadata that go beyond the standard attributes provided by the host filesystem, allowing more information to be associated with a given filesystem object.",GNU GPLv2
@@ -316,6 +321,7 @@ tilde,,1,bundled,Tilde,dev,,,,GNU GPLv3
 time,,1,busybox,,gen,,,,GNU GPLv2
 timeout,,1,busybox,,pro,,,"Runs the given program until the given timeout, which will be terminated unless the program completes by itself. By default, it will try to gracefully terminate the program, but it can be told to immediately kill as well.",GNU GPLv2
 tmux,,1,bundled,tmux,gen,,,"A terminal multiplexer that allows for multi-tasking and multi-viewing with just a single terminal. It allows you to create multiple ""windows"" to switch between without switching virtual terminals or opening a new window/tab in your terminal emulator, split said ""windows"" into multiple panes that can present terminal programs and output side-by-side, and quickly switch between them. Each tmux session can also be detached and reattached without losing what is open inside.",ISC
+tn5250,,1,bundled,tn5250,net,tn5250,,,GNU LGPLv2.1
 top,,1,busybox,,pro,,,"A process viewer that provides a real-time view of running processes and their CPU and memory usage. Besides comma-separated memory and CPU statistics and averages, it produces a table containing the process ID (PID), parent process ID (PPID), user, process state (STAT), virtual memory size in kilobytes (VSZ), VSZ as a percentage of total RAM (%VSZ), the last CPU core used, percentage of CPU time used (%CPU) and the executing command for each process that can fit into a single non-scrolling terminal.",GNU GPLv2
 touch,,0,busybox,,gen,,,"Typically used to update the access and modification dates/times of one or more given files. It can also be used to create one or many empty files, as seen in some Linux books and tutorials, although this is often redundant.",GNU GPLv2
 tr,,1,busybox,,txt,,,,GNU GPLv2
@@ -364,6 +370,7 @@ who,,1,busybox,,usr,,,"Shows which users are logged in, what ttyX they are logge
 whoami,,1,busybox,,usr,,,Prints the current user's name. Functions similarly to logname but uses the current effective user ID as its source.,GNU GPLv2
 whois,,1,busybox,,net,,,,GNU GPLv2
 xargs,,1,busybox,,gen,,,,GNU GPLv2
+xt5250,,1,bundled,tn5250,net,xt5250,,,GNU LGPLv2.1
 xxd,/usr/bin/vim,1,bundled,Vim,dev,xxd,,,Vim
 xxd,!/usr/bin/vim,1,busybox,,dev,,,,GNU GPLv2
 xz,,1,busybox,,arc,,,"Decompresses given XZ archives, or XZ-compressed standard input to standard output. By default, it will replace the input files unless told otherwise. Note: unlike XZ Utils' implementation of xz, BusyBox's version cannot compress any input.",GNU GPLv2
