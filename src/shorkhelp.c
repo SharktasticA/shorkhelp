@@ -306,7 +306,7 @@ void printGuideDiscoveringHardware(void)
 
     if (isProgramInstalled("shorkfetch", 1))
     {
-        char *shorkfetch = captureProgramOutput("shorkfetch -cl=off", 1536);
+        char *shorkfetch = captureProgramOutput("shorkfetch -ne", 1536);
         if (shorkfetch && shorkfetch[0] != '\0')
         {
             pos += snprintf(hardwareSize + pos, strSize - pos, "\033[%smOverall: shorkfetch\033[%sm\n", COL_FOR_HEADING, COL_FOR_WHITE);
