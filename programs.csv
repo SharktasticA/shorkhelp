@@ -183,6 +183,7 @@ make,,1,bundled,GNU Make,dev,,,"A build automation tool that executes shell comm
 man,,1,busybox,,gen,,,,GNU GPLv2
 md5sum,,1,busybox,,chk,,,,GNU GPLv2
 mdev,,0,busybox,,sys,,,,GNU GPLv2
+memtester,,1,bundled,memtester,sys,,,A userspace memory subsystem fault tester.,GNU GPLv2
 mg,,1,bundled,Mg,dev,,emacs,A text editor with Emacs-style keybinds and buffers.,Unlicense
 micropython,,1,bundled,MicroPython,dev,,"python, python3","A Python implementation intended for microcontrollers, embedded systems and other constrained platforms. It implements Python 3.4 syntax with select keywords and features from later versions. It is capable of installing and managing mip modules from micropython-lib.",MIT
 mkdir,,0,busybox,,gen,,,Creates a directory at the given directory path or in the current directory with a given name without a path.,GNU GPLv2
