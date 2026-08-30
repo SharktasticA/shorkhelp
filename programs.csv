@@ -233,6 +233,7 @@ partx,,1,bundled,util-linux,dsk,,,Tells the Linux kernel about the presence and 
 passwd,,1,busybox,,usr,,,"Changes your user password, or if you are the root account, can change a given user's password.",GNU GPLv2
 paste,,1,busybox,,txt,,,,GNU GPLv2
 patch,,1,busybox,,dev,,,"Applies a patch file to an original file to update it with its contents. A patch file contains a line-by-line difference listing between two files produced by diff, git diff, or similar.",GNU GPLv2
+patchelf,,1,bundled,PatchELF,dev,,,ELF binary patching.,GNU GPLv3
 pgrep,,1,busybox,,pro,,,Lists the process IDs for all processes that match the given regex pattern.,GNU GPLv2
 pidof,,1,busybox,,pro,,,Lists the process IDs for all processes that match the given name.,GNU GPLv2
 pinentry,,1,bundled,GnuPG,chk,pinentry,,,GNU GPLv3
