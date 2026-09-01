@@ -60,6 +60,7 @@ diff,,1,busybox,,dev,,,Compares two files line-by-line and outputs a difference 
 dirname,,1,busybox,,gen,,,,GNU GPLv2
 dmesg,,1,busybox,,sys,,,,GNU GPLv2
 dos2unix,,1,busybox,,txt,,,Converts a text file from using DOS-style line breaks (carriage return + line feed) to using Unix-style line breaks (line feed).,GNU GPLv2
+dosemu,,1,bundled,dosemu2,gen,,,,GNU GPLv2
 dosfsck,,1,bundled,dosfstools,dsk,dosfsck,,,GNU GPLv3
 dosfslabel,,1,bundled,dosfstools,dsk,dosfslabel,,,GNU GPLv3
 du,,1,busybox,,dsk,,,,GNU GPLv2
@@ -166,6 +167,7 @@ logsave,,1,bundled,e2fsprogs,gen,logsave,,,GNU GPLv2 + LGPLv2
 losetup,,1,busybox,,dsk,,,,GNU GPLv2
 ls,,0,busybox,,gen,,,Lists the contents of the current or a target directory.,GNU GPLv2
 lsattr,,1,bundled,e2fsprogs,dsk,lsattr,,,GNU GPLv2 + LGPLv2
+lsb_release,,1,bundled,lsb-release-minimal,sys,,,Linux Standard Base/distribution info reporter.,ISC
 lsblk,,0,busybox,,dsk,,,"Lists information about all or the specified block devices. By default, it produces a table containing the device name, major number (driver associated with device), minor number (device number for the given driver), device type, whether the device is read only (RO), and its mountpoint (if mounted).",GNU GPLv2
 lscpu,,1,bundled,util-linux,sys,lscpu,,,GNU GPLv2
 lsmod,,1,busybox,,sys,,,,GNU GPLv2
