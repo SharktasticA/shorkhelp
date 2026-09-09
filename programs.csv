@@ -60,7 +60,7 @@ diff,,1,busybox,,dev,,,Compares two files line-by-line and outputs a difference 
 dirname,,1,busybox,,gen,,,,GNU GPLv2
 dmesg,,1,busybox,,sys,,,,GNU GPLv2
 dos2unix,,1,busybox,,txt,,,Converts a text file from using DOS-style line breaks (carriage return + line feed) to using Unix-style line breaks (line feed).,GNU GPLv2
-dosemu,,1,bundled,dosemu2,gen,,,,GNU GPLv2
+dosemu,,1,bundled,dosemu2,gen,,,A DOS emulator.,GNU GPLv2
 dosfsck,,1,bundled,dosfstools,dsk,dosfsck,,,GNU GPLv3
 dosfslabel,,1,bundled,dosfstools,dsk,dosfslabel,,,GNU GPLv3
 du,,1,busybox,,dsk,,,,GNU GPLv2
@@ -151,6 +151,7 @@ install,,1,busybox,,gen,,,,GNU GPLv2
 iostat,,1,busybox,,sys,,,,GNU GPLv2
 ip,,1,busybox,,net,,,,GNU GPLv2
 joe,,1,bundled,Joe's Own Editor,dev,,,A WordStar-style text editor.,GNU GPLv2
+jq,,1,bundled,jq,txt,,,A command-line JSON processor,MIT + CC BY 3.0 + ICU
 kbxutil,,1,bundled,GnuPG,chk,kbxutil,,,GNU GPLv3
 kill,,1,busybox,,pro,,,"Sends a signal to the process that matches the given process ID. By default, it will try to gracefully terminate the process, but a given signal number (such as 9 for an immediate kill) can be given as well.",GNU GPLv2
 killall,,1,busybox,,pro,,,"Sends a signal to all processes with a given name. By default, it will try to gracefully terminate the process, but a given signal number (such as 9 for an immediate kill) can be given as well.",GNU GPLv2
@@ -230,6 +231,7 @@ nproc,,1,busybox,,sys,,,,GNU GPLv2
 objcopy,,1,bundled,GNU Binutils,dev,GNU objcopy,,,GNU GPLv3
 objdump,,1,bundled,GNU Binutils,dev,GNU objdump,,,GNU GPLv3
 od,,1,busybox,,dev,,,,GNU GPLv2
+onig-config,,1,bundled,jq,sys,onig-config,,,MIT + CC BY 3.0 + ICU
 partprobe,,1,busybox,,dsk,,,,GNU GPLv2
 partx,,1,bundled,util-linux,dsk,,,Tells the Linux kernel about the presence and numbering of on-disk partitions.,GNU GPLv2
 passwd,,1,busybox,,usr,,,"Changes your user password, or if you are the root account, can change a given user's password.",GNU GPLv2
