@@ -131,6 +131,7 @@ gpgconf,,1,bundled,GnuPG,chk,gpgconf,,,GNU GPLv3
 gpgsplit,,1,bundled,GnuPG,chk,gpgsplit,,,GNU GPLv3
 gpgtar,,1,bundled,GnuPG,chk,gpgtar,,,GNU GPLv3
 gpgv,,1,bundled,GnuPG,chk,gpgv,,,GNU GPLv3
+gpm,,1,bundled,gpm,sys,,,Virtual console mouse.,GNU GPLv2
 grep,,0,busybox,,txt,,,,GNU GPLv2
 gunzip,,1,busybox,,arc,,,"Decompresses given gzip archives, or gzip-compressed standard input to standard output. By default, it will replace the input files unless told otherwise.",GNU GPLv2
 gzip,,1,busybox,,arc,,,"Compresses given files or standard input into a gzip archive. By default, it will replace the input files unless told otherwise.",GNU GPLv2
@@ -151,7 +152,7 @@ install,,1,busybox,,gen,,,,GNU GPLv2
 iostat,,1,busybox,,sys,,,,GNU GPLv2
 ip,,1,busybox,,net,,,,GNU GPLv2
 joe,,1,bundled,Joe's Own Editor,dev,,,A WordStar-style text editor.,GNU GPLv2
-jq,,1,bundled,jq,txt,,,A command-line JSON processor,MIT + CC BY 3.0 + ICU
+jq,,1,bundled,jq,txt,,,A command-line JSON processor.,MIT + CC BY 3.0 + ICU
 kbxutil,,1,bundled,GnuPG,chk,kbxutil,,,GNU GPLv3
 kill,,1,busybox,,pro,,,"Sends a signal to the process that matches the given process ID. By default, it will try to gracefully terminate the process, but a given signal number (such as 9 for an immediate kill) can be given as well.",GNU GPLv2
 killall,,1,busybox,,pro,,,"Sends a signal to all processes with a given name. By default, it will try to gracefully terminate the process, but a given signal number (such as 9 for an immediate kill) can be given as well.",GNU GPLv2
@@ -184,6 +185,10 @@ lzop,,1,busybox,,arc,,,Compresses given files or standard input into a LZO archi
 lzopcat,,1,busybox,,arc,,,Decompresses a given LZO archive to standard output. Functions like unlzop -c.,GNU GPLv2
 make,,1,bundled,GNU Make,dev,,,"A build automation tool that executes shell commands primarily to update program compilation targets only when their prerequisites have changed, avoiding unnecessary work. It is often run in the same directory as a Makefile, which describes how a project's files relate to each other and how to update them. Whilst it is often associated with C-language projects, Make can be used for any task where maintaining some files in a project can be done with shell commands, whether it be other programming languages or documentation generation, asset pipelines or general project automation.",GNU GPLv3
 man,,1,busybox,,gen,,,,GNU GPLv2
+mc,,1,bundled,GNU Midnight Commander,gen,mc,,Norton Commander-style file manager.,GNU GPLv3
+mcdiff,,1,bundled,GNU Midnight Commander,gen,mcdiff,,,GNU GPLv3
+mcedit,,1,bundled,GNU Midnight Commander,dev,mcedit,,,GNU GPLv3
+mcview,,1,bundled,GNU Midnight Commander,gem,mcview,,,GNU GPLv3
 md5sum,,1,busybox,,chk,,,,GNU GPLv2
 mdev,,0,busybox,,sys,,,,GNU GPLv2
 memtester,,1,bundled,memtester,sys,,,A userspace memory subsystem fault tester.,GNU GPLv2
