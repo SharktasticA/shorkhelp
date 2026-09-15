@@ -36,7 +36,9 @@ typedef struct {
 
 
 
+#ifndef EMBEDDED
 #define BUILD_REPORT_PATH       "/var/log/shork/build-report.log"
+#endif
 #define CSV_BUFFER              49152
 #define INITIAL_CMD_STR         128
 #define MAX_CMD_STR             2048
@@ -56,24 +58,32 @@ int getOSName(void);
 int loadLicences(void);
 int loadProgramEntries(void);
 
+#ifndef EMBEDDED
 void printGuideDiscoveringHardware(void);
 void printGuideEmacsCheatsheet(void);
 void printGuideGitCommands(void);
 void printGuideTmuxCheatsheet(void);
+#endif
 
 void printIntro(void);
 void printIntroPT1(void);
+#ifndef EMBEDDED
 void printIntroStarted(void);
+#endif
 
 void printCmdsProgs(void);
 void printCmdsProgsAlpha(void);
 void printCmdsProgsCats(void);
 void printSoftwareLicence(int);
 void printSoftwareProgOverview(int);
+#ifndef EMBEDDED
 void printSoftwareSHORKTAINMENT(void);
+#endif
 void printSoftwareSHORKUTILS(void);
 
+#ifndef EMBEDDED
 void printOtherReport(void);
+#endif
 void printOtherSupport(void);
 
 void showCmdRefMenu(void);

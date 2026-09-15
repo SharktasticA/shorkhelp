@@ -6,6 +6,10 @@ STRIP ?= strip
 CFLAGS += -I.
 LDFLAGS += -static
 
+ifdef EMBEDDED
+	CFLAGS += -DEMBEDDED
+endif
+
 SRC = src/*.c
 
 shorkhelp: $(SRC)

@@ -298,6 +298,8 @@ int loadProgramEntries(void)
 
 
 
+#ifndef EMBEDDED
+
 void printGuideDiscoveringHardware(void)
 {
     const int strSize = 20480;
@@ -602,6 +604,8 @@ void printGuideTmuxCheatsheet(void)
     printTextScreen("tmux cheatsheet", tmuxStr, lines, 1);
 }
 
+#endif
+
 
 
 void printIntro(void)
@@ -645,6 +649,8 @@ void printIntroPT1(void)
     int lines = formatNewLines(pt1Str, TERM_SIZE.ws_col, NULL, 0);
     printTextScreen("Public Test 1", pt1Str, lines, 1);
 }
+
+#ifndef EMBEDDED
 
 void printIntroStarted(void)
 {
@@ -783,6 +789,8 @@ void printIntroStarted(void)
     int lines = formatNewLines(startedStr, TERM_SIZE.ws_col, NULL, 1);
     printTextScreen("Getting started", startedStr, lines, 1);
 }
+
+#endif
 
 
 
@@ -1146,6 +1154,8 @@ void printSoftwareProgOverview(int i)
     printTextScreen(PROG_ENTRIES[i].command, overviewStr, lines, 1);
 }
 
+#ifndef EMBEDDED
+
 void printSoftwareSHORKTAINMENT(void)
 {
     const int strSize = 2000;
@@ -1167,6 +1177,8 @@ void printSoftwareSHORKTAINMENT(void)
     int lines = formatNewLines(shorktainmentStr, TERM_SIZE.ws_col, NULL, 1);
     printTextScreen("SHORK Entertainment", shorktainmentStr, lines, 1);
 }
+
+#endif
 
 void printSoftwareSHORKUTILS(void)
 {
@@ -1197,6 +1209,8 @@ void printSoftwareSHORKUTILS(void)
 
 
 
+#ifndef EMBEDDED
+
 void printOtherReport(void)
 {
     char msgBody[8192];
@@ -1222,6 +1236,8 @@ void printOtherReport(void)
     int lines = formatNewLines(msgBody, TERM_SIZE.ws_col, NULL, 0);
     printTextScreen("After-build report", msgBody, lines, 1);
 }
+
+#endif
 
 void printOtherSupport(void)
 {
@@ -1511,6 +1527,8 @@ void showHelp(void)
     formatNewLines(commands, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", commands);
 
+#ifndef EMBEDDED
+
     if (isProgramInstalled("emacs", 1) || isProgramInstalled("mg", 1))
     {
         char emacs[100] = "--emacs          Displays Emacs (Mg) cheatsheet\n";
@@ -1522,9 +1540,13 @@ void showHelp(void)
     formatNewLines(hardware, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", hardware);
 
+#endif
+
     char help[100] = "-h, --help       Displays help information and exits\n";
     formatNewLines(help, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", help);
+
+#ifndef EMBEDDED
 
     if (isProgramInstalled("git", 1))
     {
@@ -1532,6 +1554,8 @@ void showHelp(void)
         formatNewLines(git, TERM_SIZE.ws_col, "                 ", 0);
         printf("%s", git);
     }
+
+#endif
 
     char intro[100] = "--intro          Displays introduction to SHORK 486\n";
     formatNewLines(intro, TERM_SIZE.ws_col, "                 ", 0);
@@ -1552,6 +1576,8 @@ void showHelp(void)
         printf("%s", pt1);
     }
 
+#ifndef EMBEDDED
+
     if (access(BUILD_REPORT_PATH, F_OK) == 0)
     {
         char report[60] = "--report         Displays after-build report\n";
@@ -1566,9 +1592,13 @@ void showHelp(void)
         printf("%s", shorktainment);
     }
 
+#endif
+
     char shorkutils[100] = "--shorkutils     Displays SHORK Utilities list\n";
     formatNewLines(shorkutils, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", shorkutils);
+
+#ifndef EMBEDDED
 
     if (strncmp(OS_NAME, "SHORK 486", 9) == 0)
     {
@@ -1577,9 +1607,13 @@ void showHelp(void)
         printf("%s", started);
     }
 
+#endif
+
     char support[100] = "--support        Displays getting support & getting involved information\n";
     formatNewLines(support, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", support);
+
+#ifndef EMBEDDED
 
     if (isProgramInstalled("tmux", 1))
     {
@@ -1587,6 +1621,8 @@ void showHelp(void)
         formatNewLines(tmux, TERM_SIZE.ws_col, "                 ", 0);
         printf("%s", tmux);
     }
+
+#endif
 
     char version[100] = "-v, --version    Displays version number and exits\n";
     formatNewLines(version, TERM_SIZE.ws_col, "                 ", 0);
@@ -1614,9 +1650,11 @@ void showMainMenu(void)
         exit(1);
     }
 
+#ifndef EMBEDDED
     int emacsInstalled = isProgramInstalled("emacs", 1);
     int gitInstalled = isProgramInstalled("git", 1);
     int tmuxInstalled = isProgramInstalled("tmux", 1);
+#endif
 
     MenuItem rawMenu[] = {
         { 
@@ -1641,6 +1679,7 @@ void showMainMenu(void)
             printIntroPT1,
             getIsPT1()
         },
+#ifndef EMBEDDED
         { 
             "started",
             "Getting started",
@@ -1648,6 +1687,7 @@ void showMainMenu(void)
             printIntroStarted,
             strncmp(OS_NAME, "SHORK 486", 9) == 0
         },
+#endif
         { 
             "",
             "Software",
@@ -1677,6 +1717,7 @@ void showMainMenu(void)
             printSoftwareSHORKUTILS,
             1
         },
+#ifndef EMBEDDED
         {
             "shorktainment",
             "SHORK Entertainment",
@@ -1684,6 +1725,7 @@ void showMainMenu(void)
             printSoftwareSHORKTAINMENT,
             isProgramInstalled("shorklocomotive", 1) || isProgramInstalled("shorksay", 1)
         },
+#endif
         {
             "licences",
             "Licences",
@@ -1691,6 +1733,7 @@ void showMainMenu(void)
             showLicencesMenu,
             LICENCES_NO > 0
         },
+#ifndef EMBEDDED
         {
             "",
             "Guides",
@@ -1727,6 +1770,7 @@ void showMainMenu(void)
             printGuideTmuxCheatsheet,
             tmuxInstalled
         },
+#endif
         { 
             "",
             "Other",
@@ -1735,6 +1779,7 @@ void showMainMenu(void)
             1,
             1
         },
+#ifndef EMBEDDED
         { 
             "report",
             "After-build report",
@@ -1742,6 +1787,7 @@ void showMainMenu(void)
             printOtherReport,
             access(BUILD_REPORT_PATH, F_OK) == 0
         },
+#endif
         { 
             "support",
             "Getting support or involved",

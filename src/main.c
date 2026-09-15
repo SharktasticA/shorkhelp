@@ -76,12 +76,22 @@ int main(int argc, char *argv[])
         {
             if (strcmp(argv[i], "--commands") == 0 && fileExists("/usr/share/shorkhelp/programs.csv"))
                 opt = ARG_COMMANDS;
+#ifndef EMBEDDED
             else if (strcmp(argv[i], "--emacs") == 0 || strcmp(argv[i], "--mg") == 0)
                 opt = ARG_EMACS;
             else if (strcmp(argv[i], "--git") == 0)
                 opt = ARG_GIT;
             else if (strcmp(argv[i], "--hardware") == 0)
                 opt = ARG_HARDWARE;
+            else if (strcmp(argv[i], "--shorktainment") == 0)
+                opt = ARG_SHORKTAINMENT;
+            else if (strcmp(argv[i], "--report") == 0 && access(BUILD_REPORT_PATH, F_OK) == 0)
+                opt = ARG_REPORT;
+            else if (strcmp(argv[i], "--started") == 0)
+                opt = ARG_STARTED;
+            else if (strcmp(argv[i], "--tmux") == 0)
+                opt = ARG_TMUX;
+#endif
             else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0)
                 opt = ARG_HELP;
             else if (strcmp(argv[i], "--intro") == 0 && strncmp(OS_NAME, "SHORK 486", 9) == 0)
@@ -92,18 +102,10 @@ int main(int argc, char *argv[])
                 COL_ENABLED = 0;
             else if (strcmp(argv[i], "--pt1") == 0 && getIsPT1())
                 opt = ARG_PT1;
-            else if (strcmp(argv[i], "--report") == 0 && access(BUILD_REPORT_PATH, F_OK) == 0)
-                opt = ARG_REPORT;
-            else if (strcmp(argv[i], "--shorktainment") == 0)
-                opt = ARG_SHORKTAINMENT;
             else if (strcmp(argv[i], "--shorkutils") == 0)
                 opt = ARG_SHORKUTILS;
-            else if (strcmp(argv[i], "--started") == 0)
-                opt = ARG_STARTED;
             else if (strcmp(argv[i], "--support") == 0)
                 opt = ARG_SUPPORT;
-            else if (strcmp(argv[i], "--tmux") == 0)
-                opt = ARG_TMUX;
             else if ((strcmp(argv[i], "-v") == 0) || (strcmp(argv[i], "--version") == 0))
                 opt = ARG_VERSION;
         }
@@ -119,6 +121,7 @@ int main(int argc, char *argv[])
             setupMenuSys();
             showCmdsProgsMenu();
         }
+#ifndef EMBEDDED
         else if (opt == ARG_EMACS)
         {
             setupMenuSys();
@@ -134,6 +137,27 @@ int main(int argc, char *argv[])
             setupMenuSys();
             printGuideDiscoveringHardware();
         }
+        else if (opt == ARG_REPORT)
+        {
+            setupMenuSys();
+            printOtherReport();
+        }
+        else if (opt == ARG_SHORKTAINMENT)
+        {
+            setupMenuSys();
+            printSoftwareSHORKTAINMENT();
+        }
+        else if (opt == ARG_STARTED)
+        {
+            setupMenuSys();
+            printIntroStarted();
+        }
+        else if (opt == ARG_TMUX)
+        {
+            setupMenuSys();
+            printGuideTmuxCheatsheet();
+        }
+#endif
         else if (opt == ARG_HELP)
         {
             setupViewport();
@@ -160,35 +184,15 @@ int main(int argc, char *argv[])
             setupMenuSys();
             printIntroPT1();
         }
-        else if (opt == ARG_REPORT)
-        {
-            setupMenuSys();
-            printOtherReport();
-        }
-        else if (opt == ARG_SHORKTAINMENT)
-        {
-            setupMenuSys();
-            printSoftwareSHORKTAINMENT();
-        }
         else if (opt == ARG_SHORKUTILS)
         {
             setupMenuSys();
             printSoftwareSHORKUTILS();
         }
-        else if (opt == ARG_STARTED)
-        {
-            setupMenuSys();
-            printIntroStarted();
-        }
         else if (opt == ARG_SUPPORT)
         {
             setupMenuSys();
             printOtherSupport();
-        }
-        else if (opt == ARG_TMUX)
-        {
-            setupMenuSys();
-            printGuideTmuxCheatsheet();
         }
         else if (opt == ARG_VERSION)
             printf("SHORKHELP %s\n", VERSION);
