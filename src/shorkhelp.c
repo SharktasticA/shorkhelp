@@ -1890,7 +1890,7 @@ void showLicencesMenu(void)
 
 
     // Prepare for multi-column menu
-    int colWidth = 22;
+    int colWidth = 36;
     int cols = TERM_SIZE.ws_col / (colWidth + 3);
     if (cols < 1) cols = 1;
     if (cols > LICENCES_NO) cols = LICENCES_NO;
