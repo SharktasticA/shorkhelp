@@ -188,7 +188,7 @@ man,,1,busybox,,gen,,,,GNU GPLv2
 mc,,1,bundled,GNU Midnight Commander,gen,mc,,Norton Commander-style file manager.,GNU GPLv3
 mcdiff,,1,bundled,GNU Midnight Commander,gen,mcdiff,,,GNU GPLv3
 mcedit,,1,bundled,GNU Midnight Commander,dev,mcedit,,,GNU GPLv3
-mcview,,1,bundled,GNU Midnight Commander,gem,mcview,,,GNU GPLv3
+mcview,,1,bundled,GNU Midnight Commander,gen,mcview,,,GNU GPLv3
 md5sum,,1,busybox,,chk,,,,GNU GPLv2
 mdev,,0,busybox,,sys,,,,GNU GPLv2
 memtester,,1,bundled,memtester,sys,,,A userspace memory subsystem fault tester.,GNU GPLv2
