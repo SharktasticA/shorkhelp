@@ -348,7 +348,7 @@ void printGuideDiscoveringHardware(void)
             pos += snprintf(hardwareSize + pos, strSize - pos, "\033[%smMemory: free\033[%sm\n", COL_FOR_HEADING, COL_FOR_WHITE);
 
             pos += snprintf(hardwareSize + pos, strSize - pos,
-                "The \033[%smfree\033[%sm command will inform you how much total physical and swap memory is present, and how much of it is used or available. \033[%smfree -h\033[%sm is often used to make it print values in their most suitable unit (K/Ki, M/Mi, etc.) instead of bytes.\n\n",
+                "The \033[%smfree\033[%sm command will inform you of how much total physical and swap memory is present, and how much of it is used or available. \033[%smfree -h\033[%sm is often used to make it print values in their most suitable unit (K/Ki, M/Mi, etc.) instead of bytes.\n\n",
                 COL_FOR_CODE,  COL_FOR_WHITE,
                 COL_FOR_CODE,  COL_FOR_WHITE
             );
