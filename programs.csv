@@ -59,6 +59,7 @@ dialog,,1,bundled,dialog,dev,,,"Allows you to create and display dialog boxes fr
 diff,,1,busybox,,dev,,,Compares two files line-by-line and outputs a difference listing between them. The result can be used as a patch file for the patch utility.,GNU GPLv2
 dirname,,1,busybox,,gen,,,,GNU GPLv2
 dmesg,,1,busybox,,sys,,,,GNU GPLv2
+dnsdomainname,,1,busybox,,net,,,,GNU GPLv2
 dos2unix,,1,busybox,,txt,,,Converts a text file from using DOS-style line breaks (carriage return + line feed) to using Unix-style line breaks (line feed).,GNU GPLv2
 dosemu,,1,bundled,dosemu2,gen,,,A DOS emulator.,GNU GPLv2
 dosfsck,,1,bundled,dosfstools,dsk,dosfsck,,,GNU GPLv3
@@ -151,6 +152,7 @@ insmod,,1,busybox,,sys,,,,GNU GPLv2
 install,,1,busybox,,gen,,,,GNU GPLv2
 iostat,,1,busybox,,sys,,,,GNU GPLv2
 ip,,1,busybox,,net,,,,GNU GPLv2
+ipcalc,,1,busybox,,net,,,,GNU GPLv2
 joe,,1,bundled,Joe's Own Editor,dev,,,A WordStar-style text editor.,GNU GPLv2
 jq,,1,bundled,jq,txt,,,A command-line JSON processor.,MIT + CC BY 3.0 + ICU
 kbxutil,,1,bundled,GnuPG,chk,kbxutil,,,GNU GPLv3
@@ -228,11 +230,13 @@ ncdu,,1,bundled,Ncdu,dsk,,,,MIT
 ndisasm,,1,bundled,NASM,dev,ndisasm,,"A portable x86 disassembler. Compared to GNU objdump, it can disassemble raw binary files with no header, symbol table or debug information present.",BSD 2-Clause
 netcat,,1,busybox,,net,,,,GNU GPLv2
 netstat,,1,busybox,,net,,,"Displays network statistics such as current network connections, network interfaces and routing tables.",GNU GPLv2
+netstat,,1,busybox,,net,,,,GNU GPLv2
 nice,,1,busybox,,pro,,,"Runs the given program with a specific scheduling priority (""niceness""). Niceness ranges from -20 (highest priority) to 19 (lowest priority), with 0 being default.",GNU GPLv2
 nl,,1,busybox,,txt,,,,GNU GPLv2
 nm,,1,bundled,GNU Binutils,dev,GNU nm,,,GNU GPLv3
 nohup,,1,busybox,,pro,,,"Allows you to run a program that is immune to hang up signals and output routed away or redirected to a file. The program can then run even when the host terminal is closed, the user logs out, or if it is run on a remote system and the connection is closed afterwards. It is often paired with an ampersand (&) to also send the command to the background.",GNU GPLv2
 nproc,,1,busybox,,sys,,,,GNU GPLv2
+nslookup,,1,busybox,,net,,,,GNU GPLv2
 objcopy,,1,bundled,GNU Binutils,dev,GNU objcopy,,,GNU GPLv3
 objdump,,1,bundled,GNU Binutils,dev,GNU objdump,,,GNU GPLv3
 od,,1,busybox,,dev,,,,GNU GPLv2
@@ -253,6 +257,7 @@ pmap,,1,busybox,,pro,,,"Reports the memory map of a given process. It provides t
 printenv,,1,busybox,,gen,,,,GNU GPLv2
 printf,,0,busybox,,gen,,,,GNU GPLv2
 ps,,1,busybox,,pro,,,"Prints a list of running processes. It includes the process ID (PID), user name, time, and command.",GNU GPLv2
+pscan,,1,busybox,,net,,,,GNU GPLv2
 pstree,,1,busybox,,pro,,,"Prints a process tree, optionally starting from a given user or process ID.",GNU GPLv2
 pwd,,0,busybox,,gen,,,,GNU GPLv2
 pwdx,,1,busybox,,pro,,,Shows the current working directory for the given process IDs.,GNU GPLv2
