@@ -230,7 +230,6 @@ ncdu,,1,bundled,Ncdu,dsk,,,,MIT
 ndisasm,,1,bundled,NASM,dev,ndisasm,,"A portable x86 disassembler. Compared to GNU objdump, it can disassemble raw binary files with no header, symbol table or debug information present.",BSD 2-Clause
 netcat,,1,busybox,,net,,,,GNU GPLv2
 netstat,,1,busybox,,net,,,"Displays network statistics such as current network connections, network interfaces and routing tables.",GNU GPLv2
-netstat,,1,busybox,,net,,,,GNU GPLv2
 nice,,1,busybox,,pro,,,"Runs the given program with a specific scheduling priority (""niceness""). Niceness ranges from -20 (highest priority) to 19 (lowest priority), with 0 being default.",GNU GPLv2
 nl,,1,busybox,,txt,,,,GNU GPLv2
 nm,,1,bundled,GNU Binutils,dev,GNU nm,,,GNU GPLv3
