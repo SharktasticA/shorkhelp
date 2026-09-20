@@ -7,6 +7,7 @@ adduser,,1,busybox,,usr,,,Creates a new user.,GNU GPLv2
 ar,/opt/i486-linux-musl-native/bin/ar,1,bundled,GNU Binutils,arc,GNU ar,,,GNU GPLv3
 ar,/usr/bin/ar,1,busybox,,arc,,,"Extracts or lists files from a given .a, .ar or .lib archive.",GNU GPLv2
 arch,,1,busybox,,sys,,,"Reports the computer's processor architecture. For example, ""i486"", ""i686"", ""x86_64"", etc.",GNU GPLv2
+arpaname,,1,bundled,BIND 9 DNS Utilities,net,arpaname,,,MPL 2.0
 as,,1,bundled,GNU Binutils,dev,GNU assembler,,An x86 assembler and the default backend of GCC.,GNU GPLv3
 ascii,,1,busybox,,gen,,,"Prints a table containing all 128 ASCII characters. For each character, its decimal (Dec) and hexadecimal (Hex) values are displayed with it.",GNU GPLv2
 ash,,1,busybox,,sys,,,,GNU GPLv2
@@ -53,10 +54,12 @@ dd,,0,busybox,,dsk,,,,GNU GPLv2
 debugfs,,1,bundled,e2fsprogs,dsk,debugfs,,,GNU GPLv2 + LGPLv2
 delgroup,,1,busybox,,usr,,,Deletes the given group or removes the given user from the given group.,GNU GPLv2
 deluser,,1,busybox,,usr,,,Deletes the given user.,GNU GPLv2
+delv,,1,bundled,BIND 9 DNS Utilities,net,delv,,,MPL 2.0
 depmod,,1,busybox,,sys,,,,GNU GPLv2
 df,,0,busybox,,dsk,,,,GNU GPLv2
 dialog,,1,bundled,dialog,dev,,,"Allows you to create and display dialog boxes from a shell script. dialog includes the following boxes: buildlist, calendar, checklist, dselect, editbox, form, fselect, gauge, infobox, inputbox, inputmenu, menu, mixedform, mixedgauge, msgbox, passwordbox, passwordform, pause, prgbox, programbox, progressbox, radiolist, rangebox, tailbox, tailboxbg, textbox, timebox, treeview and yesno. The SHORK 486 Build Configurator is dialog based, and the Linux kernel's lxdialog is a distant descendant of dialog.",GNU LGPLv2.1
 diff,,1,busybox,,dev,,,Compares two files line-by-line and outputs a difference listing between them. The result can be used as a patch file for the patch utility.,GNU GPLv2
+dig,,1,bundled,BIND 9 DNS Utilities,net,dig,,,MPL 2.0
 dirname,,1,busybox,,gen,,,,GNU GPLv2
 dmesg,,1,busybox,,sys,,,,GNU GPLv2
 dnsdomainname,,1,busybox,,net,,,,GNU GPLv2
@@ -140,6 +143,7 @@ halt,,1,busybox,,sys,,,,GNU GPLv2
 head,,1,busybox,,txt,,,,GNU GPLv2
 hexdump,,1,busybox,,dev,,,,GNU GPLv2
 hexedit,,1,busybox,,dev,,,,GNU GPLv2
+host,,1,bundled,BIND 9 DNS Utilities,net,host,,,MPL 2.0
 hostid,,1,busybox,,sys,,,,GNU GPLv2
 hostname,,0,busybox,,sys,,,,GNU GPLv2
 htop,,1,bundled,htop,pro,,,"An interactive process viewer designed to be an enhancement over top. Compared to top, htop supports scrolling both horizontally and vertically, a coloured UI and colour-coding, CPU and memory usage bars, searching, filtering, sorting, and killing processes.",GNU GPLv2
@@ -235,7 +239,9 @@ nl,,1,busybox,,txt,,,,GNU GPLv2
 nm,,1,bundled,GNU Binutils,dev,GNU nm,,,GNU GPLv3
 nohup,,1,busybox,,pro,,,"Allows you to run a program that is immune to hang up signals and output routed away or redirected to a file. The program can then run even when the host terminal is closed, the user logs out, or if it is run on a remote system and the connection is closed afterwards. It is often paired with an ampersand (&) to also send the command to the background.",GNU GPLv2
 nproc,,1,busybox,,sys,,,,GNU GPLv2
-nslookup,,1,busybox,,net,,,,GNU GPLv2
+nslookup,!/usr/bin/dig,1,busybox,,net,,,,GNU GPLv2
+nslookup,/usr/bin/dig,1,bundled,BIND 9 DNS Utilities,net,nslookup,,,MPL 2.0
+nsupdate,,1,bundled,BIND 9 DNS Utilities,net,nsupdate,,,MPL 2.0
 objcopy,,1,bundled,GNU Binutils,dev,GNU objcopy,,,GNU GPLv3
 objdump,,1,bundled,GNU Binutils,dev,GNU objdump,,,GNU GPLv3
 od,,1,busybox,,dev,,,,GNU GPLv2
