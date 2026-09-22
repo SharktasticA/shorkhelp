@@ -16,6 +16,7 @@ badblocks,,1,bundled,e2fsprogs,dsk,badblocks,,,GNU GPLv2 + LGPLv2
 base32,,1,busybox,,txt,,,Encodes text to Base32 or decodes Base32 to text from a file to standard output.,GNU GPLv2
 base64,,1,busybox,,txt,,,Encodes text to Base64 or decodes Base64 to text from a file to standard output.,GNU GPLv2
 basename,,0,busybox,,gen,,,"Extracts the file name and/or the extension from a given path. If just a directory path is given, it will extract both. If a file extension is also given, it will extract the extension in addition to the directory path if it matches. For example, running ""basename /etc/resolv.conf"" will return ""resolv.conf""; running ""basename /etc/resolv.conf .conf"" will return ""resolv"". ",GNU GPLv2
+battleship,,1,bundled,New BSD Games,fun,battleship,,,CC0 1.0 Universal
 bc,,1,busybox,,gen,,,"An arbitrary precision calculator and language. It launches into an interactive mode that allows you to enter expressions, with an optional math library for functions like sqrt and sin, or you pipe an expression via standard input to get an immediate, non-interactive result.",GNU GPLv2
 beep,,1,busybox,,sys,,,"Allows you to produce a tone or a chain of tones using the PC speaker. You can set the frequency (Hz), length (ms), delay before playing (ms) and how many times it should repeat, and chain multiple tones together in a single command.",GNU GPLv2
 bin2text,,1,shorkutil,,txt,SHORKBIN,,A symbolic link to shorkbin.,GNU GPLv3
@@ -30,6 +31,7 @@ cal,,1,busybox,,gen,,,,GNU GPLv2
 cat,,0,busybox,,txt,,,"Used for concatenating (combining) files, providing a standard output for printing or writing to a file. When its output is not directed, it prints the result.",GNU GPLv2
 cfdisk,,1,bundled,util-linux,dsk,cfdisk,,,GNU GPLv2
 chattr,,1,bundled,e2fsprogs,dsk,chattr,,,GNU GPLv2 + LGPLv2
+checkers,,1,bundled,New BSD Games,fun,checkers,,,CC0 1.0 Universal
 chgrp,,1,busybox,,usr,,,Changes the group owner of any given files with the given group name or ID.,GNU GPLv2
 chmod,,1,busybox,,usr,,,"Changes one or more file mode bits of any given files, either with an octal number representing the mode's bit pattern or symbolic representations for a specific change. It changes how files can be accessed - can it be read, written, or executed as a program.",GNU GPLv2
 chown,,1,busybox,,usr,,,Changes the user and/or group owner of any given files to the given user and group names or IDs.,GNU GPLv2
@@ -48,6 +50,7 @@ cscope,,1,bundled,Cscope,dev,,,"An interactive C and C++ source code browser. It
 ctags,,1,bundled,Universal Ctags,dev,,,"A multi-language source code object indexing tool that generates tags files that allow editors such as Emacs, vi and Vim to jump straight to a definition of a function, variable or other symbol.",GNU GPLv2
 curl,,1,bundled,cURL,net,,,,MIT
 cut,,1,busybox,,txt,,,,GNU GPLv2
+darrt,,1,bundled,New BSD Games,fun,darrt,,,CC0 1.0 Universal
 date,,0,busybox,,gen,,,,GNU GPLv2
 dc,,1,busybox,,gen,,,,GNU GPLv2
 dd,,0,busybox,,dsk,,,,GNU GPLv2
@@ -99,10 +102,12 @@ fdformat,,1,busybox,,dsk,,,,GNU GPLv2
 fdisk,/sbin/fdisk,1,busybox,,dsk,,,,GNU GPLv2
 fdisk,/usr/sbin/fdisk,1,bundled,util-linux,dsk,fdisk,,,GNU GPLv2
 fgrep,,1,busybox,,txt,,,,GNU GPLv2
+fifteen,,1,bundled,New BSD Games,fun,fifteen,,,CC0 1.0 Universal
 file,,1,bundled,file,gen,,,Identifies and reports the type of data contained in a file.,BSD 2-Clause (Darwin)
 filefrag,,1,bundled,e2fsprogs,dsk,filefrag,,,GNU GPLv2 + LGPLv2
 find,,1,busybox,,gen,,,,GNU GPLv2
 findfs,,1,bundled,e2fsprogs,dsk,findfs,,,GNU GPLv2 + LGPLv2
+fisher,,1,bundled,New BSD Games,fun,fisher,,,CC0 1.0 Universal
 fold,,1,busybox,,txt,,,,GNU GPLv2
 free,,0,busybox,,sys,,,"Reports the amount of total, used and free system physical memory and (if available) swap memory, largely acting as a frontend to /proc/meminfo. It produces a table containing the total (MemTotal/SwapTotal), used (total - available), free (MemFree/SwapFree), shared (Shmem), buffers (Buffers) + cache (Cached/SReclaimable), and available (MemAvailable) memory. All values are in kibibytes (KiB).",GNU GPLv2
 fsck,,1,bundled,e2fsprogs,dsk,fsck,,,GNU GPLv2 + LGPLv2
@@ -157,6 +162,7 @@ install,,1,busybox,,gen,,,,GNU GPLv2
 iostat,,1,busybox,,sys,,,,GNU GPLv2
 ip,,1,busybox,,net,,,,GNU GPLv2
 ipcalc,,1,busybox,,net,,,,GNU GPLv2
+jewels,,1,bundled,New BSD Games,fun,jewels,,,CC0 1.0 Universal
 joe,,1,bundled,Joe's Own Editor,dev,,,A WordStar-style text editor.,GNU GPLv2
 jq,,1,bundled,jq,txt,,,A command-line JSON processor.,MIT + CC BY 3.0 + ICU
 kbxutil,,1,bundled,GnuPG,chk,kbxutil,,,GNU GPLv3
@@ -197,9 +203,12 @@ mcedit,,1,bundled,GNU Midnight Commander,dev,mcedit,,,GNU GPLv3
 mcview,,1,bundled,GNU Midnight Commander,gen,mcview,,,GNU GPLv3
 md5sum,,1,busybox,,chk,,,,GNU GPLv2
 mdev,,0,busybox,,sys,,,,GNU GPLv2
+memoblocks,,1,bundled,New BSD Games,fun,memoblocks,,,CC0 1.0 Universal
 memtester,,1,bundled,memtester,sys,,,A userspace memory subsystem fault tester.,GNU GPLv2
 mg,,1,bundled,Mg,dev,,emacs,A text editor with Emacs-style keybinds and buffers.,Unlicense
 micropython,,1,bundled,MicroPython,dev,,"python, python3","A Python implementation intended for microcontrollers, embedded systems and other constrained platforms. It implements Python 3.4 syntax with select keywords and features from later versions. It is capable of installing and managing mip modules from micropython-lib.",MIT
+miketron,,1,bundled,New BSD Games,fun,miketron,,,CC0 1.0 Universal
+mines,,1,bundled,New BSD Games,fun,mines,,,CC0 1.0 Universal
 mkdir,,0,busybox,,gen,,,Creates a directory at the given directory path or in the current directory with a given name without a path.,GNU GPLv2
 mkdosfs,!/sbin/fatlabel,1,busybox,,dsk,,,Creates a FAT32 file system on the given device or image file. The device or image will be readable with Windows 95 OSR2 or newer.,GNU GPLv2
 mkdosfs,/sbin/fatlabel,1,bundled,dosfstools,dsk,mkdosfs,,,GNU GPLv3
@@ -226,9 +235,11 @@ mount,,0,busybox,,dsk,,,,GNU GPLv2
 mountpoint,,1,busybox,,dsk,,,,GNU GPLv2
 mpg321,,1,bundled,mpg321,fun,mpg123,,A free MP3 player designed to be a drop-in replacement for the non-free mpg123.,GNU GPLv2
 mt,,1,bundled,mt-st,dsk,,,"Controls a magnetic tape drive. It provides typical drive operations such as rewinding, skipping and ejecting.",GNU GPLv2
+muncher,,1,bundled,New BSD Games,fun,muncher,,,CC0 1.0 Universal
 mv,,0,busybox,,gen,,,,GNU GPLv2
 nano,,1,bundled,GNU nano,dev,,,A Pico-style text editor.,GNU GPLv3
 nasm,,1,bundled,NASM,dev,nasm,,"A portable x86 assembler. Compared to GNU assembler (as), NASM uses Intel-style syntax instead of AT&T-style. Note: if you build ELFs (relocatable objects), you will need a separate linker such as GNU linker (ld) to produce a usable binary from them.",BSD 2-Clause
+nbsdgames,,1,bundled,New BSD Games,fun,nbsdgames,,,CC0 1.0 Universal
 nc,,1,busybox,,net,,,,GNU GPLv2
 ncdu,,1,bundled,Ncdu,dsk,,,,MIT
 ndisasm,,1,bundled,NASM,dev,ndisasm,,"A portable x86 disassembler. Compared to GNU objdump, it can disassemble raw binary files with no header, symbol table or debug information present.",BSD 2-Clause
@@ -257,6 +268,7 @@ pidof,,1,busybox,,pro,,,Lists the process IDs for all processes that match the g
 pinentry,,1,bundled,GnuPG,chk,pinentry,,,GNU GPLv3
 pinentry-tty,,1,bundled,GnuPG,chk,pinentry-tty,,,GNU GPLv3
 ping,,1,busybox,,net,,,,GNU GPLv2
+pipes,,1,bundled,New BSD Games,fun,pipes,,,CC0 1.0 Universal
 pkill,,1,busybox,,pro,,,"Sends a signal to any processes selected by the given regex pattern. By default, it will try to gracefully terminate the process, but a given signal number (such as 9 for an immediate kill) can be given as well.",GNU GPLv2
 pmap,,1,busybox,,pro,,,"Reports the memory map of a given process. It provides the amount of memory used, proportional set sizes (PSS), dirty pages, permissions on map (mode), and mappings (file, anon/allocated or stack). All memory values are in kilobytes (KB).",GNU GPLv2
 printenv,,1,busybox,,gen,,,,GNU GPLv2
@@ -266,13 +278,17 @@ pscan,,1,busybox,,net,,,,GNU GPLv2
 pstree,,1,busybox,,pro,,,"Prints a process tree, optionally starting from a given user or process ID.",GNU GPLv2
 pwd,,0,busybox,,gen,,,,GNU GPLv2
 pwdx,,1,busybox,,pro,,,Shows the current working directory for the given process IDs.,GNU GPLv2
+rabbithole,,1,bundled,New BSD Games,fun,rabbithole,,,CC0 1.0 Universal
 ranlib,,1,bundled,GNU Binutils,dev,GNU ranlib,,,GNU GPLv3
 readelf,,1,bundled,GNU Binutils,dev,GNU readelf,,,GNU GPLv3
 readlink,,1,busybox,,dsk,,,,GNU GPLv2
 readtags,,1,bundled,Universal Ctags,dev,readtags,,"A tool for listing, filtering, sorting and printing entries from a ctags tags file without needing a compatible editor.",GNU GPLv2
 realpath,,1,busybox,,gen,,,,GNU GPLv2
+redsquare,,1,bundled,New BSD Games,fun,redsquare,,,CC0 1.0 Universal
 resize2fs,,1,bundled,e2fsprogs,dsk,resize2fs,,,GNU GPLv2 + LGPLv2
 rev,,0,busybox,,txt,,,,GNU GPLv2
+revenge,,1,bundled,New BSD Games,fun,revenge,,,CC0 1.0 Universal
+reversi,,1,bundled,New BSD Games,fun,reversi,,,CC0 1.0 Universal
 rm,,0,busybox,,gen,,,,GNU GPLv2
 rmdir,,1,busybox,,gen,,,,GNU GPLv2
 rmmod,,1,busybox,,sys,,,,GNU GPLv2
@@ -280,6 +296,7 @@ route,,1,busybox,,net,,,,GNU GPLv2
 rview,,1,bundled,Vim,dev,rview,,"Opens the Vim editor in restricted and read-only mode. This disables its shell escapes, external commands and ability to write.",Vim
 rvim,,1,bundled,Vim,dev,rvim,,Opens the Vim editor in restricted mode. This disables its shell escapes and external commands.,Vim
 sc-im,,1,bundled,sc-im,gen,Spreadsheet Calculator Improvised,,"A terminal-based spreadsheet editor based on the original sc (spreadsheet calculator) but adds undo/redo, UTF-8, .xlsx workbook import/export, ODS export, clipboard integration, and Lua-based scripting support. It uses Vim-style keybinds.",BSD 4-Clause
+scissor,,1,bundled,New BSD Games,fun,scissor,,,CC0 1.0 Universal
 scp,,1,bundled,Dropbear,net,Dropbear (SCP),,An SCP client (a part of Dropbear) for remote file transfer.,MIT + BSD 2-Clause (OpenSSH components)
 scs2ascii,,1,bundled,tn5250,gen,scs2ascii,,,GNU LGPLv2.1
 scs2pdf,,1,bundled,tn5250,gen,scs2pdf,,,GNU LGPLv2.1
@@ -309,9 +326,12 @@ showkey,,1,busybox,,gen,,,,GNU GPLv2
 shred,,1,busybox,,dsk,,,,GNU GPLv2
 shuf,,1,busybox,,txt,,,,GNU GPLv2
 size,,1,bundled,GNU Binutils,dev,GNU size,,,GNU GPLv3
+sjump,,1,bundled,New BSD Games,fun,sjump,,,CC0 1.0 Universal
 sl,,1,shorktainment,,fun,SHORKLOCOMOTIVE,,A symbolic link to shorklocomotive.,GNU GPLv3
 sleep,,1,busybox,,gen,,,,GNU GPLv2
+snakeduel,,1,bundled,New BSD Games,fun,snakeduel,,,CC0 1.0 Universal
 sort,,1,busybox,,txt,,,,GNU GPLv2
+sos,,1,bundled,New BSD Games,fun,sos,,,CC0 1.0 Universal
 split,,1,busybox,,txt,,,,GNU GPLv2
 ssh,,1,bundled,Dropbear,net,Dropbear (SSH),,An SSH client (a part of Dropbear) for remote login and command-line execution.,MIT + BSD 2-Clause (OpenSSH components)
 stat,,1,busybox,,gen,,,,GNU GPLv2
@@ -324,6 +344,7 @@ stty,,1,busybox,,sys,,,,GNU GPLv2
 su,,1,busybox,,usr,,,"Allows you to log in and use the shell as another user without needing to log out of the current session. By default, it will try the root user, thus useful for quickly making administrative changes without needing to log out or switch consoles.",GNU GPLv2
 sudo,,1,bundled,sudo,usr,sudo,,,ISC + BSD 2-Clause + BSD 3-Clause + zlib
 sudoedit,,1,bundled,sudo,usr,sudoedit,,,ISC + BSD 2-Clause + BSD 3-Clause + zlib
+sudoku,,1,bundled,New BSD Games,fun,sudoku,,,CC0 1.0 Universal
 sulogin,,1,busybox,,usr,,,"Single-user login. It is normally invoked by the init system when the host system goes into single-user mode (for example, for rescue or maintenance operations). If you run sulogin during a normal session, it functions similarly to using su to log in as the root user.",GNU GPLv2
 sum,,1,busybox,,chk,,,,GNU GPLv2
 swapoff,,1,busybox,,dsk,,,"Used to stop memory paging/swapping on one or all swap-capable devices. If used and no swap devices are left online, the computer will be entirely reliant on system memory (RAM) for program memory.",GNU GPLv2
@@ -348,10 +369,12 @@ touch,,0,busybox,,gen,,,"Typically used to update the access and modification da
 tr,,1,busybox,,txt,,,,GNU GPLv2
 traceroute,,1,busybox,,net,,,,GNU GPLv2
 tree,,1,busybox,,gen,,,,GNU GPLv2
+trsr,,1,bundled,New BSD Games,fun,trsr,,,CC0 1.0 Universal
 true,,0,busybox,,gen,,,,GNU GPLv2
 truncate,,1,busybox,,gen,,,,GNU GPLv2
 tsort,,1,busybox,,txt,,,,GNU GPLv2
 tty,,1,busybox,,sys,,,,GNU GPLv2
+tugow,,1,bundled,New BSD Games,fun,tugow,,,CC0 1.0 Universal
 tune2fs,,1,bundled,e2fsprogs,dsk,tune2fs,,,GNU GPLv2 + LGPLv2
 udhcpc,,1,busybox,,net,,,,GNU GPLv2
 umount,,0,busybox,,dsk,,,,GNU GPLv2
