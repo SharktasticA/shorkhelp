@@ -190,6 +190,9 @@ ld.bfd,,1,bundled,GNU Binutils,dev,GNU linker (BFD),,,GNU GPLv3
 ld.gold,,1,bundled,GNU Binutils,dev,GNU gold,,,GNU GPLv3
 less,,0,busybox,,txt,,,"Displays the contents of a file in the terminal, allowing it to be scrolled line-by-line. It uses vi-style keybinds.",GNU GPLv2
 libnetcfg,,1,bundled,Perl,net,libnetcfg,,,GNU GPLv1
+libtool,,1,bundled,GNU Libtool,dev,libtool,,,GNU GPLv2
+libtool-next-version,,1,bundled,GNU Libtool,dev,libtool-next-version,,,GNU GPLv2
+libtoolize,,1,bundled,GNU Libtool,dev,libtoolize,,,GNU GPLv2
 link,,1,busybox,,dsk,,,,GNU GPLv2
 ln,,0,busybox,,dsk,,,"Creates a hard or symbolic link to a given target file or directory. Hard links are files that point to the same inode as the target file, which must be within the same file system, and hard links to directories are generally not supported. Symbolic links are files that point to the target file or directory, which can be on another file system and even target a non-existent file/directory. Deleting the target of a hard link will not delete the data so long as at least one hard link to it exists; deleting the target of a symbolic link will break the link.",GNU GPLv2
 loadkmap,,1,busybox,,sys,,,,GNU GPLv2
