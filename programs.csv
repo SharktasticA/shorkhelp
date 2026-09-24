@@ -1,6 +1,7 @@
 Command,Path,IsOptional,Type,Package,Category,Name,Aliases,Description,Licence
 #cmatrix,,1,bundled,CMatrix,fun,,,"A vertical scrolling text screensaver. It provides ""digital rain"", inspired by the 1999 film ""The Matrix"". The ""droplets"" are lines of green characters that fall from the top of the terminal to the bottom, and are occasionally broken up.",GNU GPLv3
 5250keys,,1,bundled,tn5250,gen,5250keys,,,GNU LGPLv2.1
+aclocal,,1,bundled,GNU Automake,dev,aclocal,,,GNU GPLv2
 addgroup,,1,busybox,,usr,,,Creates a new group or adds a given user to an existing group.,GNU GPLv2
 addr2line,,1,bundled,GNU Binutils,dev,GNU addr2line,,,GNU GPLv3
 adduser,,1,busybox,,usr,,,Creates a new user.,GNU GPLv2
@@ -11,6 +12,13 @@ arpaname,,1,bundled,BIND 9 DNS Utilities,net,arpaname,,,MPL 2.0
 as,,1,bundled,GNU Binutils,dev,GNU assembler,,An x86 assembler and the default backend of GCC.,GNU GPLv3
 ascii,,1,busybox,,gen,,,"Prints a table containing all 128 ASCII characters. For each character, its decimal (Dec) and hexadecimal (Hex) values are displayed with it.",GNU GPLv2
 ash,,1,busybox,,sys,,,,GNU GPLv2
+autoconf,,1,bundled,GNU Autoconf,dev,autoconf,,,GNU GPLv2
+autoheader,,1,bundled,GNU Autoconf,dev,autoheader,,,GNU GPLv2
+autom4te,,1,bundled,GNU Autoconf,dev,autom4te,,,GNU GPLv2
+automake,,1,bundled,GNU Automake,dev,automake,,,GNU GPLv2
+autoreconf,,1,bundled,GNU Autoconf,dev,autoreconf,,,GNU GPLv2
+autoscan,,1,bundled,GNU Autoconf,dev,autoscan,,,GNU GPLv2
+autoupdate,,1,bundled,GNU Autoconf,dev,autoupdate,,,GNU GPLv2
 awk,,0,busybox,,txt,,,An AWK processor. AWK is a scripting language designed for text pattern scanning and processing and useful for data extraction and reporting.,GNU GPLv2
 badblocks,,1,bundled,e2fsprogs,dsk,badblocks,,,GNU GPLv2 + LGPLv2
 base32,,1,busybox,,txt,,,Encodes text to Base32 or decodes Base32 to text from a file to standard output.,GNU GPLv2
@@ -41,6 +49,7 @@ chvt,,1,busybox,,gen,,,"Changes the active virtual terminal. Changing the curren
 cksum,,1,busybox,,chk,,,,GNU GPLv2
 clear,,0,busybox,,gen,,,"Clears the terminal so that the cursor is positioned at the top. It is similar to ""cls"" on MS-DOS, Microsoft Windows, etc.",GNU GPLv2
 comm,,1,busybox,,txt,,,,GNU GPLv2
+corelist,,1,bundled,Perl,dev,corelist,,,GNU GPLv1
 cp,,0,busybox,,gen,,,,GNU GPLv2
 cpio,,1,busybox,,arc,,,"Lists or extracts files from a cpio archive on standard input, creates an archive from a list of files from standard input, or copies files from a list of files from standard input.",GNU GPLv2
 crc32,,1,busybox,,chk,,,,GNU GPLv2
@@ -90,6 +99,8 @@ ed,,1,busybox,,dev,,,,GNU GPLv2
 egrep,,1,busybox,,txt,,,,GNU GPLv2
 eject,,1,busybox,,dsk,,,,GNU GPLv2
 elfedit,,1,bundled,GNU Binutils,dev,GNU elfedit,,,GNU GPLv3
+enc2xs,,1,bundled,Perl,dev,enc2xs,,,GNU GPLv1
+encguess,,1,bundled,Perl,txt,encguess,,,GNU GPLv1
 env,,1,busybox,,gen,,,,GNU GPLv2
 ex,,1,bundled,Vim,dev,ex,,Opens the Vim editor in line-orientated mode. It processes commands line-by-line rather than providing a full interactive experience.,Vim
 expand,,1,busybox,,txt,,,,GNU GPLv2
@@ -145,6 +156,8 @@ gpm,,1,bundled,gpm,sys,,,Virtual console mouse.,GNU GPLv2
 grep,,0,busybox,,txt,,,,GNU GPLv2
 gunzip,,1,busybox,,arc,,,"Decompresses given gzip archives, or gzip-compressed standard input to standard output. By default, it will replace the input files unless told otherwise.",GNU GPLv2
 gzip,,1,busybox,,arc,,,"Compresses given files or standard input into a gzip archive. By default, it will replace the input files unless told otherwise.",GNU GPLv2
+h2ph,,1,bundled,Perl,dev,h2ph,,,GNU GPLv1
+h2xs,,1,bundled,Perl,dev,h2xs,,,GNU GPLv1
 halt,,1,busybox,,sys,,,,GNU GPLv2
 head,,1,busybox,,txt,,,,GNU GPLv2
 hexdump,,1,busybox,,dev,,,,GNU GPLv2
@@ -156,16 +169,19 @@ htop,,1,bundled,htop,pro,,,"An interactive process viewer designed to be an enha
 hwclock,,1,busybox,,sys,,,,GNU GPLv2
 id,,1,busybox,,usr,,,"Prints the current user's user ID, primary group ID, and any supplementary group IDs the user is a part of.",GNU GPLv2
 ifconfig,,1,busybox,,net,,,,GNU GPLv2
+ifnames,,1,bundled,GNU Autoconf,dev,ifnames,,,GNU GPLv2
 indent,,1,bundled,GNU Indent,dev,GNU Indent,,"A C code formatter. It can format a given C source file to a desired indentation and styling rule (GNU style by default), or convert between different C formatting conventions (for example, from GNU style to K&R style).",GNU GPLv3
 init,,1,busybox,,sys,,,,GNU GPLv2
 insmod,,1,busybox,,sys,,,,GNU GPLv2
 install,,1,busybox,,gen,,,,GNU GPLv2
+instmodsh,,1,bundled,Perl,dev,instmodsh,,,GNU GPLv1
 iostat,,1,busybox,,sys,,,,GNU GPLv2
 ip,,1,busybox,,net,,,,GNU GPLv2
 ipcalc,,1,busybox,,net,,,,GNU GPLv2
 jewels,,1,bundled,New BSD Games,fun,jewels,,,CC0 1.0 Universal
 joe,,1,bundled,Joe's Own Editor,dev,,,A WordStar-style text editor.,GNU GPLv2
 jq,,1,bundled,jq,txt,,,A command-line JSON processor.,MIT + CC BY 3.0 + ICU
+json_pp,,1,bundled,Perl,txt,json_pp,,,GNU GPLv1
 kbxutil,,1,bundled,GnuPG,chk,kbxutil,,,GNU GPLv3
 kill,,1,busybox,,pro,,,"Sends a signal to the process that matches the given process ID. By default, it will try to gracefully terminate the process, but a given signal number (such as 9 for an immediate kill) can be given as well.",GNU GPLv2
 killall,,1,busybox,,pro,,,"Sends a signal to all processes with a given name. By default, it will try to gracefully terminate the process, but a given signal number (such as 9 for an immediate kill) can be given as well.",GNU GPLv2
@@ -173,6 +189,7 @@ ld,,1,bundled,GNU Binutils,dev,GNU linker,,,GNU GPLv3
 ld.bfd,,1,bundled,GNU Binutils,dev,GNU linker (BFD),,,GNU GPLv3
 ld.gold,,1,bundled,GNU Binutils,dev,GNU gold,,,GNU GPLv3
 less,,0,busybox,,txt,,,"Displays the contents of a file in the terminal, allowing it to be scrolled line-by-line. It uses vi-style keybinds.",GNU GPLv2
+libnetcfg,,1,bundled,Perl,net,libnetcfg,,,GNU GPLv1
 link,,1,busybox,,dsk,,,,GNU GPLv2
 ln,,0,busybox,,dsk,,,"Creates a hard or symbolic link to a given target file or directory. Hard links are files that point to the same inode as the target file, which must be within the same file system, and hard links to directories are generally not supported. Symbolic links are files that point to the target file or directory, which can be on another file system and even target a non-existent file/directory. Deleting the target of a hard link will not delete the data so long as at least one hard link to it exists; deleting the target of a symbolic link will break the link.",GNU GPLv2
 loadkmap,,1,busybox,,sys,,,,GNU GPLv2
@@ -196,6 +213,7 @@ lzcat,,1,busybox,,arc,,,Decompresses a given LZMA archive to standard output. Fu
 lzma,,1,busybox,,arc,,,"Decompresses given LZMA archives, or LZMA-compressed standard input to standard output. By default, it will replace the input files unless told otherwise. Note: unlike XZ Utils' implementation of lzma, BusyBox's version cannot compress any input.",GNU GPLv2
 lzop,,1,busybox,,arc,,,Compresses given files or standard input into a LZO archive.,GNU GPLv2
 lzopcat,,1,busybox,,arc,,,Decompresses a given LZO archive to standard output. Functions like unlzop -c.,GNU GPLv2
+m4,,1,bundled,GNU m4,dev,,,,GNU GPLv3
 make,,1,bundled,GNU Make,dev,,,"A build automation tool that executes shell commands primarily to update program compilation targets only when their prerequisites have changed, avoiding unnecessary work. It is often run in the same directory as a Makefile, which describes how a project's files relate to each other and how to update them. Whilst it is often associated with C-language projects, Make can be used for any task where maintaining some files in a project can be done with shell commands, whether it be other programming languages or documentation generation, asset pipelines or general project automation.",GNU GPLv3
 man,,1,busybox,,gen,,,,GNU GPLv2
 mc,,1,bundled,GNU Midnight Commander,gen,mc,,Norton Commander-style file manager.,GNU GPLv3
@@ -264,19 +282,32 @@ passwd,,1,busybox,,usr,,,"Changes your user password, or if you are the root acc
 paste,,1,busybox,,txt,,,,GNU GPLv2
 patch,,1,busybox,,dev,,,"Applies a patch file to an original file to update it with its contents. A patch file contains a line-by-line difference listing between two files produced by diff, git diff, or similar.",GNU GPLv2
 patchelf,,1,bundled,PatchELF,dev,,,ELF binary patching.,GNU GPLv3
+perl,,1,bundled,Perl,dev,perl,,,GNU GPLv1
+perldoc,,1,bundled,Perl,dev,perldoc,,,GNU GPLv1
+perlivp,,1,bundled,Perl,dev,perlivp,,,GNU GPLv1
 pgrep,,1,busybox,,pro,,,Lists the process IDs for all processes that match the given regex pattern.,GNU GPLv2
+piconv,,1,bundled,Perl,txt,piconv,,,GNU GPLv1
 pidof,,1,busybox,,pro,,,Lists the process IDs for all processes that match the given name.,GNU GPLv2
 pinentry,,1,bundled,GnuPG,chk,pinentry,,,GNU GPLv3
 pinentry-tty,,1,bundled,GnuPG,chk,pinentry-tty,,,GNU GPLv3
 ping,,1,busybox,,net,,,,GNU GPLv2
 pipes,,1,bundled,New BSD Games,fun,pipes,,,CC0 1.0 Universal
 pkill,,1,busybox,,pro,,,"Sends a signal to any processes selected by the given regex pattern. By default, it will try to gracefully terminate the process, but a given signal number (such as 9 for an immediate kill) can be given as well.",GNU GPLv2
+pl2pm,,1,bundled,Perl,dev,pl2pm,,,GNU GPLv1
 pmap,,1,busybox,,pro,,,"Reports the memory map of a given process. It provides the amount of memory used, proportional set sizes (PSS), dirty pages, permissions on map (mode), and mappings (file, anon/allocated or stack). All memory values are in kilobytes (KB).",GNU GPLv2
+pod2html,,1,bundled,Perl,dev,pod2html,,,GNU GPLv1
+pod2man,,1,bundled,Perl,dev,pod2man,,,GNU GPLv1
+pod2text,,1,bundled,Perl,dev,pod2text,,,GNU GPLv1
+pod2usage,,1,bundled,Perl,dev,pod2usage,,,GNU GPLv1
+podchecker,,1,bundled,Perl,dev,podchecker,,,GNU GPLv1
 printenv,,1,busybox,,gen,,,,GNU GPLv2
 printf,,0,busybox,,gen,,,,GNU GPLv2
 ps,,1,busybox,,pro,,,"Prints a list of running processes. It includes the process ID (PID), user name, time, and command.",GNU GPLv2
 pscan,,1,busybox,,net,,,,GNU GPLv2
 pstree,,1,busybox,,pro,,,"Prints a process tree, optionally starting from a given user or process ID.",GNU GPLv2
+ptar,,1,bundled,Perl,arc,ptar,,,GNU GPLv1
+ptardiff,,1,bundled,Perl,arc,ptardiff,,,GNU GPLv1
+ptargrep,,1,bundled,Perl,arc,ptargrep,,,GNU GPLv1
 pwd,,0,busybox,,gen,,,,GNU GPLv2
 pwdx,,1,busybox,,pro,,,Shows the current working directory for the given process IDs.,GNU GPLv2
 rabbithole,,1,bundled,New BSD Games,fun,rabbithole,,,CC0 1.0 Universal
@@ -312,6 +343,7 @@ sha256sum,,1,busybox,,chk,,,,GNU GPLv2
 sha384sum,,1,busybox,,chk,,,,GNU GPLv2
 sha3sum,,1,busybox,,chk,,,,GNU GPLv2
 sha512sum,,1,busybox,,chk,,,,GNU GPLv2
+shasum,,1,bundled,Perl,chk,shasum,,,GNU GPLv1
 shorkbin,,1,shorkutil,,txt,SHORKBIN,,"An ASCII text to 8-bit binary (and vice versa) converter. Modelled after Coreutils like base32, it plugs a hole for such a converter in the base command set. It accepts a filepath or standard input if no filepath is given.",GNU GPLv3
 shorkdir,,1,shorkutil,,gen,SHORKDIR,,"A terminal-based file browser. It allows you to surf the file system with Vim-like controls, WASD or arrow keys, open text-based files with an installed editor of your choice, and inspect a file (if file is installed).",GNU GPLv3
 shorkfetch,,1,shorkutil,,sys,SHORKFETCH,,"A shark-themed Linux fetch tool designed with speed, consistent output, and vintage hardware support in mind. It displays basic system and environment information in a summarised format. It can report the current username, hostname, operating system/distribution, kernel version, system uptime, number of installed packages, screens, desktop environment, window manager, terminal, console size, shell, CPU, GPUs, system memory, swap memory, root partition size, and local IP address.",GNU GPLv3
@@ -333,11 +365,13 @@ sleep,,1,busybox,,gen,,,,GNU GPLv2
 snakeduel,,1,bundled,New BSD Games,fun,snakeduel,,,CC0 1.0 Universal
 sort,,1,busybox,,txt,,,,GNU GPLv2
 sos,,1,bundled,New BSD Games,fun,sos,,,CC0 1.0 Universal
+splain,,1,bundled,Perl,dev,splain,,,GNU GPLv1
 split,,1,busybox,,txt,,,,GNU GPLv2
 ssh,,1,bundled,Dropbear,net,Dropbear (SSH),,An SSH client (a part of Dropbear) for remote login and command-line execution.,MIT + BSD 2-Clause (OpenSSH components)
 stat,,1,busybox,,gen,,,,GNU GPLv2
 stinit,,1,bundled,mt-st,dsk,,,"Used for initialising SCSI magnetic tape drive modes at system startup, when a tape driver module is loaded, or when a new tape driver is initialised using terminal commands.",GNU GPLv2
 strace,,1,bundled,strace,pro,,,"Executes a given command to capture and trace its system calls and signals. It is a useful diagnosis and debugging tool one can run if a program fails unexpectedly, and/or without meaningful error messages or logs.",GNU LGPLv2.1
+streamzip,,1,bundled,Perl,arc,streamzip,,,GNU GPLv1
 strings,/opt/i486-linux-musl-native/bin/strings,1,bundled,GNU Binutils,dev,GNU strings,,,GNU GPLv3
 strings,/usr/bin/strings,1,busybox,,dev,,,,GNU GPLv3
 strip,,1,bundled,GNU Binutils,dev,GNU strip,,,GNU GPLv3
@@ -415,6 +449,7 @@ who,,1,busybox,,usr,,,"Shows which users are logged in, what ttyX they are logge
 whoami,,1,busybox,,usr,,,Prints the current user's name. Functions similarly to logname but uses the current effective user ID as its source.,GNU GPLv2
 whois,,1,busybox,,net,,,,GNU GPLv2
 xargs,,1,busybox,,gen,,,,GNU GPLv2
+xsubpp,,1,bundled,Perl,dev,xsubpp,,,GNU GPLv1
 xt5250,,1,bundled,tn5250,net,xt5250,,,GNU LGPLv2.1
 xxd,/usr/bin/vim,1,bundled,Vim,dev,xxd,,,Vim
 xxd,!/usr/bin/vim,1,busybox,,dev,,,,GNU GPLv2
@@ -422,3 +457,4 @@ xz,,1,busybox,,arc,,,"Decompresses given XZ archives, or XZ-compressed standard 
 xzcat,,1,busybox,,arc,,,Decompresses a given XZ archive to standard output. Functions like unxz -c.,GNU GPLv2
 yes,,1,busybox,,gen,,,,GNU GPLv2
 zcat,,1,busybox,,arc,,,Decompresses a given gzip archive to standard output. Functions like gunzip -c.,GNU GPLv2
+zipdetails,,1,bundled,Perl,arc,zipdetails,,,GNU GPLv1
