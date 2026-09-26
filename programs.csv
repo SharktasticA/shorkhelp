@@ -44,6 +44,8 @@ chgrp,,1,busybox,,usr,,,Changes the group owner of any given files with the give
 chmod,,1,busybox,,usr,,,"Changes one or more file mode bits of any given files, either with an octal number representing the mode's bit pattern or symbolic representations for a specific change. It changes how files can be accessed - can it be read, written, or executed as a program.",GNU GPLv2
 chown,,1,busybox,,usr,,,Changes the user and/or group owner of any given files to the given user and group names or IDs.,GNU GPLv2
 chpasswd,,1,busybox,,usr,,,"Changes user passwords based on standard input. Compared to passwd, this is intended for script/batch processing usage.",GNU GPLv2
+chronyc,,1,bundled,chrony,sys,chronyc,,,GNU GPLv2
+chronyd,,1,bundled,chrony,sys,chronyd,,,GNU GPLv2
 chroot,,1,busybox,,usr,,,"Runs a given program that believes the root directory is any directory of your choice. It is useful for rescue and sandboxing, allowing you to run a program that cannot make changes outside the given directory.",GNU GPLv2
 chvt,,1,busybox,,gen,,,"Changes the active virtual terminal. Changing the current virtual terminal is useful for terminal-based multi-tasking, troubleshooting and recovery. It functions similarly to pressing Ctrl+Alt+[F1/F2/F3/etc.]",GNU GPLv2
 cksum,,1,busybox,,chk,,,,GNU GPLv2
