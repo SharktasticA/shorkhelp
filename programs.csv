@@ -132,6 +132,7 @@ fsck.fat,,1,bundled,dosfstools,dsk,fsck.fat,,,GNU GPLv3
 fsck.msdos,,1,bundled,dosfstools,dsk,fsck.msdos,,,GNU GPLv3
 fsck.vfat,,1,bundled,dosfstools,dsk,fsck.vfat,,,GNU GPLv3
 ftp,,1,bundled,tnftp,net,,,An FTP client for remote file transfer.,BSD 2-Clause
+ftpd,,1,busybox,,net,,,,GNU GPLv2
 ftpget,,1,busybox,,net,,,,GNU GPLv2
 ftpput,,1,busybox,,net,,,,GNU GPLv2
 fuser,,1,busybox,,pro,,,Lists the process IDs that have the given file or network port open. It can also be told to directly kill or send a signal to the matched processes.,GNU GPLv2
@@ -173,6 +174,7 @@ id,,1,busybox,,usr,,,"Prints the current user's user ID, primary group ID, and a
 ifconfig,,1,busybox,,net,,,,GNU GPLv2
 ifnames,,1,bundled,GNU Autoconf,dev,ifnames,,,GNU GPLv2
 indent,,1,bundled,GNU Indent,dev,GNU Indent,,"A C code formatter. It can format a given C source file to a desired indentation and styling rule (GNU style by default), or convert between different C formatting conventions (for example, from GNU style to K&R style).",GNU GPLv3
+inetd,,1,busybox,,net,,,,GNU GPLv2
 init,,1,busybox,,sys,,,,GNU GPLv2
 insmod,,1,busybox,,sys,,,,GNU GPLv2
 install,,1,busybox,,gen,,,,GNU GPLv2
@@ -399,8 +401,10 @@ taskset,,1,busybox,,pro,,,Allows you to get or set the CPU affinity for a new pr
 tcc,,1,bundled,Tiny C Compiler,dev,,,A lightweight C compiler (configured to use musl).,GNU LGPLv2.1
 tee,,0,busybox,,gen,,,,GNU GPLv2
 telnet,,1,busybox,,net,,,,GNU GPLv2
+telnetd,,1,busybox,,net,,,,GNU GPLv2
 test,,0,busybox,,gen,,,,GNU GPLv2
 text2bin,,1,shorkutil,,txt,SHORKBIN,,A symbolic link to shorkbin.,GNU GPLv3
+tftpd,,1,busybox,,net,,,,GNU GPLv2
 tilde,,1,bundled,Tilde,dev,,,,GNU GPLv3
 time,,1,busybox,,gen,,,,GNU GPLv2
 timeout,,1,busybox,,pro,,,"Runs the given program until the given timeout, which will be terminated unless the program completes by itself. By default, it will try to gracefully terminate the program, but it can be told to immediately kill as well.",GNU GPLv2
