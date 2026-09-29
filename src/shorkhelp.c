@@ -1198,7 +1198,7 @@ void printSoftwareSHORKUTILS(void)
     pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkhelp\033[%sm\nProvides help and reference information regarding SHORK 486 and included software and tools. It provides a command database and list, guides, and cheatsheets.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorkoff", 1))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkoff\033[%sm\nA shutdown helper that syncs outstanding write cache and safely brings the system to a controlled halt before a manual power off to help prevent data corruption or loss. Similar to \033[%smpoweroff\033[%sm or \033[%smshutdown -h\033[%sm.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkoff\033[%sm\nA shark-themed shutdown helper that syncs outstanding write cache and safely brings the system to a controlled halt before a manual power off.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorkset", 1))
         pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkset\033[%sm\nA settings program for changing SHORK 486's display resolution, keyboard layout (keymap), terminal PSF font, and terminal font colour.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);

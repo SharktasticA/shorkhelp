@@ -305,6 +305,7 @@ pod2man,,1,bundled,Perl,dev,pod2man,,,GNU GPLv1
 pod2text,,1,bundled,Perl,dev,pod2text,,,GNU GPLv1
 pod2usage,,1,bundled,Perl,dev,pod2usage,,,GNU GPLv1
 podchecker,,1,bundled,Perl,dev,podchecker,,,GNU GPLv1
+poweroff,,1,busybox,,sys,,,,GNU GPLv2
 printenv,,1,busybox,,gen,,,,GNU GPLv2
 printf,,0,busybox,,gen,,,,GNU GPLv2
 ps,,1,busybox,,pro,,,"Prints a list of running processes. It includes the process ID (PID), user name, time, and command.",GNU GPLv2
@@ -321,6 +322,7 @@ readelf,,1,bundled,GNU Binutils,dev,GNU readelf,,,GNU GPLv3
 readlink,,1,busybox,,dsk,,,,GNU GPLv2
 readtags,,1,bundled,Universal Ctags,dev,readtags,,"A tool for listing, filtering, sorting and printing entries from a ctags tags file without needing a compatible editor.",GNU GPLv2
 realpath,,1,busybox,,gen,,,,GNU GPLv2
+reboot,,1,busybox,,sys,,,,GNU GPLv2
 redsquare,,1,bundled,New BSD Games,fun,redsquare,,,CC0 1.0 Universal
 resize2fs,,1,bundled,e2fsprogs,dsk,resize2fs,,,GNU GPLv2 + LGPLv2
 rev,,0,busybox,,txt,,,,GNU GPLv2
