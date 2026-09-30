@@ -404,6 +404,7 @@ telnet,,1,busybox,,net,,,,GNU GPLv2
 telnetd,,1,busybox,,net,,,,GNU GPLv2
 test,,0,busybox,,gen,,,,GNU GPLv2
 text2bin,,1,shorkutil,,txt,SHORKBIN,,A symbolic link to shorkbin.,GNU GPLv3
+tftp,,1,busybox,,net,,,,GNU GPLv2
 tftpd,,1,busybox,,net,,,,GNU GPLv2
 tilde,,1,bundled,Tilde,dev,,,,GNU GPLv3
 time,,1,busybox,,gen,,,,GNU GPLv2
