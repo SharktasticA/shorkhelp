@@ -3,14 +3,14 @@ AR ?= ar
 RANLIB ?= ranlib
 STRIP ?= strip
 
-CFLAGS += -I.
+CFLAGS += -I. -Ishorkcommon
 LDFLAGS += -static
 
 ifdef EMBEDDED
 	CFLAGS += -DEMBEDDED
 endif
 
-SRC = src/*.c
+SRC = $(wildcard src/*.c) $(wildcard shorkcommon/*.c)
 
 shorkhelp: $(SRC)
 	$(CC) $(CFLAGS) $(SRC) -o shorkhelp $(LDFLAGS)
