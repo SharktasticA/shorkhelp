@@ -7,7 +7,7 @@ ifeq ($(wildcard shorkcommon/.git),)
 $(shell git submodule update --init shorkcommon)
 endif
 
-CFLAGS += -I. -Ishorkcommon
+CFLAGS += -D_GNU_SOURCE -std=gnu99 -I. -Ishorkcommon -Os
 LDFLAGS += -static
 
 ifdef EMBEDDED
@@ -29,11 +29,13 @@ install: shorkhelp
 	install -m 755 shorkhelp $(DESTDIR)$(BINDIR)
 
 	install -d $(DESTDIR)$(DATDIR)
-	install -m 644 programs.csv $(DESTDIR)$(DATDIR)
+	install -m 644 program-descs.csv $(DESTDIR)$(DATDIR)
+	install -m 644 program-names.csv $(DESTDIR)$(DATDIR)
 
 uninstall:
 	rm -f $(DESTDIR)$(BINDIR)/shorkhelp
-	rm -f $(DESTDIR)$(DATDIR)/programs.csv
+	rm -f $(DESTDIR)$(DATDIR)/program-descs.csv
+	rm -f $(DESTDIR)$(DATDIR)/program-names.csv
 
 clean:
 	rm -f shorkhelp

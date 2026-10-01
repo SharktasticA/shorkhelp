@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
 
         for (int i = 1; i < argc; i++)
         {
-            if (strcmp(argv[i], "--commands") == 0 && fileExists("/usr/share/shorkhelp/programs.csv"))
+            if (strcmp(argv[i], "--commands") == 0 && fileExists("/usr/share/shorkhelp/program-names.csv"))
                 opt = ARG_COMMANDS;
 #ifndef EMBEDDED
             else if (strcmp(argv[i], "--emacs") == 0 || strcmp(argv[i], "--mg") == 0)
@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
             PROG_ENTRIES_NO = loadProgramEntries();
             if (PROG_ENTRIES_NO == -1)
             {
-                printf("ERROR: could not load programs.csv\n");
+                printf("ERROR: could not load programs database\n");
                 return 1;
             }
             setupMenuSys();

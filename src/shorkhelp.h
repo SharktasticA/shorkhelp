@@ -22,6 +22,7 @@ typedef struct {
 } Licence;
 
 typedef struct {
+    char *id;
     char *command;
     char *path;
     char *type;
@@ -30,8 +31,8 @@ typedef struct {
     int man;
     char *name;
     char *aliases;
-    char *desc;
     char *licences;
+    char *desc;
 } ProgramEntry;
 
 
@@ -40,23 +41,28 @@ typedef struct {
 #define BUILD_REPORT_PATH       "/var/log/shork/build-report.log"
 #endif
 #define CSV_BUFFER              49152
+#define PROG_ENTRY_CMD_LEN      256
 #define INITIAL_CMD_STR         128
 #define MAX_CMD_STR             2048
 #define MAX_LICENCES            100
-#define MAX_PROG_ENTRIES        500
+#define MAX_PROG_ENTRIES        550
 
-extern char OS_NAME[128];
 extern Licence LICENCES[MAX_LICENCES];
 extern int LICENCES_NO;
+extern int PROG_DESCS_NO;
 extern ProgramEntry PROG_ENTRIES[MAX_PROG_ENTRIES];
 extern int PROG_ENTRIES_NO;
+extern char OS_NAME[128];
 
 
 
 int getIsPT1(void);
+ProgramEntry **getProgramsWithAliases(int*, int);
 int getOSName(void);
 int loadLicences(void);
+int loadProgramDescs(void);
 int loadProgramEntries(void);
+int progCmp(const void*, const void*);
 
 #ifndef EMBEDDED
 void printGuideDiscoveringHardware(void);

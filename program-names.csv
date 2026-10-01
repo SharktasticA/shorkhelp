@@ -1,0 +1,455 @@
+ID,Command,Path,IsOptional,Type,Package,Category,Name,Aliases,Licence
+1M20,5250keys,,1,bundled,tn5250,gen,5250keys,,GNU LGPLv2.1
+dwlg,aclocal,,1,bundled,GNU Automake,dev,aclocal,,GNU GPLv2
+BDdq,addgroup,,1,busybox,,usr,,,GNU GPLv2
+qp9A,addr2line,,1,bundled,GNU Binutils,dev,GNU addr2line,,GNU GPLv3
+kRib,adduser,,1,busybox,,usr,,,GNU GPLv2
+ofbS,ar,/opt/i486-linux-musl-native/bin/ar,1,bundled,GNU Binutils,arc,GNU ar,,GNU GPLv3
+ZNYP,ar,/usr/bin/ar,1,busybox,,arc,,,GNU GPLv2
+a1TQ,arch,,1,busybox,,sys,,,GNU GPLv2
+LYl2,arpaname,,1,bundled,BIND 9 DNS Utilities,net,arpaname,,MPL 2.0
+AsVs,as,,1,bundled,GNU Binutils,dev,GNU assembler,,GNU GPLv3
+T0ER,ascii,,1,busybox,,gen,,,GNU GPLv2
+N74V,ash,,1,busybox,,sys,,,GNU GPLv2
+DgtD,autoconf,,1,bundled,GNU Autoconf,dev,autoconf,,GNU GPLv2
+85pc,autoheader,,1,bundled,GNU Autoconf,dev,autoheader,,GNU GPLv2
+5zvc,autom4te,,1,bundled,GNU Autoconf,dev,autom4te,,GNU GPLv2
+2NIN,automake,,1,bundled,GNU Automake,dev,automake,,GNU GPLv2
+kvVq,autoreconf,,1,bundled,GNU Autoconf,dev,autoreconf,,GNU GPLv2
+ZWMf,autoscan,,1,bundled,GNU Autoconf,dev,autoscan,,GNU GPLv2
+cnUq,autoupdate,,1,bundled,GNU Autoconf,dev,autoupdate,,GNU GPLv2
+3Umf,awk,,0,busybox,,txt,,,GNU GPLv2
+Fi5Q,badblocks,,1,bundled,e2fsprogs,dsk,badblocks,,GNU GPLv2 + LGPLv2
+xu4B,base32,,1,busybox,,txt,,,GNU GPLv2
+KE6W,base64,,1,busybox,,txt,,,GNU GPLv2
+UQbw,basename,,0,busybox,,gen,,,GNU GPLv2
+8HP7,battleship,,1,bundled,New BSD Games,fun,battleship,,CC0 1.0 Universal
+OnIu,bc,,1,busybox,,gen,,,GNU GPLv2
+3mSP,beep,,1,busybox,,sys,,,GNU GPLv2
+CPBh,blkid,/usr/sbin/e2image,1,bundled,e2fsprogs,dsk,blkid,,GNU GPLv2 + LGPLv2
+PuOO,blkid,!/usr/sbin/e2image,1,busybox,,dsk,,,GNU GPLv2
+hJ4H,bunzip2,,1,busybox,,arc,,,GNU GPLv2
+uDiL,bzcat,,1,busybox,,arc,,,GNU GPLv2
+v7to,bzip2,,1,busybox,,arc,,,GNU GPLv2
+g1nA,c++filt,,1,bundled,GNU Binutils,dev,GNU c++filt,,GNU GPLv3
+BoOO,c3270,,1,bundled,x3270,gen,c3270,,BSD 3-Clause
+5r76,cal,,1,busybox,,gen,,,GNU GPLv2
+wCHM,cat,,0,busybox,,txt,,,GNU GPLv2
+C5A4,cfdisk,,1,bundled,util-linux,dsk,cfdisk,,GNU GPLv2
+wgOA,chattr,,1,bundled,e2fsprogs,dsk,chattr,,GNU GPLv2 + LGPLv2
+GafZ,checkers,,1,bundled,New BSD Games,fun,checkers,,CC0 1.0 Universal
+vI4s,chgrp,,1,busybox,,usr,,,GNU GPLv2
+Vy2k,chmod,,1,busybox,,usr,,,GNU GPLv2
+Xbg2,chown,,1,busybox,,usr,,,GNU GPLv2
+WdHH,chpasswd,,1,busybox,,usr,,,GNU GPLv2
+UkKf,chronyc,,1,bundled,chrony,sys,chronyc,,GNU GPLv2
+GbTW,chronyd,,1,bundled,chrony,sys,chronyd,,GNU GPLv2
+RGIN,chroot,,1,busybox,,usr,,,GNU GPLv2
+khJV,chvt,,1,busybox,,gen,,,GNU GPLv2
+IzfQ,cksum,,1,busybox,,chk,,,GNU GPLv2
+WR3i,clear,,0,busybox,,gen,,,GNU GPLv2
+7PQ9,comm,,1,busybox,,txt,,,GNU GPLv2
+g1CZ,corelist,,1,bundled,Perl,dev,corelist,,GNU GPLv1
+PLaJ,cp,,0,busybox,,gen,,,GNU GPLv2
+r4EB,cpio,,1,busybox,,arc,,,GNU GPLv2
+OiV6,crc32,,1,busybox,,chk,,,GNU GPLv2
+1zij,crontab,,1,busybox,,pro,,,GNU GPLv2
+GiET,cryptpw,,1,busybox,,usr,,,GNU GPLv2
+cv0J,cscope,,1,bundled,Cscope,dev,,,BSD 3-Clause
+hXg3,ctags,,1,bundled,Universal Ctags,dev,,,GNU GPLv2
+3l3R,ctris,,1,bundled,CTris,fun,,,MIT
+rPk3,curl,,1,bundled,cURL,net,,,MIT
+Ked6,cut,,1,busybox,,txt,,,GNU GPLv2
+BRx5,darrt,,1,bundled,New BSD Games,fun,darrt,,CC0 1.0 Universal
+0PTa,date,,0,busybox,,gen,,,GNU GPLv2
+ub95,dc,,1,busybox,,gen,,,GNU GPLv2
+7q12,dd,,0,busybox,,dsk,,,GNU GPLv2
+TypX,debugfs,,1,bundled,e2fsprogs,dsk,debugfs,,GNU GPLv2 + LGPLv2
+5Osn,delgroup,,1,busybox,,usr,,,GNU GPLv2
+YEDL,deluser,,1,busybox,,usr,,,GNU GPLv2
+j1lv,delv,,1,bundled,BIND 9 DNS Utilities,net,delv,,MPL 2.0
+3yVA,depmod,,1,busybox,,sys,,,GNU GPLv2
+4Y7s,df,,0,busybox,,dsk,,,GNU GPLv2
+V9VD,dialog,,1,bundled,dialog,dev,,,GNU LGPLv2.1
+7eMh,diff,,1,busybox,,dev,,,GNU GPLv2
+Sauy,dig,,1,bundled,BIND 9 DNS Utilities,net,dig,,MPL 2.0
+x5r7,dirname,,1,busybox,,gen,,,GNU GPLv2
+KtI7,dmesg,,1,busybox,,sys,,,GNU GPLv2
+BTHy,dnsdomainname,,1,busybox,,net,,,GNU GPLv2
+PvFi,dos2unix,,1,busybox,,txt,,,GNU GPLv2
+7OYG,dosemu,,1,bundled,dosemu2,gen,,,GNU GPLv2
+6Qrm,dropbear,,1,bundled,Dropbear,net,Dropbear (sshd),,MIT + BSD 2-Clause (OpenSSH components)
+NXgy,dropbearkey,,1,bundled,Dropbear,net,dropbearkey,,MIT + BSD 2-Clause (OpenSSH components)
+dub1,du,,1,busybox,,dsk,,,GNU GPLv2
+tOwX,dumpe2fs,,1,bundled,e2fsprogs,dsk,dumpe2fs,,GNU GPLv2 + LGPLv2
+3QBg,dwp,,1,bundled,GNU Binutils,dev,GNU dwp,,GNU GPLv3
+J10Q,e2freefrag,,1,bundled,e2fsprogs,dsk,e2freefrag,,GNU GPLv2 + LGPLv2
+TvuR,e2fsck,,1,bundled,e2fsprogs,dsk,e2fsck,,GNU GPLv2 + LGPLv2
+ILkh,e2image,,1,bundled,e2fsprogs,dsk,e2image,,GNU GPLv2 + LGPLv2
+YTzn,e2initrd_helper,,1,bundled,e2fsprogs,dsk,e2initrd_helper,,GNU GPLv2 + LGPLv2
+ZQTs,e2label,,1,bundled,e2fsprogs,dsk,e2label,,GNU GPLv2 + LGPLv2
+IJrL,e2mmpstatus,,1,bundled,e2fsprogs,dsk,e2mmpstatus,,GNU GPLv2 + LGPLv2
+K4SY,e2scrub,,1,bundled,e2fsprogs,dsk,e2scrub,,GNU GPLv2 + LGPLv2
+yAVU,e2scrub_all,,1,bundled,e2fsprogs,dsk,e2scrub_all,,GNU GPLv2 + LGPLv2
+xXCM,e2undo,,1,bundled,e2fsprogs,dsk,e2undo,,GNU GPLv2 + LGPLv2
+iVSS,e4crypt,,1,bundled,e2fsprogs,dsk,e4crypt,,GNU GPLv2 + LGPLv2
+2r7e,e4defrag,,1,bundled,e2fsprogs,dsk,e4defrag,,GNU GPLv2 + LGPLv2
+Ebg9,echo,,0,busybox,,gen,,,GNU GPLv2
+1hC7,ed,,1,busybox,,dev,,,GNU GPLv2
+avU0,egrep,,1,busybox,,txt,,,GNU GPLv2
+84Pj,eject,,1,busybox,,dsk,,,GNU GPLv2
+ZdSR,elfedit,,1,bundled,GNU Binutils,dev,GNU elfedit,,GNU GPLv3
+7CJt,enc2xs,,1,bundled,Perl,dev,enc2xs,,GNU GPLv1
+EsI6,encguess,,1,bundled,Perl,txt,encguess,,GNU GPLv1
+N5XP,env,,1,busybox,,gen,,,GNU GPLv2
+i6mp,ex,,1,bundled,Vim,dev,ex,,Vim
+wCgm,expand,,1,busybox,,txt,,,GNU GPLv2
+pGS1,expr,,0,busybox,,gen,,,GNU GPLv2
+o62E,factor,,1,busybox,,gen,,,GNU GPLv2
+6uIR,fallocate,,1,busybox,,dsk,,,GNU GPLv2
+VgGc,false,,1,busybox,,gen,,,GNU GPLv2
+M9OS,fatlabel,,1,bundled,dosfstools,dsk,fatlabel,dosfslabel,GNU GPLv3
+tPbn,fdflush,,1,busybox,,dsk,,,GNU GPLv2
+sA3w,fdformat,,1,busybox,,dsk,,,GNU GPLv2
+ERCO,fdisk,/usr/sbin/fdisk,1,bundled,util-linux,dsk,fdisk,,GNU GPLv2
+6InS,fdisk,/sbin/fdisk,1,busybox,,dsk,,,GNU GPLv2
+uRvH,fgrep,,1,busybox,,txt,,,GNU GPLv2
+v4vR,fifteen,,1,bundled,New BSD Games,fun,fifteen,,CC0 1.0 Universal
+P6SW,file,,1,bundled,file,gen,,,BSD 2-Clause (Darwin)
+9zhw,filefrag,,1,bundled,e2fsprogs,dsk,filefrag,,GNU GPLv2 + LGPLv2
+0YNm,find,,1,busybox,,gen,,,GNU GPLv2
+1VUE,findfs,,1,bundled,e2fsprogs,dsk,findfs,,GNU GPLv2 + LGPLv2
+xYsP,fisher,,1,bundled,New BSD Games,fun,fisher,,CC0 1.0 Universal
+TMUh,fold,,1,busybox,,txt,,,GNU GPLv2
+Gguz,free,,0,busybox,,sys,,,GNU GPLv2
+52qo,fsck,,1,bundled,e2fsprogs,dsk,fsck,"fsck.ext2,fsck.ext3,fsck.ext4",GNU GPLv2 + LGPLv2
+7Z6P,fsck.fat,,1,bundled,dosfstools,dsk,fsck.fat,"dosfsck,fsck.msdos,fsck.vfat",GNU GPLv3
+0cxu,ftp,,1,bundled,tnftp,net,,,BSD 2-Clause
+dHLO,ftpd,,1,busybox,,net,,,GNU GPLv2
+nAgT,ftpget,,1,busybox,,net,,,GNU GPLv2
+KDTa,ftpput,,1,busybox,,net,,,GNU GPLv2
+m30l,fuser,,1,busybox,,pro,,,GNU GPLv2
+GtKK,g++,,1,bundled,GCC + musl,dev,GCC C++,,GNU GPLv3 + GCC Runtime Library Exception
+dIRB,gcc,,1,bundled,GCC + musl,dev,GCC C,,GNU GPLv3 + GCC Runtime Library Exception
+t6lv,getfattr,,1,busybox,,gen,,,GNU GPLv2
+3piS,getopt,,1,busybox,,gen,,,GNU GPLv2
+Re2m,getty,,1,busybox,,usr,,,GNU GPLv2
+ehzq,gfortran,,1,bundled,GCC + musl,dev,Gfortran,,GNU GPLv3 + GCC Runtime Library Exception
+pjal,git,,1,bundled,Git,dev,,,GNU GPLv2
+L2u5,gpg,,1,bundled,GnuPG,chk,gpg,,GNU GPLv3
+bact,gpg-agent,,1,bundled,GnuPG,chk,gpg-agent,,GNU GPLv3
+EBi8,gpg-auth,,1,bundled,GnuPG,chk,gpg-auth,,GNU GPLv3
+DvcU,gpg-check-pattern,,1,bundled,GnuPG,chk,gpg-check-pattern,,GNU GPLv3
+6DS8,gpg-connect-agent,,1,bundled,GnuPG,chk,gpg-connect-agent,,GNU GPLv3
+CKHH,gpg-pair-tool,,1,bundled,GnuPG,chk,gpg-pair-tool,,GNU GPLv3
+FMzM,gpg-preset-passphrase,,1,bundled,GnuPG,chk,gpg-preset-passphrase,,GNU GPLv3
+kjKf,gpg-protect-tool,,1,bundled,GnuPG,chk,gpg-protect-tool,,GNU GPLv3
+quPw,gpgconf,,1,bundled,GnuPG,chk,gpgconf,,GNU GPLv3
+w3rk,gpgsplit,,1,bundled,GnuPG,chk,gpgsplit,,GNU GPLv3
+MLMS,gpgtar,,1,bundled,GnuPG,chk,gpgtar,,GNU GPLv3
+NgG5,gpgv,,1,bundled,GnuPG,chk,gpgv,,GNU GPLv3
+CI09,gpm,,1,bundled,gpm,sys,,,GNU GPLv2
+uZ6R,grep,,0,busybox,,txt,,,GNU GPLv2
+BYj3,gunzip,,1,busybox,,arc,,,GNU GPLv2
+ZvlH,gzip,,1,busybox,,arc,,,GNU GPLv2
+E8x9,h2ph,,1,bundled,Perl,dev,h2ph,,GNU GPLv1
+w86e,h2xs,,1,bundled,Perl,dev,h2xs,,GNU GPLv1
+MBvG,halt,,1,busybox,,sys,,,GNU GPLv2
+GPo1,head,,1,busybox,,txt,,,GNU GPLv2
+pINh,hexdump,,1,busybox,,dev,,,GNU GPLv2
+roxP,hexedit,,1,busybox,,dev,,,GNU GPLv2
+0RKS,host,,1,bundled,BIND 9 DNS Utilities,net,host,,MPL 2.0
+r6U4,hostid,,1,busybox,,sys,,,GNU GPLv2
+GSMX,hostname,,0,busybox,,sys,,,GNU GPLv2
+tIwW,htop,,1,bundled,htop,pro,,,GNU GPLv2
+fy3b,hwclock,,1,busybox,,sys,,,GNU GPLv2
+2uBs,id,,1,busybox,,usr,,,GNU GPLv2
+nWQY,ifconfig,,1,busybox,,net,,,GNU GPLv2
+mG2o,ifnames,,1,bundled,GNU Autoconf,dev,ifnames,,GNU GPLv2
+thzo,indent,,1,bundled,GNU Indent,dev,GNU Indent,,GNU GPLv3
+5WwZ,inetd,,1,busybox,,net,,,GNU GPLv2
+Cf4C,init,,1,busybox,,sys,,,GNU GPLv2
+viUF,insmod,,1,busybox,,sys,,,GNU GPLv2
+dqBO,install,,1,busybox,,gen,,,GNU GPLv2
+X7tM,instmodsh,,1,bundled,Perl,dev,instmodsh,,GNU GPLv1
+Hx3a,iostat,,1,busybox,,sys,,,GNU GPLv2
+X8su,ip,,1,busybox,,net,,,GNU GPLv2
+Oa0q,ipcalc,,1,busybox,,net,,,GNU GPLv2
+Gnbv,jewels,,1,bundled,New BSD Games,fun,jewels,,CC0 1.0 Universal
+jtGP,joe,,1,bundled,Joe's Own Editor,dev,,,GNU GPLv2
+y7wf,jq,,1,bundled,jq,txt,,,MIT + CC BY 3.0 + ICU
+YuUj,json_pp,,1,bundled,Perl,txt,json_pp,,GNU GPLv1
+mwEM,kbxutil,,1,bundled,GnuPG,chk,kbxutil,,GNU GPLv3
+6e8z,kill,,1,busybox,,pro,,,GNU GPLv2
+yntp,killall,,1,busybox,,pro,,,GNU GPLv2
+gBKT,ld,,1,bundled,GNU Binutils,dev,GNU linker,,GNU GPLv3
+gL4L,ld.bfd,,1,bundled,GNU Binutils,dev,GNU linker (BFD),,GNU GPLv3
+Oqnc,ld.gold,,1,bundled,GNU Binutils,dev,GNU gold,,GNU GPLv3
+qgCB,less,,0,busybox,,txt,,,GNU GPLv2
+tLNJ,libnetcfg,,1,bundled,Perl,net,libnetcfg,,GNU GPLv1
+9vhu,libtool,,1,bundled,GNU Libtool,dev,libtool,,GNU GPLv2
+hx2M,libtool-next-version,,1,bundled,GNU Libtool,dev,libtool-next-version,,GNU GPLv2
+iytK,libtoolize,,1,bundled,GNU Libtool,dev,libtoolize,,GNU GPLv2
+WnZO,link,,1,busybox,,dsk,,,GNU GPLv2
+22Un,ln,,0,busybox,,dsk,,,GNU GPLv2
+qDVe,loadkmap,,1,busybox,,sys,,,GNU GPLv2
+tImZ,login,,1,busybox,,usr,,,GNU GPLv2
+IidW,logname,,1,busybox,,usr,,,GNU GPLv2
+CkhA,logsave,,1,bundled,e2fsprogs,gen,logsave,,GNU GPLv2 + LGPLv2
+1pq8,losetup,,1,busybox,,dsk,,,GNU GPLv2
+YO4j,ls,,0,busybox,,gen,,,GNU GPLv2
+Uwv1,lsattr,,1,bundled,e2fsprogs,dsk,lsattr,,GNU GPLv2 + LGPLv2
+wFJe,lsb_release,,1,bundled,lsb-release-minimal,sys,,,ISC
+mHOF,lsblk,,0,busybox,,dsk,,,GNU GPLv2
+jbSq,lscpu,,1,bundled,util-linux,sys,lscpu,,GNU GPLv2
+UAhc,lsmod,,1,busybox,,sys,,,GNU GPLv2
+d7x3,lsof,,1,busybox,,pro,,,GNU GPLv2
+Ot52,lspci,,1,busybox,,sys,,,GNU GPLv2
+Fw5l,lsscsi,,1,busybox,,sys,,,GNU GPLv2
+t5EK,lsusb,,1,busybox,,sys,,,GNU GPLv2
+azbG,lua,,1,bundled,Lua,dev,,,MIT
+RhKm,lynx,,1,bundled,Lynx,net,,,GNU GPLv2
+yYzU,lzcat,,1,busybox,,arc,,,GNU GPLv2
+2NAv,lzma,,1,busybox,,arc,,,GNU GPLv2
+6qkn,lzop,,1,busybox,,arc,,,GNU GPLv2
+0H3z,lzopcat,,1,busybox,,arc,,,GNU GPLv2
+M07h,m4,,1,bundled,GNU m4,dev,,,GNU GPLv3
+ZxBn,make,,1,bundled,GNU Make,dev,,,GNU GPLv3
+OHad,man,,1,busybox,,gen,,,GNU GPLv2
+dLgu,mc,,1,bundled,GNU Midnight Commander,gen,mc,,GNU GPLv3
+BKPK,mcdiff,,1,bundled,GNU Midnight Commander,gen,mcdiff,,GNU GPLv3
+E3je,mcedit,,1,bundled,GNU Midnight Commander,dev,mcedit,,GNU GPLv3
+9bbf,mcview,,1,bundled,GNU Midnight Commander,gen,mcview,,GNU GPLv3
+Ef4Q,md5sum,,1,busybox,,chk,,,GNU GPLv2
+x7r5,mdev,,0,busybox,,sys,,,GNU GPLv2
+jpjS,memoblocks,,1,bundled,New BSD Games,fun,memoblocks,,CC0 1.0 Universal
+Q0Uq,memtester,,1,bundled,memtester,sys,,,GNU GPLv2
+Pr5J,mg,,1,bundled,Mg,dev,,emacs,Unlicense
+sgpS,micropython,,1,bundled,MicroPython,dev,,python,MIT
+SB5z,miketron,,1,bundled,New BSD Games,fun,miketron,,CC0 1.0 Universal
+7677,mines,,1,bundled,New BSD Games,fun,mines,,CC0 1.0 Universal
+e5wz,mkdir,,0,busybox,,gen,,,GNU GPLv2
+N7NR,mkdosfs,!/sbin/fatlabel,1,busybox,,dsk,,mkfs.vfat,GNU GPLv2
+Xu6y,mke2fs,/usr/sbin/e2image,1,bundled,e2fsprogs,dsk,mke2fs,"mkfs.ext2,mkfs.ext3,mkfs.ext4",GNU GPLv2 + LGPLv2
+zctB,mke2fs,!/usr/sbin/e2image,1,busybox,,dsk,,mkfs.ext2,GNU GPLv2
+ziqr,mkfifo,,1,busybox,,gen,,,GNU GPLv2
+lxph,mkfs.fat,,1,bundled,dosfstools,dsk,mkfs.fat,"mkdosfs,mkfs.msdos,mkfs.vfat",GNU GPLv3
+kHKO,mklost+found,,1,bundled,e2fsprogs,dsk,mklost+found,,GNU GPLv2 + LGPLv2
+bMeb,mknod,,1,busybox,,dsk,,,GNU GPLv2
+549Y,mkpasswd,,1,busybox,,usr,,,GNU GPLv2
+NWCR,mkswap,,1,busybox,,dsk,,,GNU GPLv2
+i8DT,mktemp,,1,busybox,,gen,,,GNU GPLv2
+bDAb,modinfo,,1,busybox,,sys,,,GNU GPLv2
+nArm,modprobe,,1,busybox,,sys,,,GNU GPLv2
+qW7A,more,,1,busybox,,txt,,,GNU GPLv2
+aGQw,mount,,0,busybox,,dsk,,,GNU GPLv2
+puQW,mountpoint,,1,busybox,,dsk,,,GNU GPLv2
+ELo6,mpg321,,1,bundled,mpg321,fun,,mpg123,GNU GPLv2
+sLa8,mt,,1,bundled,mt-st,dsk,,,GNU GPLv2
+wrRY,muncher,,1,bundled,New BSD Games,fun,muncher,,CC0 1.0 Universal
+VENY,mv,,0,busybox,,gen,,,GNU GPLv2
+0YMq,nano,,1,bundled,GNU nano,dev,,,GNU GPLv3
+zxhc,nasm,,1,bundled,NASM,dev,nasm,,BSD 2-Clause
+33ud,nbsdgames,,1,bundled,New BSD Games,fun,nbsdgames,,CC0 1.0 Universal
+OdSu,nc,,1,busybox,,net,,,GNU GPLv2
+hiID,ncdu,,1,bundled,Ncdu,dsk,,,MIT
+jX2u,ndisasm,,1,bundled,NASM,dev,ndisasm,,BSD 2-Clause
+CZpb,netcat,,1,busybox,,net,,,GNU GPLv2
+NC1Q,netstat,,1,busybox,,net,,,GNU GPLv2
+emlc,nice,,1,busybox,,pro,,,GNU GPLv2
+YHdE,nl,,1,busybox,,txt,,,GNU GPLv2
+SByT,nm,,1,bundled,GNU Binutils,dev,GNU nm,,GNU GPLv3
+jGdC,nohup,,1,busybox,,pro,,,GNU GPLv2
+c5W6,nproc,,1,busybox,,sys,,,GNU GPLv2
+8umz,nslookup,/usr/bin/dig,1,bundled,BIND 9 DNS Utilities,net,nslookup,,MPL 2.0
+ZxQw,nslookup,!/usr/bin/dig,1,busybox,,net,,,GNU GPLv2
+NIw4,nsupdate,,1,bundled,BIND 9 DNS Utilities,net,nsupdate,,MPL 2.0
+2AVo,objcopy,,1,bundled,GNU Binutils,dev,GNU objcopy,,GNU GPLv3
+Ry9o,objdump,,1,bundled,GNU Binutils,dev,GNU objdump,,GNU GPLv3
+WcsT,od,,1,busybox,,dev,,,GNU GPLv2
+ivmf,onig-config,,1,bundled,jq,sys,onig-config,,MIT + CC BY 3.0 + ICU
+Dvwh,partprobe,,1,busybox,,dsk,,,GNU GPLv2
+JHQC,partx,,1,bundled,util-linux,dsk,,,GNU GPLv2
+arGE,passwd,,1,busybox,,usr,,,GNU GPLv2
+sM4q,paste,,1,busybox,,txt,,,GNU GPLv2
+i2P0,patch,,1,busybox,,dev,,,GNU GPLv2
+8fII,patchelf,,1,bundled,PatchELF,dev,,,GNU GPLv3
+8KgL,perl,,1,bundled,Perl,dev,perl,,GNU GPLv1
+ooFV,perldoc,,1,bundled,Perl,dev,perldoc,,GNU GPLv1
+sF3t,perlivp,,1,bundled,Perl,dev,perlivp,,GNU GPLv1
+q39g,pgrep,,1,busybox,,pro,,,GNU GPLv2
+BugH,piconv,,1,bundled,Perl,txt,piconv,,GNU GPLv1
+adqR,pidof,,1,busybox,,pro,,,GNU GPLv2
+puXh,pinentry,,1,bundled,GnuPG,chk,pinentry,,GNU GPLv3
+zWJm,pinentry-tty,,1,bundled,GnuPG,chk,pinentry-tty,,GNU GPLv3
+WbWH,ping,,1,busybox,,net,,,GNU GPLv2
+xIUI,pipes,,1,bundled,New BSD Games,fun,pipes,,CC0 1.0 Universal
+ePfd,pkill,,1,busybox,,pro,,,GNU GPLv2
+TwNj,pl2pm,,1,bundled,Perl,dev,pl2pm,,GNU GPLv1
+xoYB,pmap,,1,busybox,,pro,,,GNU GPLv2
+8l8r,pod2html,,1,bundled,Perl,dev,pod2html,,GNU GPLv1
+rTnT,pod2man,,1,bundled,Perl,dev,pod2man,,GNU GPLv1
+238Y,pod2text,,1,bundled,Perl,dev,pod2text,,GNU GPLv1
+yGxw,pod2usage,,1,bundled,Perl,dev,pod2usage,,GNU GPLv1
+wFzG,podchecker,,1,bundled,Perl,dev,podchecker,,GNU GPLv1
+kQYk,poweroff,,1,busybox,,sys,,,GNU GPLv2
+TbjI,printenv,,1,busybox,,gen,,,GNU GPLv2
+LmHU,printf,,0,busybox,,gen,,,GNU GPLv2
+qWnZ,ps,,1,busybox,,pro,,,GNU GPLv2
+i6FD,pscan,,1,busybox,,net,,,GNU GPLv2
+1AbR,pstree,,1,busybox,,pro,,,GNU GPLv2
+jcqa,ptar,,1,bundled,Perl,arc,ptar,,GNU GPLv1
+7NCX,ptardiff,,1,bundled,Perl,arc,ptardiff,,GNU GPLv1
+2cOj,ptargrep,,1,bundled,Perl,arc,ptargrep,,GNU GPLv1
+dyMs,pwd,,0,busybox,,gen,,,GNU GPLv2
+eZXq,pwdx,,1,busybox,,pro,,,GNU GPLv2
+dsPu,rabbithole,,1,bundled,New BSD Games,fun,rabbithole,,CC0 1.0 Universal
+mykZ,ranlib,,1,bundled,GNU Binutils,dev,GNU ranlib,,GNU GPLv3
+Gkuw,readelf,,1,bundled,GNU Binutils,dev,GNU readelf,,GNU GPLv3
+AS6m,readlink,,1,busybox,,dsk,,,GNU GPLv2
+6CKs,readtags,,1,bundled,Universal Ctags,dev,readtags,,GNU GPLv2
+3cBV,realpath,,1,busybox,,gen,,,GNU GPLv2
+D8Vo,reboot,,1,busybox,,sys,,,GNU GPLv2
+NQd0,redsquare,,1,bundled,New BSD Games,fun,redsquare,,CC0 1.0 Universal
+NIjs,resize2fs,,1,bundled,e2fsprogs,dsk,resize2fs,,GNU GPLv2 + LGPLv2
+oj3P,rev,,0,busybox,,txt,,,GNU GPLv2
+koGh,revenge,,1,bundled,New BSD Games,fun,revenge,,CC0 1.0 Universal
+6cV0,reversi,,1,bundled,New BSD Games,fun,reversi,,CC0 1.0 Universal
+lIzE,rm,,0,busybox,,gen,,,GNU GPLv2
+ifpF,rmdir,,1,busybox,,gen,,,GNU GPLv2
+zOUH,rmmod,,1,busybox,,sys,,,GNU GPLv2
+9bbM,route,,1,busybox,,net,,,GNU GPLv2
+mPJs,rview,,1,bundled,Vim,dev,rview,,Vim
+Pbyy,rvim,,1,bundled,Vim,dev,rvim,,Vim
+EqMD,sc-im,,1,bundled,sc-im,gen,Spreadsheet Calculator Improvised,,BSD 4-Clause
+Lp8v,scissor,,1,bundled,New BSD Games,fun,scissor,,CC0 1.0 Universal
+a02p,scp,,1,bundled,Dropbear,net,Dropbear (scp),,MIT + BSD 2-Clause (OpenSSH components)
+wVQA,scs2ascii,,1,bundled,tn5250,gen,scs2ascii,,GNU LGPLv2.1
+N5Fe,scs2pdf,,1,bundled,tn5250,gen,scs2pdf,,GNU LGPLv2.1
+YBKa,scs2ps,,1,bundled,tn5250,gen,scs2ps,,GNU LGPLv2.1
+Im4q,sed,,0,busybox,,txt,,,GNU GPLv2
+LeNF,seq,,1,busybox,,gen,,,GNU GPLv2
+Or6k,setfattr,,1,busybox,,gen,,,GNU GPLv2
+44RL,setfont,,1,busybox,,sys,,,GNU GPLv2
+rVDs,sfdisk,,1,bundled,util-linux,dsk,sfdisk,,GNU GPLv2
+3Mos,sha1sum,,1,busybox,,chk,,,GNU GPLv2
+NUnc,sha256sum,,1,busybox,,chk,,,GNU GPLv2
+u4X2,sha384sum,,1,busybox,,chk,,,GNU GPLv2
+GFIm,sha3sum,,1,busybox,,chk,,,GNU GPLv2
+zoLU,sha512sum,,1,busybox,,chk,,,GNU GPLv2
+o8tC,shasum,,1,bundled,Perl,chk,shasum,,GNU GPLv1
+RDPs,shorkbin,,1,shorkutil,,txt,SHORKBIN,"bin2text,text2bin",GNU GPLv3
+Ni8R,shorkdir,,1,shorkutil,,gen,SHORKDIR,,GNU GPLv3
+5yck,shorkfetch,,1,shorkutil,,sys,SHORKFETCH,,GNU GPLv3
+kCKG,shorkgui,,1,shorkutil,,gen,SHORKGUI,,GNU GPLv3
+wt68,shorkhelp,,1,shorkutil,,gen,SHORKHELP,,GNU GPLv3
+X5qz,shorklocomotive,,1,shorktainment,,fun,SHORKLOCOMOTIVE,sl,GNU GPLv3
+zjJD,shorkmatrix,,1,shorktainment,,fun,SHORKMATRIX,cmatrix,GNU GPLv3
+EXzu,shorkmines,,1,shorktainment,,fun,SHORKMINES,terminal-mines,MIT
+qy7R,shorkoff,,1,shorkutil,,sys,SHORKOFF,,GNU GPLv3
+daVU,shorksay,,1,shorktainment,,fun,SHORKSAY,cowsay,GNU GPLv3
+YkYH,shorkset,,1,shorkutil,,sys,SHORKSET,,GNU GPLv3
+YitJ,showkey,,1,busybox,,gen,,,GNU GPLv2
+5ip8,shred,,1,busybox,,dsk,,,GNU GPLv2
+EPGF,shuf,,1,busybox,,txt,,,GNU GPLv2
+WT5g,size,,1,bundled,GNU Binutils,dev,GNU size,,GNU GPLv3
+ckdu,sjump,,1,bundled,New BSD Games,fun,sjump,,CC0 1.0 Universal
+wqyK,sleep,,1,busybox,,gen,,,GNU GPLv2
+JPvr,snakeduel,,1,bundled,New BSD Games,fun,snakeduel,,CC0 1.0 Universal
+XndZ,sort,,1,busybox,,txt,,,GNU GPLv2
+SsNo,sos,,1,bundled,New BSD Games,fun,sos,,CC0 1.0 Universal
+CgNA,splain,,1,bundled,Perl,dev,splain,,GNU GPLv1
+6leB,split,,1,busybox,,txt,,,GNU GPLv2
+EcYf,ssh,,1,bundled,Dropbear,net,Dropbear (ssh),,MIT + BSD 2-Clause (OpenSSH components)
+YO58,stat,,1,busybox,,gen,,,GNU GPLv2
+EdTT,stinit,,1,bundled,mt-st,dsk,,,GNU GPLv2
+YNdu,strace,,1,bundled,strace,pro,,,GNU LGPLv2.1
+TCnO,streamzip,,1,bundled,Perl,arc,streamzip,,GNU GPLv1
+ne5g,strings,/opt/i486-linux-musl-native/bin/strings,1,bundled,GNU Binutils,dev,GNU strings,,GNU GPLv3
+elJY,strings,/usr/bin/strings,1,busybox,,dev,,,GNU GPLv3
+Z0TR,strip,,1,bundled,GNU Binutils,dev,GNU strip,,GNU GPLv3
+0wpa,stty,,1,busybox,,sys,,,GNU GPLv2
+HnLM,su,,1,busybox,,usr,,,GNU GPLv2
+tatD,sudo,,1,bundled,sudo,usr,sudo,,ISC + BSD 2-Clause + BSD 3-Clause + zlib
+fxwk,sudoedit,,1,bundled,sudo,usr,sudoedit,,ISC + BSD 2-Clause + BSD 3-Clause + zlib
+nNWu,sudoku,,1,bundled,New BSD Games,fun,sudoku,,CC0 1.0 Universal
+MFk9,sulogin,,1,busybox,,usr,,,GNU GPLv2
+jK1l,sum,,1,busybox,,chk,,,GNU GPLv2
+UAyB,swapoff,,1,busybox,,dsk,,,GNU GPLv2
+xuFk,swapon,,1,busybox,,dsk,,,GNU GPLv2
+4xi0,sync,,0,busybox,,dsk,,,GNU GPLv2
+yNfL,tac,,1,busybox,,txt,,,GNU GPLv2
+Z7I6,tail,,1,busybox,,txt,,,GNU GPLv2
+Ijg6,tar,,1,busybox,,arc,,,GNU GPLv2
+XuCs,taskset,,1,busybox,,pro,,,GNU GPLv2
+Eyh6,tcc,,1,bundled,Tiny C Compiler,dev,,,GNU LGPLv2.1
+S07Y,tee,,0,busybox,,gen,,,GNU GPLv2
+oXEZ,telnet,,1,busybox,,net,,,GNU GPLv2
+V34x,telnetd,,1,busybox,,net,,,GNU GPLv2
+fFPy,test,,0,busybox,,gen,,,GNU GPLv2
+ZZym,tftp,,1,busybox,,net,,,GNU GPLv2
+PPyD,tftpd,,1,busybox,,net,,,GNU GPLv2
+1w3A,tilde,,1,bundled,Tilde,dev,,,GNU GPLv3
+bnP2,time,,1,busybox,,gen,,,GNU GPLv2
+DpNr,timeout,,1,busybox,,pro,,,GNU GPLv2
+qSF4,tmux,,1,bundled,tmux,gen,,,ISC
+vRqF,tn5250,,1,bundled,tn5250,net,tn5250,,GNU LGPLv2.1
+VUwS,top,,1,busybox,,pro,,,GNU GPLv2
+BUcy,touch,,0,busybox,,gen,,,GNU GPLv2
+Li7Z,tr,,1,busybox,,txt,,,GNU GPLv2
+VK8W,traceroute,,1,busybox,,net,,,GNU GPLv2
+woGW,tree,,1,busybox,,gen,,,GNU GPLv2
+bOBQ,trsr,,1,bundled,New BSD Games,fun,trsr,,CC0 1.0 Universal
+R1yA,true,,0,busybox,,gen,,,GNU GPLv2
+wXfc,truncate,,1,busybox,,gen,,,GNU GPLv2
+EWGx,tsort,,1,busybox,,txt,,,GNU GPLv2
+8rHH,tty,,1,busybox,,sys,,,GNU GPLv2
+UL9w,tugow,,1,bundled,New BSD Games,fun,tugow,,CC0 1.0 Universal
+dyGa,tune2fs,,1,bundled,e2fsprogs,dsk,tune2fs,,GNU GPLv2 + LGPLv2
+J11K,udhcpc,,1,busybox,,net,,,GNU GPLv2
+0w3M,umount,,0,busybox,,dsk,,,GNU GPLv2
+lnl2,uname,,0,busybox,,sys,,,GNU GPLv2
+r8iG,uncompress,,1,busybox,,arc,,,GNU GPLv2
+JbWP,unexpand,,1,busybox,,txt,,,GNU GPLv2
+W6bn,uniq,,1,busybox,,txt,,,GNU GPLv2
+PKkg,unix2dos,,1,busybox,,txt,,,GNU GPLv2
+wqoG,unlink,,1,busybox,,dsk,,,GNU GPLv2
+DEuN,unlzma,,1,busybox,,arc,,,GNU GPLv2
+lQsy,unlzop,,1,busybox,,arc,,,GNU GPLv2
+eefz,unxz,,1,busybox,,arc,,,GNU GPLv2
+1uTN,unzip,,1,busybox,,arc,,,GNU GPLv2
+xxJJ,uptime,,1,busybox,,sys,,,GNU GPLv2
+v68A,users,,1,busybox,,usr,,,GNU GPLv2
+plUJ,usleep,,1,busybox,,gen,,,GNU GPLv2
+cwXI,uudecode,,1,busybox,,txt,,,GNU GPLv2
+fpFl,uuencode,,1,busybox,,txt,,,GNU GPLv2
+4vYy,uuidgen,/usr/sbin/e2image,1,bundled,e2fsprogs,gen,uuidgen,,GNU GPLv2 + LGPLv2
+rAqW,uuidgen,!/usr/sbin/e2image,1,busybox,,gen,,,GNU GPLv2
+0nAZ,vi,,0,busybox,,dev,,,GNU GPLv2
+LHGL,view,,1,bundled,Vim,dev,view,,Vim
+rpbe,vim,,1,bundled,Vim,dev,Vi IMproved,,Vim
+CHbn,vimdiff,,1,bundled,Vim,dev,vimdiff,,Vim
+59KF,vimtutor,,1,bundled,Vim,dev,vimtutor,,Vim
+4SaX,visudo,,1,bundled,sudo,usr,visudo,,ISC + BSD 2-Clause + BSD 3-Clause + zlib
+kE0u,vmstat,,1,busybox,,sys,,,GNU GPLv2
+bftk,volname,,1,busybox,,dsk,,,GNU GPLv2
+CKDD,w,,1,busybox,,usr,,,GNU GPLv2
+gSin,watch,,1,busybox,,pro,,,GNU GPLv2
+awny,watchgnupg,,1,bundled,GnuPG,chk,watchgnupg,,GNU GPLv3
+XdkZ,wc,,1,busybox,,txt,,,GNU GPLv2
+ichU,wget,,1,busybox,,net,,,GNU GPLv2
+tmwF,whereis,,1,bundled,util-linux,gen,whereis,,GNU GPLv2
+2DK5,which,,0,busybox,,gen,,,GNU GPLv2
+XVYB,who,,1,busybox,,usr,,,GNU GPLv2
+s0Ci,whoami,,1,busybox,,usr,,,GNU GPLv2
+1ln1,whois,,1,busybox,,net,,,GNU GPLv2
+dvqg,xargs,,1,busybox,,gen,,,GNU GPLv2
+HDKg,xsubpp,,1,bundled,Perl,dev,xsubpp,,GNU GPLv1
+9I1n,xt5250,,1,bundled,tn5250,net,xt5250,,GNU LGPLv2.1
+bfg1,xxd,/usr/bin/vim,1,bundled,Vim,dev,xxd,,Vim
+5HGk,xxd,!/usr/bin/vim,1,busybox,,dev,,,GNU GPLv2
+ToHk,xz,,1,busybox,,arc,,,GNU GPLv2
+wIhl,xzcat,,1,busybox,,arc,,,GNU GPLv2
+VLXv,yes,,1,busybox,,gen,,,GNU GPLv2
+wlml,zcat,,1,busybox,,arc,,,GNU GPLv2
+rPOq,zipdetails,,1,bundled,Perl,arc,zipdetails,,GNU GPLv1
