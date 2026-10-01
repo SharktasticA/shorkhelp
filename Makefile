@@ -3,6 +3,10 @@ AR ?= ar
 RANLIB ?= ranlib
 STRIP ?= strip
 
+ifeq ($(wildcard shorkcommon/.git),)
+$(shell git submodule update --init shorkcommon)
+endif
+
 CFLAGS += -I. -Ishorkcommon
 LDFLAGS += -static
 
