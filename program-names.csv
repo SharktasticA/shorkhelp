@@ -383,6 +383,7 @@ Z7I6,tail,,1,busybox,,txt,,,GNU GPLv2
 Ijg6,tar,,1,busybox,,arc,,,GNU GPLv2
 XuCs,taskset,,1,busybox,,pro,,,GNU GPLv2
 Eyh6,tcc,,1,bundled,Tiny C Compiler,dev,,,GNU LGPLv2.1
+zlby,tcpdump,,1,bundled,tcpdump,net,,,BSD 3-Clause
 S07Y,tee,,0,busybox,,gen,,,GNU GPLv2
 oXEZ,telnet,,1,busybox,,net,,,GNU GPLv2
 V34x,telnetd,,1,busybox,,net,,,GNU GPLv2
