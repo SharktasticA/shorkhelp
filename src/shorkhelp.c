@@ -842,11 +842,11 @@ void printGuideTmuxCheatsheet(void)
 
 void printIntro(void)
 {
-    const int strSize = 5120;
+    const int strSize = 6144;
     char introStr[strSize];
     int pos = 0;
 
-    pos += snprintf(introStr + pos, strSize - pos, "The SHORK 486 Operating System is a 32-bit Linux distribution for 486 and Pentium (P5) era vintage PCs! It aims to be lean yet functional, giving such retro hardware the best chance possible to run modern, updated software. It provides a modern Linux kernel, robust BusyBox userspace and common set, custom utilities, and hand-picked modern software.\n\n");
+    pos += snprintf(introStr + pos, strSize - pos, "The SHORK 486 Operating System is a 32-bit Linux distribution for 486 and 586/Pentium (P5) era vintage PCs! It aims to be lean yet functional, giving such retro hardware the best chance possible to run modern, updated software. It provides a modern Linux kernel, robust BusyBox userspace and common set, custom utilities, and hand-picked modern software.\n\n");
 
     pos += snprintf(introStr + pos, strSize - pos, "\033[%smOrigin & inspirations\033[%sm\nI have long wanted my own viable, modern yet lightweight operating system for my early-'90s IBM ThinkPads to allow me to use them with their excellent keyboards as SSH terminals and as writing pads with modern file transfer and source control features. In December 2025, Action Retro posted a video on FLOPPINUX, something that turned out to be a very accessible means for me to learn how to make a working Linux system. SHORK 486 began as an automated build script based on FLOPPINUX's build instructions, but adapted for producing fixed disk images instead of diskette images. After that, more Linux kernel and BusyBox features were enabled, and other software was compiled to help fulfil my dream. Other inspirations from similar efforts include Gray386linux and Ocawesome101's blog post on running Linux on a 486SX.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
 
@@ -856,12 +856,18 @@ void printIntro(void)
 
     pos += snprintf(introStr + pos, strSize - pos, "\033[%smWhat's special\033[%sm\nThe SHORK 486 Operating System is a modern and maintained Linux distribution that can run on a processor architecture from 1989. Depending on configuration, it only requires between 7 and 24MiB system memory whilst still packing a lot of functionality for its size. For various reasons, making such a distribution is increasingly difficult in the 2020s. System requirements keep rising, and even the otherwise excellent Core/Micro Core/Tiny Core family requires at least 26-46MB RAM, putting them out of range for many early 486 systems. As of Linux kernel 7.1 and beyond, support for 486 processors and various ISA and PCMCIA networking hardware has been dropped, and 32-bit x86 support in general is currently being dropped by most mainstream distributions. Given the situation, SHORK 486 will try to fill this niche of a ready-to-go Linux distribution for such PCs by sticking with a minimal-where-possible philosophy, offering customisability and restoring dropped vintage hardware support on newer Linux kernels.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
 
+    pos += snprintf(introStr + pos, strSize - pos,
+        "\033[%smVersions\033[%sm\nThe SHORK 486 Operating System is available in four versions: SHORK 486, SHORK 586, SHORK DISC and SHORK DISKETTE. \033[%smSHORK 486\033[%sm and \033[%smSHORK 586\033[%sm are for hard and solid-state disks. At present, the difference between them is just optimisation for their respective x86 revision, and which one you get depends on the target architecture you build SHORK for. They otherwise comprise the same feature set and available programs. \033[%smSHORK DISC\033[%sm is for CD and DVD discs, envisioned as a completely immutable system or diagnostic aid, and will eventually be used as SHORK 486's installation media. \033[%smSHORK DISKETTE\033[%sm is for floppy diskettes and is envisioned as a diagnostic aid or a CD-ROM boot disk.\n\n",
+        COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
+        COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
+        COL_FOR_SHORKUTIL, COL_FOR_WHITE);
+
     pos += snprintf(introStr + pos, strSize - pos, "\033[%smLicences\033[%sm\nSHORK 486 is a free and open-source operating system. Its core is made up of GPLv3 (SHORK, SHORK Utilities, most of SHORK Entertainment), GPLv2 (Linux kernel, BusyBox, SYSLINUX), and MIT (SHORKMINES) components. SHORK 486 can also contain bundled software licensed under various permissive, copyleft, and even public-domain-equivalent licences. You can look at \033[%smshorkhelp\033[%sm's \"Licences\" portal to see individual licences.\n\n", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE);
 
-    pos += snprintf(introStr + pos, strSize - pos, "\033[%smThe author\033[%sm\nHi, I'm Kali (he/him) from Cymru (Wales)! I work in research/computer science and software engineering. I author Admiral Shark's Keyboards (ASK), a project to document IBM, Lexmark, Unicomp, Lenovo and TGCS keyboards and related devices. ASK and my overall interest in vintage IBM hardware set the stage for SHORK, as it led me to acquire several 486- and Pentium-era ThinkPads with keyboards I really appreciate and want to incorporate into my daily workflow as much as possible. My favourite animals are chondrichthyans, hence the shark theme.", COL_FOR_HEADING, COL_FOR_WHITE);
+    pos += snprintf(introStr + pos, strSize - pos, "\033[%smThe author\033[%sm\nHi, I'm Kali (he/him) from Cymru (Wales)! I work in research/computer science and software engineering. I author Admiral Shark's Keyboards (ASK), a project to document IBM, Lexmark, Unicomp, Lenovo and TGCS keyboards and related devices. ASK and my overall interest in vintage IBM hardware set the stage for SHORK, as it led me to acquire several 486- and 586-era ThinkPads with keyboards I really appreciate and want to incorporate into my daily workflow as much as possible. My favourite animals are chondrichthyans, hence the shark theme.", COL_FOR_HEADING, COL_FOR_WHITE);
 
     int lines = formatNewLines(introStr, TERM_SIZE.ws_col, NULL, 0);
-    printTextScreen("Introduction to SHORK 486", introStr, lines, 1);
+    printTextScreen("Introduction to SHORK", introStr, lines, 1);
 }
 
 void printIntroPT1(void)
@@ -1478,7 +1484,7 @@ void printSoftwareSHORKUTILS(void)
     if (isProgramInstalled("shorkfetch", 1))
         pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkfetch\033[%sm\nA shark-themed Linux fetch tool designed with speed, consistent output, and vintage hardware support in mind. It displays basic system and environment information in a summarised format.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
 
-    pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkhelp\033[%sm\nProvides help and reference information regarding SHORK 486 and included software and tools. It provides a command database and list, guides, and cheatsheets.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
+    pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkhelp\033[%sm\nProvides help and reference information regarding SHORK and included software and tools. It provides a command database and list, guides, and cheatsheets.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorkoff", 1))
         pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkoff\033[%sm\nA shark-themed shutdown helper that syncs outstanding write cache and safely brings the system to a controlled halt before a manual power off.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
@@ -1498,7 +1504,10 @@ void printOtherReport(void)
 {
     char msgBody[8192];
 
-    snprintf(msgBody, 8192, "The after-build report is a log generated after SHORK 486 finished compiling. It is used to confirm whether the build completed as intended, and it should provide all the information needed to reproduce the build.\n\n");
+    snprintf(msgBody, 8192, "The after-build report is a log generated "
+        "after SHORK finished compiling. It is used to confirm whether the "
+        "build completed as intended, and it should provide all the "
+        "information needed to reproduce the build.\n\n");
 
     FILE *stream = fopen(BUILD_REPORT_PATH, "r");
     if (stream)
@@ -1820,7 +1829,7 @@ void showCmdsProgsMenu(void)
  */
 void showHelp(void)
 {
-    char desc[120] = "Displays help and reference information for using SHORK 486 and its included software and tools.\n\n";
+    char desc[120] = "Displays help and reference information for using SHORK and its included software and tools.\n\n";
     formatNewLines(desc, TERM_SIZE.ws_col, NULL, 0);
     printf("%s", desc);
 
@@ -1866,7 +1875,7 @@ void showHelp(void)
 
 #endif
 
-    char intro[100] = "--intro          Displays introduction to SHORK 486\n";
+    char intro[100] = "--intro          Displays introduction to SHORK\n";
     formatNewLines(intro, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", intro);
 
@@ -1909,7 +1918,8 @@ void showHelp(void)
 
 #ifndef EMBEDDED
 
-    if (strncmp(OS_NAME, "SHORK 486", 9) == 0)
+    if (strncmp(OS_NAME, "SHORK 486", 9) == 0 ||
+        strncmp(OS_NAME, "SHORK 586", 9) == 0)
     {
         char started[100] = "--started        Displays getting started guide\n";
         formatNewLines(started, TERM_SIZE.ws_col, "                 ", 0);
@@ -1971,7 +1981,7 @@ void showMainMenu(void)
         },
         { 
             "intro",
-            "Introduction to SHORK 486",
+            "Introduction to SHORK",
             NULL,
             printIntro,
             1
@@ -1989,7 +1999,8 @@ void showMainMenu(void)
             "Getting started",
             NULL,
             printIntroStarted,
-            strncmp(OS_NAME, "SHORK 486", 9) == 0
+            strncmp(OS_NAME, "SHORK 486", 9) == 0 || 
+                strncmp(OS_NAME, "SHORK 586", 9) == 0
         },
 #endif
         { 
