@@ -255,6 +255,7 @@ OdSu,nc,,1,busybox,,net,,,GNU GPLv2
 hiID,ncdu,,1,bundled,Ncdu,dsk,,,MIT
 jX2u,ndisasm,,1,bundled,NASM,dev,ndisasm,,BSD 2-Clause
 CZpb,netcat,,1,busybox,,net,,,GNU GPLv2
+xRvD,nethack,,1,bundled,NetHack,fun,,,NetHack GPL
 NC1Q,netstat,,1,busybox,,net,,,GNU GPLv2
 emlc,nice,,1,busybox,,pro,,,GNU GPLv2
 YHdE,nl,,1,busybox,,txt,,,GNU GPLv2
