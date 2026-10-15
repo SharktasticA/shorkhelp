@@ -197,7 +197,7 @@ tImZ,login,,1,busybox,,usr,,,GNU GPLv2
 IidW,logname,,1,busybox,,usr,,,GNU GPLv2
 CkhA,logsave,,1,bundled,e2fsprogs,gen,logsave,,GNU GPLv2 + LGPLv2
 1pq8,losetup,,1,busybox,,dsk,,,GNU GPLv2
-YO4j,ls,,0,busybox,,gen,,,GNU GPLv2
+YO4j,ls,,0,busybox,,gen,,"dir,vdir",GNU GPLv2
 Uwv1,lsattr,,1,bundled,e2fsprogs,dsk,lsattr,,GNU GPLv2 + LGPLv2
 wFJe,lsb_release,,1,bundled,lsb-release-minimal,sys,,,ISC
 mHOF,lsblk,,0,busybox,,dsk,,,GNU GPLv2
