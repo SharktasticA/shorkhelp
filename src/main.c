@@ -83,10 +83,12 @@ int main(int argc, char *argv[])
                 opt = ARG_GIT;
             else if (strcmp(argv[i], "--hardware") == 0)
                 opt = ARG_HARDWARE;
-            else if (strcmp(argv[i], "--shorktainment") == 0)
-                opt = ARG_SHORKTAINMENT;
+            else if (strcmp(argv[i], "--licences") == 0 && fileExists("/LICENCES/manifest.csv"))
+                opt = ARG_LICENCES;
             else if (strcmp(argv[i], "--report") == 0 && access(BUILD_REPORT_PATH, F_OK) == 0)
                 opt = ARG_REPORT;
+            else if (strcmp(argv[i], "--shorktainment") == 0)
+                opt = ARG_SHORKTAINMENT;
             else if (strcmp(argv[i], "--started") == 0)
                 opt = ARG_STARTED;
             else if (strcmp(argv[i], "--tmux") == 0)
@@ -96,8 +98,6 @@ int main(int argc, char *argv[])
                 opt = ARG_HELP;
             else if (strcmp(argv[i], "--intro") == 0 && strncmp(OS_NAME, "SHORK 486", 9) == 0)
                 opt = ARG_INTRO;
-            else if (strcmp(argv[i], "--licences") == 0 && fileExists("/LICENCES/manifest.csv"))
-                opt = ARG_LICENCES;
             else if ((strcmp(argv[i], "-nc") == 0) || (strcmp(argv[i], "--no-col") == 0))
                 COL_ENABLED = 0;
             else if (strcmp(argv[i], "--pt1") == 0 && getIsPT1())
@@ -137,6 +137,17 @@ int main(int argc, char *argv[])
             setupMenuSys();
             printGuideDiscoveringHardware();
         }
+        else if (opt == ARG_LICENCES)
+        {
+            LICENCES_NO = loadLicences();
+            if (LICENCES_NO == -1)
+            {
+                printf("ERROR: could not load manifest.csv\n");
+                return 1;
+            }
+            setupMenuSys();
+            showLicencesMenu();
+        }
         else if (opt == ARG_REPORT)
         {
             setupMenuSys();
@@ -167,17 +178,6 @@ int main(int argc, char *argv[])
         {
             setupMenuSys();
             printIntro();
-        }
-        else if (opt == ARG_LICENCES)
-        {
-            LICENCES_NO = loadLicences();
-            if (LICENCES_NO == -1)
-            {
-                printf("ERROR: could not load manifest.csv\n");
-                return 1;
-            }
-            setupMenuSys();
-            showLicencesMenu();
         }
         else if (opt == ARG_PT1)
         {

@@ -227,6 +227,8 @@ int getOSName(void)
     return OS_NAME[0] != '\0' ? 1 : 0;
 }
 
+#ifndef EMBEDDED
+
 /**
  * Loads the manifests.csv file into LICENCES.
  * @returns Number of licences loaded; -1 if error
@@ -289,6 +291,8 @@ int loadLicences(void)
 
     return i;
 }
+
+#endif
 
 /**
  * Loads the program-descs.csv file into PROG_ENTRIES. Loading program
@@ -1955,16 +1959,10 @@ void showMainMenu(void)
 {
     setupMenuSys();
 
-    LICENCES_NO = loadLicences();
-    if (LICENCES_NO == -1)
-    {
-        EXIT_MSG = strdup("ERROR: could not load manifest.csv");
-        exit(1);
-    }
-
     PROG_ENTRIES_NO = loadProgramEntries();
 
 #ifndef EMBEDDED
+    LICENCES_NO = loadLicences();
     int emacsInstalled = isProgramInstalled("emacs", 1);
     int gitInstalled = isProgramInstalled("git", 1);
     int tmuxInstalled = isProgramInstalled("tmux", 1);
@@ -1999,7 +1997,7 @@ void showMainMenu(void)
             "Getting started",
             NULL,
             printIntroStarted,
-            strncmp(OS_NAME, "SHORK 486", 9) == 0 || 
+            strncmp(OS_NAME, "SHORK 486", 9) == 0 ||
                 strncmp(OS_NAME, "SHORK 586", 9) == 0
         },
 #endif
@@ -2033,7 +2031,6 @@ void showMainMenu(void)
             printSoftwareSHORKTAINMENT,
             isProgramInstalled("shorklocomotive", 1) || isProgramInstalled("shorksay", 1)
         },
-#endif
         {
             "licences",
             "Licences",
@@ -2041,7 +2038,6 @@ void showMainMenu(void)
             showLicencesMenu,
             LICENCES_NO > 0
         },
-#ifndef EMBEDDED
         {
             "",
             "Guides",

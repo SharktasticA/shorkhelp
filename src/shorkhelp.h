@@ -59,7 +59,9 @@ extern char OS_NAME[128];
 int getIsPT1(void);
 ProgramEntry **getProgramsWithAliases(int*, int);
 int getOSName(void);
+#ifndef EMBEDDED
 int loadLicences(void);
+#endif
 int loadProgramDescs(void);
 int loadProgramEntries(void);
 int progCmp(const void*, const void*);
