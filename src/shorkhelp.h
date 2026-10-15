@@ -37,7 +37,7 @@ typedef struct {
 
 
 
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
 #define BUILD_REPORT_PATH       "/var/log/shork/build-report.log"
 #endif
 #define CSV_BUFFER              49152
@@ -59,14 +59,14 @@ extern char OS_NAME[128];
 int getIsPT1(void);
 ProgramEntry **getProgramsWithAliases(int*, int);
 int getOSName(void);
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
 int loadLicences(void);
 #endif
 int loadProgramDescs(void);
 int loadProgramEntries(void);
 int progCmp(const void*, const void*);
 
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
 void printGuideDiscoveringHardware(void);
 void printGuideEmacsCheatsheet(void);
 void printGuideGitCommands(void);
@@ -75,7 +75,7 @@ void printGuideTmuxCheatsheet(void);
 
 void printIntro(void);
 void printIntroPT1(void);
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
 void printIntroStarted(void);
 #endif
 
@@ -84,12 +84,12 @@ void printCmdsProgsAlpha(void);
 void printCmdsProgsCats(void);
 void printSoftwareLicence(int);
 void printSoftwareProgOverview(int);
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
 void printSoftwareSHORKTAINMENT(void);
 #endif
 void printSoftwareSHORKUTILS(void);
 
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
 void printOtherReport(void);
 #endif
 void printOtherSupport(void);

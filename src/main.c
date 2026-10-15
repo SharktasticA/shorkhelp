@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
         {
             if (strcmp(argv[i], "--commands") == 0 && fileExists("/usr/share/shorkhelp/program-names.csv"))
                 opt = ARG_COMMANDS;
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
             else if (strcmp(argv[i], "--emacs") == 0 || strcmp(argv[i], "--mg") == 0)
                 opt = ARG_EMACS;
             else if (strcmp(argv[i], "--git") == 0)
@@ -121,7 +121,7 @@ int main(int argc, char *argv[])
             setupMenuSys();
             showCmdsProgsMenu();
         }
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
         else if (opt == ARG_EMACS)
         {
             setupMenuSys();

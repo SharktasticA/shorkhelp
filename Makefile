@@ -10,8 +10,8 @@ endif
 CFLAGS += -D_GNU_SOURCE -std=gnu99 -I. -Ishorkcommon -Os
 LDFLAGS += -static
 
-ifdef EMBEDDED
-	CFLAGS += -DEMBEDDED
+ifdef SHORK_DISKETTE
+	CFLAGS += -DSHORK_DISKETTE
 endif
 
 SRC = $(wildcard src/*.c) $(wildcard shorkcommon/*.c)

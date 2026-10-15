@@ -227,7 +227,7 @@ int getOSName(void)
     return OS_NAME[0] != '\0' ? 1 : 0;
 }
 
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
 
 /**
  * Loads the manifests.csv file into LICENCES.
@@ -534,7 +534,7 @@ int progCmp(const void *a, const void *b)
 }
 
 
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
 
 void printGuideDiscoveringHardware(void)
 {
@@ -894,7 +894,7 @@ void printIntroPT1(void)
     printTextScreen("Public Test 1", pt1Str, lines, 1);
 }
 
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
 
 void printIntroStarted(void)
 {
@@ -1447,7 +1447,7 @@ void printSoftwareProgOverview(int i)
     printTextScreen(PROG_ENTRIES[i].command, overviewStr, lines, 1);
 }
 
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
 
 void printSoftwareSHORKTAINMENT(void)
 {
@@ -1502,7 +1502,7 @@ void printSoftwareSHORKUTILS(void)
 
 
 
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
 
 void printOtherReport(void)
 {
@@ -1849,7 +1849,7 @@ void showHelp(void)
     formatNewLines(commands, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", commands);
 
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
 
     if (isProgramInstalled("emacs", 1) || isProgramInstalled("mg", 1))
     {
@@ -1868,7 +1868,7 @@ void showHelp(void)
     formatNewLines(help, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", help);
 
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
 
     if (isProgramInstalled("git", 1))
     {
@@ -1898,7 +1898,7 @@ void showHelp(void)
         printf("%s", pt1);
     }
 
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
 
     if (access(BUILD_REPORT_PATH, F_OK) == 0)
     {
@@ -1920,7 +1920,7 @@ void showHelp(void)
     formatNewLines(shorkutils, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", shorkutils);
 
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
 
     if (strncmp(OS_NAME, "SHORK 486", 9) == 0 ||
         strncmp(OS_NAME, "SHORK 586", 9) == 0)
@@ -1936,7 +1936,7 @@ void showHelp(void)
     formatNewLines(support, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", support);
 
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
 
     if (isProgramInstalled("tmux", 1))
     {
@@ -1961,7 +1961,7 @@ void showMainMenu(void)
 
     PROG_ENTRIES_NO = loadProgramEntries();
 
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
     LICENCES_NO = loadLicences();
     int emacsInstalled = isProgramInstalled("emacs", 1);
     int gitInstalled = isProgramInstalled("git", 1);
@@ -1991,7 +1991,7 @@ void showMainMenu(void)
             printIntroPT1,
             getIsPT1()
         },
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
         { 
             "started",
             "Getting started",
@@ -2023,7 +2023,7 @@ void showMainMenu(void)
             printSoftwareSHORKUTILS,
             1
         },
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
         {
             "shorktainment",
             "SHORK Entertainment",
@@ -2083,7 +2083,7 @@ void showMainMenu(void)
             1,
             1
         },
-#ifndef EMBEDDED
+#ifndef SHORK_DISKETTE
         { 
             "report",
             "After-build report",
