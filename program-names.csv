@@ -109,6 +109,8 @@ o62E,factor,,1,busybox,,gen,,,GNU GPLv2
 6uIR,fallocate,,1,busybox,,dsk,,,GNU GPLv2
 VgGc,false,,1,busybox,,gen,,,GNU GPLv2
 M9OS,fatlabel,,1,bundled,dosfstools,dsk,fatlabel,dosfslabel,GNU GPLv3
+gYWY,fbset,,1,busybox,,sys,,,GNU GPLv2
+HvPE,fbsplash,,1,busybox,,sys,,,GNU GPLv2
 tPbn,fdflush,,1,busybox,,dsk,,,GNU GPLv2
 sA3w,fdformat,,1,busybox,,dsk,,,GNU GPLv2
 ERCO,fdisk,/usr/sbin/fdisk,1,bundled,util-linux,dsk,fdisk,,GNU GPLv2
