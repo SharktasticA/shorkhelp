@@ -935,7 +935,7 @@ void printIntroStarted(void)
         );
 
         pos += snprintf(startedStr + pos, strSize - pos,
-            "\033[%smshorkset\033[%sm is your port of call if you want to customise your experience. The exact options depends on your hardware and bundled relevant software, but it can allow you to change the display VGA mode or VBE resolution, load/unload drivers, change keyboard layout (keymap), change console font style (PSF) and colour, configure the gpm console mouse, enable/disable networking, and change system volume.\n\n",
+            "\033[%smshorkset\033[%sm is your port of call if you want to customise your experience. The exact options depends on your hardware and bundled relevant software, but it can allow you to change the display VGA mode or VBE resolution, load/unload drivers, change keyboard layout (keymap), change console font style (PSF) and colour, configure the gpm console mouse, enable/disable networking, enable/disable the loading splash screen, and change system volume.\n\n",
             COL_FOR_SHORKUTIL,  COL_FOR_WHITE
         );
     }
@@ -1480,21 +1480,44 @@ void printSoftwareSHORKUTILS(void)
     int pos = 0;
 
     if (isProgramInstalled("shorkbin", 1))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkbin\033[%sm\nAn ASCII text/8-bit binary converter. Modelled after Coreutils like \033[%smbase32\033[%sm, it plugs a hole for such a converter in the base command set. Its functionality is also accessible as \033[%smbin2text\033[%sm and \033[%smtext2bin\033[%sm.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+        pos += snprintf(shorkutilStr + pos, strSize - pos,
+            "\033[%smshorkbin\033[%sm\nAn ASCII text/8-bit binary converter. Modelled after Coreutils like \033[%smbase32\033[%sm, it plugs a hole for such a converter in the base command set. Its functionality is also accessible as \033[%smbin2text\033[%sm and \033[%smtext2bin\033[%sm.\n\n",
+            COL_FOR_SHORKUTIL, COL_FOR_WHITE,
+            COL_FOR_CODE, COL_FOR_WHITE,
+            COL_FOR_CODE, COL_FOR_WHITE,
+            COL_FOR_CODE, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorkdir", 1))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkdir\033[%sm\nA terminal-based file browser. It can surf the file system with either Vim-like keybinds, WASD or arrow keys, open text-based files with an installed editor of your choice, and inspect a file (if \033[%smfile\033[%sm is installed).\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+        pos += snprintf(shorkutilStr + pos, strSize - pos,
+            "\033[%smshorkdir\033[%sm\nA terminal-based file browser. It can surf the file system with either Vim-like keybinds, WASD or arrow keys, open text-based files with an installed editor of your choice, and inspect a file (if \033[%smfile\033[%sm is installed).\n\n",
+            COL_FOR_SHORKUTIL, COL_FOR_WHITE,
+            COL_FOR_CODE, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorkfetch", 1))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkfetch\033[%sm\nA shark-themed Linux fetch tool designed with speed, consistent output, and vintage hardware support in mind. It displays basic system and environment information in a summarised format.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
+        pos += snprintf(shorkutilStr + pos, strSize - pos,
+            "\033[%smshorkfetch\033[%sm\nA shark-themed Linux fetch tool designed with speed, consistent output, and vintage hardware support in mind. It displays basic system and environment information in a summarised format.\n\n",
+            COL_FOR_SHORKUTIL, COL_FOR_WHITE);
 
-    pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkhelp\033[%sm\nProvides help and reference information regarding SHORK and included software and tools. It provides a command database and list, guides, and cheatsheets.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
+    pos += snprintf(shorkutilStr + pos, strSize - pos,
+        "\033[%smshorkhelp\033[%sm\nProvides help and reference information regarding SHORK and included software and tools. It provides a command database and list, guides, and cheatsheets.\n\n",
+        COL_FOR_SHORKUTIL, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorkoff", 1))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkoff\033[%sm\nA shark-themed shutdown helper that syncs outstanding write cache and safely brings the system to a controlled halt before a manual power off.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
+        pos += snprintf(shorkutilStr + pos, strSize - pos,
+            "\033[%smshorkoff\033[%sm\nA shark-themed shutdown helper that syncs outstanding write cache and safely brings the system to a controlled halt before a manual power off.\n\n",
+            COL_FOR_SHORKUTIL, COL_FOR_WHITE);
 
     if (isProgramInstalled("shorkset", 1))
-        pos += snprintf(shorkutilStr + pos, strSize - pos, "\033[%smshorkset\033[%sm\nA settings program. The exact options depends on your hardware and bundled relevant software, but it can allow you to change the display VGA mode or VBE resolution, load/unload drivers, change keyboard layout (keymap), change console font style (PSF) and colour, configure the gpm console mouse, enable/disable networking, and change system volume.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE);
+        pos += snprintf(shorkutilStr + pos, strSize - pos,
+            "\033[%smshorkset\033[%sm\nA settings program. The exact options depends on your hardware and bundled relevant software, but it can allow you to change the display VGA mode or VBE resolution, load/unload drivers, change keyboard layout (keymap), change console font style (PSF) and colour, configure the gpm console mouse, enable/disable networking, enable/disable the loading splash screen, and change system volume.\n\n",
+            COL_FOR_SHORKUTIL, COL_FOR_WHITE);
+
+    if (isProgramInstalled("shorkut", 1))
+        pos += snprintf(shorkutilStr + pos, strSize - pos,
+            "\033[%smshorkut\033[%sm\nPrints the system uptime in the same format as \033[%sm/proc/uptime\033[%sm without needing \033[%sm/proc\033[%sm to be mounted.\n\n",
+            COL_FOR_SHORKUTIL, COL_FOR_WHITE,
+            COL_FOR_CODE, COL_FOR_WHITE,
+            COL_FOR_CODE, COL_FOR_WHITE);
 
     int lines = formatNewLines(shorkutilStr, TERM_SIZE.ws_col, NULL, 1);
     printTextScreen("SHORK Utilities", shorkutilStr, lines, 1);
