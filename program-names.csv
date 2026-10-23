@@ -36,7 +36,8 @@ BoOO,c3270,,1,bundled,x3270,gen,c3270,,BSD 3-Clause
 5r76,cal,,1,busybox,,gen,,,GNU GPLv2
 wCHM,cat,,0,busybox,,txt,,,GNU GPLv2
 C5A4,cfdisk,,1,bundled,util-linux,dsk,cfdisk,,GNU GPLv2
-wgOA,chattr,,1,bundled,e2fsprogs,dsk,chattr,,GNU GPLv2 + LGPLv2
+wgOA,chattr,/usr/sbin/e2image,1,bundled,e2fsprogs,dsk,chattr,,GNU GPLv2 + LGPLv2
+kQmZ,chattr,!/usr/sbin/e2image,1,busybox,,dsk,,,GNU GPLv2
 GafZ,checkers,,1,bundled,New BSD Games,fun,checkers,,CC0 1.0 Universal
 vI4s,chgrp,,1,busybox,,usr,,,GNU GPLv2
 Vy2k,chmod,,1,busybox,,usr,,,GNU GPLv2
@@ -108,6 +109,7 @@ pGS1,expr,,0,busybox,,gen,,,GNU GPLv2
 o62E,factor,,1,busybox,,gen,,,GNU GPLv2
 6uIR,fallocate,,1,busybox,,dsk,,,GNU GPLv2
 VgGc,false,,1,busybox,,gen,,,GNU GPLv2
+HnEd,fatattr,,1,busybox,,dsk,,,GNU GPLv2
 M9OS,fatlabel,,1,bundled,dosfstools,dsk,fatlabel,dosfslabel,GNU GPLv3
 gYWY,fbset,,1,busybox,,sys,,,GNU GPLv2
 HvPE,fbsplash,,1,busybox,,sys,,,GNU GPLv2
@@ -201,7 +203,8 @@ IidW,logname,,1,busybox,,usr,,,GNU GPLv2
 CkhA,logsave,,1,bundled,e2fsprogs,gen,logsave,,GNU GPLv2 + LGPLv2
 1pq8,losetup,,1,busybox,,dsk,,,GNU GPLv2
 YO4j,ls,,0,busybox,,gen,,"dir,vdir",GNU GPLv2
-Uwv1,lsattr,,1,bundled,e2fsprogs,dsk,lsattr,,GNU GPLv2 + LGPLv2
+Uwv1,lsattr,/usr/sbin/e2image,1,bundled,e2fsprogs,dsk,lsattr,,GNU GPLv2 + LGPLv2
+Bxra,lsattr,!/usr/sbin/e2image,1,busybox,,dsk,,,GNU GPLv2
 wFJe,lsb_release,,1,bundled,lsb-release-minimal,sys,,,ISC
 mHOF,lsblk,,0,busybox,,dsk,,,GNU GPLv2
 jbSq,lscpu,,1,bundled,util-linux,sys,lscpu,,GNU GPLv2
@@ -411,7 +414,8 @@ wXfc,truncate,,1,busybox,,gen,,,GNU GPLv2
 EWGx,tsort,,1,busybox,,txt,,,GNU GPLv2
 8rHH,tty,,1,busybox,,sys,,,GNU GPLv2
 UL9w,tugow,,1,bundled,New BSD Games,fun,tugow,,CC0 1.0 Universal
-dyGa,tune2fs,,1,bundled,e2fsprogs,dsk,tune2fs,,GNU GPLv2 + LGPLv2
+dyGa,tune2fs,/usr/sbin/e2image,1,bundled,e2fsprogs,dsk,tune2fs,,GNU GPLv2 + LGPLv2
+UaPq,tune2fs,!/usr/sbin/e2image,1,busybox,,dsk,,,GNU GPLv2
 J11K,udhcpc,,1,busybox,,net,,,GNU GPLv2
 0w3M,umount,,0,busybox,,dsk,,,GNU GPLv2
 lnl2,uname,,0,busybox,,sys,,,GNU GPLv2
