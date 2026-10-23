@@ -124,7 +124,8 @@ P6SW,file,,1,bundled,file,gen,,,BSD 2-Clause (Darwin)
 xYsP,fisher,,1,bundled,New BSD Games,fun,fisher,,CC0 1.0 Universal
 TMUh,fold,,1,busybox,,txt,,,GNU GPLv2
 Gguz,free,,0,busybox,,sys,,,GNU GPLv2
-52qo,fsck,,1,bundled,e2fsprogs,dsk,fsck,"fsck.ext2,fsck.ext3,fsck.ext4",GNU GPLv2 + LGPLv2
+52qo,fsck,/usr/sbin/e2image,1,bundled,e2fsprogs,dsk,fsck,"fsck.ext2,fsck.ext3,fsck.ext4",GNU GPLv2 + LGPLv2
+hWnE,fsck,!/usr/sbin/e2image,1,busybox,e2fsprogs,dsk,fsck,,GNU GPLv2
 7Z6P,fsck.fat,,1,bundled,dosfstools,dsk,fsck.fat,"dosfsck,fsck.msdos,fsck.vfat",GNU GPLv3
 0cxu,ftp,,1,bundled,tnftp,net,,,BSD 2-Clause
 dHLO,ftpd,,1,busybox,,net,,,GNU GPLv2
