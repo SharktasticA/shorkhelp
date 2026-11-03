@@ -40,12 +40,12 @@ typedef struct {
 #ifndef SHORK_DISKETTE
 #define BUILD_REPORT_PATH       "/var/log/shork/build-report.log"
 #endif
-#define CSV_BUFFER              49152
+#define CSV_BUFFER              36864
 #define PROG_ENTRY_CMD_LEN      256
 #define INITIAL_CMD_STR         128
 #define MAX_CMD_STR             2048
-#define MAX_LICENCES            100
-#define MAX_PROG_ENTRIES        550
+#define MAX_LICENCES            125
+#define MAX_PROG_ENTRIES        500
 
 extern Licence LICENCES[MAX_LICENCES];
 extern int LICENCES_NO;

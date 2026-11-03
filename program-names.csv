@@ -180,6 +180,7 @@ X7tM,instmodsh,,1,bundled,Perl,dev,instmodsh,,GNU GPLv1
 Hx3a,iostat,,1,busybox,,sys,,,GNU GPLv2
 X8su,ip,,1,busybox,,net,,,GNU GPLv2
 Oa0q,ipcalc,,1,busybox,,net,,,GNU GPLv2
+wZiN,isapnp,,1,bundled,isapnptools,sys,isapnp,,GNU GPLv2
 Gnbv,jewels,,1,bundled,New BSD Games,fun,jewels,,CC0 1.0 Universal
 jtGP,joe,,1,bundled,Joe's Own Editor,dev,,,GNU GPLv2
 y7wf,jq,,1,bundled,jq,txt,,,MIT + CC BY 3.0 + ICU
@@ -294,6 +295,7 @@ xIUI,pipes,,1,bundled,New BSD Games,fun,pipes,,CC0 1.0 Universal
 ePfd,pkill,,1,busybox,,pro,,,GNU GPLv2
 TwNj,pl2pm,,1,bundled,Perl,dev,pl2pm,,GNU GPLv1
 xoYB,pmap,,1,busybox,,pro,,,GNU GPLv2
+bLwA,pnpdump,,1,bundled,isapnptools,sys,pnpdump,,GNU GPLv2
 8l8r,pod2html,,1,bundled,Perl,dev,pod2html,,GNU GPLv1
 rTnT,pod2man,,1,bundled,Perl,dev,pod2man,,GNU GPLv1
 238Y,pod2text,,1,bundled,Perl,dev,pod2text,,GNU GPLv1
