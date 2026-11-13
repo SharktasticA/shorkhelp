@@ -211,7 +211,8 @@ mHOF,lsblk,,0,busybox,,dsk,,,GNU GPLv2
 jbSq,lscpu,,1,bundled,util-linux,sys,lscpu,,GNU GPLv2
 UAhc,lsmod,,1,busybox,,sys,,,GNU GPLv2
 d7x3,lsof,,1,busybox,,pro,,,GNU GPLv2
-Ot52,lspci,,1,busybox,,sys,,,GNU GPLv2
+Ot52,lspci,!/usr/sbin/setpci,1,busybox,,sys,,,GNU GPLv2
+oXiR,lspci,/usr/sbin/setpci,1,bundled,PCI Utilities,sys,lspci,,GNU GPLv2
 Fw5l,lsscsi,,1,busybox,,sys,,,GNU GPLv2
 t5EK,lsusb,,1,busybox,,sys,,,GNU GPLv2
 azbG,lua,,1,bundled,Lua,dev,,,MIT
@@ -340,6 +341,7 @@ Im4q,sed,,0,busybox,,txt,,,GNU GPLv2
 LeNF,seq,,1,busybox,,gen,,,GNU GPLv2
 Or6k,setfattr,,1,busybox,,gen,,,GNU GPLv2
 44RL,setfont,,1,busybox,,sys,,,GNU GPLv2
+JsGc,setpci,,1,bundled,PCI Utilities,sys,lspci,,GNU GPLv2
 rVDs,sfdisk,,1,bundled,util-linux,dsk,sfdisk,,GNU GPLv2
 3Mos,sha1sum,,1,busybox,,chk,,,GNU GPLv2
 NUnc,sha256sum,,1,busybox,,chk,,,GNU GPLv2
@@ -430,6 +432,7 @@ DEuN,unlzma,,1,busybox,,arc,,,GNU GPLv2
 lQsy,unlzop,,1,busybox,,arc,,,GNU GPLv2
 eefz,unxz,,1,busybox,,arc,,,GNU GPLv2
 1uTN,unzip,,1,busybox,,arc,,,GNU GPLv2
+iEaQ,update-pciids,,1,bundled,PCI Utilities,sys,lspci,,GNU GPLv2
 xxJJ,uptime,,1,busybox,,sys,,,GNU GPLv2
 v68A,users,,1,busybox,,usr,,,GNU GPLv2
 plUJ,usleep,,1,busybox,,gen,,,GNU GPLv2
