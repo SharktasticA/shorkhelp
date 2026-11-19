@@ -213,6 +213,7 @@ UAhc,lsmod,,1,busybox,,sys,,,GNU GPLv2
 d7x3,lsof,,1,busybox,,pro,,,GNU GPLv2
 Ot52,lspci,!/usr/sbin/setpci,1,busybox,,sys,,,GNU GPLv2
 oXiR,lspci,/usr/sbin/setpci,1,bundled,PCI Utilities,sys,lspci,,GNU GPLv2
+PgBx,lspcmcia,,1,bundled,pcmciautils,sys,lspcmcia,,GNU GPLv2
 Fw5l,lsscsi,,1,busybox,,sys,,,GNU GPLv2
 t5EK,lsusb,,1,busybox,,sys,,,GNU GPLv2
 azbG,lua,,1,bundled,Lua,dev,,,MIT
@@ -283,6 +284,7 @@ arGE,passwd,,1,busybox,,usr,,,GNU GPLv2
 sM4q,paste,,1,busybox,,txt,,,GNU GPLv2
 i2P0,patch,,1,busybox,,dev,,,GNU GPLv2
 8fII,patchelf,,1,bundled,PatchELF,dev,,,GNU GPLv3
+EnVj,pccardctl,,1,bundled,pcmciautils,sys,pccardctl,,GNU GPLv2
 8KgL,perl,,1,bundled,Perl,dev,perl,,GNU GPLv1
 ooFV,perldoc,,1,bundled,Perl,dev,perldoc,,GNU GPLv1
 sF3t,perlivp,,1,bundled,Perl,dev,perlivp,,GNU GPLv1
