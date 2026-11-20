@@ -393,6 +393,7 @@ jK1l,sum,,1,busybox,,chk,,,GNU GPLv2
 UAyB,swapoff,,1,busybox,,dsk,,,GNU GPLv2
 xuFk,swapon,,1,busybox,,dsk,,,GNU GPLv2
 4xi0,sync,,0,busybox,,dsk,,,GNU GPLv2
+KwJr,systool,,1,bundled,sysfsutils,sys,systool,,GNU GPLv2
 yNfL,tac,,1,busybox,,txt,,,GNU GPLv2
 Z7I6,tail,,1,busybox,,txt,,,GNU GPLv2
 Ijg6,tar,,1,busybox,,arc,,,GNU GPLv2
