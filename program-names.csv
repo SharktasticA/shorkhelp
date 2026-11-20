@@ -209,6 +209,7 @@ Bxra,lsattr,!/usr/sbin/e2image,1,busybox,,dsk,,,GNU GPLv2
 wFJe,lsb_release,,1,bundled,lsb-release-minimal,sys,,,ISC
 mHOF,lsblk,,0,busybox,,dsk,,,GNU GPLv2
 jbSq,lscpu,,1,bundled,util-linux,sys,lscpu,,GNU GPLv2
+IdZy,lshw,,1,lshw,,sys,,,GNU GPLv2
 UAhc,lsmod,,1,busybox,,sys,,,GNU GPLv2
 d7x3,lsof,,1,busybox,,pro,,,GNU GPLv2
 Ot52,lspci,!/usr/sbin/setpci,1,busybox,,sys,,,GNU GPLv2
