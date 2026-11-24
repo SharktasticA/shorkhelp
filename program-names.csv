@@ -222,6 +222,7 @@ Fw5l,lsscsi,,1,busybox,,sys,,,GNU GPLv2
 t5EK,lsusb,,1,busybox,,sys,,,GNU GPLv2
 azbG,lua,,1,bundled,Lua,dev,,,MIT
 RhKm,lynx,,1,bundled,Lynx,net,,,GNU GPLv2
+DYZD,lz,,1,bundled,GNU Mtools,arc,lz,,GNU GPLv3
 yYzU,lzcat,,1,busybox,,arc,,,GNU GPLv2
 2NAv,lzma,,1,busybox,,arc,,,GNU GPLv2
 6qkn,lzop,,1,busybox,,arc,,,GNU GPLv2
@@ -229,18 +230,32 @@ yYzU,lzcat,,1,busybox,,arc,,,GNU GPLv2
 M07h,m4,,1,bundled,GNU m4,dev,,,GNU GPLv3
 ZxBn,make,,1,bundled,GNU Make,dev,,,GNU GPLv3
 OHad,man,,1,busybox,,gen,,,GNU GPLv2
+RMap,mattrib,,1,bundled,GNU Mtools,dsk,mattrib,,GNU GPLv3
+uozx,mbadblocks,,1,bundled,GNU Mtools,dsk,mbadblocks,,GNU GPLv3
 dLgu,mc,,1,bundled,GNU Midnight Commander,gen,mc,,GNU GPLv3
+liiu,mcat,,1,bundled,GNU Mtools,dsk,mcat,,GNU GPLv3
+lzGc,mcd,,1,bundled,GNU Mtools,gen,mcd,,GNU GPLv3
 BKPK,mcdiff,,1,bundled,GNU Midnight Commander,gen,mcdiff,,GNU GPLv3
 E3je,mcedit,,1,bundled,GNU Midnight Commander,dev,mcedit,,GNU GPLv3
+ToDO,mcheck,,1,bundled,GNU Mtools,dsk,mcheck,,GNU GPLv3
+Htrk,mcomp,,1,bundled,GNU Mtools,txt,mcomp,,GNU GPLv3
+qOYD,mcopy,,1,bundled,GNU Mtools,gen,mcopy,,GNU GPLv3
 9bbf,mcview,,1,bundled,GNU Midnight Commander,gen,mcview,,GNU GPLv3
 Ef4Q,md5sum,,1,busybox,,chk,,,GNU GPLv2
+ufVE,mdel,,1,bundled,GNU Mtools,gen,mdel,,GNU GPLv3
+taZv,mdeltree,,1,bundled,GNU Mtools,gen,mdeltree,,GNU GPLv3
 x7r5,mdev,,0,busybox,,sys,,,GNU GPLv2
+dcDz,mdir,,1,bundled,GNU Mtools,gen,mdir,,GNU GPLv3
+chyS,mdoctorfat,,1,bundled,GNU Mtools,dsk,mdoctorfat,,GNU GPLv3
+WSsf,mdu,,1,bundled,GNU Mtools,dsk,mdu,,GNU GPLv3
 jpjS,memoblocks,,1,bundled,New BSD Games,fun,memoblocks,,CC0 1.0 Universal
 Q0Uq,memtester,,1,bundled,memtester,sys,,,GNU GPLv2
+VXOA,mformat,,1,bundled,GNU Mtools,dsk,mformat,,GNU GPLv3
 Pr5J,mg,,1,bundled,Mg,dev,,emacs,Unlicense
 sgpS,micropython,,1,bundled,MicroPython,dev,,python,MIT
 SB5z,miketron,,1,bundled,New BSD Games,fun,miketron,,CC0 1.0 Universal
 7677,mines,,1,bundled,New BSD Games,fun,mines,,CC0 1.0 Universal
+Tdhj,minfo,,1,bundled,GNU Mtools,dsk,minfo,,GNU GPLv3
 e5wz,mkdir,,0,busybox,,gen,,,GNU GPLv2
 N7NR,mkdosfs,!/sbin/fatlabel,1,busybox,,dsk,,mkfs.vfat,GNU GPLv2
 Xu6y,mke2fs,/usr/sbin/e2image,1,bundled,e2fsprogs,dsk,mke2fs,"mkfs.ext2,mkfs.ext3,mkfs.ext4",GNU GPLv2 + LGPLv2
@@ -248,19 +263,33 @@ zctB,mke2fs,!/usr/sbin/e2image,1,busybox,,dsk,,mkfs.ext2,GNU GPLv2
 ziqr,mkfifo,,1,busybox,,gen,,,GNU GPLv2
 lxph,mkfs.fat,,1,bundled,dosfstools,dsk,mkfs.fat,"mkdosfs,mkfs.msdos,mkfs.vfat",GNU GPLv3
 kHKO,mklost+found,,1,bundled,e2fsprogs,dsk,mklost+found,,GNU GPLv2 + LGPLv2
+Mggo,mkmanifest,,1,bundled,GNU Mtools,gen,mkmanifest,,GNU GPLv3
 bMeb,mknod,,1,busybox,,dsk,,,GNU GPLv2
 549Y,mkpasswd,,1,busybox,,usr,,,GNU GPLv2
 NWCR,mkswap,,1,busybox,,dsk,,,GNU GPLv2
 i8DT,mktemp,,1,busybox,,gen,,,GNU GPLv2
+NApJ,mlabel,,1,bundled,GNU Mtools,dsk,mlabel,,GNU GPLv3
+khvS,mmd,,1,bundled,GNU Mtools,gen,mmd,,GNU GPLv3
+DCYE,mmount,,1,bundled,GNU Mtools,dsk,mmount,,GNU GPLv3
+LvEk,mmove,,1,bundled,GNU Mtools,gen,mmove,,GNU GPLv3
 bDAb,modinfo,,1,busybox,,sys,,,GNU GPLv2
 nArm,modprobe,,1,busybox,,sys,,,GNU GPLv2
 qW7A,more,,1,busybox,,txt,,,GNU GPLv2
 aGQw,mount,,0,busybox,,dsk,,,GNU GPLv2
 puQW,mountpoint,,1,busybox,,dsk,,,GNU GPLv2
+ZWJT,mpartition,,1,bundled,GNU Mtools,dsk,mpartition,,GNU GPLv3
 ELo6,mpg321,,1,bundled,mpg321,fun,,mpg123,GNU GPLv2
+SJTL,mrd,,1,bundled,GNU Mtools,gen,mrd,,GNU GPLv3
+VhID,mren,,1,bundled,GNU Mtools,gen,mren,,GNU GPLv3
+MTYA,mshortname,,1,bundled,GNU Mtools,gen,mshortname,,GNU GPLv3
+PSbN,mshowfat,,1,bundled,GNU Mtools,dsk,mshowfat,,GNU GPLv3
 sLa8,mt,,1,bundled,mt-st,dsk,,,GNU GPLv2
+XnDY,mtoolstest,,1,bundled,GNU Mtools,dsk,mtoolstest,,GNU GPLv3
+hUWl,mtype,,1,bundled,GNU Mtools,txt,mtype,,GNU GPLv3
 wrRY,muncher,,1,bundled,New BSD Games,fun,muncher,,CC0 1.0 Universal
 VENY,mv,,0,busybox,,gen,,,GNU GPLv2
+QUGw,mxtar,,1,bundled,GNU Mtools,arc,mxtar,,GNU GPLv3
+YFtE,mzip,,1,bundled,GNU Mtools,dsk,mzip,,GNU GPLv3
 0YMq,nano,,1,bundled,GNU nano,dev,,,GNU GPLv3
 zxhc,nasm,,1,bundled,NASM,dev,nasm,,BSD 2-Clause
 33ud,nbsdgames,,1,bundled,New BSD Games,fun,nbsdgames,,CC0 1.0 Universal
@@ -414,6 +443,7 @@ V34x,telnetd,,1,busybox,,net,,,GNU GPLv2
 fFPy,test,,0,busybox,,gen,,,GNU GPLv2
 ZZym,tftp,,1,busybox,,net,,,GNU GPLv2
 PPyD,tftpd,,1,busybox,,net,,,GNU GPLv2
+muXe,tgz,,1,bundled,GNU Mtools,arc,tgz,,GNU GPLv3
 1w3A,tilde,,1,bundled,Tilde,dev,,,GNU GPLv3
 bnP2,time,,1,busybox,,gen,,,GNU GPLv2
 DpNr,timeout,,1,busybox,,pro,,,GNU GPLv2
@@ -452,6 +482,7 @@ cwXI,uudecode,,1,busybox,,txt,,,GNU GPLv2
 fpFl,uuencode,,1,busybox,,txt,,,GNU GPLv2
 4vYy,uuidgen,/usr/sbin/e2image,1,bundled,e2fsprogs,gen,uuidgen,,GNU GPLv2 + LGPLv2
 rAqW,uuidgen,!/usr/sbin/e2image,1,busybox,,gen,,,GNU GPLv2
+TiNQ,uz,,1,bundled,GNU Mtools,arc,uz,,GNU GPLv3
 0nAZ,vi,,0,busybox,,dev,,,GNU GPLv2
 LHGL,view,,1,bundled,Vim,dev,view,,Vim
 rpbe,vim,,1,bundled,Vim,dev,Vi IMproved,,Vim
