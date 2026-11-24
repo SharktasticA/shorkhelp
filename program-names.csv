@@ -352,6 +352,7 @@ LeNF,seq,,1,busybox,,gen,,,GNU GPLv2
 Or6k,setfattr,,1,busybox,,gen,,,GNU GPLv2
 44RL,setfont,,1,busybox,,sys,,,GNU GPLv2
 JsGc,setpci,,1,bundled,PCI Utilities,sys,lspci,,GNU GPLv2
+VzIo,setserial,,1,bundled,setserial,sys,,,GNU GPLv2
 rVDs,sfdisk,,1,bundled,util-linux,dsk,sfdisk,,GNU GPLv2
 3Mos,sha1sum,,1,busybox,,chk,,,GNU GPLv2
 NUnc,sha256sum,,1,busybox,,chk,,,GNU GPLv2
