@@ -39,6 +39,7 @@ wCHM,cat,,0,busybox,,txt,,,GNU GPLv2
 C5A4,cfdisk,,1,bundled,util-linux,dsk,cfdisk,,GNU GPLv2
 wgOA,chattr,/usr/sbin/e2image,1,bundled,e2fsprogs,dsk,chattr,,GNU GPLv2 + LGPLv2
 kQmZ,chattr,!/usr/sbin/e2image,1,busybox,,dsk,,,GNU GPLv2
+kbXq,chdosattr,,1,bundled,exfatprogs,dsk,chdosattr,,GNU GPLv2
 GafZ,checkers,,1,bundled,New BSD Games,fun,checkers,,CC0 1.0 Universal
 vI4s,chgrp,,1,busybox,,usr,,,GNU GPLv2
 Vy2k,chmod,,1,busybox,,usr,,,GNU GPLv2
@@ -84,6 +85,7 @@ PvFi,dos2unix,,1,busybox,,txt,,,GNU GPLv2
 6Qrm,dropbear,,1,bundled,Dropbear,net,Dropbear (sshd),,MIT + BSD 2-Clause (OpenSSH components)
 NXgy,dropbearkey,,1,bundled,Dropbear,net,dropbearkey,,MIT + BSD 2-Clause (OpenSSH components)
 dub1,du,,1,busybox,,dsk,,,GNU GPLv2
+ItAR,dump.exfat,,1,bundled,exfatprogs,dsk,dump.exfat,,GNU GPLv2
 tOwX,dumpe2fs,,1,bundled,e2fsprogs,dsk,dumpe2fs,,GNU GPLv2 + LGPLv2
 3QBg,dwp,,1,bundled,GNU Binutils,dev,GNU dwp,,GNU GPLv3
 J10Q,e2freefrag,,1,bundled,e2fsprogs,dsk,e2freefrag,,GNU GPLv2 + LGPLv2
@@ -106,6 +108,8 @@ ZdSR,elfedit,,1,bundled,GNU Binutils,dev,GNU elfedit,,GNU GPLv3
 EsI6,encguess,,1,bundled,Perl,txt,encguess,,GNU GPLv1
 N5XP,env,,1,busybox,,gen,,,GNU GPLv2
 i6mp,ex,,1,bundled,Vim,dev,ex,,Vim
+OMdo,exfat2img,,1,bundled,exfatprogs,dsk,exfat2img,,GNU GPLv2
+fqUC,exfatlabel,,1,bundled,exfatprogs,dsk,exfatlabel,,GNU GPLv2
 wCgm,expand,,1,busybox,,txt,,,GNU GPLv2
 pGS1,expr,,0,busybox,,gen,,,GNU GPLv2
 o62E,factor,,1,busybox,,gen,,,GNU GPLv2
@@ -130,6 +134,7 @@ TMUh,fold,,1,busybox,,txt,,,GNU GPLv2
 Gguz,free,,0,busybox,,sys,,,GNU GPLv2
 52qo,fsck,/usr/sbin/e2image,1,bundled,e2fsprogs,dsk,fsck,"fsck.ext2,fsck.ext3,fsck.ext4",GNU GPLv2 + LGPLv2
 hWnE,fsck,!/usr/sbin/e2image,1,busybox,e2fsprogs,dsk,fsck,,GNU GPLv2
+YRPp,fsck.exfat,,1,bundled,exfatprogs,dsk,fsck.exfat,,GNU GPLv2
 7Z6P,fsck.fat,,1,bundled,dosfstools,dsk,fsck.fat,"dosfsck,fsck.msdos,fsck.vfat",GNU GPLv3
 0cxu,ftp,,1,bundled,tnftp,net,,,BSD 2-Clause
 dHLO,ftpd,,1,busybox,,net,,,GNU GPLv2
@@ -212,6 +217,7 @@ Bxra,lsattr,!/usr/sbin/e2image,1,busybox,,dsk,,,GNU GPLv2
 wFJe,lsb_release,,1,bundled,lsb-release-minimal,sys,,,ISC
 mHOF,lsblk,,0,busybox,,dsk,,,GNU GPLv2
 jbSq,lscpu,,1,bundled,util-linux,sys,lscpu,,GNU GPLv2
+qbzY,lsdosattr,,1,bundled,exfatprogs,dsk,lsdosattr,,GNU GPLv2
 IdZy,lshw,,1,lshw,,sys,,,GNU GPLv2
 UAhc,lsmod,,1,busybox,,sys,,,GNU GPLv2
 d7x3,lsof,,1,busybox,,pro,,,GNU GPLv2
@@ -261,6 +267,7 @@ N7NR,mkdosfs,!/sbin/fatlabel,1,busybox,,dsk,,mkfs.vfat,GNU GPLv2
 Xu6y,mke2fs,/usr/sbin/e2image,1,bundled,e2fsprogs,dsk,mke2fs,"mkfs.ext2,mkfs.ext3,mkfs.ext4",GNU GPLv2 + LGPLv2
 zctB,mke2fs,!/usr/sbin/e2image,1,busybox,,dsk,,mkfs.ext2,GNU GPLv2
 ziqr,mkfifo,,1,busybox,,gen,,,GNU GPLv2
+atAr,mkfs.exfat,,1,bundled,exfatprogs,dsk,mkfs.exfat,,GNU GPLv2
 lxph,mkfs.fat,,1,bundled,dosfstools,dsk,mkfs.fat,"mkdosfs,mkfs.msdos,mkfs.vfat",GNU GPLv3
 kHKO,mklost+found,,1,bundled,e2fsprogs,dsk,mklost+found,,GNU GPLv2 + LGPLv2
 Mggo,mkmanifest,,1,bundled,GNU Mtools,gen,mkmanifest,,GNU GPLv3
@@ -460,6 +467,7 @@ wXfc,truncate,,1,busybox,,gen,,,GNU GPLv2
 EWGx,tsort,,1,busybox,,txt,,,GNU GPLv2
 8rHH,tty,,1,busybox,,sys,,,GNU GPLv2
 UL9w,tugow,,1,bundled,New BSD Games,fun,tugow,,CC0 1.0 Universal
+Nibd,tune.exfat,,1,bundled,exfatprogs,dsk,tune.exfat,,GNU GPLv2
 dyGa,tune2fs,/usr/sbin/e2image,1,bundled,e2fsprogs,dsk,tune2fs,,GNU GPLv2 + LGPLv2
 UaPq,tune2fs,!/usr/sbin/e2image,1,busybox,,dsk,,,GNU GPLv2
 J11K,udhcpc,,1,busybox,,net,,,GNU GPLv2
