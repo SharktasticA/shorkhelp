@@ -162,6 +162,7 @@ ZvlH,gzip,,1,busybox,,arc,,,GNU GPLv2
 E8x9,h2ph,,1,bundled,Perl,dev,h2ph,,GNU GPLv1
 w86e,h2xs,,1,bundled,Perl,dev,h2xs,,GNU GPLv1
 MBvG,halt,,1,busybox,,sys,,,GNU GPLv2
+Rwdv,hdparm,,1,bundled,hdparm,dsk,,,BSD-style
 GPo1,head,,1,busybox,,txt,,,GNU GPLv2
 pINh,hexdump,,1,busybox,,dev,,,GNU GPLv2
 roxP,hexedit,,1,busybox,,dev,,,GNU GPLv2
@@ -337,12 +338,15 @@ zOUH,rmmod,,1,busybox,,sys,,,GNU GPLv2
 9bbM,route,,1,busybox,,net,,,GNU GPLv2
 mPJs,rview,,1,bundled,Vim,dev,rview,,Vim
 Pbyy,rvim,,1,bundled,Vim,dev,rvim,,Vim
+AITq,sas_disk_blink,,1,bundled,sdparm,dsk,sas_disk_blink,,BSD 3-Clause
 EqMD,sc-im,,1,bundled,sc-im,gen,Spreadsheet Calculator Improvised,,BSD 4-Clause
 Lp8v,scissor,,1,bundled,New BSD Games,fun,scissor,,CC0 1.0 Universal
 a02p,scp,,1,bundled,Dropbear,net,Dropbear (scp),,MIT + BSD 2-Clause (OpenSSH components)
 wVQA,scs2ascii,,1,bundled,tn5250,gen,scs2ascii,,GNU LGPLv2.1
 N5Fe,scs2pdf,,1,bundled,tn5250,gen,scs2pdf,,GNU LGPLv2.1
 YBKa,scs2ps,,1,bundled,tn5250,gen,scs2ps,,GNU LGPLv2.1
+pRZS,scsi_ch_swp,,1,bundled,sdparm,dsk,scsi_ch_swp,,BSD 3-Clause
+yXgK,sdparm,,1,bundled,sdparm,dsk,sdparm,,BSD 3-Clause
 Im4q,sed,,0,busybox,,txt,,,GNU GPLv2
 LeNF,seq,,1,busybox,,gen,,,GNU GPLv2
 Or6k,setfattr,,1,busybox,,gen,,,GNU GPLv2
