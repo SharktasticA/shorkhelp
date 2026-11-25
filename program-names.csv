@@ -272,6 +272,7 @@ lxph,mkfs.fat,,1,bundled,dosfstools,dsk,mkfs.fat,"mkdosfs,mkfs.msdos,mkfs.vfat",
 kHKO,mklost+found,,1,bundled,e2fsprogs,dsk,mklost+found,,GNU GPLv2 + LGPLv2
 Mggo,mkmanifest,,1,bundled,GNU Mtools,gen,mkmanifest,,GNU GPLv3
 bMeb,mknod,,1,busybox,,dsk,,,GNU GPLv2
+kcjS,mkntfs,,1,bundled,ntfsprogs-plus,dsk,mkntfs,"mkfs.ntfs,mkfs.ntfsplus",GNU GPLv2
 549Y,mkpasswd,,1,busybox,,usr,,,GNU GPLv2
 NWCR,mkswap,,1,busybox,,dsk,,,GNU GPLv2
 i8DT,mktemp,,1,busybox,,gen,,,GNU GPLv2
@@ -314,6 +315,12 @@ c5W6,nproc,,1,busybox,,sys,,,GNU GPLv2
 8umz,nslookup,/usr/bin/dig,1,bundled,BIND 9 DNS Utilities,net,nslookup,,MPL 2.0
 ZxQw,nslookup,!/usr/bin/dig,1,busybox,,net,,,GNU GPLv2
 NIw4,nsupdate,,1,bundled,BIND 9 DNS Utilities,net,nsupdate,,MPL 2.0
+WOBL,ntfsck,,1,bundled,ntfsprogs-plus,dsk,ntfsck,"fsck.ntfs,fsck.ntfsplus",GNU GPLv2
+nWFW,ntfsclone,,1,bundled,ntfsprogs-plus,dsk,ntfsclone,,GNU GPLv2
+rPOq,ntfscluster,,1,bundled,ntfsprogs-plus,dsk,ntfscluster,,GNU GPLv2
+nFir,ntfsinfo,,1,bundled,ntfsprogs-plus,dsk,ntfsinfo,,GNU GPLv2
+owwP,ntfslabel,,1,bundled,ntfsprogs-plus,dsk,ntfslabel,,GNU GPLv2
+slXw,ntfsresize,,1,bundled,ntfsprogs-plus,dsk,ntfsresize,,GNU GPLv2
 2AVo,objcopy,,1,bundled,GNU Binutils,dev,GNU objcopy,,GNU GPLv3
 Ry9o,objdump,,1,bundled,GNU Binutils,dev,GNU objdump,,GNU GPLv3
 WcsT,od,,1,busybox,,dev,,,GNU GPLv2
