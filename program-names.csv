@@ -77,6 +77,8 @@ V9VD,dialog,,1,bundled,dialog,dev,,,GNU LGPLv2.1
 7eMh,diff,,1,busybox,,dev,,,GNU GPLv2
 Sauy,dig,,1,bundled,BIND 9 DNS Utilities,net,dig,,MPL 2.0
 x5r7,dirname,,1,busybox,,gen,,,GNU GPLv2
+xlDV,diskd,,1,bundled,fdutils,dsk,diskd,,GNU GPLv2
+DIWq,diskseekd,,1,bundled,fdutils,dsk,diskseekd,,GNU GPLv2
 KtI7,dmesg,,1,busybox,,sys,,,GNU GPLv2
 vqmu,dmidecode,,1,bundled,dmidecode,sys,dmidecode,,GNU GPLv2
 BTHy,dnsdomainname,,1,busybox,,net,,,GNU GPLv2
@@ -123,6 +125,11 @@ tPbn,fdflush,,1,busybox,,dsk,,,GNU GPLv2
 sA3w,fdformat,,1,busybox,,dsk,,,GNU GPLv2
 ERCO,fdisk,/usr/sbin/fdisk,1,bundled,util-linux,dsk,fdisk,,GNU GPLv2
 6InS,fdisk,/sbin/fdisk,1,busybox,,dsk,,,GNU GPLv2
+tLVp,fdlist,,1,bundled,fdutils,dsk,fdlist,,GNU GPLv2
+IMJx,fdmount,,1,bundled,fdutils,dsk,fdmount,,GNU GPLv2
+DCMl,fdmountd,,1,bundled,fdutils,dsk,fdmountd,,GNU GPLv2
+xnyZ,fdrawcmd,,1,bundled,fdutils,dsk,fdrawcmd,,GNU GPLv2
+SPFl,fdumount,,1,bundled,fdutils,dsk,fdumount,,GNU GPLv2
 uRvH,fgrep,,1,busybox,,txt,,,GNU GPLv2
 v4vR,fifteen,,1,bundled,New BSD Games,fun,fifteen,,CC0 1.0 Universal
 P6SW,file,,1,bundled,file,gen,,,BSD 2-Clause (Darwin)
@@ -130,6 +137,8 @@ P6SW,file,,1,bundled,file,gen,,,BSD 2-Clause (Darwin)
 0YNm,find,,1,busybox,,gen,,,GNU GPLv2
 1VUE,findfs,,1,bundled,e2fsprogs,dsk,findfs,,GNU GPLv2 + LGPLv2
 xYsP,fisher,,1,bundled,New BSD Games,fun,fisher,,CC0 1.0 Universal
+yhka,floppycontrol,,1,bundled,fdutils,dsk,floppycontrol,,GNU GPLv2
+eFZJ,floppymeter,,1,bundled,fdutils,dsk,floppymeter,,GNU GPLv2
 TMUh,fold,,1,busybox,,txt,,,GNU GPLv2
 Gguz,free,,0,busybox,,sys,,,GNU GPLv2
 52qo,fsck,/usr/sbin/e2image,1,bundled,e2fsprogs,dsk,fsck,"fsck.ext2,fsck.ext3,fsck.ext4",GNU GPLv2 + LGPLv2
@@ -144,6 +153,7 @@ m30l,fuser,,1,busybox,,pro,,,GNU GPLv2
 GtKK,g++,,1,bundled,GCC + musl,dev,GCC C++,,GNU GPLv3 + GCC Runtime Library Exception
 dIRB,gcc,,1,bundled,GCC + musl,dev,GCC C,,GNU GPLv3 + GCC Runtime Library Exception
 t6lv,getfattr,,1,busybox,,gen,,,GNU GPLv2
+zsMK,getfdprm,,1,bundled,fdutils,dsk,getfdprm,,GNU GPLv2
 3piS,getopt,,1,busybox,,gen,,,GNU GPLv2
 Re2m,getty,,1,busybox,,usr,,,GNU GPLv2
 ehzq,gfortran,,1,bundled,GCC + musl,dev,Gfortran,,GNU GPLv3 + GCC Runtime Library Exception
@@ -235,6 +245,7 @@ yYzU,lzcat,,1,busybox,,arc,,,GNU GPLv2
 0H3z,lzopcat,,1,busybox,,arc,,,GNU GPLv2
 M07h,m4,,1,bundled,GNU m4,dev,,,GNU GPLv3
 ZxBn,make,,1,bundled,GNU Make,dev,,,GNU GPLv3
+etDH,MAKEFLOPPIES,,1,bundled,fdutils,dsk,MAKEFLOPPIES,,GNU GPLv2
 OHad,man,,1,busybox,,gen,,,GNU GPLv2
 RMap,mattrib,,1,bundled,GNU Mtools,dsk,mattrib,,GNU GPLv3
 uozx,mbadblocks,,1,bundled,GNU Mtools,dsk,mbadblocks,,GNU GPLv3
@@ -393,6 +404,7 @@ yXgK,sdparm,,1,bundled,sdparm,dsk,sdparm,,BSD 3-Clause
 Im4q,sed,,0,busybox,,txt,,,GNU GPLv2
 LeNF,seq,,1,busybox,,gen,,,GNU GPLv2
 Or6k,setfattr,,1,busybox,,gen,,,GNU GPLv2
+sAkI,setfdprm,,1,bundled,fdutils,dsk,setfdprm,,GNU GPLv2
 44RL,setfont,,1,busybox,,sys,,,GNU GPLv2
 JsGc,setpci,,1,bundled,PCI Utilities,sys,lspci,,GNU GPLv2
 VzIo,setserial,,1,bundled,setserial,sys,,,GNU GPLv2
@@ -441,6 +453,7 @@ fxwk,sudoedit,,1,bundled,sudo,usr,sudoedit,,ISC + BSD 2-Clause + BSD 3-Clause + 
 nNWu,sudoku,,1,bundled,New BSD Games,fun,sudoku,,CC0 1.0 Universal
 MFk9,sulogin,,1,busybox,,usr,,,GNU GPLv2
 jK1l,sum,,1,busybox,,chk,,,GNU GPLv2
+nsjp,superformat,,1,bundled,fdutils,dsk,superformat,,GNU GPLv2
 UAyB,swapoff,,1,busybox,,dsk,,,GNU GPLv2
 xuFk,swapon,,1,busybox,,dsk,,,GNU GPLv2
 4xi0,sync,,0,busybox,,dsk,,,GNU GPLv2
@@ -518,6 +531,8 @@ XVYB,who,,1,busybox,,usr,,,GNU GPLv2
 s0Ci,whoami,,1,busybox,,usr,,,GNU GPLv2
 1ln1,whois,,1,busybox,,net,,,GNU GPLv2
 dvqg,xargs,,1,busybox,,gen,,,GNU GPLv2
+UJdl,xdfcopy,,1,bundled,fdutils,dsk,xdfcopy,,GNU GPLv2
+cuWx,xdfformat,,1,bundled,fdutils,dsk,xdfformat,,GNU GPLv2
 HDKg,xsubpp,,1,bundled,Perl,dev,xsubpp,,GNU GPLv1
 9I1n,xt5250,,1,bundled,tn5250,net,xt5250,,GNU LGPLv2.1
 bfg1,xxd,/usr/bin/vim,1,bundled,Vim,dev,xxd,,Vim
