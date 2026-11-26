@@ -45,7 +45,7 @@ typedef struct {
 #define INITIAL_CMD_STR         128
 #define MAX_CMD_STR             2048
 #define MAX_LICENCES            150
-#define MAX_PROG_ENTRIES        550
+#define MAX_PROG_ENTRIES        600
 
 extern Licence LICENCES[MAX_LICENCES];
 extern int LICENCES_NO;

@@ -64,6 +64,12 @@ int getIsPT1(void)
  */
 ProgramEntry **getProgramsWithAliases(int *noOut, int separate)
 {
+    if (PROG_ENTRIES_NO > MAX_PROG_ENTRIES)
+    {
+        *noOut = 0;
+        return NULL;
+    }
+
     ProgramEntry **progs = malloc(MAX_PROG_ENTRIES * sizeof *progs);
     if (!progs)
     {
@@ -129,7 +135,7 @@ ProgramEntry **getProgramsWithAliases(int *noOut, int separate)
 
                 char *fields[count];
                 int fieldCount = loadCSVLine(buffer, fields, count);
-                for (int j = 0; j < fieldCount; j++)
+                for (int j = 0; j < fieldCount && aliasNo < maxAlias; j++)
                 {
                     snprintf(aliases[aliasNo], PROG_ENTRY_CMD_LEN,
                         "%s \033[%sm(%s)\033[%sm", fields[j], COL_FOR_GREY,
