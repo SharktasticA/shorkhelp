@@ -7,8 +7,10 @@ ifeq ($(wildcard shorkcommon/.git),)
 $(shell git submodule update --init shorkcommon)
 endif
 
-CFLAGS += -D_GNU_SOURCE -std=gnu99 -I. -Ishorkcommon -Os
-LDFLAGS += -static
+CFLAGS += -D_GNU_SOURCE -std=gnu99 -I. -Ishorkcommon -Os \
+	-ffunction-sections -fdata-sections -fno-asynchronous-unwind-tables \
+	-fno-unwind-tables
+LDFLAGS += -static -Wl,--gc-sections
 
 ifdef SHORK_DISKETTE
 	CFLAGS += -DSHORK_DISKETTE

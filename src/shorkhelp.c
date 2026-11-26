@@ -25,216 +25,15 @@
 
 
 
+#ifndef SHORK_DISKETTE
 int PROG_DESCS_NO = 0;
+#endif
+
 char OS_NAME[128];
 
 
 
-/**
- * @return 1 if host SHORK OS is a PT1 build; 0 if not
- */
-int getIsPT1(void)
-{
-    FILE *stream = fopen("/etc/issue", "r");
-    if (stream)
-    {
-        char buffer[128];
-        int found = 0;
-        while (fgets(buffer, 128, stream))
-        {
-            if (strstr(buffer, "PT1"))
-            {
-                fclose(stream);
-                return 1;
-            }
-        }
-        fclose(stream);
-    }
-    return 0;
-}
-
-/**
- * Creates a ProgramEntry array where either the program entry's aliases are
- * combined into the command name, or the aliases are added as separate
- * commands.
- * @param noOut Number of programs in the array (pass by reference)
- * @param separate Flags if the aliases should be treated as separate
- *                 programs
- * @return Pointer to a ProgramEntry array
- */
-ProgramEntry **getProgramsWithAliases(int *noOut, int separate)
-{
-    if (PROG_ENTRIES_NO > MAX_PROG_ENTRIES)
-    {
-        *noOut = 0;
-        return NULL;
-    }
-
-    ProgramEntry **progs = malloc(MAX_PROG_ENTRIES * sizeof *progs);
-    if (!progs)
-    {
-        *noOut = 0;
-        return NULL;
-    }
-
-    int progNo = 0;
-    char aliases[MAX_PROG_ENTRIES][PROG_ENTRY_CMD_LEN];
-    int aliasNo = 0;
-    const int maxAlias = MAX_PROG_ENTRIES - PROG_ENTRIES_NO;
-
-    for (int i = 0; i < PROG_ENTRIES_NO; i++)
-    {
-        progs[i] = calloc(1, sizeof **progs);
-        char *cmd = malloc(PROG_ENTRY_CMD_LEN);
-        if (!progs[i] || !cmd)
-        {
-            free(progs[i]);
-            free(cmd);
-            while (i--)
-            {
-                free(progs[i]->command);
-                free(progs[i]);
-            }
-            free(progs);
-            *noOut = 0;
-            return NULL;
-        }
-
-        if (!separate)
-        {
-            if (PROG_ENTRIES[i].aliases &&
-                PROG_ENTRIES[i].aliases[0] != '\0')
-            {
-                char *tmp = findReplace(PROG_ENTRIES[i].aliases,
-                    PROG_ENTRY_CMD_LEN, ",", ", ");
-                snprintf(cmd, PROG_ENTRY_CMD_LEN, "%s \033[%sm(%s)\033[%sm",
-                    PROG_ENTRIES[i].command, COL_FOR_GREY, tmp,
-                    COL_FOR_WHITE);
-                free(tmp);
-            }
-            else
-                snprintf(cmd, PROG_ENTRY_CMD_LEN, "%s",
-                    PROG_ENTRIES[i].command);
-        }
-        else
-        {
-            snprintf(cmd, PROG_ENTRY_CMD_LEN, "%s",
-                PROG_ENTRIES[i].command);
-
-            if (PROG_ENTRIES[i].aliases &&
-                PROG_ENTRIES[i].aliases[0] != '\0')
-            {
-                int count = 1;
-                for (int j = 0; PROG_ENTRIES[i].aliases[j] != '\0'; j++)
-                    if (PROG_ENTRIES[i].aliases[j] == ',')
-                        count++;
-
-                char buffer[PROG_ENTRY_CMD_LEN];
-                snprintf(buffer, PROG_ENTRY_CMD_LEN, "%s",
-                    PROG_ENTRIES[i].aliases);
-
-                char *fields[count];
-                int fieldCount = loadCSVLine(buffer, fields, count);
-                for (int j = 0; j < fieldCount && aliasNo < maxAlias; j++)
-                {
-                    snprintf(aliases[aliasNo], PROG_ENTRY_CMD_LEN,
-                        "%s \033[%sm(%s)\033[%sm", fields[j], COL_FOR_GREY,
-                        cmd, COL_FOR_WHITE);
-                    aliasNo++;
-                }
-            }
-        }
-
-        progs[i]->command = cmd;
-        progs[i]->category = PROG_ENTRIES[i].category;
-        progNo++;
-    }
-
-    // If we have some aliases, add them too
-    for (int i = 0; i < aliasNo; i++)
-    {
-        progs[progNo] = calloc(1, sizeof **progs);
-        char *cmd = malloc(PROG_ENTRY_CMD_LEN);
-        if (!progs[progNo] || !cmd)
-        {
-            free(progs[progNo]);
-            free(cmd);
-            while (progNo--)
-            {
-                free(progs[progNo]->command);
-                free(progs[progNo]);
-            }
-            free(progs);
-            *noOut = 0;
-            return NULL;
-        }
-
-        snprintf(cmd, PROG_ENTRY_CMD_LEN, "%s", aliases[i]);
-        progs[progNo]->command = cmd;
-        progNo++;
-    }
-
-    // If we added aliases, progs needs sorting
-    if (aliasNo > 0)
-        qsort(progs, progNo, sizeof *progs, progCmp);
-
-    *noOut = progNo;
-    return progs;
-}
-
-/**
- * Populates the OS_NAME global variable with the host Linux distribution's
- * name.
- * @return 1 if OS name found; 0 if not
- */
-int getOSName(void)
-{
-    OS_NAME[0] = '\0';
-
-    // Try os-release
-    FILE *fStream = fopen("/etc/os-release", "r");
-    if (fStream)
-    {
-        char buffer[128];
-        while (fgets(buffer, 128, fStream))
-        {
-            if (strncmp(buffer, "PRETTY_NAME=", 12) == 0)
-            {
-                char *extract = extractFromPoint(buffer, sizeof(OS_NAME), '=');
-                strncpy(OS_NAME, extract, sizeof(OS_NAME) - 1);
-                OS_NAME[sizeof(OS_NAME) - 1] = '\0';
-                free(extract);
-                break;
-            }
-        }
-        fclose(fStream);
-    }
-
-    // Try issue
-    if (OS_NAME[0] == '\0')
-    {
-        fStream = fopen("/etc/issue", "r");
-        if (fStream)
-        {
-            char buffer[128];
-            if (fgets(buffer, 128, fStream))
-            {
-                size_t len = strlen(buffer);
-                if (len > 0 && buffer[len - 1] == '\n') buffer[len - 1] = '\0';
-                char *p = strchr(buffer, '\\');
-                if (p) *p = '\0';
-                strncpy(OS_NAME, buffer, sizeof(OS_NAME) - 1);
-                OS_NAME[sizeof(OS_NAME) - 1] = '\0';
-            }
-            fclose(fStream);
-        }
-    }
-
-    return OS_NAME[0] != '\0' ? 1 : 0;
-}
-
 #ifndef SHORK_DISKETTE
-
 /**
  * Loads the manifests.csv file into LICENCES.
  * @returns Number of licences loaded; -1 if error
@@ -297,8 +96,6 @@ int loadLicences(void)
 
     return i;
 }
-
-#endif
 
 /**
  * Loads the program-descs.csv file into PROG_ENTRIES. Loading program
@@ -405,142 +202,7 @@ int loadProgramDescs(void)
     return i;
 }
 
-/**
- * Loads the program-names.csv file into PROG_ENTRIES.
- * @returns Number of program entries loaded; -1 if error
- */
-int loadProgramEntries(void)
-{
-    // Load csv file
-    FILE *stream;
-    if (fileExists("/usr/share/shorkhelp/program-names.csv"))
-        stream = fopen("/usr/share/shorkhelp/program-names.csv", "r");
-    else
-    {
-        char *binDir = getBinDir();
-        if (!binDir) return -1;
 
-        // Check if binary directory + filename are too large for combining
-        if (strlen(binDir) + strlen("program-names.csv") >= PATH_MAX)
-            return -1;
-
-        // Combine binary directory and filename
-        char binCSVPath[PATH_MAX];
-        snprintf(binCSVPath, PATH_MAX, "%sprogram-names.csv", binDir);
-
-        // Try binary-based path
-        if (fileExists(binCSVPath)) stream = fopen(binCSVPath, "r");
-        else return -1;
-    }
-
-    // Load csv into buffer
-    static char buffer[CSV_BUFFER];
-    size_t n = fread(buffer, 1, sizeof(buffer) - 1, stream);
-    fclose(stream);
-    buffer[n] = '\0';
-
-    char *p = buffer;
-
-    // Skip header line
-    while (*p && *p != '\n') p++;
-    if (*p == '\n') p++;
-
-    int i = 0;
-
-    while (*p && i < MAX_PROG_ENTRIES)
-    {
-        char *line = p;
-
-        // Find end of line
-        while (*p && *p != '\n') p++;
-        if (*p == '\n')
-        {
-            *p = '\0';
-            p++;
-        }
-
-        if (*line == '\0')
-            continue;
-
-        // Load line
-        char *fields[10];
-        int fieldCount = loadCSVLine(line, fields, 10);
-
-        // Check if malformed line/parsing
-        if (fieldCount < 10)
-            continue;
-
-        int isOptional = atoi(fields[3]);
-        int progCheck = 0;
-        // If the path field starts with '!', it means only proceed if the
-        // executable in the path *is not* found. E.g., BusyBox and Vim provide
-        // their own xxd - the BusyBox one should only be processed if Vim
-        // isn't installed.
-        if (fields[2][0] == '!')
-        {
-            if (!isProgramInstalled(fields[2] + 1, 1))
-                progCheck = isProgramInstalled(fields[1], 1);
-        }
-        else
-            progCheck = isProgramInstalled((fields[2] && fields[2][0] != '\0') ? fields[2] : fields[1], 1);
-
-        if (!isOptional || (isOptional && progCheck))
-        {
-            // If no program name was given, try either package name or just
-            // command name as a stand-in
-            if (!fields[7] || fields[7][0] == '\0')
-            {
-                if (fields[5] && fields[5][0] != '\0')
-                    fields[7] = fields[5];
-                else
-                    fields[7] = fields[1];
-            }
-
-            // Input line into entries
-            PROG_ENTRIES[i].id = fields[0];
-            PROG_ENTRIES[i].command = fields[1];
-            PROG_ENTRIES[i].path = fields[2];
-            PROG_ENTRIES[i].type = fields[4];
-            PROG_ENTRIES[i].package = fields[5];
-            PROG_ENTRIES[i].category = fields[6];
-            PROG_ENTRIES[i].name = fields[7];
-            if(strchr(fields[8], '"') != NULL)
-            {
-                // Remove doubled double quotes
-                char *tmp = findReplace(fields[8], strlen(fields[8]),
-                    "\"\"", "\"");
-
-                size_t descLen = strlen(tmp);
-                // Remove start double quote
-                if (descLen > 0 && tmp[0] == '"')
-                    memmove(tmp, tmp + 1, descLen);
-                
-                descLen = strlen(tmp);
-                // Remove end double quote
-                if (descLen > 0 && tmp[descLen - 1] == '"')
-                    tmp[descLen - 1] = '\0';
-
-                PROG_ENTRIES[i].aliases = tmp;
-            }
-            else PROG_ENTRIES[i].aliases = fields[8];
-            PROG_ENTRIES[i].licences = fields[9];
-            PROG_ENTRIES[i].desc = NULL;
-
-            i++;
-        }
-    }
-
-    return i;
-}
-
-int progCmp(const void *a, const void *b)
-{
-    return natCmp((*(ProgramEntry *const *)a)->command,
-        (*(ProgramEntry *const *)b)->command);
-}
-
-
-#ifndef SHORK_DISKETTE
 
 void printGuideDiscoveringHardware(void)
 {
@@ -846,91 +508,7 @@ void printGuideTmuxCheatsheet(void)
     printTextScreen("tmux cheatsheet", tmuxStr, lines, 1);
 }
 
-#endif
 
-
-
-void printIntro(void)
-{
-    const int strSize = 6144;
-    char introStr[strSize];
-    int pos = 0;
-
-#ifndef SHORK_DISKETTE
-
-    pos += snprintf(introStr + pos, strSize - pos,
-        "The SHORK 486 Operating System is a 32-bit Linux distribution for 486 and 586/Pentium (P5) era vintage PCs! It aims to be lean yet functional, giving such retro hardware the best chance possible to run modern, updated software. It provides a modern Linux kernel, robust BusyBox userspace and command set, custom utilities, and hand-picked modern software.\n\n");
-
-    pos += snprintf(introStr + pos, strSize - pos,
-        "\033[%smOrigin & inspirations\033[%sm\nI have long wanted my own viable, modern yet lightweight operating system for my early-'90s IBM ThinkPads to allow me to use them with their excellent keyboards as SSH terminals and as writing pads with modern file transfer and source control features. In December 2025, Action Retro posted a video on FLOPPINUX, something that turned out to be a very accessible means for me to learn how to make a working Linux system. SHORK 486 began as an automated build script based on FLOPPINUX's build instructions, but adapted for producing fixed disk images instead of diskette images. After that, more Linux kernel and BusyBox features were enabled, and other software was compiled to help fulfil my dream. Other inspirations from similar efforts include Gray386linux and Ocawesome101's blog post on running Linux on a 486SX.\n\n", 
-        COL_FOR_HEADING, COL_FOR_WHITE);
-
-    pos += snprintf(introStr + pos, strSize - pos,
-        "\033[%smArchitecture\033[%sm\nThe SHORK 486 Operating System is not GNU/Linux as you may be accustomed to. Its init system and primary userland are provided by BusyBox, a single-binary application well known for embedded usage. As needed, some other utilities (such as those from util-linux) are permitted to plug any 'holes' in BusyBox's suite or provide more capabilities when system resources allow. The system is compiled with musl instead of glibc, allowing smaller binaries that also use fewer resources. Software is also statically compiled to eliminate dependency woes and increase predictability. Architecturally, the closest well-known Linux distribution to SHORK 486 is perhaps Alpine Linux.\n\n",
-        COL_FOR_HEADING, COL_FOR_WHITE);
-
-    pos += snprintf(introStr + pos, strSize - pos,
-        "\033[%smGoals\033[%sm\nBesides being something fun to try on old PCs, the SHORK project was founded on the belief that old PCs can still be useful to the right people, retrocomputing and gaming usage aside. SHORK 486 can be useful for lightweight desktop usage, SSH terminal usage, distraction-free typewriting (\"writerdecks\"), embedded applications, demonstrative use in academia/education, and as a technical demonstration of what old PCs and modern software targeted at them can actually still do! If SHORK can save just one more PC from the landfills, it has done its job.\n\n",
-        COL_FOR_HEADING, COL_FOR_WHITE);
-
-    pos += snprintf(introStr + pos, strSize - pos,
-        "\033[%smWhat's special\033[%sm\nThe SHORK 486 Operating System is a modern and maintained Linux distribution that can run on a processor architecture from 1989. Depending on configuration, it only requires between 7 and 24MiB system memory whilst still packing a lot of functionality for its size. For various reasons, making such a distribution is increasingly difficult in the 2020s. System requirements keep rising, and even the otherwise excellent Core/Micro Core/Tiny Core family requires at least 26-46MB RAM, putting them out of range for many early 486 systems. As of Linux kernel 7.1 and beyond, support for 486 processors and various ISA and PCMCIA networking hardware has been dropped, and 32-bit x86 support in general is currently being dropped by most mainstream distributions. Given the situation, SHORK 486 will try to fill this niche of a ready-to-go Linux distribution for such PCs by sticking with a minimal-where-possible philosophy, offering customisability and restoring dropped vintage hardware support on newer Linux kernels.\n\n",
-        COL_FOR_HEADING, COL_FOR_WHITE);
-
-    pos += snprintf(introStr + pos, strSize - pos,
-        "\033[%smVersions\033[%sm\nThe SHORK 486 Operating System is available in four versions: SHORK 486, SHORK 586, SHORK DISC and SHORK DISKETTE. \033[%smSHORK 486\033[%sm and \033[%smSHORK 586\033[%sm are for hard and solid-state disks. At present, the difference between them is just optimisation for their respective x86 revision, and which one you get depends on the target architecture you build SHORK for. They otherwise comprise the same feature set and available programs. \033[%smSHORK DISC\033[%sm is for CD and DVD discs, envisioned as a completely immutable system or diagnostic aid, and will eventually be used as SHORK 486's installation media. \033[%smSHORK DISKETTE\033[%sm is for floppy diskettes and is envisioned as a diagnostic aid or a CD-ROM boot disk.\n\n",
-        COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
-        COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
-        COL_FOR_SHORKUTIL, COL_FOR_WHITE);
-
-    pos += snprintf(introStr + pos, strSize - pos,
-        "\033[%smLicences\033[%sm\nSHORK 486 is a free and open-source operating system. Its core is made up of GPLv3 (SHORK, SHORK Utilities, most of SHORK Entertainment), GPLv2 (Linux kernel, BusyBox, SYSLINUX), and MIT (SHORKMINES) components. SHORK 486 can also contain bundled software licensed under various permissive, copyleft, and even public-domain-equivalent licences. You can look at \033[%smshorkhelp\033[%sm's \"Licences\" portal to see individual licences.\n\n",
-        COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE);
-
-#else
-
-    pos += snprintf(introStr + pos, strSize - pos,
-        "SHORK DISKETTE is an edition of the SHORK 486 Operating System, a 32-bit Linux distribution for 486 and 586/Pentium (P5) era vintage PCs! It is designed to provide the latest Linux kernel and a tailored BusyBox userspace and command set in a system that can fit on a 1.44MB or 2.88MB floppy diskette. It can be used as a handy emergency Linux environment, diagnostic aid and CD-ROM boot disk.\n\n");
-
-    pos += snprintf(introStr + pos, strSize - pos,
-        "\033[%smGoals\033[%sm\nThe SHORK project was founded on the belief that old PCs can still be useful to the right people, retrocomputing and gaming usage aside. SHORK DISKETTE in particular is designed to be your handy emergency Linux environment, diagnostic aid and CD-ROM boot disk. It can partition and format ext2 and FAT disks, image, clone and wipe drives, rescue and edit files on an unbootable system, identify unknown disks and filesystems, make new floppies, and mount CDs and other floppies to run statically-compiled software stored on them.\n\n",
-        COL_FOR_HEADING, COL_FOR_WHITE);
-
-    pos += snprintf(introStr + pos, strSize - pos,
-        "\033[%smLicences\033[%sm\nSHORK DISKETTE is a free and open-source operating system. Its core is made up of GPLv3 (SHORK, SHORK Utilities) and GPLv2 (Linux kernel, BusyBox, SYSLINUX) components.\n\n",
-        COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE);
-
-#endif
-
-    pos += snprintf(introStr + pos, strSize - pos,
-        "\033[%smThe author\033[%sm\nHi, I'm Kali (he/him) from Cymru (Wales)! I work in research/computer science and software engineering. I author Admiral Shark's Keyboards (ASK), a project to document IBM, Lexmark, Unicomp, Lenovo and TGCS keyboards and related devices. ASK and my overall interest in vintage IBM hardware set the stage for SHORK, as it led me to acquire several 486- and 586-era ThinkPads with keyboards I really appreciate and want to incorporate into my daily workflow as much as possible. My favourite animals are chondrichthyans, hence the shark theme.",
-        COL_FOR_HEADING, COL_FOR_WHITE);
-
-    int lines = formatNewLines(introStr, TERM_SIZE.ws_col, NULL, 0);
-    printTextScreen("Introduction to SHORK", introStr, lines, 1);
-}
-
-void printIntroPT1(void)
-{
-    const int strSize = 3072;
-    char pt1Str[strSize];
-    int pos = 0;
-
-    pos += snprintf(pt1Str + pos, strSize - pos, "You are running a pre-release build of SHORK 486 - Public Test 1 (PT1). This is the first published release of SHORK 486, intended for testing purposes only and to gauge wider opinion to help the project's progression.\n\n");
-
-    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smPurpose\033[%sm\nSHORK 486's development has progressed far enough that it has achieved the author's initial objectives, and is now appropriate for the first round of public testing to help scope out what to tackle next. PT1 also coincides with the recent releases of Linux kernels 7.1 and 7.2, which between them removed all 486, TSC-less 586/686, and other relevant vintage hardware support. The SHORK project subsequently patched support back in. It would be great to thoroughly validate that these patches are working correctly.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
-
-    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smLicence & disclaimers\033[%sm\nSHORK 486 is a non-commercial, free and open-source operating system licenced under GPLv3 that is provided \"as is\" without warranty of any kind. In no event shall the contributors be liable for any damages arising from use of this software. Additionally, SHORK 486 is a work in progress, and this is a pre-release build. It should not be used for serious, production, or mission-critical work.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
-
-    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smSuggestions & feedback\033[%sm\nIdeas for what to add to or change about SHORK 486 are welcome! These can be suggestions for new bundled programs, new or improved features, and advice on how the system is configured and built. Frank and critical feedback on anything regarding the project is also welcomed, though it is expected that it is respectful and understanding. However, please understand that otherwise well-intentioned and interesting suggestions may be considered beyond the scope of this project, as the aim is to keep the system as minimal as possible, but they will be remembered for future sister projects. Suggestions and feedback can be given via the SHORK 486 GitHub repository's \"Discussions\" tab or via social media channels found on \033[%smlinks.sharktastica.co.uk\033[%sm.\n\n", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
-
-    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smBug & error reporting\033[%sm\nSHORK 486 does not collect any telemetry nor report anything to anyone, instead relying on you, the tester, to report and provide evidence of any issues that may arise when using it. If you encounter any, please report them. It would be a good measure to include a robust description of your hardware and what you were trying to do, whether you compiled it yourself or used published install media, and copies of \033[%smshorkfetch\033[%sm's, \033[%smlsblk\033[%sm's, \033[%smlscpu\033[%sm's, \033[%smlspci\033[%sm's, \033[%smlsscsi\033[%sm's and \033[%smdmesg\033[%sm's output. The report can then be given via the SHORK 486 GitHub repository's \"Issues\" tab.", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
-
-    int lines = formatNewLines(pt1Str, TERM_SIZE.ws_col, NULL, 0);
-    printTextScreen("Public Test 1", pt1Str, lines, 1);
-}
-
-#ifndef SHORK_DISKETTE
 
 void printIntroStarted(void)
 {
@@ -1070,7 +648,882 @@ void printIntroStarted(void)
     printTextScreen("Getting started", startedStr, lines, 1);
 }
 
+
+
+void printSoftwareLicence(int i)
+{
+    char msgTitle[80];
+    snprintf(msgTitle, 80, "%s (%s)", LICENCES[i].name, LICENCES[i].type);
+
+    char licencePath[PATH_MAX];
+    snprintf(licencePath, PATH_MAX, "/LICENCES/%s", LICENCES[i].file);
+
+    char msgBody[49152];
+    FILE *stream = fopen(licencePath, "r");
+    if (stream)
+    {
+        size_t bytesRead = fread(msgBody, 1, sizeof(msgBody) - 1, stream);
+        fclose(stream);
+        msgBody[bytesRead] = '\0';
+    }
+    else
+        return;
+
+    int lines = formatNewLines(msgBody, TERM_SIZE.ws_col, NULL, 0);
+    printTextScreen(msgTitle, msgBody, lines, 1);
+}
+
+void printSoftwareProgOverview(int i)
+{
+    const int strSize = 4096;
+    char overviewStr[strSize];
+    int pos = 0;
+
+    // Name
+    if (strcmp(PROG_ENTRIES[i].category, "shork") == 0)
+        pos += snprintf(overviewStr + pos, strSize - pos,
+            "\033[%sm%s\033[%sm\n\n", COL_FOR_SHORKUTIL,
+            PROG_ENTRIES[i].name, COL_RESET);
+    else
+        pos += snprintf(overviewStr + pos, strSize - pos,
+            "\033[%sm%s\033[%sm\n\n", COL_FOR_CODE, PROG_ENTRIES[i].name,
+            COL_RESET);
+
+    // Description
+    if (PROG_ENTRIES[i].desc[0] != '\0')
+        pos += snprintf(overviewStr + pos, strSize - pos, "%s\n\n",
+            PROG_ENTRIES[i].desc);
+    else 
+        pos += snprintf(overviewStr + pos, strSize - pos,
+            "TO BE COMPLETED\n\n");
+
+    // Aliases, sources, category & licences
+    if (PROG_ENTRIES[i].aliases[0] != '\0')
+    {
+        char *tmp = findReplace(PROG_ENTRIES[i].aliases, PROG_ENTRY_CMD_LEN,
+            ",", ", ");
+        pos += snprintf(overviewStr + pos, strSize - pos,
+            "\033[%smAliases:\033[%sm  %s\n", COL_FOR_OL, COL_RESET,
+            tmp);
+        free(tmp);
+    }
+
+    const char *type = PROG_ENTRIES[i].type;
+    if (strcmp(type, "busybox") == 0)
+        type = "BusyBox";
+    else if (strcmp(type, "shorkutil") == 0)
+        type = "SHORK Utilities";
+    else if (strcmp(type, "shorktainment") == 0)
+        type = "SHORK Entertainment";
+    else if (strcmp(type, "bundled") == 0)
+        type = "bundled software";
+    pos += snprintf(overviewStr + pos, strSize - pos,
+        "\033[%smSource:\033[%sm   %s\n", COL_FOR_OL, COL_RESET, type);
+
+    if (PROG_ENTRIES[i].package && PROG_ENTRIES[i].package[0] != '\0')
+        pos += snprintf(overviewStr + pos, strSize - pos,
+            "\033[%smPackage:\033[%sm  %s\n", COL_FOR_OL, COL_RESET,
+            PROG_ENTRIES[i].package);
+
+    const char *category = PROG_ENTRIES[i].category;
+    if (strcmp(category, "gen") == 0)
+        category = "general";
+    else if (strcmp(category, "arc") == 0)
+        category = "archival & compression";
+    else if (strcmp(category, "txt") == 0)
+        category = "text processing";
+    else if (strcmp(category, "dev") == 0)
+        category = "development & editors";
+    else if (strcmp(category, "chk") == 0)
+        category = "hashing & encryption";
+    else if (strcmp(category, "net") == 0)
+        category = "networking & remote access";
+    else if (strcmp(category, "sys") == 0)
+        category = "system";
+    else if (strcmp(category, "usr") == 0)
+        category = "user management & permissions";
+    else if (strcmp(category, "fun") == 0)
+        category = "entertainment";
+    else if (strcmp(category, "dsk") == 0)
+        category = "disks & filesystems";
+    else if (strcmp(category, "pro") == 0)
+        category = "processes & scheduling";
+    else if (strcmp(category, "shork") == 0)
+        category = "SHORK";
+    pos += snprintf(overviewStr + pos, strSize - pos,
+        "\033[%smCategory:\033[%sm %s\n", COL_FOR_OL, COL_RESET, category);
+
+    if (PROG_ENTRIES[i].licences && PROG_ENTRIES[i].licences[0] != '\0')
+        pos += snprintf(overviewStr + pos, strSize - pos,
+            "\033[%smLicences:\033[%sm %s\n", COL_FOR_OL, COL_RESET,
+            PROG_ENTRIES[i].licences);
+
+    int lines = formatNewLines(overviewStr, TERM_SIZE.ws_col, NULL, 1);
+    printTextScreen(PROG_ENTRIES[i].command, overviewStr, lines, 1);
+}
+
+void printSoftwareSHORKTAINMENT(void)
+{
+    const int strSize = 2000;
+    char shorktainmentStr[strSize];
+    int pos = 0;
+
+    if (isProgramInstalled("sl", 1))
+        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorklocomotive\033[%sm\nA shark-themed take on the \033[%smsl\033[%sm command that kindly pokes fun at making typos when trying to type \033[%smls\033[%sm. A cute SHORK will swim across the screen.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+
+    if (isProgramInstalled("shorkmatrix", 1))
+        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorkmatrix\033[%sm\nA minimalist, blue-themed take on the \033[%smcmatrix\033[%sm \"digital rain\" vertical scrolling text screensaver. Inspired by the 1999 film \"The Matrix\", the \"droplets\" are lines of blue characters that fall from the top of the terminal to the bottom, and are occasionally broken up.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+
+    if (isProgramInstalled("shorkmines", 1))
+        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorkmines\033[%sm\nAn ncurses-based minesweeper game based on \033[%smterminal-mines\033[%sm. You can customise the game's difficulty by entering a width, height, and mine density of your choosing.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+
+    if (isProgramInstalled("shorksay", 1))
+        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorksay\033[%sm\nA shark-themed take on the \033[%smcowsay\033[%sm command that outputs a cute SHORK with a speech bubble containing a message of your choice. The message can be manually supplied or can be provided from another program's standard output (ie, using a pipe).\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+
+    int lines = formatNewLines(shorktainmentStr, TERM_SIZE.ws_col, NULL, 1);
+    printTextScreen("SHORK Entertainment", shorktainmentStr, lines, 1);
+}
+
+
+
+void printOtherReport(void)
+{
+    char msgBody[8192];
+
+    snprintf(msgBody, 8192, "The after-build report is a log generated "
+        "after SHORK finished compiling. It is used to confirm whether the "
+        "build completed as intended, and it should provide all the "
+        "information needed to reproduce the build.\n\n");
+
+    FILE *stream = fopen(BUILD_REPORT_PATH, "r");
+    if (stream)
+    {
+        size_t len = strlen(msgBody);
+        size_t bytesRead = fread(msgBody + len, 1, sizeof(msgBody) - 1, stream);
+        fclose(stream);
+        msgBody[bytesRead + len] = '\0';
+    }
+    else
+    {
+        size_t extMsgLen = 48 + strlen(BUILD_REPORT_PATH);
+        EXIT_MSG = malloc(extMsgLen);
+        snprintf(EXIT_MSG, extMsgLen, "ERROR: could not load %s", BUILD_REPORT_PATH);
+        exit(1);
+    }
+
+    int lines = formatNewLines(msgBody, TERM_SIZE.ws_col, NULL, 0);
+    printTextScreen("After-build report", msgBody, lines, 1);
+}
+
+
+
+/**
+ * Runs the command reference interface.
+ */
+void showCmdRefMenu(void)
+{
+    PROG_DESCS_NO = loadProgramDescs();
+    if (PROG_DESCS_NO == -1)
+    {
+        EXIT_MSG = strdup("ERROR: could not load programs database "
+            "descriptions");
+        exit(1);
+    }
+
+    // Create a menu containing found program entries
+    MenuItem menu[PROG_ENTRIES_NO];
+    memset(menu, 0, sizeof(menu));
+    int menuSize = 0;
+    int progNos[PROG_ENTRIES_NO]; 
+    for (int i = 0; i < PROG_ENTRIES_NO; i++)
+    {
+        if (PROG_ENTRIES[i].desc != NULL && PROG_ENTRIES[i].desc[0] != '\0')
+        {
+            snprintf(menu[menuSize].id, sizeof(menu[menuSize].id), "%s",
+                PROG_ENTRIES[i].command);
+            snprintf(menu[menuSize].name, sizeof(menu[menuSize].name), "%s",
+                PROG_ENTRIES[i].command);
+            menu[menuSize].payload = NULL;
+            menu[menuSize].action = NULL;
+            menu[menuSize].isVisible = 1;
+            menu[menuSize].isStatic = 0;
+            progNos[menuSize] = i;
+            menuSize++;
+        }
+    }
+
+
+
+    // Prepare for multi-column menu
+    int colWidth = 21;
+    int cols = TERM_SIZE.ws_col / (colWidth + 3);
+    if (cols < 1) cols = 1;
+    if (cols > menuSize) cols = menuSize;
+    int rows = (menuSize + cols - 1) / cols;
+
+
+
+    int running = 1;
+    int cursorX = 1;
+    int cursorY = 1;
+    int cursorXPrev = 0;
+    int cursorYPrev = 0;
+    int maxY = 0;
+    int fullRedraw = 1;
+
+    while (running)
+    {
+        if (fullRedraw)
+        {
+            clearScreen();
+            printHeader("Command reference (WIP)");
+            printMenu(menu, menuSize, NULL, cols, colWidth, rows, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
+            printFooter("[hjkl] Navigate [Enter] Select [q] Back");
+        }
+        else
+        {
+            if (COL_ENABLED)
+                printf("\x1b[2;1H");
+            else
+                printf("\x1b[3;1H");
+            printMenu(menu, menuSize, NULL, cols, colWidth, rows, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
+        }
+
+        NavInput input = getNavInput();
+
+        fullRedraw = 1;
+        cursorXPrev = cursorYPrev = 0;
+        switch (input)
+        {
+            case CURSOR_LEFT:
+                cursorXPrev = cursorX;
+                cursorYPrev = cursorY;
+                cursorX--;
+
+                if (cursorX < 1) cursorX = cols;
+                while ((maxY = rowsInCol(menuSize, rows, cursorX)) == 0)
+                {
+                    cursorX--;
+                    if (cursorX < 1) cursorX = cols;
+                }
+                if (cursorY > maxY) cursorY = maxY;
+                if (cursorY < 1) cursorY = maxY;
+
+                fullRedraw = 0;
+                break;
+
+            case CURSOR_RIGHT:
+                cursorXPrev = cursorX;
+                cursorYPrev = cursorY;
+                cursorX++;
+
+                if (cursorX > cols) cursorX = 1;
+                while ((maxY = rowsInCol(menuSize, rows, cursorX)) == 0)
+                {
+                    cursorX++;
+                    if (cursorX > cols) cursorX = 1;
+                }
+                if (cursorY > maxY) cursorY = maxY;
+                if (cursorY < 1) cursorY = maxY;
+
+                fullRedraw = 0;
+                break;
+
+            case CURSOR_UP:
+                cursorXPrev = cursorX;
+                cursorYPrev = cursorY;
+                cursorY--;
+
+                if (cursorY < 1)
+                    cursorY = rowsInCol(menuSize, rows, cursorX);
+
+                fullRedraw = 0;
+                break;
+
+            case CURSOR_DOWN:
+                cursorXPrev = cursorX;
+                cursorYPrev = cursorY;
+                cursorY++;
+
+                if (cursorY > rowsInCol(menuSize, rows, cursorX))
+                    cursorY = 1;
+                    
+                fullRedraw = 0;
+                break;
+
+            case ENTER:
+                printSoftwareProgOverview(progNos[(cursorY - 1) +
+                    (cursorX - 1) * rows]);
+                break;
+        
+            case QUIT:
+                running = 0;
+                break;
+
+            case INVALID:
+                fullRedraw = 0;
+                break;
+        }
+    }
+
+    freeMenu(menu, menuSize);
+    clearScreen();
+}
+
+
+
+/**
+ * Runs the licences menu interface.
+ */
+void showLicencesMenu(void)
+{
+    // Create a menu containing found program entries
+    MenuItem menu[LICENCES_NO];
+    for (int i = 0; i < LICENCES_NO; i++)
+    {
+        snprintf(menu[i].id, sizeof(menu[i].id), "%s", LICENCES[i].name);
+        snprintf(menu[i].name, sizeof(menu[i].name), "%s", LICENCES[i].name);
+        menu[i].payload = NULL;
+        menu[i].action = NULL;
+        menu[i].isVisible = 1;
+        menu[i].isStatic = 0;
+    }
+
+
+
+    // Prepare for multi-column menu
+    int colWidth = 36;
+    int cols = TERM_SIZE.ws_col / (colWidth + 3);
+    if (cols < 1) cols = 1;
+    if (cols > LICENCES_NO) cols = LICENCES_NO;
+    int rows = (LICENCES_NO + cols - 1) / cols;
+
+
+
+    int running = 1;
+    int cursorX = 1;
+    int cursorY = 1;
+    int cursorXPrev = 0;
+    int cursorYPrev = 0;
+    int maxY = 0;
+    int fullRedraw = 1;
+
+    while (running)
+    {
+        if (fullRedraw)
+        {
+            clearScreen();
+            printHeader("Licences");
+            printMenu(menu, LICENCES_NO, NULL, cols, colWidth, rows, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
+            printFooter("[hjkl] Navigate [Enter] Select [q] Back");
+        }
+        else
+        {
+            if (COL_ENABLED)
+                printf("\x1b[2;1H");
+            else
+                printf("\x1b[3;1H");
+            printMenu(menu, LICENCES_NO, NULL, cols, colWidth, rows, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
+        }
+
+        NavInput input = getNavInput();
+
+        fullRedraw = 1;
+        cursorXPrev = cursorYPrev = 0;
+        switch (input)
+        {
+            case CURSOR_LEFT:
+                cursorXPrev = cursorX;
+                cursorYPrev = cursorY;
+                cursorX--;
+
+                if (cursorX < 1) cursorX = cols;
+                while ((maxY = rowsInCol(LICENCES_NO, rows, cursorX)) == 0)
+                {
+                    cursorX--;
+                    if (cursorX < 1) cursorX = cols;
+                }
+                if (cursorY > maxY) cursorY = maxY;
+                if (cursorY < 1) cursorY = maxY;
+
+                fullRedraw = 0;
+                break;
+
+            case CURSOR_RIGHT:
+                cursorXPrev = cursorX;
+                cursorYPrev = cursorY;
+                cursorX++;
+
+                if (cursorX > cols) cursorX = 1;
+                while ((maxY = rowsInCol(LICENCES_NO, rows, cursorX)) == 0)
+                {
+                    cursorX++;
+                    if (cursorX > cols) cursorX = 1;
+                }
+                if (cursorY > maxY) cursorY = maxY;
+                if (cursorY < 1) cursorY = maxY;
+
+                fullRedraw = 0;
+                break;
+
+            case CURSOR_UP:
+                cursorXPrev = cursorX;
+                cursorYPrev = cursorY;
+                cursorY--;
+
+                if (cursorY < 1)
+                    cursorY = rowsInCol(LICENCES_NO, rows, cursorX);
+
+                fullRedraw = 0;
+                break;
+
+            case CURSOR_DOWN:
+                cursorXPrev = cursorX;
+                cursorYPrev = cursorY;
+                cursorY++;
+
+                if (cursorY > rowsInCol(LICENCES_NO, rows, cursorX))
+                    cursorY = 1;
+                    
+                fullRedraw = 0;
+                break;
+
+            case ENTER:
+                clearScreen();
+                printSoftwareLicence((cursorY - 1) + (cursorX - 1) * rows);
+                break;
+        
+            case QUIT:
+                running = 0;
+                break;
+
+            case INVALID:
+                fullRedraw = 0;
+                break;
+        }
+    }
+
+    freeMenu(menu, LICENCES_NO);
+    clearScreen();
+}
 #endif
+
+
+
+/**
+ * @return 1 if host SHORK OS is a PT1 build; 0 if not
+ */
+int getIsPT1(void)
+{
+    FILE *stream = fopen("/etc/issue", "r");
+    if (stream)
+    {
+        char buffer[128];
+        int found = 0;
+        while (fgets(buffer, 128, stream))
+        {
+            if (strstr(buffer, "PT1"))
+            {
+                fclose(stream);
+                return 1;
+            }
+        }
+        fclose(stream);
+    }
+    return 0;
+}
+
+/**
+ * Creates a ProgramEntry array where either the program entry's aliases are
+ * combined into the command name, or the aliases are added as separate
+ * commands.
+ * @param noOut Number of programs in the array (pass by reference)
+ * @param separate Flags if the aliases should be treated as separate
+ *                 programs
+ * @return Pointer to a ProgramEntry array
+ */
+ProgramEntry **getProgramsWithAliases(int *noOut, int separate)
+{
+    if (PROG_ENTRIES_NO > MAX_PROG_ENTRIES)
+    {
+        *noOut = 0;
+        return NULL;
+    }
+
+    ProgramEntry **progs = malloc(MAX_PROG_ENTRIES * sizeof *progs);
+    if (!progs)
+    {
+        *noOut = 0;
+        return NULL;
+    }
+
+    int progNo = 0;
+    char aliases[MAX_PROG_ENTRIES][PROG_ENTRY_CMD_LEN];
+    int aliasNo = 0;
+    const int maxAlias = MAX_PROG_ENTRIES - PROG_ENTRIES_NO;
+
+    for (int i = 0; i < PROG_ENTRIES_NO; i++)
+    {
+        progs[i] = calloc(1, sizeof **progs);
+        char *cmd = malloc(PROG_ENTRY_CMD_LEN);
+        if (!progs[i] || !cmd)
+        {
+            free(progs[i]);
+            free(cmd);
+            while (i--)
+            {
+                free(progs[i]->command);
+                free(progs[i]);
+            }
+            free(progs);
+            *noOut = 0;
+            return NULL;
+        }
+
+        if (!separate)
+        {
+            if (PROG_ENTRIES[i].aliases &&
+                PROG_ENTRIES[i].aliases[0] != '\0')
+            {
+                char *tmp = findReplace(PROG_ENTRIES[i].aliases,
+                    PROG_ENTRY_CMD_LEN, ",", ", ");
+                snprintf(cmd, PROG_ENTRY_CMD_LEN, "%s \033[%sm(%s)\033[%sm",
+                    PROG_ENTRIES[i].command, COL_FOR_GREY, tmp,
+                    COL_FOR_WHITE);
+                free(tmp);
+            }
+            else
+                snprintf(cmd, PROG_ENTRY_CMD_LEN, "%s",
+                    PROG_ENTRIES[i].command);
+        }
+        else
+        {
+            snprintf(cmd, PROG_ENTRY_CMD_LEN, "%s",
+                PROG_ENTRIES[i].command);
+
+            if (PROG_ENTRIES[i].aliases &&
+                PROG_ENTRIES[i].aliases[0] != '\0')
+            {
+                int count = 1;
+                for (int j = 0; PROG_ENTRIES[i].aliases[j] != '\0'; j++)
+                    if (PROG_ENTRIES[i].aliases[j] == ',')
+                        count++;
+
+                char buffer[PROG_ENTRY_CMD_LEN];
+                snprintf(buffer, PROG_ENTRY_CMD_LEN, "%s",
+                    PROG_ENTRIES[i].aliases);
+
+                char *fields[count];
+                int fieldCount = loadCSVLine(buffer, fields, count);
+                for (int j = 0; j < fieldCount && aliasNo < maxAlias; j++)
+                {
+                    snprintf(aliases[aliasNo], PROG_ENTRY_CMD_LEN,
+                        "%s \033[%sm(%s)\033[%sm", fields[j], COL_FOR_GREY,
+                        cmd, COL_FOR_WHITE);
+                    aliasNo++;
+                }
+            }
+        }
+
+        progs[i]->command = cmd;
+        progs[i]->category = PROG_ENTRIES[i].category;
+        progNo++;
+    }
+
+    // If we have some aliases, add them too
+    for (int i = 0; i < aliasNo; i++)
+    {
+        progs[progNo] = calloc(1, sizeof **progs);
+        char *cmd = malloc(PROG_ENTRY_CMD_LEN);
+        if (!progs[progNo] || !cmd)
+        {
+            free(progs[progNo]);
+            free(cmd);
+            while (progNo--)
+            {
+                free(progs[progNo]->command);
+                free(progs[progNo]);
+            }
+            free(progs);
+            *noOut = 0;
+            return NULL;
+        }
+
+        snprintf(cmd, PROG_ENTRY_CMD_LEN, "%s", aliases[i]);
+        progs[progNo]->command = cmd;
+        progNo++;
+    }
+
+    // If we added aliases, progs needs sorting
+    if (aliasNo > 0)
+        qsort(progs, progNo, sizeof *progs, progCmp);
+
+    *noOut = progNo;
+    return progs;
+}
+
+/**
+ * Populates the OS_NAME global variable with the host Linux distribution's
+ * name.
+ * @return 1 if OS name found; 0 if not
+ */
+int getOSName(void)
+{
+    OS_NAME[0] = '\0';
+
+    // Try os-release
+    FILE *fStream = fopen("/etc/os-release", "r");
+    if (fStream)
+    {
+        char buffer[128];
+        while (fgets(buffer, 128, fStream))
+        {
+            if (strncmp(buffer, "PRETTY_NAME=", 12) == 0)
+            {
+                char *extract = extractFromPoint(buffer, sizeof(OS_NAME), '=');
+                strncpy(OS_NAME, extract, sizeof(OS_NAME) - 1);
+                OS_NAME[sizeof(OS_NAME) - 1] = '\0';
+                free(extract);
+                break;
+            }
+        }
+        fclose(fStream);
+    }
+
+    // Try issue
+    if (OS_NAME[0] == '\0')
+    {
+        fStream = fopen("/etc/issue", "r");
+        if (fStream)
+        {
+            char buffer[128];
+            if (fgets(buffer, 128, fStream))
+            {
+                size_t len = strlen(buffer);
+                if (len > 0 && buffer[len - 1] == '\n') buffer[len - 1] = '\0';
+                char *p = strchr(buffer, '\\');
+                if (p) *p = '\0';
+                strncpy(OS_NAME, buffer, sizeof(OS_NAME) - 1);
+                OS_NAME[sizeof(OS_NAME) - 1] = '\0';
+            }
+            fclose(fStream);
+        }
+    }
+
+    return OS_NAME[0] != '\0' ? 1 : 0;
+}
+
+/**
+ * Loads the program-names.csv file into PROG_ENTRIES.
+ * @returns Number of program entries loaded; -1 if error
+ */
+int loadProgramEntries(void)
+{
+    // Load csv file
+    FILE *stream;
+    if (fileExists("/usr/share/shorkhelp/program-names.csv"))
+        stream = fopen("/usr/share/shorkhelp/program-names.csv", "r");
+    else
+    {
+        char *binDir = getBinDir();
+        if (!binDir) return -1;
+
+        // Check if binary directory + filename are too large for combining
+        if (strlen(binDir) + strlen("program-names.csv") >= PATH_MAX)
+            return -1;
+
+        // Combine binary directory and filename
+        char binCSVPath[PATH_MAX];
+        snprintf(binCSVPath, PATH_MAX, "%sprogram-names.csv", binDir);
+
+        // Try binary-based path
+        if (fileExists(binCSVPath)) stream = fopen(binCSVPath, "r");
+        else return -1;
+    }
+
+    // Load csv into buffer
+    static char buffer[CSV_BUFFER];
+    size_t n = fread(buffer, 1, sizeof(buffer) - 1, stream);
+    fclose(stream);
+    buffer[n] = '\0';
+
+    char *p = buffer;
+
+    // Skip header line
+    while (*p && *p != '\n') p++;
+    if (*p == '\n') p++;
+
+    int i = 0;
+
+    while (*p && i < MAX_PROG_ENTRIES)
+    {
+        char *line = p;
+
+        // Find end of line
+        while (*p && *p != '\n') p++;
+        if (*p == '\n')
+        {
+            *p = '\0';
+            p++;
+        }
+
+        if (*line == '\0')
+            continue;
+
+        // Load line
+        char *fields[10];
+        int fieldCount = loadCSVLine(line, fields, 10);
+
+        // Check if malformed line/parsing
+        if (fieldCount < 10)
+            continue;
+
+        int isOptional = atoi(fields[3]);
+        int progCheck = 0;
+        // If the path field starts with '!', it means only proceed if the
+        // executable in the path *is not* found. E.g., BusyBox and Vim provide
+        // their own xxd - the BusyBox one should only be processed if Vim
+        // isn't installed.
+        if (fields[2][0] == '!')
+        {
+            if (!isProgramInstalled(fields[2] + 1, 1))
+                progCheck = isProgramInstalled(fields[1], 1);
+        }
+        else
+            progCheck = isProgramInstalled((fields[2] && fields[2][0] != '\0') ? fields[2] : fields[1], 1);
+
+        if (!isOptional || (isOptional && progCheck))
+        {
+            // If no program name was given, try either package name or just
+            // command name as a stand-in
+            if (!fields[7] || fields[7][0] == '\0')
+            {
+                if (fields[5] && fields[5][0] != '\0')
+                    fields[7] = fields[5];
+                else
+                    fields[7] = fields[1];
+            }
+
+            // Input line into entries
+            PROG_ENTRIES[i].id = fields[0];
+            PROG_ENTRIES[i].command = fields[1];
+            PROG_ENTRIES[i].path = fields[2];
+            PROG_ENTRIES[i].type = fields[4];
+            PROG_ENTRIES[i].package = fields[5];
+            PROG_ENTRIES[i].category = fields[6];
+            PROG_ENTRIES[i].name = fields[7];
+            if(strchr(fields[8], '"') != NULL)
+            {
+                // Remove doubled double quotes
+                char *tmp = findReplace(fields[8], strlen(fields[8]),
+                    "\"\"", "\"");
+
+                size_t descLen = strlen(tmp);
+                // Remove start double quote
+                if (descLen > 0 && tmp[0] == '"')
+                    memmove(tmp, tmp + 1, descLen);
+                
+                descLen = strlen(tmp);
+                // Remove end double quote
+                if (descLen > 0 && tmp[descLen - 1] == '"')
+                    tmp[descLen - 1] = '\0';
+
+                PROG_ENTRIES[i].aliases = tmp;
+            }
+            else PROG_ENTRIES[i].aliases = fields[8];
+            PROG_ENTRIES[i].licences = fields[9];
+            PROG_ENTRIES[i].desc = NULL;
+
+            i++;
+        }
+    }
+
+    return i;
+}
+
+int progCmp(const void *a, const void *b)
+{
+    return natCmp((*(ProgramEntry *const *)a)->command,
+        (*(ProgramEntry *const *)b)->command);
+}
+
+
+
+void printIntro(void)
+{
+    const int strSize = 6144;
+    char introStr[strSize];
+    int pos = 0;
+
+#ifndef SHORK_DISKETTE
+    pos += snprintf(introStr + pos, strSize - pos,
+        "The SHORK 486 Operating System is a 32-bit Linux distribution for 486 and 586/Pentium (P5) era vintage PCs! It aims to be lean yet functional, giving such retro hardware the best chance possible to run modern, updated software. It provides a modern Linux kernel, robust BusyBox userspace and command set, custom utilities, and hand-picked modern software.\n\n");
+
+    pos += snprintf(introStr + pos, strSize - pos,
+        "\033[%smOrigin & inspirations\033[%sm\nI have long wanted my own viable, modern yet lightweight operating system for my early-'90s IBM ThinkPads to allow me to use them with their excellent keyboards as SSH terminals and as writing pads with modern file transfer and source control features. In December 2025, Action Retro posted a video on FLOPPINUX, something that turned out to be a very accessible means for me to learn how to make a working Linux system. SHORK 486 began as an automated build script based on FLOPPINUX's build instructions, but adapted for producing fixed disk images instead of diskette images. After that, more Linux kernel and BusyBox features were enabled, and other software was compiled to help fulfil my dream. Other inspirations from similar efforts include Gray386linux and Ocawesome101's blog post on running Linux on a 486SX.\n\n", 
+        COL_FOR_HEADING, COL_FOR_WHITE);
+
+    pos += snprintf(introStr + pos, strSize - pos,
+        "\033[%smArchitecture\033[%sm\nThe SHORK 486 Operating System is not GNU/Linux as you may be accustomed to. Its init system and primary userland are provided by BusyBox, a single-binary application well known for embedded usage. As needed, some other utilities (such as those from util-linux) are permitted to plug any 'holes' in BusyBox's suite or provide more capabilities when system resources allow. The system is compiled with musl instead of glibc, allowing smaller binaries that also use fewer resources. Software is also statically compiled to eliminate dependency woes and increase predictability. Architecturally, the closest well-known Linux distribution to SHORK 486 is perhaps Alpine Linux.\n\n",
+        COL_FOR_HEADING, COL_FOR_WHITE);
+
+    pos += snprintf(introStr + pos, strSize - pos,
+        "\033[%smGoals\033[%sm\nBesides being something fun to try on old PCs, the SHORK project was founded on the belief that old PCs can still be useful to the right people, retrocomputing and gaming usage aside. SHORK 486 can be useful for lightweight desktop usage, SSH terminal usage, distraction-free typewriting (\"writerdecks\"), embedded applications, demonstrative use in academia/education, and as a technical demonstration of what old PCs and modern software targeted at them can actually still do! If SHORK can save just one more PC from the landfills, it has done its job.\n\n",
+        COL_FOR_HEADING, COL_FOR_WHITE);
+
+    pos += snprintf(introStr + pos, strSize - pos,
+        "\033[%smWhat's special\033[%sm\nThe SHORK 486 Operating System is a modern and maintained Linux distribution that can run on a processor architecture from 1989. Depending on configuration, it only requires between 7 and 24MiB system memory whilst still packing a lot of functionality for its size. For various reasons, making such a distribution is increasingly difficult in the 2020s. System requirements keep rising, and even the otherwise excellent Core/Micro Core/Tiny Core family requires at least 26-46MB RAM, putting them out of range for many early 486 systems. As of Linux kernel 7.1 and beyond, support for 486 processors and various ISA and PCMCIA networking hardware has been dropped, and 32-bit x86 support in general is currently being dropped by most mainstream distributions. Given the situation, SHORK 486 will try to fill this niche of a ready-to-go Linux distribution for such PCs by sticking with a minimal-where-possible philosophy, offering customisability and restoring dropped vintage hardware support on newer Linux kernels.\n\n",
+        COL_FOR_HEADING, COL_FOR_WHITE);
+
+    pos += snprintf(introStr + pos, strSize - pos,
+        "\033[%smVersions\033[%sm\nThe SHORK 486 Operating System is available in four versions: SHORK 486, SHORK 586, SHORK DISC and SHORK DISKETTE. \033[%smSHORK 486\033[%sm and \033[%smSHORK 586\033[%sm are for hard and solid-state disks. At present, the difference between them is just optimisation for their respective x86 revision, and which one you get depends on the target architecture you build SHORK for. They otherwise comprise the same feature set and available programs. \033[%smSHORK DISC\033[%sm is for CD and DVD discs, envisioned as a completely immutable system or diagnostic aid, and will eventually be used as SHORK 486's installation media. \033[%smSHORK DISKETTE\033[%sm is for floppy diskettes and is envisioned as a diagnostic aid or a CD-ROM boot disk.\n\n",
+        COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
+        COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE,
+        COL_FOR_SHORKUTIL, COL_FOR_WHITE);
+
+    pos += snprintf(introStr + pos, strSize - pos,
+        "\033[%smLicences\033[%sm\nSHORK 486 is a free and open-source operating system. Its core is made up of GPLv3 (SHORK, SHORK Utilities, most of SHORK Entertainment), GPLv2 (Linux kernel, BusyBox, SYSLINUX), and MIT (SHORKMINES) components. SHORK 486 can also contain bundled software licensed under various permissive, copyleft, and even public-domain-equivalent licences. You can look at \033[%smshorkhelp\033[%sm's \"Licences\" portal to see individual licences.\n\n",
+        COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_SHORKUTIL, COL_FOR_WHITE);
+#else
+    pos += snprintf(introStr + pos, strSize - pos,
+        "SHORK DISKETTE is an edition of the SHORK 486 Operating System, a 32-bit Linux distribution for 486 and 586/Pentium (P5) era vintage PCs! It is designed to provide the latest Linux kernel and a tailored BusyBox userspace and command set in a system that can fit on a 1.44MB or 2.88MB floppy diskette. It can be used as a handy emergency Linux environment, diagnostic aid and CD-ROM boot disk.\n\n");
+
+    pos += snprintf(introStr + pos, strSize - pos,
+        "\033[%smGoals\033[%sm\nThe SHORK project was founded on the belief that old PCs can still be useful to the right people, retrocomputing and gaming usage aside. SHORK DISKETTE in particular is designed to be your handy emergency Linux environment, diagnostic aid and CD-ROM boot disk. It can partition and format ext2 and FAT disks, image, clone and wipe drives, rescue and edit files on an unbootable system, identify unknown disks and filesystems, make new floppies, and mount CDs and other floppies to run statically-compiled software stored on them.\n\n",
+        COL_FOR_HEADING, COL_FOR_WHITE);
+
+    pos += snprintf(introStr + pos, strSize - pos,
+        "\033[%smLicences\033[%sm\nSHORK DISKETTE is a free and open-source operating system. Its core is made up of GPLv3 (SHORK, SHORK Utilities) and GPLv2 (Linux kernel, BusyBox, SYSLINUX) components.\n\n",
+        COL_FOR_HEADING, COL_FOR_WHITE);
+#endif
+
+    pos += snprintf(introStr + pos, strSize - pos,
+        "\033[%smThe author\033[%sm\nHi, I'm Kali (he/him) from Cymru (Wales)! I work in research/computer science and software engineering. I author Admiral Shark's Keyboards (ASK), a project to document IBM, Lexmark, Unicomp, Lenovo and TGCS keyboards and related devices. ASK and my overall interest in vintage IBM hardware set the stage for SHORK, as it led me to acquire several 486- and 586-era ThinkPads with keyboards I really appreciate and want to incorporate into my daily workflow as much as possible. My favourite animals are chondrichthyans, hence the shark theme.",
+        COL_FOR_HEADING, COL_FOR_WHITE);
+
+    int lines = formatNewLines(introStr, TERM_SIZE.ws_col, NULL, 0);
+    printTextScreen("Introduction to SHORK", introStr, lines, 1);
+}
+
+void printIntroPT1(void)
+{
+    const int strSize = 3072;
+    char pt1Str[strSize];
+    int pos = 0;
+
+    pos += snprintf(pt1Str + pos, strSize - pos, "You are running a pre-release build of SHORK 486 - Public Test 1 (PT1). This is the first published release of SHORK 486, intended for testing purposes only and to gauge wider opinion to help the project's progression.\n\n");
+
+    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smPurpose\033[%sm\nSHORK 486's development has progressed far enough that it has achieved the author's initial objectives, and is now appropriate for the first round of public testing to help scope out what to tackle next. PT1 also coincides with the recent releases of Linux kernels 7.1 and 7.2, which between them removed all 486, TSC-less 586/686, and other relevant vintage hardware support. The SHORK project subsequently patched support back in. It would be great to thoroughly validate that these patches are working correctly.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
+
+    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smLicence & disclaimers\033[%sm\nSHORK 486 is a non-commercial, free and open-source operating system licenced under GPLv3 that is provided \"as is\" without warranty of any kind. In no event shall the contributors be liable for any damages arising from use of this software. Additionally, SHORK 486 is a work in progress, and this is a pre-release build. It should not be used for serious, production, or mission-critical work.\n\n", COL_FOR_HEADING, COL_FOR_WHITE);
+
+    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smSuggestions & feedback\033[%sm\nIdeas for what to add to or change about SHORK 486 are welcome! These can be suggestions for new bundled programs, new or improved features, and advice on how the system is configured and built. Frank and critical feedback on anything regarding the project is also welcomed, though it is expected that it is respectful and understanding. However, please understand that otherwise well-intentioned and interesting suggestions may be considered beyond the scope of this project, as the aim is to keep the system as minimal as possible, but they will be remembered for future sister projects. Suggestions and feedback can be given via the SHORK 486 GitHub repository's \"Discussions\" tab or via social media channels found on \033[%smlinks.sharktastica.co.uk\033[%sm.\n\n", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+
+    pos += snprintf(pt1Str + pos, strSize - pos, "\033[%smBug & error reporting\033[%sm\nSHORK 486 does not collect any telemetry nor report anything to anyone, instead relying on you, the tester, to report and provide evidence of any issues that may arise when using it. If you encounter any, please report them. It would be a good measure to include a robust description of your hardware and what you were trying to do, whether you compiled it yourself or used published install media, and copies of \033[%smshorkfetch\033[%sm's, \033[%smlsblk\033[%sm's, \033[%smlscpu\033[%sm's, \033[%smlspci\033[%sm's, \033[%smlsscsi\033[%sm's and \033[%smdmesg\033[%sm's output. The report can then be given via the SHORK 486 GitHub repository's \"Issues\" tab.", COL_FOR_HEADING, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
+
+    int lines = formatNewLines(pt1Str, TERM_SIZE.ws_col, NULL, 0);
+    printTextScreen("Public Test 1", pt1Str, lines, 1);
+}
 
 
 
@@ -1371,144 +1824,6 @@ void printCmdsProgsCats(void)
     printTextScreen("Commands & programs list (categories)", combinedStr, lines, 1);
 }
 
-void printSoftwareLicence(int i)
-{
-    char msgTitle[80];
-    snprintf(msgTitle, 80, "%s (%s)", LICENCES[i].name, LICENCES[i].type);
-
-    char licencePath[PATH_MAX];
-    snprintf(licencePath, PATH_MAX, "/LICENCES/%s", LICENCES[i].file);
-
-    char msgBody[49152];
-    FILE *stream = fopen(licencePath, "r");
-    if (stream)
-    {
-        size_t bytesRead = fread(msgBody, 1, sizeof(msgBody) - 1, stream);
-        fclose(stream);
-        msgBody[bytesRead] = '\0';
-    }
-    else
-        return;
-
-    int lines = formatNewLines(msgBody, TERM_SIZE.ws_col, NULL, 0);
-    printTextScreen(msgTitle, msgBody, lines, 1);
-}
-
-void printSoftwareProgOverview(int i)
-{
-    const int strSize = 4096;
-    char overviewStr[strSize];
-    int pos = 0;
-
-    // Name
-    if (strcmp(PROG_ENTRIES[i].category, "shork") == 0)
-        pos += snprintf(overviewStr + pos, strSize - pos,
-            "\033[%sm%s\033[%sm\n\n", COL_FOR_SHORKUTIL,
-            PROG_ENTRIES[i].name, COL_RESET);
-    else
-        pos += snprintf(overviewStr + pos, strSize - pos,
-            "\033[%sm%s\033[%sm\n\n", COL_FOR_CODE, PROG_ENTRIES[i].name,
-            COL_RESET);
-
-    // Description
-    if (PROG_ENTRIES[i].desc[0] != '\0')
-        pos += snprintf(overviewStr + pos, strSize - pos, "%s\n\n",
-            PROG_ENTRIES[i].desc);
-    else 
-        pos += snprintf(overviewStr + pos, strSize - pos,
-            "TO BE COMPLETED\n\n");
-
-    // Aliases, sources, category & licences
-    if (PROG_ENTRIES[i].aliases[0] != '\0')
-    {
-        char *tmp = findReplace(PROG_ENTRIES[i].aliases, PROG_ENTRY_CMD_LEN,
-            ",", ", ");
-        pos += snprintf(overviewStr + pos, strSize - pos,
-            "\033[%smAliases:\033[%sm  %s\n", COL_FOR_OL, COL_RESET,
-            tmp);
-        free(tmp);
-    }
-
-    const char *type = PROG_ENTRIES[i].type;
-    if (strcmp(type, "busybox") == 0)
-        type = "BusyBox";
-    else if (strcmp(type, "shorkutil") == 0)
-        type = "SHORK Utilities";
-    else if (strcmp(type, "shorktainment") == 0)
-        type = "SHORK Entertainment";
-    else if (strcmp(type, "bundled") == 0)
-        type = "bundled software";
-    pos += snprintf(overviewStr + pos, strSize - pos,
-        "\033[%smSource:\033[%sm   %s\n", COL_FOR_OL, COL_RESET, type);
-
-    if (PROG_ENTRIES[i].package && PROG_ENTRIES[i].package[0] != '\0')
-        pos += snprintf(overviewStr + pos, strSize - pos,
-            "\033[%smPackage:\033[%sm  %s\n", COL_FOR_OL, COL_RESET,
-            PROG_ENTRIES[i].package);
-
-    const char *category = PROG_ENTRIES[i].category;
-    if (strcmp(category, "gen") == 0)
-        category = "general";
-    else if (strcmp(category, "arc") == 0)
-        category = "archival & compression";
-    else if (strcmp(category, "txt") == 0)
-        category = "text processing";
-    else if (strcmp(category, "dev") == 0)
-        category = "development & editors";
-    else if (strcmp(category, "chk") == 0)
-        category = "hashing & encryption";
-    else if (strcmp(category, "net") == 0)
-        category = "networking & remote access";
-    else if (strcmp(category, "sys") == 0)
-        category = "system";
-    else if (strcmp(category, "usr") == 0)
-        category = "user management & permissions";
-    else if (strcmp(category, "fun") == 0)
-        category = "entertainment";
-    else if (strcmp(category, "dsk") == 0)
-        category = "disks & filesystems";
-    else if (strcmp(category, "pro") == 0)
-        category = "processes & scheduling";
-    else if (strcmp(category, "shork") == 0)
-        category = "SHORK";
-    pos += snprintf(overviewStr + pos, strSize - pos,
-        "\033[%smCategory:\033[%sm %s\n", COL_FOR_OL, COL_RESET, category);
-
-    if (PROG_ENTRIES[i].licences && PROG_ENTRIES[i].licences[0] != '\0')
-        pos += snprintf(overviewStr + pos, strSize - pos,
-            "\033[%smLicences:\033[%sm %s\n", COL_FOR_OL, COL_RESET,
-            PROG_ENTRIES[i].licences);
-
-    int lines = formatNewLines(overviewStr, TERM_SIZE.ws_col, NULL, 1);
-    printTextScreen(PROG_ENTRIES[i].command, overviewStr, lines, 1);
-}
-
-#ifndef SHORK_DISKETTE
-
-void printSoftwareSHORKTAINMENT(void)
-{
-    const int strSize = 2000;
-    char shorktainmentStr[strSize];
-    int pos = 0;
-
-    if (isProgramInstalled("sl", 1))
-        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorklocomotive\033[%sm\nA shark-themed take on the \033[%smsl\033[%sm command that kindly pokes fun at making typos when trying to type \033[%smls\033[%sm. A cute SHORK will swim across the screen.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
-
-    if (isProgramInstalled("shorkmatrix", 1))
-        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorkmatrix\033[%sm\nA minimalist, blue-themed take on the \033[%smcmatrix\033[%sm \"digital rain\" vertical scrolling text screensaver. Inspired by the 1999 film \"The Matrix\", the \"droplets\" are lines of blue characters that fall from the top of the terminal to the bottom, and are occasionally broken up.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
-
-    if (isProgramInstalled("shorkmines", 1))
-        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorkmines\033[%sm\nAn ncurses-based minesweeper game based on \033[%smterminal-mines\033[%sm. You can customise the game's difficulty by entering a width, height, and mine density of your choosing.\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
-
-    if (isProgramInstalled("shorksay", 1))
-        pos += snprintf(shorktainmentStr + pos, strSize - pos, "\033[%smshorksay\033[%sm\nA shark-themed take on the \033[%smcowsay\033[%sm command that outputs a cute SHORK with a speech bubble containing a message of your choice. The message can be manually supplied or can be provided from another program's standard output (ie, using a pipe).\n\n", COL_FOR_SHORKUTIL, COL_FOR_WHITE, COL_FOR_CODE, COL_FOR_WHITE);
-
-    int lines = formatNewLines(shorktainmentStr, TERM_SIZE.ws_col, NULL, 1);
-    printTextScreen("SHORK Entertainment", shorktainmentStr, lines, 1);
-}
-
-#endif
-
 void printSoftwareSHORKUTILS(void)
 {
     const int strSize = 2000;
@@ -1560,40 +1875,6 @@ void printSoftwareSHORKUTILS(void)
 }
 
 
-
-#ifndef SHORK_DISKETTE
-
-void printOtherReport(void)
-{
-    char msgBody[8192];
-
-    snprintf(msgBody, 8192, "The after-build report is a log generated "
-        "after SHORK finished compiling. It is used to confirm whether the "
-        "build completed as intended, and it should provide all the "
-        "information needed to reproduce the build.\n\n");
-
-    FILE *stream = fopen(BUILD_REPORT_PATH, "r");
-    if (stream)
-    {
-        size_t len = strlen(msgBody);
-        size_t bytesRead = fread(msgBody + len, 1, sizeof(msgBody) - 1, stream);
-        fclose(stream);
-        msgBody[bytesRead + len] = '\0';
-    }
-    else
-    {
-        size_t extMsgLen = 48 + strlen(BUILD_REPORT_PATH);
-        EXIT_MSG = malloc(extMsgLen);
-        snprintf(EXIT_MSG, extMsgLen, "ERROR: could not load %s", BUILD_REPORT_PATH);
-        exit(1);
-    }
-
-    int lines = formatNewLines(msgBody, TERM_SIZE.ws_col, NULL, 0);
-    printTextScreen("After-build report", msgBody, lines, 1);
-}
-
-#endif
-
 void printOtherSupport(void)
 {
     const int strSize = 1024;
@@ -1620,159 +1901,6 @@ void printOtherSupport(void)
 }
 
 
-
-/**
- * Runs the command reference interface.
- */
-void showCmdRefMenu(void)
-{
-    PROG_DESCS_NO = loadProgramDescs();
-    if (PROG_DESCS_NO == -1)
-    {
-        EXIT_MSG = strdup("ERROR: could not load programs database "
-            "descriptions");
-        exit(1);
-    }
-
-    // Create a menu containing found program entries
-    MenuItem menu[PROG_ENTRIES_NO];
-    memset(menu, 0, sizeof(menu));
-    int menuSize = 0;
-    int progNos[PROG_ENTRIES_NO]; 
-    for (int i = 0; i < PROG_ENTRIES_NO; i++)
-    {
-        if (PROG_ENTRIES[i].desc != NULL && PROG_ENTRIES[i].desc[0] != '\0')
-        {
-            snprintf(menu[menuSize].id, sizeof(menu[menuSize].id), "%s",
-                PROG_ENTRIES[i].command);
-            snprintf(menu[menuSize].name, sizeof(menu[menuSize].name), "%s",
-                PROG_ENTRIES[i].command);
-            menu[menuSize].payload = NULL;
-            menu[menuSize].action = NULL;
-            menu[menuSize].isVisible = 1;
-            menu[menuSize].isStatic = 0;
-            progNos[menuSize] = i;
-            menuSize++;
-        }
-    }
-
-
-
-    // Prepare for multi-column menu
-    int colWidth = 21;
-    int cols = TERM_SIZE.ws_col / (colWidth + 3);
-    if (cols < 1) cols = 1;
-    if (cols > menuSize) cols = menuSize;
-    int rows = (menuSize + cols - 1) / cols;
-
-
-
-    int running = 1;
-    int cursorX = 1;
-    int cursorY = 1;
-    int cursorXPrev = 0;
-    int cursorYPrev = 0;
-    int maxY = 0;
-    int fullRedraw = 1;
-
-    while (running)
-    {
-        if (fullRedraw)
-        {
-            clearScreen();
-            printHeader("Command reference (WIP)");
-            printMenu(menu, menuSize, NULL, cols, colWidth, rows, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
-            printFooter("[hjkl] Navigate [Enter] Select [q] Back");
-        }
-        else
-        {
-            if (COL_ENABLED)
-                printf("\x1b[2;1H");
-            else
-                printf("\x1b[3;1H");
-            printMenu(menu, menuSize, NULL, cols, colWidth, rows, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
-        }
-
-        NavInput input = getNavInput();
-
-        fullRedraw = 1;
-        cursorXPrev = cursorYPrev = 0;
-        switch (input)
-        {
-            case CURSOR_LEFT:
-                cursorXPrev = cursorX;
-                cursorYPrev = cursorY;
-                cursorX--;
-
-                if (cursorX < 1) cursorX = cols;
-                while ((maxY = rowsInCol(menuSize, rows, cursorX)) == 0)
-                {
-                    cursorX--;
-                    if (cursorX < 1) cursorX = cols;
-                }
-                if (cursorY > maxY) cursorY = maxY;
-                if (cursorY < 1) cursorY = maxY;
-
-                fullRedraw = 0;
-                break;
-
-            case CURSOR_RIGHT:
-                cursorXPrev = cursorX;
-                cursorYPrev = cursorY;
-                cursorX++;
-
-                if (cursorX > cols) cursorX = 1;
-                while ((maxY = rowsInCol(menuSize, rows, cursorX)) == 0)
-                {
-                    cursorX++;
-                    if (cursorX > cols) cursorX = 1;
-                }
-                if (cursorY > maxY) cursorY = maxY;
-                if (cursorY < 1) cursorY = maxY;
-
-                fullRedraw = 0;
-                break;
-
-            case CURSOR_UP:
-                cursorXPrev = cursorX;
-                cursorYPrev = cursorY;
-                cursorY--;
-
-                if (cursorY < 1)
-                    cursorY = rowsInCol(menuSize, rows, cursorX);
-
-                fullRedraw = 0;
-                break;
-
-            case CURSOR_DOWN:
-                cursorXPrev = cursorX;
-                cursorYPrev = cursorY;
-                cursorY++;
-
-                if (cursorY > rowsInCol(menuSize, rows, cursorX))
-                    cursorY = 1;
-                    
-                fullRedraw = 0;
-                break;
-
-            case ENTER:
-                printSoftwareProgOverview(progNos[(cursorY - 1) +
-                    (cursorX - 1) * rows]);
-                break;
-        
-            case QUIT:
-                running = 0;
-                break;
-
-            case INVALID:
-                fullRedraw = 0;
-                break;
-        }
-    }
-
-    freeMenu(menu, menuSize);
-    clearScreen();
-}
 
 /**
  * Runs the commands & programs interface.
@@ -1804,6 +1932,7 @@ void showCmdsProgsMenu(void)
             1,
             0
         },
+#ifndef SHORK_DISKETTE
         { 
             "cmds",
             "Command reference (WIP)",
@@ -1812,6 +1941,7 @@ void showCmdsProgsMenu(void)
             fileExists("/usr/share/shorkhelp/program-descs.csv"),
             0
         }
+#endif
     };
     int rawMenuSize = sizeof(rawMenu) / sizeof(rawMenu[0]);
 
@@ -1909,7 +2039,6 @@ void showHelp(void)
     printf("%s", commands);
 
 #ifndef SHORK_DISKETTE
-
     if (isProgramInstalled("emacs", 1) || isProgramInstalled("mg", 1))
     {
         char emacs[100] = "--emacs          Displays Emacs (Mg) cheatsheet\n";
@@ -1920,7 +2049,6 @@ void showHelp(void)
     char hardware[80] = "--hardware       Displays discovering your hardware guide\n";
     formatNewLines(hardware, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", hardware);
-
 #endif
 
     char help[100] = "-h, --help       Displays help information and exits\n";
@@ -1928,23 +2056,23 @@ void showHelp(void)
     printf("%s", help);
 
 #ifndef SHORK_DISKETTE
-
     if (isProgramInstalled("git", 1))
     {
         char git[100] = "--git            Displays supported Git commands\n";
         formatNewLines(git, TERM_SIZE.ws_col, "                 ", 0);
         printf("%s", git);
     }
-
 #endif
 
     char intro[100] = "--intro          Displays introduction to SHORK\n";
     formatNewLines(intro, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", intro);
 
+#ifndef SHORK_DISKETTE
     char licences[100] = "--licences       Displays licences portal\n";
     formatNewLines(licences, TERM_SIZE.ws_col, "                 ", 0);
     printf("%s", licences);
+#endif
 
     char nc[80] = "-nc, --no-col    Disables all coloured output\n";
     formatNewLines(nc, TERM_SIZE.ws_col, "                 ", 0);
@@ -1958,7 +2086,6 @@ void showHelp(void)
     }
 
 #ifndef SHORK_DISKETTE
-
     if (access(BUILD_REPORT_PATH, F_OK) == 0)
     {
         char report[60] = "--report         Displays after-build report\n";
@@ -1972,7 +2099,6 @@ void showHelp(void)
         formatNewLines(shorktainment, TERM_SIZE.ws_col, "                 ", 0);
         printf("%s", shorktainment);
     }
-
 #endif
 
     char shorkutils[100] = "--shorkutils     Displays SHORK Utilities list\n";
@@ -1980,7 +2106,6 @@ void showHelp(void)
     printf("%s", shorkutils);
 
 #ifndef SHORK_DISKETTE
-
     if (strncmp(OS_NAME, "SHORK 486", 9) == 0 ||
         strncmp(OS_NAME, "SHORK 586", 9) == 0)
     {
@@ -1988,7 +2113,6 @@ void showHelp(void)
         formatNewLines(started, TERM_SIZE.ws_col, "                 ", 0);
         printf("%s", started);
     }
-
 #endif
 
     char support[100] = "--support        Displays getting support & getting involved information\n";
@@ -1996,14 +2120,12 @@ void showHelp(void)
     printf("%s", support);
 
 #ifndef SHORK_DISKETTE
-
     if (isProgramInstalled("tmux", 1))
     {
         char tmux[100] = "--tmux           Displays tmux cheatsheet\n";
         formatNewLines(tmux, TERM_SIZE.ws_col, "                 ", 0);
         printf("%s", tmux);
     }
-
 #endif
 
     char version[100] = "-v, --version    Displays version number and exits\n";
@@ -2230,140 +2352,5 @@ void showMainMenu(void)
     }
 
     freeMenu(menu, menuSize);
-    clearScreen();
-}
-
-/**
- * Runs the licences menu interface.
- */
-void showLicencesMenu(void)
-{
-    // Create a menu containing found program entries
-    MenuItem menu[LICENCES_NO];
-    for (int i = 0; i < LICENCES_NO; i++)
-    {
-        snprintf(menu[i].id, sizeof(menu[i].id), "%s", LICENCES[i].name);
-        snprintf(menu[i].name, sizeof(menu[i].name), "%s", LICENCES[i].name);
-        menu[i].payload = NULL;
-        menu[i].action = NULL;
-        menu[i].isVisible = 1;
-        menu[i].isStatic = 0;
-    }
-
-
-
-    // Prepare for multi-column menu
-    int colWidth = 36;
-    int cols = TERM_SIZE.ws_col / (colWidth + 3);
-    if (cols < 1) cols = 1;
-    if (cols > LICENCES_NO) cols = LICENCES_NO;
-    int rows = (LICENCES_NO + cols - 1) / cols;
-
-
-
-    int running = 1;
-    int cursorX = 1;
-    int cursorY = 1;
-    int cursorXPrev = 0;
-    int cursorYPrev = 0;
-    int maxY = 0;
-    int fullRedraw = 1;
-
-    while (running)
-    {
-        if (fullRedraw)
-        {
-            clearScreen();
-            printHeader("Licences");
-            printMenu(menu, LICENCES_NO, NULL, cols, colWidth, rows, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
-            printFooter("[hjkl] Navigate [Enter] Select [q] Back");
-        }
-        else
-        {
-            if (COL_ENABLED)
-                printf("\x1b[2;1H");
-            else
-                printf("\x1b[3;1H");
-            printMenu(menu, LICENCES_NO, NULL, cols, colWidth, rows, &cursorX, &cursorY, &cursorXPrev, &cursorYPrev);
-        }
-
-        NavInput input = getNavInput();
-
-        fullRedraw = 1;
-        cursorXPrev = cursorYPrev = 0;
-        switch (input)
-        {
-            case CURSOR_LEFT:
-                cursorXPrev = cursorX;
-                cursorYPrev = cursorY;
-                cursorX--;
-
-                if (cursorX < 1) cursorX = cols;
-                while ((maxY = rowsInCol(LICENCES_NO, rows, cursorX)) == 0)
-                {
-                    cursorX--;
-                    if (cursorX < 1) cursorX = cols;
-                }
-                if (cursorY > maxY) cursorY = maxY;
-                if (cursorY < 1) cursorY = maxY;
-
-                fullRedraw = 0;
-                break;
-
-            case CURSOR_RIGHT:
-                cursorXPrev = cursorX;
-                cursorYPrev = cursorY;
-                cursorX++;
-
-                if (cursorX > cols) cursorX = 1;
-                while ((maxY = rowsInCol(LICENCES_NO, rows, cursorX)) == 0)
-                {
-                    cursorX++;
-                    if (cursorX > cols) cursorX = 1;
-                }
-                if (cursorY > maxY) cursorY = maxY;
-                if (cursorY < 1) cursorY = maxY;
-
-                fullRedraw = 0;
-                break;
-
-            case CURSOR_UP:
-                cursorXPrev = cursorX;
-                cursorYPrev = cursorY;
-                cursorY--;
-
-                if (cursorY < 1)
-                    cursorY = rowsInCol(LICENCES_NO, rows, cursorX);
-
-                fullRedraw = 0;
-                break;
-
-            case CURSOR_DOWN:
-                cursorXPrev = cursorX;
-                cursorYPrev = cursorY;
-                cursorY++;
-
-                if (cursorY > rowsInCol(LICENCES_NO, rows, cursorX))
-                    cursorY = 1;
-                    
-                fullRedraw = 0;
-                break;
-
-            case ENTER:
-                clearScreen();
-                printSoftwareLicence((cursorY - 1) + (cursorX - 1) * rows);
-                break;
-        
-            case QUIT:
-                running = 0;
-                break;
-
-            case INVALID:
-                fullRedraw = 0;
-                break;
-        }
-    }
-
-    freeMenu(menu, LICENCES_NO);
     clearScreen();
 }
